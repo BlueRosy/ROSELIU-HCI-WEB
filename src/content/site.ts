@@ -14,6 +14,9 @@ export const profile = {
   photo: "/Rose-PersonalImage/Rose1.jpg",
   heroPhoto: "/Rose-PersonalImage/Rose3.jpg",
   heroArt: "/Rose-PersonalImage/Rose-3D.png",
+  // Drop a .glb avatar here (e.g. exported from Ready Player Me) and the Hero
+  // automatically swaps the static art for a mouse-tracking 3D head.
+  avatar3d: "/Rose-PersonalImage/rose-avatar.glb",
   cv: "/Yanqing_Liu_CV.pdf",
   // TODO(assets): confirm social links
   socials: {
@@ -438,6 +441,13 @@ export type JourneyStop = {
 
 export const journey: JourneyStop[] = [
   {
+    place: "Hefei, Anhui, China",
+    period: "Roots",
+    title: "Born in Hefei, Anhui",
+    detail:
+      "Where my curiosity about people, behavior, and the everyday systems that shape wellbeing first took root.",
+  },
+  {
     place: "Macau, China",
     period: "2016 – 2020",
     title: "B.Sc. in Applied Economics, MUST",
@@ -448,6 +458,13 @@ export const journey: JourneyStop[] = [
     period: "2021 – 2023",
     title: "M.S. in Applied Analytics, Columbia University",
     detail: "Research design, storytelling with data, and applied text & NLP analytics.",
+  },
+  {
+    place: "Shanghai, China",
+    period: "2023 – 2024",
+    title: "Data Engineer, CIB Fintech (兴业数金)",
+    detail:
+      "Full-time data engineer on enterprise big-data architecture projects, coordinating the overall organization and delivery of large-scale data-platform initiatives.",
   },
   {
     place: "Beijing, China",
@@ -523,11 +540,11 @@ export const news: NewsItem[] = [
 ];
 
 export const nav = [
-  { id: "research", label: "Research" },
+  { id: "about", label: "About" },
   { id: "news", label: "News" },
+  { id: "research", label: "Research" },
   { id: "projects", label: "Projects" },
   { id: "publications", label: "Publications" },
-  { id: "about", label: "About" },
-  { id: "cv", label: "CV" },
+  { id: "journey", label: "Journey" },
   { id: "contact", label: "Contact" },
 ] as const;

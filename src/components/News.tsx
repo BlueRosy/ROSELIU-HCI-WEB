@@ -11,7 +11,7 @@ const TAG_TONE: Record<NonNullable<NewsItem["tag"]>, string> = {
 
 export default function News() {
   const featured = news.filter((n) => n.featured);
-  const timeline = news.filter((n) => !n.featured);
+  const timeline = news;
 
   return (
     <section id="news" className="section-anchor py-24">
@@ -53,7 +53,7 @@ export default function News() {
           <div className="mt-12">
             <Reveal>
               <h3 className="mb-6 font-mono text-xs uppercase tracking-[0.18em] text-slate">
-                Timeline
+                Full timeline
               </h3>
             </Reveal>
             <ol className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-white/60">

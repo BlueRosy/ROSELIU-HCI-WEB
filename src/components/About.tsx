@@ -1,4 +1,4 @@
-import { about, currentLens, interests, journey, profile } from "../content/site";
+import { about, currentLens, interests, profile } from "../content/site";
 import { Chip, Reveal, SectionHeading } from "./primitives";
 
 export default function About() {
@@ -64,40 +64,6 @@ export default function About() {
               </p>
             </div>
           </Reveal>
-        </div>
-
-        {/* Journey timeline */}
-        <div className="mt-20">
-          <Reveal>
-            <h3 className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-primary-deep">
-              My Journey
-            </h3>
-            <p className="mb-8 max-w-xl text-sm text-slate">
-              A short timeline of how my interests converged around HCI, wellbeing, and
-              human-centered AI.
-            </p>
-          </Reveal>
-          <ol className="relative ml-2 border-l border-border pl-8">
-            {journey.map((stop, i) => (
-              <li key={stop.title} className="relative pb-10 last:pb-0">
-                <Reveal delay={i * 0.05}>
-                  <span
-                    className="absolute -left-[2.30rem] top-1.5 h-3 w-3 rounded-full ring-4 ring-bg"
-                    style={{ background: "linear-gradient(120deg,#6BA6FF,#F3A6C8)" }}
-                  />
-                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                    <span className="font-mono text-xs text-slate">{stop.period}</span>
-                    <span className="font-mono text-xs text-slate/70">·</span>
-                    <span className="font-mono text-xs text-slate/70">{stop.place}</span>
-                  </div>
-                  <h4 className="mt-1 font-serif text-lg text-navy">{stop.title}</h4>
-                  <p className="mt-1 max-w-xl text-sm leading-relaxed text-slate">
-                    {stop.detail}
-                  </p>
-                </Reveal>
-              </li>
-            ))}
-          </ol>
         </div>
       </div>
     </section>
