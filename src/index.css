@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Design tokens — low-saturation blue/pink academic palette
+   (locked hex values from the plan)
+   ============================================================ */
+@theme {
+  --color-bg: #f8fbff;
+  --color-surface: #ffffff;
+  --color-primary: #6ba6ff;
+  --color-primary-deep: #3f7fe0;
+  --color-accent: #f3a6c8;
+  --color-accent-deep: #e07fae;
+  --color-navy: #172033;
+  --color-slate: #64748b;
+  --color-border: #dde7f3;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Literata", Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --shadow-soft: 0 1px 2px rgba(23, 32, 51, 0.04),
+    0 8px 24px rgba(63, 127, 224, 0.07);
+  --shadow-lift: 0 2px 6px rgba(23, 32, 51, 0.06),
+    0 18px 40px rgba(63, 127, 224, 0.12);
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-navy);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 45%, transparent);
+  color: var(--color-navy);
+}
+
+/* Soft mesh-gradient page backdrop (very light, behind everything) */
+.page-mesh {
+  background-image:
+    radial-gradient(
+      42rem 42rem at 8% -8%,
+      color-mix(in srgb, var(--color-primary) 22%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      36rem 36rem at 100% 4%,
+      color-mix(in srgb, var(--color-accent) 20%, transparent),
+      transparent 58%
+    ),
+    radial-gradient(
+      48rem 48rem at 50% 120%,
+      color-mix(in srgb, var(--color-primary) 12%, transparent),
+      transparent 60%
+    );
+}
+
+/* ============================================================
+   Reusable utilities
+   ============================================================ */
+@utility glass {
+  background: color-mix(in srgb, var(--color-surface) 78%, transparent);
+  backdrop-filter: blur(12px) saturate(1.1);
+  border: 1px solid color-mix(in srgb, var(--color-border) 90%, transparent);
+}
+
+@utility text-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-primary-deep),
+    var(--color-accent-deep)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.section-anchor {
+  scroll-margin-top: 5.5rem;
+}
+
+/* Accessible focus ring */
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-primary-deep);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Respect reduced motion globally */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

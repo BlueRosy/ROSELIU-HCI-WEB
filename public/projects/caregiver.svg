@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Caregiver study placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#EAF2FF"/>
+      <stop offset="1" stop-color="#F1ECFB"/>
+    </linearGradient>
+    <linearGradient id="ac" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6BA6FF"/>
+      <stop offset="1" stop-color="#F3A6C8"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <g transform="translate(60,150)">
+    <rect x="0" y="180" width="80" height="120" rx="8" fill="url(#ac)" opacity="0.85"/>
+    <rect x="120" y="120" width="80" height="180" rx="8" fill="url(#ac)" opacity="0.7"/>
+    <rect x="240" y="60" width="80" height="240" rx="8" fill="url(#ac)" opacity="0.9"/>
+    <rect x="360" y="150" width="80" height="150" rx="8" fill="url(#ac)" opacity="0.6"/>
+    <rect x="480" y="100" width="80" height="200" rx="8" fill="url(#ac)" opacity="0.8"/>
+  </g>
+  <text x="60" y="90" font-family="Inter, sans-serif" font-size="34" font-weight="700" fill="#172033">GenAI Parenting</text>
+  <text x="60" y="125" font-family="IBM Plex Mono, monospace" font-size="16" fill="#64748B">AI literacy &#183; risk communication</text>
+  <text x="60" y="478" font-family="IBM Plex Mono, monospace" font-size="13" fill="#9AA8BD">sanitized screenshot placeholder</text>
+</svg>

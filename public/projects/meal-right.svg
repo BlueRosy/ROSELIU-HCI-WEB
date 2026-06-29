@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Meal Right placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FBEAF3"/>
+      <stop offset="1" stop-color="#F4F8FF"/>
+    </linearGradient>
+    <linearGradient id="ac" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6BA6FF"/>
+      <stop offset="1" stop-color="#F3A6C8"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <g transform="translate(400,280)">
+    <circle r="120" fill="none" stroke="#DDE7F3" stroke-width="28"/>
+    <circle r="120" fill="none" stroke="url(#ac)" stroke-width="28" stroke-linecap="round"
+      stroke-dasharray="565" stroke-dashoffset="200" transform="rotate(-90)"/>
+    <text text-anchor="middle" y="-6" font-family="Inter, sans-serif" font-size="40" font-weight="700" fill="#172033">1,480</text>
+    <text text-anchor="middle" y="26" font-family="IBM Plex Mono, monospace" font-size="15" fill="#64748B">kcal today</text>
+  </g>
+  <text x="60" y="90" font-family="Inter, sans-serif" font-size="34" font-weight="700" fill="#172033">Meal Right</text>
+  <text x="60" y="125" font-family="IBM Plex Mono, monospace" font-size="16" fill="#64748B">daily calorie tracking</text>
+</svg>
