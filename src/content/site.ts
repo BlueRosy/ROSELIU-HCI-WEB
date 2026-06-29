@@ -16,7 +16,7 @@ export const profile = {
   heroArt: "/Rose-PersonalImage/Rose-3D.png",
   // Drop a .glb avatar here (e.g. exported from Ready Player Me) and the Hero
   // automatically swaps the static art for a mouse-tracking 3D head.
-  avatar3d: "/Rose-PersonalImage/rose-avatar.glb",
+  avatar3d: "/Rose-PersonalImage/rose-3D.glb",
   cv: "/Yanqing_Liu_CV.pdf",
   // TODO(assets): confirm social links
   socials: {

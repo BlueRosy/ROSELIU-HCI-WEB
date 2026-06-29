@@ -22,3 +22,6 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+
+# Full-resolution 3D source (107MB) — kept locally, not deployed
+model-src

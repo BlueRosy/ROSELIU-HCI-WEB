@@ -1,6 +1,6 @@
 import { Component, type ReactNode, useEffect, useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useAnimations, useGLTF } from "@react-three/drei";
+import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
 /**
@@ -21,94 +21,84 @@ function usePointer() {
   return pointer;
 }
 
+// The exported mesh ships no material/texture, so give it a soft porcelain
+// look that reads well against the light hero background.
+const porcelain = new THREE.MeshStandardMaterial({
+  color: new THREE.Color("#f3e7ea"),
+  roughness: 0.62,
+  metalness: 0.0,
+  envMapIntensity: 0.6,
+});
+
 function AvatarModel({ src }: { src: string }) {
-  const { scene, animations } = useGLTF(src);
-  const group = useRef<THREE.Group>(null);
-  const { actions } = useAnimations(animations, group);
+  // Second arg enables Draco decompression (model is Draco-compressed).
+  const { scene } = useGLTF(src, true);
+  const outer = useRef<THREE.Group>(null);
   const pointer = usePointer();
 
-  // Auto-frame: center the model and lift it so the head sits in view.
-  const { centered, headBone } = useMemo(() => {
+  // Center + normalize scale so the bust fits the frame regardless of export.
+  const centered = useMemo(() => {
     const root = scene.clone(true);
     root.traverse((o) => {
-      if ((o as THREE.Mesh).isMesh) {
-        const m = o as THREE.Mesh;
+      const m = o as THREE.Mesh;
+      if (m.isMesh) {
+        const mat = m.material as THREE.MeshStandardMaterial | undefined;
+        const hasTexture = Boolean(mat && (mat.map || mat.vertexColors));
+        if (hasTexture) {
+          // Textured/colored export: keep its own material, just tune lighting.
+          if (mat) mat.envMapIntensity = 0.85;
+        } else {
+          // Geometry-only export: fall back to a soft porcelain look.
+          m.material = porcelain;
+        }
         m.castShadow = false;
         m.receiveShadow = false;
         m.frustumCulled = false;
       }
     });
+
     const box = new THREE.Box3().setFromObject(root);
     const center = new THREE.Vector3();
+    const size = new THREE.Vector3();
     box.getCenter(center);
-    // Recenter horizontally/depth; keep vertical so we can target the head.
-    root.position.x -= center.x;
-    root.position.z -= center.z;
+    box.getSize(size);
 
-    let head: THREE.Object3D | null = null;
-    root.traverse((o) => {
-      if (!head && /head/i.test(o.name)) head = o;
-    });
-    return { centered: root, headBone: head as THREE.Object3D | null };
+    const maxDim = Math.max(size.x, size.y, size.z) || 1;
+    const scale = 2.0 / maxDim;
+
+    // Recenter to origin, then scale to a consistent size.
+    root.position.set(-center.x, -center.y, -center.z);
+    const wrapper = new THREE.Group();
+    wrapper.add(root);
+    wrapper.scale.setScalar(scale);
+    return wrapper;
   }, [scene]);
-
-  // Frame the head: position the whole group so the head is near origin/eye level.
-  const baseRot = useRef({ x: 0, y: 0 });
-  useEffect(() => {
-    if (headBone) {
-      baseRot.current.x = headBone.rotation.x;
-      baseRot.current.y = headBone.rotation.y;
-    }
-    // Play first available clip (idle), if the model ships one.
-    const first = Object.values(actions)[0];
-    first?.reset().fadeIn(0.4).play();
-    return () => {
-      first?.fadeOut(0.2);
-    };
-  }, [actions, headBone]);
 
   useFrame((_, delta) => {
     const t = performance.now() / 1000;
-    const targetY = pointer.current.x * 0.6;
-    const targetX = pointer.current.y * 0.35;
+    const targetY = pointer.current.x * 0.5;
+    const targetX = pointer.current.y * 0.28;
 
-    if (headBone) {
-      headBone.rotation.y = THREE.MathUtils.damp(
-        headBone.rotation.y,
-        baseRot.current.y + targetY,
-        6,
-        delta,
-      );
-      headBone.rotation.x = THREE.MathUtils.damp(
-        headBone.rotation.x,
-        baseRot.current.x + targetX,
-        6,
-        delta,
-      );
-    } else if (group.current) {
-      // No head bone: gently turn the whole model toward the cursor.
-      group.current.rotation.y = THREE.MathUtils.damp(
-        group.current.rotation.y,
+    if (outer.current) {
+      // No head bone in this mesh — gently turn the whole bust toward cursor.
+      outer.current.rotation.y = THREE.MathUtils.damp(
+        outer.current.rotation.y,
         targetY,
-        6,
+        5,
         delta,
       );
-      group.current.rotation.x = THREE.MathUtils.damp(
-        group.current.rotation.x,
+      outer.current.rotation.x = THREE.MathUtils.damp(
+        outer.current.rotation.x,
         targetX,
-        6,
+        5,
         delta,
       );
-    }
-
-    // Subtle idle breathing / float on the whole group.
-    if (group.current) {
-      group.current.position.y = Math.sin(t * 1.1) * 0.015;
+      outer.current.position.y = Math.sin(t * 1.1) * 0.02;
     }
   });
 
   return (
-    <group ref={group} dispose={null}>
+    <group ref={outer} dispose={null}>
       <primitive object={centered} />
     </group>
   );
@@ -139,14 +129,15 @@ export default function Avatar3D({
     <AvatarBoundary fallback={fallback}>
       <div className="aspect-square w-full">
         <Canvas
-          camera={{ position: [0, 1.55, 0.85], fov: 28 }}
+          camera={{ position: [0, 0, 4], fov: 30 }}
           dpr={[1, 1.8]}
           gl={{ antialias: true, alpha: true, preserveDrawingBuffer: false }}
           aria-hidden="true"
         >
-          <ambientLight intensity={0.9} />
-          <directionalLight position={[2, 3, 2]} intensity={1.4} />
-          <directionalLight position={[-2, 1, 1]} intensity={0.5} color="#bcd4ff" />
+          <hemisphereLight args={["#ffffff", "#d9c7d0", 0.7]} />
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[2, 3, 3]} intensity={1.6} />
+          <directionalLight position={[-3, 1, 2]} intensity={0.6} color="#9bc0ff" />
           <AvatarModel src={src} />
         </Canvas>
       </div>
