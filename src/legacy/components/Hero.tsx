@@ -1,7 +1,7 @@
 import { Suspense, lazy, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight, Download, Mail } from "lucide-react";
-import { hero, profile, signalFlow } from "../content/site";
+import { hero, interests, profile } from "../content/site";
 import { Chip } from "./primitives";
 
 const ParticleField = lazy(() => import("../three/ParticleField"));
@@ -26,37 +26,6 @@ function HeroArt() {
   );
 }
 
-function SignalFlow() {
-  return (
-    <div className="mt-6">
-      <p className="mb-3 font-mono text-xs uppercase tracking-[0.14em] text-primary-deep">
-        Signals → States → Support
-      </p>
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch sm:gap-0">
-        {signalFlow.stages.map((stage, i) => (
-          <div key={stage.label} className="flex flex-1 items-stretch">
-            {i > 0 && (
-              <span
-                className="flex shrink-0 items-center justify-center px-1 font-mono text-lg text-primary/40"
-                aria-hidden="true"
-              >
-                <span className="hidden sm:inline">→</span>
-                <span className="sm:hidden">↓</span>
-              </span>
-            )}
-            <div className="glass flex-1 rounded-xl p-4 shadow-soft">
-              <p className="font-serif text-base text-navy">{stage.label}</p>
-              <p className="mt-2 text-xs leading-relaxed text-slate">
-                {stage.items.join(" · ")}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export default function Hero({ enable3D }: { enable3D: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { margin: "0px" });
@@ -67,6 +36,7 @@ export default function Hero({ enable3D }: { enable3D: boolean }) {
       ref={ref}
       className="relative flex min-h-[92vh] items-center overflow-hidden"
     >
+      {/* 3D / gradient backdrop */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         {enable3D ? (
           <Suspense fallback={null}>
@@ -84,6 +54,7 @@ export default function Hero({ enable3D }: { enable3D: boolean }) {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="grid items-center gap-8 md:grid-cols-[1fr_400px] md:gap-12"
         >
+          {/* Text column */}
           <div className="order-2 md:order-1">
             <p className="font-mono text-sm text-slate">
               {profile.name} <span className="opacity-50">·</span> {profile.nameZh}
@@ -99,7 +70,12 @@ export default function Hero({ enable3D }: { enable3D: boolean }) {
               {hero.intro}
             </p>
 
-            <SignalFlow />
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate/90">
+              <span className="font-mono text-xs uppercase tracking-[0.14em] text-primary-deep">
+                Research interest —{" "}
+              </span>
+              {hero.researchInterest}
+            </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
@@ -124,20 +100,36 @@ export default function Hero({ enable3D }: { enable3D: boolean }) {
               </a>
             </div>
 
-            <div className="mt-8">
-              <p className="mb-2 font-mono text-xs uppercase tracking-[0.14em] text-slate">
-                Research areas
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {hero.tags.map((t) => (
-                  <Chip key={t} tone="primary">
-                    {t}
-                  </Chip>
-                ))}
+            <div className="mt-8 grid gap-6 sm:grid-cols-2">
+              <div>
+                <p className="mb-2 font-mono text-xs uppercase tracking-[0.14em] text-slate">
+                  Research areas
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {hero.tags.map((t) => (
+                    <Chip key={t} tone="primary">
+                      {t}
+                    </Chip>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <p className="mb-2 font-mono text-xs uppercase tracking-[0.14em] text-slate">
+                  Beyond research
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {interests.map((t) => (
+                    <Chip key={t} tone="accent">
+                      {t}
+                    </Chip>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
 
+          {/* Hand-drawn HCI scene column */}
           <div className="order-1 mx-auto w-full max-w-[320px] md:order-2 md:max-w-[400px]">
             <div className="overflow-hidden rounded-2xl border border-border bg-white shadow-soft">
               <HeroArt />

@@ -7,17 +7,13 @@ export default function Research({ enable3D }: { enable3D: boolean }) {
     <section id="research" className="section-anchor py-24">
       <div className="mx-auto max-w-5xl px-5">
         <Reveal>
-          <SectionHeading
-            eyebrow="Research Vision"
-            title="Closed-loop systems for everyday mental wellbeing"
-            intro="I build and study systems that sense everyday stress from conversational and behavioral signals, interpret underlying mechanisms, select appropriate support strategies, and help users move from reflection to sustainable action."
-          />
+          <SectionHeading eyebrow="Research Vision" title="Closed-loop systems for everyday mental wellbeing" />
         </Reveal>
 
         <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_0.8fr]">
           <Reveal>
             <div className="space-y-4">
-              {research.vision.slice(1).map((p) => (
+              {research.vision.map((p) => (
                 <p key={p.slice(0, 24)} className="text-base leading-relaxed text-slate">
                   {p}
                 </p>
@@ -52,34 +48,25 @@ export default function Research({ enable3D }: { enable3D: boolean }) {
           ))}
         </div>
 
-        {/* Closed-loop framework exhibit */}
-        <div className="relative mt-20 overflow-hidden rounded-3xl border border-border bg-white/40 p-6 sm:p-10">
-          <div
-            className="pointer-events-none absolute inset-0 opacity-60"
-            style={{
-              background:
-                "radial-gradient(ellipse at 30% 50%, color-mix(in srgb, var(--color-primary) 12%, transparent), transparent 60%), radial-gradient(ellipse at 70% 50%, color-mix(in srgb, var(--color-accent) 10%, transparent), transparent 60%)",
-            }}
-          />
-          <div className="relative">
-            <Reveal>
-              <div className="mb-8 max-w-2xl">
-                <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary-deep">
-                  The Loop
-                </p>
-                <h3 className="mt-3 font-serif text-2xl text-navy sm:text-3xl">
-                  Sensing &rarr; Interpretation &rarr; Intervention &rarr; Action &rarr; Sustainability &amp; Safety
-                </h3>
-                <p className="mt-3 text-base leading-relaxed text-slate">
-                  Hover or select a stage to explore how signals become safe,
-                  sustainable support.
-                </p>
-              </div>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <ClosedLoop enable3D={enable3D} />
-            </Reveal>
-          </div>
+        {/* Closed-loop framework */}
+        <div className="mt-20">
+          <Reveal>
+            <div className="mb-8 max-w-2xl">
+              <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary-deep">
+                The Loop
+              </p>
+              <h3 className="mt-3 font-serif text-2xl text-navy sm:text-3xl">
+                Sensing &rarr; Interpretation &rarr; Intervention &rarr; Action &rarr; Sustainability &amp; Safety
+              </h3>
+              <p className="mt-3 text-base leading-relaxed text-slate">
+                Hover or select a stage to explore how signals become safe,
+                sustainable support.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <ClosedLoop enable3D={enable3D} />
+          </Reveal>
         </div>
 
         <Reveal>

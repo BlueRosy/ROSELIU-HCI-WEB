@@ -149,16 +149,6 @@ export default function ClosedLoop({ enable3D }: { enable3D: boolean }) {
           <p className="mt-3 text-[15px] leading-relaxed text-slate">
             {activeNode.body}
           </p>
-          <ul className="mt-4 flex flex-wrap gap-2">
-            {activeNode.items.map((item) => (
-              <li
-                key={item}
-                className="rounded-lg border border-primary/20 bg-primary/5 px-2.5 py-1 font-mono text-xs text-primary-deep"
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </div>

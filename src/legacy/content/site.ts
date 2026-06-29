@@ -29,31 +29,16 @@ export const hero = {
   headline: "From Signals to Support",
   headlineSub: "Building Human-Centered Systems for Everyday Mental Wellbeing",
   intro:
-    "I study how conversational and behavioral patterns reveal everyday stress and emotional states, and how these signals can inform safe, long-term, empathic interventions.",
+    "I'm Rose — an HCI researcher and Research Fellow at Duke Kunshan University's HII Lab. I study how conversational and behavioral patterns reveal stress and emotional states, and how these signals can inform safe, long-term, empathic interventions.",
+  researchInterest:
+    "Closed-loop systems for everyday mental wellbeing: sensing stress from conversational and behavioral signals, interpreting mechanisms, selecting support strategies, and helping users translate reflection into sustainable action.",
+  subheadline:
+    "I study how conversational and behavioral patterns reveal stress and emotional states, and how these signals can inform safe, long-term, empathic interventions.",
   tags: [
-    "HCI",
     "Human-Centered AI",
     "Digital Wellbeing",
     "Conversational Support",
-    "Emotional & Social Computing",
-  ],
-} as const;
-
-export const signalFlow = {
-  pipeline: ["Signals", "States", "Support"] as const,
-  stages: [
-    {
-      label: "Signals",
-      items: ["Conversational logs", "Behavioral traces", "Micro-interactions"],
-    },
-    {
-      label: "States",
-      items: ["Stress", "Emotional shifts", "Resistance", "Self-disclosure"],
-    },
-    {
-      label: "Support",
-      items: ["Empathic intervention", "Reflection-to-action", "Safety boundaries"],
-    },
+    "HCI",
   ],
 } as const;
 
@@ -92,7 +77,6 @@ export type LoopNode = {
   label: string;
   short: string;
   body: string;
-  items: string[];
   current?: boolean;
 };
 
@@ -102,21 +86,18 @@ export const loop: LoopNode[] = [
     label: "Sensing",
     short: "Identify state cues from signals",
     body: "Identify stress, emotional shifts, resistance, and self-disclosure from conversational and behavioral signals.",
-    items: ["Conversational logs", "Behavioral traces", "Micro-interactions"],
   },
   {
     key: "interpretation",
     label: "Interpretation",
     short: "From what happened to why",
     body: "Move from \u201Cwhat happened\u201D to \u201Cwhy it happened\u201D by examining triggers, relationship dynamics, and individual differences.",
-    items: ["Stress", "Emotional shifts", "Resistance", "Readiness"],
   },
   {
     key: "intervention",
     label: "Intervention Selection",
     short: "Choose passive or active support",
     body: "Select passive or active support strategies based on users\u2019 goals, risks, and readiness for action.",
-    items: ["Passive vs. active support", "Timing", "Personalization"],
     current: true,
   },
   {
@@ -124,14 +105,12 @@ export const loop: LoopNode[] = [
     label: "Action",
     short: "Translate support into action",
     body: "Translate empathic support into low-burden, trackable, and achievable everyday actions.",
-    items: ["Low-burden steps", "Reflection-to-action", "Behavioral translation"],
   },
   {
     key: "sustainability",
     label: "Sustainability & Safety",
     short: "Maintain outcomes and boundaries",
     body: "Evaluate retention, emotional outcomes, autonomy, dependency risks, and adaptive safety boundaries over time.",
-    items: ["Autonomy", "Dependency risk", "Long-term outcomes"],
   },
 ];
 
@@ -142,21 +121,12 @@ export type ProjectLink = {
   href?: string; // omit for "upon request" style chips
 };
 
-export type ProjectType =
-  | "Study"
-  | "System"
-  | "Prototype"
-  | "Tool"
-  | "Design Research";
-
 export type Project = {
   id: string;
   group: "research" | "tool";
-  projectType: ProjectType;
   title: string;
   context: string;
   question: string;
-  contribution: string;
   methods: string[];
   focus: string[];
   role?: string;
@@ -174,13 +144,10 @@ export const projects: Project[] = [
   {
     id: "mindful-scroll",
     group: "research",
-    projectType: "System",
     title: "From Social Media Micro-Interactions to Mental State Cues",
     context: "Mindful Scroll · HII Lab, Duke Kunshan University",
     question:
       "How can subtle interaction behaviors on social platforms reveal users\u2019 psychological states and inform timely wellbeing interventions?",
-    contribution:
-      "Links fine-grained interaction logs to self-reported wellbeing signals in a simulated short-form video platform, informing closed-loop intervention design.",
     methods: [
       "Behavioral log analysis",
       "Pattern mining",
@@ -197,13 +164,10 @@ export const projects: Project[] = [
   {
     id: "cosim",
     group: "research",
-    projectType: "Study",
     title: "Conversational Patterns in Counselor\u2013Student Support Simulations",
     context: "CoSim · Pervasive HCI Group, Tsinghua University",
     question:
       "How do emotional cues, resistance, and self-disclosure emerge in simulated counselor\u2013student conversations, and how can these patterns inform better support strategies?",
-    contribution:
-      "Identifies facilitative vs. hindering communication patterns in simulated peer support, informing conversational intervention design.",
     methods: [
       "Dialogue annotation",
       "Thematic analysis",
@@ -225,13 +189,10 @@ export const projects: Project[] = [
   {
     id: "caregiver",
     group: "research",
-    projectType: "Study",
     title: "Risk Communication & AI Literacy in GenAI-Supported Parenting",
     context: "Caregiver AI-Literacy Study · Tsinghua University",
     question:
       "How can interactive GenAI tools improve parents\u2019 AI literacy and reduce moral disengagement in everyday parenting contexts?",
-    contribution:
-      "Links caregiving question themes in parent\u2013AI interactions to AI literacy and self-awareness, informing responsible caregiver-support design.",
     methods: [
       "Pre\u2013post survey",
       "Conversational log analysis",
@@ -248,13 +209,10 @@ export const projects: Project[] = [
   {
     id: "misinfo-sharing",
     group: "research",
-    projectType: "Design Research",
     title: "Designing Social Platforms to Reduce Misinformation Sharing",
     context: "Studio for Narrative Spaces, City University of Hong Kong",
     question:
       "How do people respond differently to authentic versus misleading posts on social platforms, and how might platform design interrupt or reduce the sharing of misinformation?",
-    contribution:
-      "Compares behavioral responses to authentic vs. misleading posts across treatment conditions, informing responsible platform intervention design.",
     methods: [
       "Behavioral experiment design",
       "Treatment / control comparison",
@@ -271,13 +229,10 @@ export const projects: Project[] = [
   {
     id: "rose-stats-studio",
     group: "tool",
-    projectType: "Tool",
     title: "Rose Stats Studio",
     context: "Browser-local statistics & modeling workbench",
     question:
       "A research-focused, Tableau-like workbench that runs entirely in the browser \u2014 statistics, correlation, and regression with data that never leaves the device.",
-    contribution:
-      "Demonstrates browser-local data analysis and visualization for privacy-sensitive research workflows.",
     methods: ["DuckDB-WASM", "React + TypeScript", "ECharts", "Statistical modeling"],
     focus: ["Data analysis", "Visualization", "Regression / model comparison"],
     accessType: "public",
@@ -291,13 +246,10 @@ export const projects: Project[] = [
   {
     id: "meal-right",
     group: "tool",
-    projectType: "Prototype",
     title: "Meal Right",
     context: "Daily calorie-tracking interface",
     question:
       "A calorie-tracking app emphasizing information hierarchy, visual feedback, and low cognitive load during everyday meal logging.",
-    contribution:
-      "Explores low cognitive load and clear information hierarchy in everyday health-tracking interfaces.",
     methods: ["React", "HCI design patterns", "Responsive UI"],
     focus: ["Information hierarchy", "Visual feedback", "Accessibility"],
     accessType: "public",
@@ -315,8 +267,7 @@ export const restrictedNote = RESTRICTED_NOTE;
 export type PubStatus =
   | "Presentation"
   | "Under Review"
-  | "In Preparation"
-  | "Target Venue";
+  | "In Preparation";
 
 export type Publication = {
   authors: string;
@@ -349,9 +300,9 @@ export const publications: Publication[] = [
     authors: "Liu, Y., Zhu, Y., & Jin, Y.",
     title:
       "Simulated Douyin-Style Short Video: Linking Interaction Logs to Self-Reported Mental Health and Well-Being, and In-App Interventions.",
-    venue: "CHI (Full Paper) — targeting 2027",
+    venue: "CHI (Full Paper)",
     year: "2027",
-    status: "Target Venue",
+    status: "In Preparation",
   },
   {
     authors: "Liu, Y., Zhu, Y., & Jin, Y.",
@@ -364,42 +315,20 @@ export const publications: Publication[] = [
 ];
 
 export const methods = {
-  subtitle: "How I connect data, design, and evaluation",
-  groups: [
-    {
-      title: "Data & Trace Analysis",
-      items: [
-        "Conversational log analysis",
-        "Behavioral trace analysis",
-        "Interaction log analysis",
-      ],
-    },
-    {
-      title: "Human-Centered Research",
-      items: [
-        "Mixed-methods research",
-        "Interview / survey design",
-        "Thematic analysis",
-      ],
-    },
-    {
-      title: "System Prototyping",
-      items: [
-        "Lightweight prototyping",
-        "Interface design",
-        "Interactive dashboards",
-      ],
-    },
-    {
-      title: "Evaluation",
-      items: [
-        "Intervention evaluation",
-        "User study design",
-        "Longitudinal outcome thinking",
-      ],
-    },
+  methods: [
+    "Conversational log analysis",
+    "Behavioral trace analysis",
+    "Thematic analysis",
+    "Survey design & pre\u2013post evaluation",
+    "Regression (OLS / logistic)",
+    "Topic modeling",
+    "Mixed-methods research",
+    "Intervention design & evaluation",
   ],
-  emerging: ["Multimodal analysis"] as const,
+  // Rendered with an "emerging" badge; never claimed as a mature capability.
+  emerging: [
+    "Multimodal analysis",
+  ],
   emergingNote:
     "As a future methodological extension, I hope to integrate language, interaction traces, self-reports, and contextual signals to better interpret everyday stress and emotional states.",
   technical: [
@@ -411,14 +340,15 @@ export const methods = {
     "Lightweight prototyping",
     "LLM-assisted analysis workflows",
   ],
+  areas: [
+    "HCI",
+    "Human-centered AI",
+    "Emotional & social computing",
+    "Digital wellbeing",
+    "Conversational support",
+    "Responsible AI",
+  ],
 } as const;
-
-export const currentLens = [
-  "Emotionally attuned",
-  "Behaviorally grounded",
-  "Autonomy-preserving",
-  "Safety-aware over time",
-] as const;
 
 export const about = {
   bio: [
@@ -477,33 +407,25 @@ export const journey: JourneyStop[] = [
 
 export type NewsItem = {
   date: string;
-  title?: string;
   text: string;
-  tag?: "Talk" | "Paper" | "Role" | "Award" | "Manuscript";
-  featured?: boolean;
+  tag?: "Talk" | "Paper" | "Role" | "Award";
 };
 
 export const news: NewsItem[] = [
   {
     date: "Jun 2026",
-    title: "DMH 2026",
-    text: "Presenting Mindful-Scroll at the Digital Mental Health International Conference in Hong Kong.",
+    text: "Presenting Mindful-Scroll at the Digital Mental Health International Conference (DMH 2026) in Hong Kong.",
     tag: "Talk",
-    featured: true,
   },
   {
     date: "2026",
-    title: "UIST 2026",
-    text: "CoSim short paper (with the Tsinghua Pervasive HCI Group) is under review.",
+    text: "CoSim short paper (with the Tsinghua Pervasive HCI Group) is under review at UIST 2026.",
     tag: "Paper",
-    featured: true,
   },
   {
     date: "Feb 2026",
-    title: "HII Lab",
-    text: "Started as a full-time Research Fellow at Duke Kunshan University, advised by Prof. Yucheng Jin.",
+    text: "Started as a full-time Research Fellow at Duke Kunshan University's HII Lab, advised by Prof. Yucheng Jin.",
     tag: "Role",
-    featured: true,
   },
   {
     date: "Dec 2025",
@@ -516,18 +438,19 @@ export const news: NewsItem[] = [
     tag: "Award",
   },
   {
-    date: "2027 Target",
-    text: "Preparing two manuscripts targeting CHI 2027 on short-form video wellbeing and caregiver AI literacy.",
-    tag: "Manuscript",
+    date: "2027",
+    text: "Two CHI 2027 manuscripts on short-form video wellbeing and caregiver AI literacy in preparation.",
+    tag: "Paper",
   },
 ];
 
 export const nav = [
-  { id: "research", label: "Research" },
+  { id: "about", label: "About" },
   { id: "news", label: "News" },
+  { id: "research", label: "Research" },
   { id: "projects", label: "Projects" },
   { id: "publications", label: "Publications" },
-  { id: "about", label: "About" },
   { id: "cv", label: "CV" },
+  { id: "journey", label: "Journey" },
   { id: "contact", label: "Contact" },
 ] as const;

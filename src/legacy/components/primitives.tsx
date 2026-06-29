@@ -72,7 +72,6 @@ const STATUS_TONE: Record<string, string> = {
   Presentation: "border-primary/40 bg-primary/10 text-primary-deep",
   "Under Review": "border-accent/40 bg-accent/10 text-accent-deep",
   "In Preparation": "border-border bg-slate/5 text-slate",
-  "Target Venue": "border-border bg-slate/5 text-slate",
 };
 
 export function StatusBadge({ status }: { status: string }) {

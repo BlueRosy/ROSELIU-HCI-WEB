@@ -48,22 +48,10 @@ function ProjectCard({
         </div>
       )}
       <div className="flex flex-1 flex-col p-5">
-        <div className="flex items-start justify-between gap-2">
-          <span className="inline-flex rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wide text-primary-deep">
-            {project.projectType}
-          </span>
-        </div>
-        <p className="mt-2 font-mono text-xs text-slate">{project.context}</p>
+        <p className="font-mono text-xs text-slate">{project.context}</p>
         <h3 className="mt-2 font-serif text-lg leading-snug text-navy">
           {project.title}
         </h3>
-        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate">
-          {project.question}
-        </p>
-
-        {project.status && (
-          <p className="mt-3 text-xs text-slate/80">{project.status}</p>
-        )}
 
         <div className="mt-3 flex flex-wrap gap-1.5">
           {project.focus.slice(0, 3).map((f) => (
@@ -156,26 +144,13 @@ function ProjectModal({
         </button>
 
         <div className="p-6 sm:p-8">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wide text-primary-deep">
-              {project.projectType}
-            </span>
-            {project.status && (
-              <span className="text-xs text-slate">{project.status}</span>
-            )}
-          </div>
-          <p className="mt-3 font-mono text-xs text-slate">{project.context}</p>
+          <p className="font-mono text-xs text-slate">{project.context}</p>
           <h3 className="mt-2 font-serif text-2xl leading-snug text-navy">
             {project.title}
           </h3>
 
           <p className="mt-4 text-[15px] leading-relaxed text-slate">
             {project.question}
-          </p>
-
-          <p className="mt-4 text-sm leading-relaxed text-navy">
-            <span className="font-medium">Contribution — </span>
-            {project.contribution}
           </p>
 
           {project.role && (
@@ -208,6 +183,10 @@ function ProjectModal({
               ))}
             </div>
           </div>
+
+          {project.status && (
+            <p className="mt-6 text-xs text-slate">{project.status}</p>
+          )}
 
           {restricted && (
             <p className="mt-4 rounded-lg border border-border bg-bg/60 p-3 text-xs leading-relaxed text-slate">
@@ -264,13 +243,7 @@ export default function Projects() {
           />
         </Reveal>
 
-        <Reveal>
-          <h3 className="mt-10 mb-6 font-mono text-xs uppercase tracking-[0.18em] text-primary-deep">
-            Core Research Projects
-          </h3>
-        </Reveal>
-
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {researchProjects.map((p, i) => (
             <Reveal key={p.id} delay={i * 0.06}>
               <ProjectCard project={p} onOpen={() => setActiveId(p.id)} />

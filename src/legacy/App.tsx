@@ -1,12 +1,13 @@
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
-import News from "./components/News";
 import Research from "./components/Research";
 import Projects from "./components/Projects";
 import Publications from "./components/Publications";
 import Methods from "./components/Methods";
 import About from "./components/About";
+import News from "./components/News";
 import CV from "./components/CV";
+import Journey from "./components/Journey";
 import Contact from "./components/Contact";
 import { useEnable3D } from "./hooks/useEnable3D";
 
@@ -18,13 +19,14 @@ export default function App() {
       <Nav />
       <main>
         <Hero enable3D={enable3D} />
+        <About />
         <News />
         <Research enable3D={enable3D} />
         <Projects />
         <Publications />
         <Methods />
-        <About />
         <CV />
+        <Journey />
       </main>
       <Contact />
     </div>
