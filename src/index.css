@@ -48,6 +48,75 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Rose cursor — DOM overlay (Chromium/Arc caps CSS url() cursors at ~32×32 DIP) */
+@media (pointer: fine) {
+  html.rose-cursor-on,
+  html.rose-cursor-on * {
+    cursor: none !important;
+  }
+
+  html.rose-cursor-on.rose-cursor-on--text :where(
+      input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not(
+          [type="submit"]
+        ):not([type="button"]):not([type="reset"]),
+      textarea,
+      [contenteditable="true"]
+    ) {
+    cursor: text !important;
+  }
+}
+
+.rose-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2147483647;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.rose-cursor img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.rose-cursor-petal {
+  position: fixed;
+  z-index: 2147483646;
+  pointer-events: none;
+  border-radius: 50% 50% 50% 0;
+  background: linear-gradient(145deg, #f0d4ce 0%, #d4a098 100%);
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(var(--petal-rot, 0deg));
+  animation: rose-cursor-petal-fall 2.8s ease-out forwards;
+  box-shadow: 0 0 1px rgba(143, 81, 76, 0.15);
+}
+
+@keyframes rose-cursor-petal-fall {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--petal-rot, 0deg)) scale(0.6);
+  }
+  12% {
+    opacity: 0.52;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--petal-drift, 0px)), calc(-50% + 52px))
+      rotate(calc(var(--petal-rot, 0deg) + 95deg)) scale(0.25);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rose-cursor-petal {
+    display: none;
+  }
+}
+
 ::selection {
   background: color-mix(in srgb, var(--color-primary) 35%, transparent);
   color: var(--color-ink);
@@ -127,6 +196,30 @@ body {
 
 .accent-dot {
   background: linear-gradient(120deg, #8f514c 0%, #b9786f 55%, #8a9275 100%);
+}
+
+.site-logo {
+  display: block;
+  flex-shrink: 0;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 1px 2px rgba(47, 42, 38, 0.08));
+}
+
+.site-logo--nav {
+  width: 2.65rem;
+  height: 2.65rem;
+}
+
+.site-logo--sm {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.site-logo--md {
+  width: 2.25rem;
+  height: 2.25rem;
 }
 
 .accent-ring {
@@ -370,7 +463,7 @@ body {
   animation:
     rose-head-grow var(--rose-bloom-duration, 5s) cubic-bezier(0.22, 1, 0.36, 1)
       forwards,
-    rose-head-breathe 9s ease-in-out calc(var(--rose-bloom-duration, 5s) + 0.5s)
+    rose-head-breathe 6.5s ease-in-out calc(var(--rose-bloom-duration, 5s) + 0.35s)
       infinite;
 }
 
@@ -495,6 +588,230 @@ body {
 /* Section botanical accents */
 .card-botanical-accent {
   pointer-events: none;
+}
+
+/* CV — vine loop matches container pixel size (no stretch warp) */
+.botanical-frame__content {
+  min-height: 0;
+}
+
+@keyframes botanical-vine-shimmer {
+  0%,
+  100% {
+    stroke-opacity: 0.55;
+  }
+  50% {
+    stroke-opacity: 0.72;
+  }
+}
+
+.botanical-frame__vine-stroke {
+  animation: botanical-vine-shimmer 8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .botanical-frame__vine-stroke {
+    animation: none;
+  }
+}
+
+/* Hero signal cards — slow 3D float */
+.signal-cards-stage {
+  perspective: 1200px;
+  perspective-origin: 50% 40%;
+}
+
+.hero-mobile-figure {
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+}
+
+.signal-card-3d {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.signal-card {
+  backface-visibility: hidden;
+  transition: box-shadow 0.4s ease;
+}
+
+.signal-card-3d:hover .signal-card {
+  box-shadow:
+    0 14px 36px rgba(47, 42, 38, 0.1),
+    0 4px 12px rgba(143, 81, 76, 0.08);
+}
+
+.signal-card--alive {
+  animation: signal-card-breathe 5.5s ease-in-out infinite;
+}
+
+@keyframes signal-card-breathe {
+  0%,
+  100% {
+    box-shadow:
+      0 8px 24px rgba(47, 42, 38, 0.07),
+      0 2px 8px rgba(143, 81, 76, 0.05);
+  }
+  50% {
+    box-shadow:
+      0 12px 32px rgba(47, 42, 38, 0.1),
+      0 4px 14px rgba(143, 81, 76, 0.09);
+  }
+}
+
+@keyframes signal-vine-dash {
+  to {
+    stroke-dashoffset: -12;
+  }
+}
+
+/* h5 — optional PNG vine overlay: fade only (no clip-path — it caused a horizontal seam) */
+.hero-vine-layer {
+  opacity: 0;
+  animation: hero-vine-feet-in 2.5s ease forwards;
+}
+
+@keyframes hero-vine-feet-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-vine-layer {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* h5 — SVG stems: soft draw + blooms along path */
+.hero-signal-vine__stroke {
+  stroke-dasharray: var(--vine-len, 800);
+  stroke-dashoffset: var(--vine-len, 800);
+  animation: hero-signal-vine-draw var(--vine-duration, 11s) cubic-bezier(0.37, 0, 0.18, 1) forwards;
+  animation-delay: var(--vine-delay, 0s);
+}
+
+@keyframes hero-signal-vine-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.hero-signal-vine__leaf {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  --leaf-fade: 1.5s;
+  animation:
+    hero-signal-vine-fade-in var(--leaf-fade) ease var(--vine-leaf-delay, 0s) forwards,
+    hero-signal-vine-leaf-sway calc(4.5s + var(--leaf-sway-offset, 0s)) ease-in-out
+      calc(var(--vine-leaf-delay, 0s) + var(--leaf-fade)) infinite;
+}
+
+.hero-signal-vine__bloom {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  --bloom-grow: 2.6s;
+  --bloom-sway: 4s;
+  animation:
+    hero-signal-vine-bloom-grow var(--bloom-grow) cubic-bezier(0.22, 1, 0.36, 1)
+      var(--bloom-delay, 0s) forwards,
+    hero-signal-vine-bloom-sway var(--bloom-sway) ease-in-out
+      calc(var(--bloom-delay, 0s) + var(--bloom-grow)) infinite;
+}
+
+.hero-signal-vine__bloom--bud {
+  --bloom-grow: 2.2s;
+}
+
+@keyframes hero-signal-vine-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.42;
+  }
+}
+
+@keyframes hero-signal-vine-bloom-grow {
+  0% {
+    opacity: 0;
+    transform: scale(0.04);
+  }
+  28% {
+    opacity: 0.45;
+    transform: scale(calc(var(--bloom-scale, 0.5) * 0.22));
+  }
+  55% {
+    opacity: 0.68;
+    transform: scale(calc(var(--bloom-scale, 0.5) * 0.58));
+  }
+  78% {
+    opacity: 0.82;
+    transform: scale(calc(var(--bloom-scale, 0.5) * 0.88));
+  }
+  100% {
+    opacity: 0.9;
+    transform: scale(var(--bloom-scale, 0.5));
+  }
+}
+
+@keyframes hero-signal-vine-bloom-sway {
+  0%,
+  100% {
+    transform: scale(var(--bloom-scale, 0.5)) rotate(0deg);
+    opacity: 0.88;
+  }
+  35% {
+    transform: scale(calc(var(--bloom-scale, 0.5) * 1.045)) rotate(1.4deg);
+    opacity: 0.94;
+  }
+  68% {
+    transform: scale(calc(var(--bloom-scale, 0.5) * 0.975)) rotate(-1deg);
+    opacity: 0.86;
+  }
+}
+
+@keyframes hero-signal-vine-leaf-sway {
+  0%,
+  100% {
+    transform: rotate(0deg);
+    opacity: 0.42;
+  }
+  50% {
+    transform: rotate(2.5deg);
+    opacity: 0.48;
+  }
+}
+
+.hero-figure-garden__bloom {
+  filter: drop-shadow(0 1px 3px rgba(143, 81, 76, 0.12));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signal-card--alive {
+    animation: none;
+  }
+
+  .hero-signal-vine__stroke,
+  .hero-signal-vine__leaf,
+  .hero-signal-vine__bloom {
+    animation: none;
+    stroke-dashoffset: 0;
+    opacity: 0.75;
+    transform: scale(var(--bloom-scale, 1));
+  }
+}
+
+.signal-vine-path {
+  animation: signal-vine-dash 14s linear infinite;
 }
 
 .vine-stroke {

@@ -50,11 +50,7 @@ function Node({
         ref={mesh}
         onPointerOver={(e) => {
           e.stopPropagation();
-          document.body.style.cursor = "pointer";
           onActivate();
-        }}
-        onPointerOut={() => {
-          document.body.style.cursor = "auto";
         }}
         onClick={(e) => {
           e.stopPropagation();

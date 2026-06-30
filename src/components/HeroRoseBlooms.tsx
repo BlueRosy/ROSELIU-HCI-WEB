@@ -12,7 +12,7 @@ import type { CSSProperties } from "react";
 
 const PETAL_ANGLES = [0, 60, 120, 180, 240, 300];
 const INNER_ANGLES = [30, 90, 150, 210, 270, 330];
-const BLOOM_DURATION = 12;
+const BLOOM_DURATION = 8;
 
 function RoseHead({
   delay,

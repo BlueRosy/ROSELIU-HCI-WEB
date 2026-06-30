@@ -1,6 +1,6 @@
 import { HERO_VINE_PATHS } from "./botanical/heroVinePaths";
 
-/** Corner vine accents + signal-path curve for the Hero botanical layer. */
+/** Corner vine accents + dashed signal-path curve. */
 export default function HeroBotanicalVines() {
   return (
     <svg

@@ -9,6 +9,7 @@ import About from "./components/About";
 import Journey from "./components/Journey";
 import CV from "./components/CV";
 import Contact from "./components/Contact";
+import RoseCursor from "./components/RoseCursor";
 import { useEnable3D } from "./hooks/useEnable3D";
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen">
+      <RoseCursor />
       <Nav />
       <main>
         <Hero enable3D={enable3D} />

@@ -16,7 +16,7 @@ export const profile = {
   heroArt: "/Rose-PersonalImage/Rose-3D.png",
   aboutPhoto: "/Rose-PersonalImage/Rose.2.jpg",
   heroMode: "illustration" as const,
-  heroIllustration: "/Rose-PersonalImage/h1.png",
+  heroIllustration: "/Rose-PersonalImage/h5.png",
   avatar3d: "/Rose-PersonalImage/chibi-reading.glb",
   heroParallax: "/Rose-PersonalImage/h1.png",
   cv: "/Yanqing_Liu_CV.pdf",

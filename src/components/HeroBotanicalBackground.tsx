@@ -1,6 +1,7 @@
 import HeroBotanicalVines from "./HeroBotanicalVines";
 import HeroRoseBlooms from "./HeroRoseBlooms";
 
+/** Full-screen botanical layer — corner vines, signal path, floating roses. */
 export default function HeroBotanicalBackground() {
   return (
     <div className="hero-botanical" aria-hidden="true">

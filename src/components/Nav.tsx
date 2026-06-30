@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { nav, profile } from "../content/site";
+import SiteLogo from "./SiteLogo";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -34,11 +35,11 @@ export default function Nav() {
         <a
           href="#top"
           onClick={closeMenu}
-          className={`flex items-center gap-2 rounded-full px-3 py-1.5 font-serif text-base text-ink transition ${
+          className={`flex items-center gap-2.5 rounded-full px-3 py-1.5 font-serif text-base text-ink transition ${
             scrolled ? "glass shadow-soft" : ""
           }`}
         >
-          <span className="accent-dot inline-block h-2.5 w-2.5 rounded-full" />
+          <SiteLogo size="nav" />
           {profile.name}
         </a>
 
