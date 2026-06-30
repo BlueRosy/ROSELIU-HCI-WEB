@@ -16,7 +16,7 @@ export const profile = {
   heroArt: "/Rose-PersonalImage/Rose-3D.png",
   aboutPhoto: "/Rose-PersonalImage/Rose.2.jpg",
   heroMode: "3d" as const,
-  avatar3d: "/Rose-PersonalImage/chibi-blue-desk.glb",
+  avatar3d: "/Rose-PersonalImage/chibi-reading.glb",
   heroParallax: "/Rose-PersonalImage/借鉴.png",
   cv: "/Yanqing_Liu_CV.pdf",
   // TODO(assets): confirm social links

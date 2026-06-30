@@ -83,7 +83,7 @@ function AvatarModel({ src }: { src: string }) {
     box.getSize(size);
 
     const maxDim = Math.max(size.x, size.y, size.z) || 1;
-    const scale = 2.35 / maxDim;
+    const scale = 2.95 / maxDim;
 
     root.position.set(-center.x, -center.y + size.y * 0.04, -center.z);
     const wrapper = new THREE.Group();
@@ -98,13 +98,13 @@ function AvatarModel({ src }: { src: string }) {
     const t = performance.now() / 1000;
 
     if (!reducedMotion) {
-      // Primary: slow idle — float + gentle sway (~80% of the life).
-      outer.current.position.y = Math.sin(t * 1.55) * 0.015;
-      outer.current.rotation.z = Math.sin(t * 0.7) * 0.03;
+      // Idle: float, sway, and a soft turn.
+      outer.current.position.y = Math.sin(t * 1.85) * 0.038;
+      outer.current.rotation.z = Math.sin(t * 0.85) * 0.058;
 
-      // Secondary: subtle mouse parallax (~20%) — max ±7°.
-      const targetY = pointer.current.x * 0.12;
-      const targetX = pointer.current.y * 0.07;
+      // Mouse parallax plus gentle idle turn.
+      const targetY = pointer.current.x * 0.19 + Math.sin(t * 0.55) * 0.045;
+      const targetX = pointer.current.y * 0.12;
       outer.current.rotation.y = THREE.MathUtils.damp(
         outer.current.rotation.y,
         targetY,
@@ -152,7 +152,7 @@ export default function Avatar3D({
     <AvatarBoundary fallback={fallback}>
       <div className="aspect-square w-full">
         <Canvas
-          camera={{ position: [0, 0.05, 5.2], fov: 34 }}
+          camera={{ position: [0, 0.05, 4.65], fov: 34 }}
           dpr={[1, 1.8]}
           gl={{ antialias: true, alpha: true, preserveDrawingBuffer: false }}
           aria-hidden="true"
