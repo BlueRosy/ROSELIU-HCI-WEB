@@ -59,12 +59,7 @@ export default function Journey() {
                   <Reveal delay={i * 0.05}>
                     {/* Mobile: centered stack */}
                     <div className="flex flex-col items-center text-center md:hidden">
-                      <span
-                        className="h-3 w-3 shrink-0 rounded-full ring-4 ring-bg"
-                        style={{
-                          background: "linear-gradient(120deg,#6BA6FF,#F3A6C8)",
-                        }}
-                      />
+                      <span className="accent-dot h-3 w-3 shrink-0 rounded-full ring-4 ring-bg" />
                       <div className="mt-4 max-w-md">
                         <JourneyEntry stop={stop} side="left" />
                       </div>
@@ -77,12 +72,7 @@ export default function Journey() {
                       </div>
 
                       <div className="relative flex justify-center pt-1.5">
-                        <span
-                          className="h-3 w-3 shrink-0 rounded-full ring-4 ring-bg"
-                          style={{
-                            background: "linear-gradient(120deg,#6BA6FF,#F3A6C8)",
-                          }}
-                        />
+                        <span className="accent-dot h-3 w-3 shrink-0 rounded-full ring-4 ring-bg" />
                       </div>
 
                       <div className={!isLeft ? "pt-0.5" : ""}>

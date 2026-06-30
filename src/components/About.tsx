@@ -39,6 +39,23 @@ export default function About() {
 
           <Reveal delay={0.08}>
             <div className="glass rounded-2xl p-6 shadow-soft lg:sticky lg:top-28">
+              <div className="mb-6 flex flex-col items-center text-center">
+                <div className="about-avatar mb-4">
+                  <div className="about-avatar__halo" aria-hidden="true" />
+                  <div className="about-avatar__ring">
+                    <div className="about-avatar__photo">
+                      <img
+                        src={profile.aboutPhoto}
+                        alt={`Portrait of ${profile.name}`}
+                        className="h-full w-full object-cover object-[center_22%]"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <p className="font-serif text-lg text-navy">{profile.name}</p>
+                <p className="mt-0.5 font-mono text-xs text-slate">{profile.nameZh}</p>
+              </div>
+
               <p className="font-mono text-xs uppercase tracking-[0.16em] text-primary-deep">
                 Current Lens
               </p>
@@ -48,12 +65,7 @@ export default function About() {
                     key={item}
                     className="flex items-center gap-2 text-[15px] leading-relaxed text-navy"
                   >
-                    <span
-                      className="inline-block h-2 w-2 shrink-0 rounded-full"
-                      style={{
-                        background: "linear-gradient(120deg,#6BA6FF,#F3A6C8)",
-                      }}
-                    />
+                    <span className="accent-dot inline-block h-2 w-2 shrink-0 rounded-full" />
                     {item}
                   </li>
                 ))}

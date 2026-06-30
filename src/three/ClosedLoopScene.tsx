@@ -3,8 +3,8 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import type { LoopNode } from "../content/site";
 
-const PRIMARY = new THREE.Color("#6BA6FF");
-const ACCENT = new THREE.Color("#F3A6C8");
+const PRIMARY = new THREE.Color("#6EB8F5");
+const ACCENT = new THREE.Color("#9DD9D9");
 const RADIUS = 2.6;
 
 function nodeColor(i: number, total: number) {
@@ -103,7 +103,7 @@ function Scene({
     <>
       <ambientLight intensity={0.8} />
       <directionalLight position={[4, 6, 8]} intensity={1.1} />
-      <directionalLight position={[-6, -4, 2]} intensity={0.4} color="#F3A6C8" />
+      <directionalLight position={[-6, -4, 2]} intensity={0.4} color="#9DD9D9" />
       <group ref={group}>
         {/* loop path */}
         <mesh rotation={[Math.PI / 2, 0, 0]}>

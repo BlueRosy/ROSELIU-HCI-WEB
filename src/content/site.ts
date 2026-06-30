@@ -14,9 +14,10 @@ export const profile = {
   photo: "/Rose-PersonalImage/Rose1.jpg",
   heroPhoto: "/Rose-PersonalImage/Rose3.jpg",
   heroArt: "/Rose-PersonalImage/Rose-3D.png",
-  // Drop a .glb avatar here (e.g. exported from Ready Player Me) and the Hero
-  // automatically swaps the static art for a mouse-tracking 3D head.
-  avatar3d: "/Rose-PersonalImage/rose-3D.glb",
+  aboutPhoto: "/Rose-PersonalImage/Rose.2.jpg",
+  heroMode: "3d" as const,
+  avatar3d: "/Rose-PersonalImage/chibi-blue-desk.glb",
+  heroParallax: "/Rose-PersonalImage/借鉴.png",
   cv: "/Yanqing_Liu_CV.pdf",
   // TODO(assets): confirm social links
   socials: {
@@ -32,7 +33,9 @@ export const hero = {
   headline: "From Signals to Support",
   headlineSub: "Building Human-Centered Systems for Everyday Mental Wellbeing",
   intro:
-    "I study how conversational and behavioral patterns reveal everyday stress and emotional states, and how these signals can inform safe, long-term, empathic interventions.",
+    "I'm Rose — an HCI researcher and Research Fellow at Duke Kunshan University's HII Lab. I study how conversational and behavioral patterns reveal everyday stress and emotional states, and how these signals can inform safe, long-term, empathic interventions.",
+  researchInterest:
+    "Closed-loop systems for everyday mental wellbeing: sensing stress from conversational and behavioral signals, interpreting mechanisms, selecting support strategies, and helping users translate reflection into sustainable action.",
   tags: [
     "HCI",
     "Human-Centered AI",

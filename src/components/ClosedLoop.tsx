@@ -25,8 +25,9 @@ function LoopSVG({ activeKey }: { activeKey: string }) {
     >
       <defs>
         <linearGradient id="loopGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#6BA6FF" />
-          <stop offset="1" stopColor="#F3A6C8" />
+          <stop offset="0" stopColor="#4499E5" />
+          <stop offset="0.5" stopColor="#6EB8F5" />
+          <stop offset="1" stopColor="#9DD9D9" />
         </linearGradient>
       </defs>
       <circle
@@ -43,7 +44,7 @@ function LoopSVG({ activeKey }: { activeKey: string }) {
         const { x, y } = nodeXY(i, loop.length);
         const isActive = n.key === activeKey;
         const t = loop.length > 1 ? i / (loop.length - 1) : 0;
-        const color = `color-mix(in srgb, #6BA6FF ${(1 - t) * 100}%, #F3A6C8)`;
+        const color = `color-mix(in srgb, #4499E5 ${(1 - t) * 100}%, #9DD9D9)`;
         return (
           <g key={n.key}>
             {(isActive || n.current) && (

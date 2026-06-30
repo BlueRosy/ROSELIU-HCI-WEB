@@ -59,7 +59,7 @@ export default function CV() {
                 href={profile.cv}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-navy px-6 py-3 text-sm font-medium text-white shadow-soft transition hover:translate-y-[-1px] hover:shadow-lift"
+                className="inline-flex items-center gap-2 rounded-full bg-primary-deep px-6 py-3 text-sm font-medium text-white shadow-soft transition hover:translate-y-[-1px] hover:bg-primary hover:shadow-lift"
               >
                 <Download size={18} /> Download CV (PDF)
               </a>

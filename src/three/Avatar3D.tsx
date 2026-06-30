@@ -1,12 +1,11 @@
-import { Component, type ReactNode, useEffect, useMemo, useRef } from "react";
+import { Component, type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
 /**
- * Shared, window-level pointer tracker so the head follows the cursor even when
+ * Shared, window-level pointer tracker so the avatar responds even when
  * the mouse is over the text column, not just over the canvas.
- * x / y are normalized to roughly [-1, 1].
  */
 function usePointer() {
   const pointer = useRef({ x: 0, y: 0 });
@@ -21,8 +20,18 @@ function usePointer() {
   return pointer;
 }
 
-// The exported mesh ships no material/texture, so give it a soft porcelain
-// look that reads well against the light hero background.
+function useReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduced(mq.matches);
+    const onChange = () => setReduced(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+  return reduced;
+}
+
 const porcelain = new THREE.MeshStandardMaterial({
   color: new THREE.Color("#f3e7ea"),
   roughness: 0.62,
@@ -30,25 +39,35 @@ const porcelain = new THREE.MeshStandardMaterial({
   envMapIntensity: 0.6,
 });
 
+function tuneMaterial(mat: THREE.MeshStandardMaterial) {
+  mat.envMapIntensity = 0.55;
+  mat.roughness = Math.min(mat.roughness, 0.72);
+  // Scan exports often ship hot emissive maps — dial down for natural skin.
+  if (mat.emissiveMap) {
+    mat.emissiveIntensity = 0.08;
+  } else {
+    mat.emissiveIntensity = 0;
+  }
+}
+
 function AvatarModel({ src }: { src: string }) {
-  // Second arg enables Draco decompression (model is Draco-compressed).
-  const { scene } = useGLTF(src, true);
+  const { scene } = useGLTF(src, "/draco/gltf/");
   const outer = useRef<THREE.Group>(null);
   const pointer = usePointer();
+  const reducedMotion = useReducedMotion();
 
-  // Center + normalize scale so the bust fits the frame regardless of export.
   const centered = useMemo(() => {
     const root = scene.clone(true);
     root.traverse((o) => {
       const m = o as THREE.Mesh;
       if (m.isMesh) {
         const mat = m.material as THREE.MeshStandardMaterial | undefined;
-        const hasTexture = Boolean(mat && (mat.map || mat.vertexColors));
-        if (hasTexture) {
-          // Textured/colored export: keep its own material, just tune lighting.
-          if (mat) mat.envMapIntensity = 0.85;
+        const hasTexture = Boolean(
+          mat && (mat.map || mat.emissiveMap || mat.vertexColors),
+        );
+        if (hasTexture && mat) {
+          tuneMaterial(mat);
         } else {
-          // Geometry-only export: fall back to a soft porcelain look.
           m.material = porcelain;
         }
         m.castShadow = false;
@@ -64,10 +83,9 @@ function AvatarModel({ src }: { src: string }) {
     box.getSize(size);
 
     const maxDim = Math.max(size.x, size.y, size.z) || 1;
-    const scale = 2.0 / maxDim;
+    const scale = 2.35 / maxDim;
 
-    // Recenter to origin, then scale to a consistent size.
-    root.position.set(-center.x, -center.y, -center.z);
+    root.position.set(-center.x, -center.y + size.y * 0.04, -center.z);
     const wrapper = new THREE.Group();
     wrapper.add(root);
     wrapper.scale.setScalar(scale);
@@ -75,25 +93,30 @@ function AvatarModel({ src }: { src: string }) {
   }, [scene]);
 
   useFrame((_, delta) => {
-    const t = performance.now() / 1000;
-    const targetY = pointer.current.x * 0.5;
-    const targetX = pointer.current.y * 0.28;
+    if (!outer.current) return;
 
-    if (outer.current) {
-      // No head bone in this mesh — gently turn the whole bust toward cursor.
+    const t = performance.now() / 1000;
+
+    if (!reducedMotion) {
+      // Primary: slow idle — float + gentle sway (~80% of the life).
+      outer.current.position.y = Math.sin(t * 1.55) * 0.015;
+      outer.current.rotation.z = Math.sin(t * 0.7) * 0.03;
+
+      // Secondary: subtle mouse parallax (~20%) — max ±7°.
+      const targetY = pointer.current.x * 0.12;
+      const targetX = pointer.current.y * 0.07;
       outer.current.rotation.y = THREE.MathUtils.damp(
         outer.current.rotation.y,
         targetY,
-        5,
+        4,
         delta,
       );
       outer.current.rotation.x = THREE.MathUtils.damp(
         outer.current.rotation.x,
         targetX,
-        5,
+        4,
         delta,
       );
-      outer.current.position.y = Math.sin(t * 1.1) * 0.02;
     }
   });
 
@@ -129,15 +152,16 @@ export default function Avatar3D({
     <AvatarBoundary fallback={fallback}>
       <div className="aspect-square w-full">
         <Canvas
-          camera={{ position: [0, 0, 4], fov: 30 }}
+          camera={{ position: [0, 0.05, 5.2], fov: 34 }}
           dpr={[1, 1.8]}
           gl={{ antialias: true, alpha: true, preserveDrawingBuffer: false }}
           aria-hidden="true"
         >
-          <hemisphereLight args={["#ffffff", "#d9c7d0", 0.7]} />
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[2, 3, 3]} intensity={1.6} />
-          <directionalLight position={[-3, 1, 2]} intensity={0.6} color="#9bc0ff" />
+          <hemisphereLight args={["#ffffff", "#d4ebfa", 0.85]} />
+          <ambientLight intensity={0.55} />
+          <directionalLight position={[2, 4, 3]} intensity={1.2} color="#f4faff" />
+          <directionalLight position={[-2, 2, 2]} intensity={0.45} color="#a8d8f0" />
+          <directionalLight position={[0, -1, 2]} intensity={0.12} color="#9DD9D9" />
           <AvatarModel src={src} />
         </Canvas>
       </div>

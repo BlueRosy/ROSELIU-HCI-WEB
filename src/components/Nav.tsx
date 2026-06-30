@@ -38,12 +38,7 @@ export default function Nav() {
             scrolled ? "glass shadow-soft" : ""
           }`}
         >
-          <span
-            className="inline-block h-2.5 w-2.5 rounded-full"
-            style={{
-              background: "linear-gradient(120deg,#6BA6FF,#F3A6C8)",
-            }}
-          />
+          <span className="accent-dot inline-block h-2.5 w-2.5 rounded-full" />
           {profile.name}
         </a>
 

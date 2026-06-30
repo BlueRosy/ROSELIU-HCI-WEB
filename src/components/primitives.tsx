@@ -35,7 +35,7 @@ export function SectionHeading({
 }) {
   return (
     <div className="max-w-2xl">
-      <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary-deep">
+      <p className="font-mono text-xs uppercase tracking-[0.18em] text-gradient-static">
         {eyebrow}
       </p>
       <h2 className="mt-3 font-serif text-3xl leading-tight text-navy sm:text-4xl">

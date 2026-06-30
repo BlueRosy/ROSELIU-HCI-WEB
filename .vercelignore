@@ -1,0 +1,8 @@
+model-src
+node_modules
+dist
+public/Rose-PersonalImage/*.fullres.glb
+public/Rose-PersonalImage/Girl Reading 3D Texture.glb
+public/Rose-PersonalImage/Chibi Girl 3D Model.glb
+public/Rose-PersonalImage/Chibi Blue Desk 3D Texture.glb
+public/Rose-PersonalImage/Chibi Reading 3D Texture.glb
