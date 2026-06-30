@@ -1,21 +1,35 @@
-import { Repeat } from "lucide-react";
+import { HERO_VARIANTS, type HeroVariantPath } from "./heroVariants";
 
-/**
- * Toggle between main hero (/) and h6 comparison (/new).
- */
-export default function VersionSwitch({ isH6Compare }: { isH6Compare: boolean }) {
+export default function VersionSwitch({
+  currentPath,
+}: {
+  currentPath: HeroVariantPath;
+}) {
+  const current = HERO_VARIANTS.find((v) => v.path === currentPath) ?? HERO_VARIANTS[0];
+
   return (
-    <div className="fixed bottom-4 right-4 z-[70] flex items-center gap-3 rounded-full border border-border bg-surface/90 px-4 py-2 shadow-lift backdrop-blur">
-      <span className="hidden font-mono text-xs text-slate sm:inline">
-        {isH6Compare ? "Compare · h6 Hero" : "Main · h1 Hero"}
-      </span>
-      <a
-        href={isH6Compare ? "/" : "/new"}
-        className="inline-flex items-center gap-1.5 rounded-full bg-primary-deep px-3.5 py-1.5 text-xs font-medium text-white transition hover:translate-y-[-1px] hover:bg-primary hover:shadow-lift"
-      >
-        <Repeat size={13} />
-        {isH6Compare ? "View Main (h1)" : "Compare h6"}
-      </a>
+    <div className="fixed bottom-4 right-4 z-[70] max-w-[min(100vw-2rem,28rem)] rounded-2xl border border-border bg-surface/92 p-2 shadow-lift backdrop-blur">
+      <p className="mb-1.5 px-2 font-mono text-[10px] uppercase tracking-[0.12em] text-slate">
+        Hero compare · {current.label}
+      </p>
+      <div className="flex flex-wrap gap-1.5">
+        {HERO_VARIANTS.map((v) => {
+          const active = v.path === currentPath;
+          return (
+            <a
+              key={v.path}
+              href={v.path}
+              className={`rounded-full px-3 py-1 font-mono text-xs transition ${
+                active
+                  ? "bg-primary-deep text-white shadow-soft"
+                  : "border border-border bg-surface/80 text-slate hover:border-primary/40 hover:text-primary-deep"
+              }`}
+            >
+              {v.label}
+            </a>
+          );
+        })}
+      </div>
     </div>
   );
 }

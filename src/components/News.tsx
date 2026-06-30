@@ -1,4 +1,6 @@
 import { news, type NewsItem } from "../content/site";
+import CardBotanicalAccent from "./botanical/CardBotanicalAccent";
+import NewsVineTimeline from "./botanical/NewsVineTimeline";
 import { Reveal, SectionHeading } from "./primitives";
 
 const TAG_TONE: Record<NonNullable<NewsItem["tag"]>, string> = {
@@ -24,11 +26,11 @@ export default function News() {
           />
         </Reveal>
 
-        {/* Featured updates */}
         <div className="mt-10 grid gap-4 sm:grid-cols-3">
           {featured.map((item, i) => (
             <Reveal key={`featured-${item.date}-${i}`} delay={i * 0.06}>
-              <article className="glass flex h-full flex-col rounded-2xl p-6 shadow-soft">
+              <article className="glass relative flex h-full flex-col overflow-hidden rounded-2xl p-6 shadow-soft">
+                <CardBotanicalAccent position="top-right" className="opacity-10" />
                 <div className="flex items-start justify-between gap-2">
                   <span className="font-mono text-xs text-primary/70">{item.date}</span>
                   {item.tag && (
@@ -48,39 +50,57 @@ export default function News() {
           ))}
         </div>
 
-        {/* Timeline */}
         {timeline.length > 0 && (
           <div className="mt-12">
             <Reveal>
-              <h3 className="mb-6 font-mono text-xs uppercase tracking-[0.18em] text-slate">
-                Full timeline
-              </h3>
+              <div className="mb-6 flex items-center gap-2.5">
+                <svg
+                  className="h-4 w-6 shrink-0 opacity-50"
+                  viewBox="0 0 24 16"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M2 14 C6 10, 10 6, 14 4 S20 2, 22 2"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                    className="text-sage"
+                  />
+                  <circle cx="22" cy="2" r="1.5" className="fill-primary/50" />
+                </svg>
+                <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-slate">
+                  Full timeline
+                </h3>
+              </div>
             </Reveal>
-            <ol className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface/60">
-              {timeline.map((item, i) => (
-                <li key={`timeline-${item.date}-${i}`}>
-                  <Reveal delay={i * 0.04}>
-                    <div className="flex flex-col gap-2 px-5 py-4 transition hover:bg-primary/[0.03] sm:flex-row sm:items-baseline sm:gap-6">
-                      <span className="w-28 shrink-0 font-mono text-sm text-primary/70">
-                        {item.date}
-                      </span>
-                      <div className="flex flex-1 flex-wrap items-baseline gap-x-3 gap-y-2">
-                        <p className="flex-1 text-[15px] leading-relaxed text-ink">
-                          {item.text}
-                        </p>
-                        {item.tag && (
-                          <span
-                            className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium ${TAG_TONE[item.tag]}`}
-                          >
-                            {item.tag}
-                          </span>
-                        )}
+            <div className="relative sm:pl-10">
+              <NewsVineTimeline itemCount={timeline.length} />
+              <ol className="space-y-1 overflow-hidden rounded-2xl border border-border bg-surface/60">
+                {timeline.map((item, i) => (
+                  <li key={`timeline-${item.date}-${i}`}>
+                    <Reveal delay={i * 0.04}>
+                      <div className="flex flex-col gap-2 px-5 py-4 transition hover:bg-primary/[0.03] sm:flex-row sm:items-baseline sm:gap-6">
+                        <span className="w-28 shrink-0 font-mono text-sm text-primary/70">
+                          {item.date}
+                        </span>
+                        <div className="flex flex-1 flex-wrap items-baseline gap-x-3 gap-y-2">
+                          <p className="flex-1 text-[15px] leading-relaxed text-ink">
+                            {item.text}
+                          </p>
+                          {item.tag && (
+                            <span
+                              className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium ${TAG_TONE[item.tag]}`}
+                            >
+                              {item.tag}
+                            </span>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  </Reveal>
-                </li>
-              ))}
-            </ol>
+                    </Reveal>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </div>
         )}
       </div>

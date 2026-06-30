@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Misinformation sharing study placeholder">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#EAF2FF"/>
-      <stop offset="1" stop-color="#FBEAF3"/>
+      <stop offset="0" stop-color="#FFFDF8"/>
+      <stop offset="1" stop-color="#F8F1E8"/>
     </linearGradient>
     <linearGradient id="ac" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#6BA6FF"/>
-      <stop offset="1" stop-color="#F3A6C8"/>
+      <stop offset="0" stop-color="#B9786F"/>
+      <stop offset="1" stop-color="#D4A59E"/>
     </linearGradient>
   </defs>
   <rect width="800" height="500" fill="url(#bg)"/>
@@ -21,13 +21,13 @@
     <text x="100" y="348" font-size="16" font-weight="600" fill="#ffffff">Share?</text>
   </g>
   <g font-family="IBM Plex Mono, monospace">
-    <rect x="440" y="200" width="140" height="34" rx="10" fill="#6BA6FF" opacity="0.18"/>
+    <rect x="440" y="200" width="140" height="34" rx="10" fill="#B9786F" opacity="0.18"/>
     <text x="458" y="222" font-size="14" fill="#3F7FE0">control</text>
-    <rect x="440" y="252" width="160" height="34" rx="10" fill="#F3A6C8" opacity="0.22"/>
+    <rect x="440" y="252" width="160" height="34" rx="10" fill="#D4A59E" opacity="0.22"/>
     <text x="458" y="274" font-size="14" fill="#E07FAE">treatment</text>
     <path d="M380 295 L440 217 M380 295 L440 269" stroke="url(#ac)" stroke-width="2" fill="none" opacity="0.6"/>
   </g>
-  <text x="60" y="90" font-family="Inter, sans-serif" font-size="34" font-weight="700" fill="#172033">Misinfo Sharing</text>
-  <text x="60" y="125" font-family="IBM Plex Mono, monospace" font-size="16" fill="#64748B">authentic vs. misleading &#183; platform design</text>
-  <text x="60" y="475" font-family="IBM Plex Mono, monospace" font-size="13" fill="#9AA8BD">sanitized screenshot placeholder</text>
+  <text x="60" y="90" font-family="Inter, sans-serif" font-size="34" font-weight="700" fill="#2F2A26">Misinfo Sharing</text>
+  <text x="60" y="125" font-family="IBM Plex Mono, monospace" font-size="16" fill="#6F6258">authentic vs. misleading &#183; platform design</text>
+  <text x="60" y="475" font-family="IBM Plex Mono, monospace" font-size="13" fill="#8A7F72">sanitized screenshot placeholder</text>
 </svg>

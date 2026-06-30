@@ -4,19 +4,15 @@ import "./index.css";
 import App from "./App.tsx";
 import VersionSwitch from "./VersionSwitch.tsx";
 import { HeroIllustrationProvider } from "./hooks/useHeroIllustration.tsx";
+import { heroVariantForPath } from "./heroVariants.ts";
 
-// "/"     -> main Rose editorial site (hero from site.ts, currently h1)
-// "/new"  -> same site with h6 hero for A/B comparison
-const path = window.location.pathname.replace(/\/+$/, "") || "/";
-const isH6Compare = path === "/new";
+const variant = heroVariantForPath(window.location.pathname);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <HeroIllustrationProvider
-      src={isH6Compare ? "/Rose-PersonalImage/h6.png" : undefined}
-    >
+    <HeroIllustrationProvider src={variant.src ?? undefined}>
       <App />
     </HeroIllustrationProvider>
-    <VersionSwitch isH6Compare={isH6Compare} />
+    <VersionSwitch currentPath={variant.path} />
   </StrictMode>,
 );

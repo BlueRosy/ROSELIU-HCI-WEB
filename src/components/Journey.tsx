@@ -1,4 +1,7 @@
+import { useLayoutEffect, useRef, useState } from "react";
 import { journey } from "../content/site";
+import CardBotanicalAccent from "./botanical/CardBotanicalAccent";
+import JourneyVineAxis from "./botanical/JourneyVineAxis";
 import { Reveal, SectionHeading } from "./primitives";
 
 function JourneyEntry({
@@ -9,13 +12,7 @@ function JourneyEntry({
   side: "left" | "right";
 }) {
   return (
-    <div
-      className={
-        side === "left"
-          ? "md:text-right"
-          : "md:text-left"
-      }
-    >
+    <div className={side === "left" ? "md:text-right" : "md:text-left"}>
       <div
         className={`flex flex-wrap items-baseline gap-x-3 gap-y-1 ${
           side === "left" ? "md:justify-end" : "md:justify-start"
@@ -31,7 +28,51 @@ function JourneyEntry({
   );
 }
 
+function JourneyNode() {
+  return (
+    <div className="relative flex w-10 shrink-0 justify-center pt-1.5">
+      <span
+        data-journey-node
+        className="accent-dot relative z-10 h-3 w-3 shrink-0 rounded-full ring-4 ring-bg"
+      />
+    </div>
+  );
+}
+
 export default function Journey() {
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const [axis, setAxis] = useState({ nodeYs: [] as number[], width: 0, height: 0 });
+
+  useLayoutEffect(() => {
+    const root = timelineRef.current;
+    if (!root) return;
+
+    const measure = () => {
+      const rect = root.getBoundingClientRect();
+      const nodes = root.querySelectorAll<HTMLElement>("[data-journey-node]");
+      const nodeYs = Array.from(nodes)
+        .filter((node) => node.offsetParent !== null)
+        .map((node) => {
+        const n = node.getBoundingClientRect();
+        return n.top + n.height / 2 - rect.top;
+      });
+      setAxis({
+        nodeYs,
+        width: rect.width,
+        height: rect.height,
+      });
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(root);
+    window.addEventListener("resize", measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
+
   return (
     <section id="journey" className="section-anchor section-alt py-24">
       <div className="mx-auto max-w-5xl px-5">
@@ -45,10 +86,11 @@ export default function Journey() {
           </div>
         </Reveal>
 
-        <div className="relative mx-auto mt-14 max-w-4xl">
-          <div
-            className="absolute top-0 bottom-0 left-1/2 w-px -translate-x-1/2 bg-border"
-            aria-hidden="true"
+        <div ref={timelineRef} className="relative mx-auto mt-14 max-w-4xl">
+          <JourneyVineAxis
+            nodeYs={axis.nodeYs}
+            width={axis.width}
+            height={axis.height}
           />
 
           <ol>
@@ -57,26 +99,33 @@ export default function Journey() {
               return (
                 <li key={stop.title} className="relative pb-12 last:pb-0">
                   <Reveal delay={i * 0.05}>
-                    {/* Mobile: centered stack */}
                     <div className="flex flex-col items-center text-center md:hidden">
-                      <span className="accent-dot h-3 w-3 shrink-0 rounded-full ring-4 ring-bg" />
-                      <div className="mt-4 max-w-md">
+                      <JourneyNode />
+                      <div className="relative mt-4 max-w-md overflow-hidden rounded-xl border border-border/60 bg-surface/50 p-4">
+                        <CardBotanicalAccent position="top-right" className="opacity-[0.12]" />
                         <JourneyEntry stop={stop} side="left" />
                       </div>
                     </div>
 
-                    {/* Desktop: alternating sides around center axis */}
                     <div className="hidden md:grid md:grid-cols-[1fr_auto_1fr] md:items-start md:gap-x-8">
                       <div className={isLeft ? "pt-0.5" : ""}>
-                        {isLeft && <JourneyEntry stop={stop} side="left" />}
+                        {isLeft && (
+                          <div className="relative overflow-hidden rounded-xl border border-border/60 bg-surface/50 p-4">
+                            <CardBotanicalAccent position="top-right" className="opacity-[0.12]" />
+                            <JourneyEntry stop={stop} side="left" />
+                          </div>
+                        )}
                       </div>
 
-                      <div className="relative flex justify-center pt-1.5">
-                        <span className="accent-dot h-3 w-3 shrink-0 rounded-full ring-4 ring-bg" />
-                      </div>
+                      <JourneyNode />
 
                       <div className={!isLeft ? "pt-0.5" : ""}>
-                        {!isLeft && <JourneyEntry stop={stop} side="right" />}
+                        {!isLeft && (
+                          <div className="relative overflow-hidden rounded-xl border border-border/60 bg-surface/50 p-4">
+                            <CardBotanicalAccent position="bottom-left" className="opacity-[0.12]" />
+                            <JourneyEntry stop={stop} side="right" />
+                          </div>
+                        )}
                       </div>
                     </div>
                   </Reveal>

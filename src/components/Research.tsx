@@ -1,5 +1,6 @@
 import { research } from "../content/site";
 import ClosedLoop from "./ClosedLoop";
+import CardBotanicalAccent from "./botanical/CardBotanicalAccent";
 import { Reveal, SectionHeading } from "./primitives";
 
 export default function Research({ enable3D }: { enable3D: boolean }) {
@@ -26,7 +27,8 @@ export default function Research({ enable3D }: { enable3D: boolean }) {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="glass rounded-2xl p-6 shadow-soft">
+            <div className="glass relative overflow-hidden rounded-2xl p-6 shadow-soft">
+              <CardBotanicalAccent position="top-right" className="opacity-[0.14]" />
               <p className="font-mono text-xs uppercase tracking-[0.16em] text-primary-deep">
                 Research Focus
               </p>

@@ -104,12 +104,11 @@ function Scene({
     <>
       <ambientLight intensity={0.8} />
       <directionalLight position={[4, 6, 8]} intensity={1.1} />
-      <directionalLight position={[-6, -4, 2]} intensity={0.4} color="#9DD9D9" />
+      <directionalLight position={[-6, -4, 2]} intensity={0.25} color={palette.sage} />
       <group ref={group}>
-        {/* loop path */}
         <mesh rotation={[Math.PI / 2, 0, 0]}>
           <torusGeometry args={[RADIUS, 0.015, 16, 120]} />
-          <meshBasicMaterial color="#9DBDEB" transparent opacity={0.55} />
+          <meshBasicMaterial color={palette.primary} transparent opacity={0.45} />
         </mesh>
         {nodes.map((n, i) => (
           <Node

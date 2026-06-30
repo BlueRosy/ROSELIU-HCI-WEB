@@ -1,6 +1,7 @@
 import { Suspense, lazy, useRef, useState } from "react";
 import { useInView } from "framer-motion";
 import { loop } from "../content/site";
+import CardBotanicalAccent from "./botanical/CardBotanicalAccent";
 import { closedLoopGradient, palette } from "../theme/palette";
 
 const ClosedLoopScene = lazy(() => import("../three/ClosedLoopScene"));
@@ -66,13 +67,24 @@ function LoopSVG({ activeKey }: { activeKey: string }) {
               textAnchor="middle"
               fontSize="9"
               fontFamily="IBM Plex Mono, monospace"
-              fill={isActive ? "#172033" : "#64748B"}
+              fill={isActive ? palette.ink : palette.slate}
             >
               {String(i + 1).padStart(2, "0")}
             </text>
           </g>
         );
       })}
+      <g opacity="0.22" transform={`translate(${CENTER} ${CENTER})`}>
+        <circle r="6" fill={palette.primaryDeep} opacity="0.5" />
+        {[0, 60, 120, 180, 240, 300].map((angle) => (
+          <path
+            key={angle}
+            transform={`rotate(${angle})`}
+            d="M0 0 C 1.5 -4, 4 -5, 4.5 -0.5 C 4 2.5, 1.5 3, 0 0"
+            fill={palette.roseSoft}
+          />
+        ))}
+      </g>
     </svg>
   );
 }
@@ -139,7 +151,8 @@ export default function ClosedLoop({ enable3D }: { enable3D: boolean }) {
           })}
         </ol>
 
-        <div className="glass mt-6 rounded-2xl p-6 shadow-soft">
+        <div className="glass relative mt-6 overflow-hidden rounded-2xl border-l-[3px] border-l-sage p-6 shadow-soft">
+          <CardBotanicalAccent position="top-right" className="opacity-[0.14]" />
           <div className="flex items-center gap-2">
             <h3 className="font-serif text-xl text-ink">{activeNode.label}</h3>
             {activeNode.current && (

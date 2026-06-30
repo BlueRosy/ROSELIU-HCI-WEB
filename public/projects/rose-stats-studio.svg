@@ -2,22 +2,22 @@
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#F4F8FF"/>
-      <stop offset="1" stop-color="#EAF2FF"/>
+      <stop offset="1" stop-color="#FFFDF8"/>
     </linearGradient>
     <linearGradient id="ac" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#6BA6FF"/>
-      <stop offset="1" stop-color="#F3A6C8"/>
+      <stop offset="0" stop-color="#B9786F"/>
+      <stop offset="1" stop-color="#D4A59E"/>
     </linearGradient>
   </defs>
   <rect width="800" height="500" fill="url(#bg)"/>
   <g opacity="0.9">
     <polyline points="80,360 180,300 280,330 380,240 480,270 580,180 700,210" fill="none" stroke="url(#ac)" stroke-width="4" stroke-linecap="round"/>
-    <g fill="#6BA6FF"><circle cx="180" cy="300" r="6"/><circle cx="380" cy="240" r="6"/><circle cx="580" cy="180" r="6"/></g>
-    <g fill="#F3A6C8" opacity="0.8">
+    <g fill="#B9786F"><circle cx="180" cy="300" r="6"/><circle cx="380" cy="240" r="6"/><circle cx="580" cy="180" r="6"/></g>
+    <g fill="#D4A59E" opacity="0.8">
       <rect x="80" y="400" width="40" height="40" rx="4"/><rect x="140" y="380" width="40" height="60" rx="4"/>
       <rect x="200" y="410" width="40" height="30" rx="4"/>
     </g>
   </g>
-  <text x="60" y="90" font-family="Inter, sans-serif" font-size="34" font-weight="700" fill="#172033">Rose Stats Studio</text>
-  <text x="60" y="125" font-family="IBM Plex Mono, monospace" font-size="16" fill="#64748B">browser-local stats &amp; modeling</text>
+  <text x="60" y="90" font-family="Inter, sans-serif" font-size="34" font-weight="700" fill="#2F2A26">Rose Stats Studio</text>
+  <text x="60" y="125" font-family="IBM Plex Mono, monospace" font-size="16" fill="#6F6258">browser-local stats &amp; modeling</text>
 </svg>

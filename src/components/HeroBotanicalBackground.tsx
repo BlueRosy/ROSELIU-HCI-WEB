@@ -7,8 +7,8 @@ export default function HeroBotanicalBackground() {
       <div className="hero-botanical__gradient" />
       <div className="hero-botanical__grain" />
       <HeroBotanicalVines />
-      <HeroRoseBlooms />
       <div className="hero-botanical__scrim" />
+      <HeroRoseBlooms />
     </div>
   );
 }

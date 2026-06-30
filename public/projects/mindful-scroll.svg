@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Mindful Scroll placeholder">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#EAF2FF"/>
-      <stop offset="1" stop-color="#FBEAF3"/>
+      <stop offset="0" stop-color="#FFFDF8"/>
+      <stop offset="1" stop-color="#F8F1E8"/>
     </linearGradient>
     <linearGradient id="ac" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#6BA6FF"/>
-      <stop offset="1" stop-color="#F3A6C8"/>
+      <stop offset="0" stop-color="#B9786F"/>
+      <stop offset="1" stop-color="#D4A59E"/>
     </linearGradient>
   </defs>
   <rect width="800" height="500" fill="url(#bg)"/>
@@ -18,7 +18,7 @@
     <circle cx="200" cy="170" r="9"/><circle cx="320" cy="130" r="6"/>
     <circle cx="470" cy="190" r="11"/><circle cx="600" cy="140" r="7"/>
   </g>
-  <text x="60" y="90" font-family="Inter, sans-serif" font-size="34" font-weight="700" fill="#172033">Mindful Scroll</text>
-  <text x="60" y="125" font-family="IBM Plex Mono, monospace" font-size="16" fill="#64748B">interaction logs &#8594; mental state cues</text>
-  <text x="60" y="470" font-family="IBM Plex Mono, monospace" font-size="13" fill="#9AA8BD">sanitized screenshot placeholder</text>
+  <text x="60" y="90" font-family="Inter, sans-serif" font-size="34" font-weight="700" fill="#2F2A26">Mindful Scroll</text>
+  <text x="60" y="125" font-family="IBM Plex Mono, monospace" font-size="16" fill="#6F6258">interaction logs &#8594; mental state cues</text>
+  <text x="60" y="470" font-family="IBM Plex Mono, monospace" font-size="13" fill="#8A7F72">sanitized screenshot placeholder</text>
 </svg>

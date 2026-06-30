@@ -335,53 +335,108 @@ body {
 }
 
 .hero-botanical__roses {
-  z-index: 2;
-  opacity: 0.88;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  opacity: 0.5;
 }
 
-/* Rose bloom — hand-drawn editorial */
+/* Rose bloom — travels along vine + grows bud → full */
 .hero-rose__petal {
   transform-origin: 0 0;
-  transform: scale(0.08, 0.2);
+  transform: scale(0.06, 0.15);
   opacity: 0;
-  animation: rose-petal-bloom 2.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: rose-petal-bloom var(--rose-bloom-duration, 5s)
+    cubic-bezier(0.22, 1, 0.36, 1) forwards;
   animation-delay: var(--rose-delay, 0s);
 }
 
 .hero-rose__petal--inner {
-  animation-duration: 2.2s;
+  opacity: 0;
+  animation: rose-petal-bloom-inner var(--rose-bloom-duration, 5s)
+    cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--rose-delay, 0s);
 }
 
 .hero-rose__center {
-  opacity: 0;
+  opacity: 0.25;
   transform-origin: center;
-  transform: scale(0);
-  animation: rose-center-bloom 1.2s ease-out forwards;
+  transform: scale(0.35);
+  animation: rose-center-bloom 1.4s ease-out forwards;
 }
 
 .hero-rose__head {
-  animation: rose-head-breathe 9s ease-in-out 4s infinite;
   transform-origin: center;
+  animation:
+    rose-head-grow var(--rose-bloom-duration, 5s) cubic-bezier(0.22, 1, 0.36, 1)
+      forwards,
+    rose-head-breathe 9s ease-in-out calc(var(--rose-bloom-duration, 5s) + 0.5s)
+      infinite;
+}
+
+.hero-rose__head--static {
+  animation: none;
+  transform: scale(0.82);
+}
+
+.hero-rose__head--static .hero-rose__petal,
+.hero-rose__head--static .hero-rose__petal--inner {
+  animation: none;
+  transform: scale(1);
+  opacity: 0.85;
+}
+
+.hero-rose__head--static .hero-rose__center {
+  animation: none;
+  opacity: 0.7;
+  transform: scale(1);
 }
 
 .hero-rose__stem {
   stroke-dasharray: 28;
   stroke-dashoffset: 28;
-  animation: rose-stem-grow 1.8s ease-out forwards;
+  animation: rose-stem-grow 2s ease-out forwards;
   animation-delay: var(--rose-root-delay, 0s);
+}
+
+@keyframes rose-head-grow {
+  0% {
+    transform: scale(0.22);
+  }
+  45% {
+    transform: scale(0.58);
+  }
+  100% {
+    transform: scale(0.82);
+  }
+}
+
+@keyframes rose-petal-bloom-inner {
+  0%,
+  58% {
+    transform: scale(0.04, 0.1);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 0.58;
+  }
 }
 
 @keyframes rose-petal-bloom {
   0% {
     transform: scale(0.06, 0.15) rotate(calc(var(--petal-i, 0) * -4deg));
-    opacity: 0;
+    opacity: 0.15;
+  }
+  20% {
+    opacity: 0.35;
   }
   55% {
     opacity: 0.75;
   }
   100% {
     transform: scale(1, 1) rotate(0deg);
-    opacity: 0.88;
+    opacity: 0.68;
   }
 }
 
@@ -405,10 +460,10 @@ body {
 @keyframes rose-head-breathe {
   0%,
   100% {
-    transform: scale(1);
+    transform: scale(0.82);
   }
   50% {
-    transform: scale(1.03);
+    transform: scale(0.85);
   }
 }
 
@@ -426,14 +481,24 @@ body {
     transform: scale(1);
   }
 
-  .hero-rose__head {
+  .hero-rose__head:not(.hero-rose__head--static) {
     animation: none;
+    transform: scale(1);
   }
 
   .hero-rose__stem {
     animation: none;
     stroke-dashoffset: 0;
   }
+}
+
+/* Section botanical accents */
+.card-botanical-accent {
+  pointer-events: none;
+}
+
+.vine-stroke {
+  stroke: var(--color-sage);
 }
 
 .hero-botanical__canvas-wrap {
