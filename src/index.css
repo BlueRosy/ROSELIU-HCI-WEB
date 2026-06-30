@@ -1,30 +1,34 @@
 @import "tailwindcss";
 
 /* ============================================================
-   Design tokens — pure blue-white (fresh, light, HCI)
+   Design tokens — ivory rose botanical (editorial HCI)
    ============================================================ */
 @theme {
-  --color-bg: #f8fcff;
-  --color-surface: #ffffff;
-  --color-primary: #56ccf2;
-  --color-primary-deep: #2f80ed;
-  --color-accent: #56ccf2;
-  --color-accent-deep: #2f80ed;
-  --color-sky-soft: #d8f0ff;
-  --color-mint: #56ccf2;
-  --color-lavender: #b8d4f5;
-  --color-navy: #17324d;
-  --color-slate: #516a80;
-  --color-border: rgba(47, 128, 237, 0.18);
+  --color-bg: #fffdf8;
+  --color-surface: #fffcf7;
+  --color-section: #f8f1e8;
+  --color-primary: #b9786f;
+  --color-primary-deep: #8f514c;
+  --color-accent: #b9786f;
+  --color-accent-deep: #8f514c;
+  --color-sage: #8a9275;
+  --color-rose-soft: #d4a59e;
+  --color-cream: #f8f1e8;
+  --color-ink: #2f2a26;
+  --color-line: #7a6658;
+  --color-slate: #6f6258;
+  --color-border: rgba(122, 102, 88, 0.18);
+  /* alias for gradual migration */
+  --color-navy: #2f2a26;
 
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Literata", Georgia, "Times New Roman", serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
-  --shadow-soft: 0 1px 2px rgba(23, 32, 51, 0.04),
-    0 8px 24px rgba(63, 127, 224, 0.07);
-  --shadow-lift: 0 2px 6px rgba(23, 32, 51, 0.06),
-    0 18px 40px rgba(63, 127, 224, 0.12);
+  --shadow-soft: 0 1px 2px rgba(47, 42, 38, 0.04),
+    0 8px 24px rgba(143, 81, 76, 0.06);
+  --shadow-lift: 0 2px 6px rgba(47, 42, 38, 0.06),
+    0 18px 40px rgba(143, 81, 76, 0.1);
 }
 
 /* ============================================================
@@ -38,33 +42,36 @@ html {
 body {
   margin: 0;
   background-color: var(--color-bg);
-  color: var(--color-navy);
+  color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--color-mint) 50%, transparent);
-  color: var(--color-navy);
+  background: color-mix(in srgb, var(--color-primary) 35%, transparent);
+  color: var(--color-ink);
 }
 
-/* Soft mesh-gradient page backdrop */
+.section-alt {
+  background-color: var(--color-section);
+}
+
 .page-mesh {
   background-image:
     radial-gradient(
       42rem 42rem at 8% -8%,
-      color-mix(in srgb, var(--color-primary) 20%, transparent),
+      color-mix(in srgb, var(--color-primary) 14%, transparent),
       transparent 60%
     ),
     radial-gradient(
       36rem 36rem at 100% 4%,
-      color-mix(in srgb, var(--color-mint) 18%, transparent),
+      color-mix(in srgb, var(--color-sage) 12%, transparent),
       transparent 58%
     ),
     radial-gradient(
       48rem 48rem at 50% 120%,
-      color-mix(in srgb, var(--color-lavender) 14%, transparent),
+      color-mix(in srgb, var(--color-cream) 40%, transparent),
       transparent 60%
     );
 }
@@ -73,38 +80,45 @@ body {
    Reusable utilities
    ============================================================ */
 @utility glass {
-  background: color-mix(in srgb, var(--color-surface) 78%, transparent);
-  backdrop-filter: blur(12px) saturate(1.1);
+  background: color-mix(in srgb, var(--color-surface) 82%, transparent);
+  backdrop-filter: blur(12px) saturate(1.05);
   border: 1px solid color-mix(in srgb, var(--color-border) 90%, transparent);
 }
 
 @utility glass-hero {
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(18px) saturate(1.05);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  box-shadow: 0 24px 80px rgba(47, 128, 237, 0.12);
+  background: rgba(255, 253, 248, 0.78);
+  backdrop-filter: blur(16px) saturate(1.02);
+  border: 1px solid rgba(122, 102, 88, 0.14);
+  box-shadow: 0 16px 48px rgba(143, 81, 76, 0.08);
+}
+
+@utility paper-card {
+  background: rgba(255, 253, 248, 0.88);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(122, 102, 88, 0.16);
+  box-shadow: 0 8px 28px rgba(47, 42, 38, 0.05);
 }
 
 @utility text-gradient {
   background-image: linear-gradient(
     105deg,
-    #2f80ed 0%,
-    #56ccf2 45%,
-    #d8f0ff 100%
+    #8f514c 0%,
+    #b9786f 42%,
+    #8a9275 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: gradient-breathe 10s ease-in-out infinite;
+  animation: gradient-breathe 12s ease-in-out infinite;
 }
 
 @utility text-gradient-static {
   background-image: linear-gradient(
     105deg,
-    #2f80ed 0%,
-    #56ccf2 55%,
-    #8ecbf5 100%
+    #8f514c 0%,
+    #b9786f 50%,
+    #8a9275 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -112,16 +126,11 @@ body {
 }
 
 .accent-dot {
-  background: linear-gradient(120deg, #2f80ed 0%, #56ccf2 60%, #d8f0ff 100%);
+  background: linear-gradient(120deg, #8f514c 0%, #b9786f 55%, #8a9275 100%);
 }
 
 .accent-ring {
-  background: linear-gradient(
-    135deg,
-    #2f80ed 0%,
-    #56ccf2 50%,
-    #d8f0ff 100%
-  );
+  background: linear-gradient(135deg, #8f514c 0%, #b9786f 50%, #8a9275 100%);
 }
 
 @keyframes gradient-breathe {
@@ -138,14 +147,12 @@ body {
   scroll-margin-top: 5.5rem;
 }
 
-/* Accessible focus ring */
 :where(a, button, [tabindex]):focus-visible {
   outline: 2px solid var(--color-primary-deep);
   outline-offset: 2px;
   border-radius: 6px;
 }
 
-/* Respect reduced motion globally */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -159,7 +166,6 @@ body {
   }
 }
 
-/* About portrait — static ring, slow subtle outer glow */
 .about-avatar {
   --avatar-size: 9rem;
   --ring-width: 3px;
@@ -178,9 +184,9 @@ body {
   position: absolute;
   inset: -6px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4499e5 0%, #9dd9d9 55%, #c5d4f5 100%);
+  background: linear-gradient(135deg, #b9786f 0%, #8a9275 55%, #d4a59e 100%);
   filter: blur(10px);
-  opacity: 0.28;
+  opacity: 0.26;
   animation: about-ring-pulse 5.5s ease-in-out infinite;
   z-index: 0;
 }
@@ -192,7 +198,7 @@ body {
   height: 100%;
   border-radius: 50%;
   padding: var(--ring-width);
-  background: linear-gradient(135deg, #4499e5 0%, #6eb8f5 40%, #9dd9d9 75%, #c5d4f5 100%);
+  background: linear-gradient(135deg, #8f514c 0%, #b9786f 45%, #8a9275 80%, #d4a59e 100%);
   box-shadow: 0 4px 20px color-mix(in srgb, var(--color-primary) 12%, transparent);
   animation: about-ring-glow 5.5s ease-in-out infinite;
 }
@@ -210,11 +216,11 @@ body {
 @keyframes about-ring-pulse {
   0%,
   100% {
-    opacity: 0.2;
+    opacity: 0.18;
     filter: blur(10px);
   }
   50% {
-    opacity: 0.42;
+    opacity: 0.36;
     filter: blur(12px);
   }
 }
@@ -225,17 +231,16 @@ body {
     box-shadow:
       0 0 0 1px color-mix(in srgb, var(--color-primary) 14%, transparent),
       0 4px 18px color-mix(in srgb, var(--color-primary) 10%, transparent),
-      0 0 14px color-mix(in srgb, var(--color-mint) 10%, transparent);
+      0 0 14px color-mix(in srgb, var(--color-sage) 10%, transparent);
   }
   50% {
     box-shadow:
       0 0 0 1px color-mix(in srgb, var(--color-primary) 22%, transparent),
-      0 4px 22px color-mix(in srgb, var(--color-primary) 18%, transparent),
-      0 0 22px color-mix(in srgb, var(--color-mint) 18%, transparent);
+      0 4px 22px color-mix(in srgb, var(--color-primary) 16%, transparent),
+      0 0 22px color-mix(in srgb, var(--color-sage) 14%, transparent);
   }
 }
 
-/* Hero avatar — loading / idle placeholder ring */
 .hero-avatar-slot__frame {
   position: absolute;
   inset: 0;
@@ -249,9 +254,9 @@ body {
   width: min(52%, 11rem);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4499e5 0%, #6eb8f5 45%, #9dd9d9 100%);
+  background: linear-gradient(135deg, #b9786f 0%, #8a9275 50%, #d4a59e 100%);
   filter: blur(12px);
-  opacity: 0.26;
+  opacity: 0.24;
   animation: about-ring-pulse 5.5s ease-in-out infinite;
 }
 
@@ -261,7 +266,7 @@ body {
   aspect-ratio: 1;
   border-radius: 50%;
   padding: 3px;
-  background: linear-gradient(135deg, #4499e5 0%, #6eb8f5 50%, #b8d4f5 100%);
+  background: linear-gradient(135deg, #8f514c 0%, #b9786f 55%, #8a9275 100%);
   animation: about-ring-glow 5.5s ease-in-out infinite;
 }
 
@@ -276,40 +281,168 @@ body {
   backdrop-filter: blur(8px);
 }
 
-/* Hero — soft blue-white sky (Layer 1) */
-.hero-sky {
+/* Hero — ivory botanical background */
+.hero-botanical {
   position: absolute;
   inset: 0;
   overflow: hidden;
 }
 
-.hero-sky__gradient {
+.hero-botanical__gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, #d8f0ff 0%, #eaf7ff 45%, #f8fcff 100%);
+  background:
+    radial-gradient(
+      52rem 40rem at 88% 18%,
+      color-mix(in srgb, var(--color-cream) 70%, transparent),
+      transparent 62%
+    ),
+    radial-gradient(
+      36rem 32rem at 12% 88%,
+      color-mix(in srgb, var(--color-sage) 10%, transparent),
+      transparent 58%
+    ),
+    linear-gradient(180deg, #fffdf8 0%, #faf6ef 48%, #fffdf8 100%);
 }
 
-.hero-sky__scrim {
+.hero-botanical__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.hero-botanical__scrim {
   position: absolute;
   inset: 0;
   z-index: 1;
   background: linear-gradient(
     105deg,
-    rgba(255, 255, 255, 0.5) 0%,
-    rgba(255, 255, 255, 0.18) 40%,
-    rgba(255, 255, 255, 0.02) 65%,
-    transparent 82%
+    rgba(255, 253, 248, 0.55) 0%,
+    rgba(255, 253, 248, 0.12) 38%,
+    transparent 58%
   );
   pointer-events: none;
 }
 
-.hero-sky__canvas-wrap {
+.hero-botanical__vines {
   position: absolute;
   inset: 0;
   z-index: 2;
+  pointer-events: none;
+  opacity: 0.55;
 }
 
-.hero-sky__canvas {
+.hero-botanical__roses {
+  z-index: 2;
+  opacity: 0.88;
+}
+
+/* Rose bloom — hand-drawn editorial */
+.hero-rose__petal {
+  transform-origin: 0 0;
+  transform: scale(0.08, 0.2);
+  opacity: 0;
+  animation: rose-petal-bloom 2.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--rose-delay, 0s);
+}
+
+.hero-rose__petal--inner {
+  animation-duration: 2.2s;
+}
+
+.hero-rose__center {
+  opacity: 0;
+  transform-origin: center;
+  transform: scale(0);
+  animation: rose-center-bloom 1.2s ease-out forwards;
+}
+
+.hero-rose__head {
+  animation: rose-head-breathe 9s ease-in-out 4s infinite;
+  transform-origin: center;
+}
+
+.hero-rose__stem {
+  stroke-dasharray: 28;
+  stroke-dashoffset: 28;
+  animation: rose-stem-grow 1.8s ease-out forwards;
+  animation-delay: var(--rose-root-delay, 0s);
+}
+
+@keyframes rose-petal-bloom {
+  0% {
+    transform: scale(0.06, 0.15) rotate(calc(var(--petal-i, 0) * -4deg));
+    opacity: 0;
+  }
+  55% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: scale(1, 1) rotate(0deg);
+    opacity: 0.88;
+  }
+}
+
+@keyframes rose-center-bloom {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 0.72;
+    transform: scale(1);
+  }
+}
+
+@keyframes rose-stem-grow {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes rose-head-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rose__petal,
+  .hero-rose__petal--inner {
+    animation: none;
+    transform: scale(1);
+    opacity: 0.85;
+  }
+
+  .hero-rose__center {
+    animation: none;
+    opacity: 0.7;
+    transform: scale(1);
+  }
+
+  .hero-rose__head {
+    animation: none;
+  }
+
+  .hero-rose__stem {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+.hero-botanical__canvas-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.hero-botanical__canvas {
   position: absolute !important;
   inset: 0 !important;
   width: 100% !important;

@@ -58,7 +58,7 @@ export default function HeroParallaxFigure() {
   if (failed) {
     return (
       <div className="flex aspect-square w-full items-center justify-center bg-gradient-to-br from-primary/10 to-accent/10">
-        <span className="font-serif text-5xl text-navy/20">YL</span>
+        <span className="font-serif text-5xl text-ink/20">YL</span>
       </div>
     );
   }

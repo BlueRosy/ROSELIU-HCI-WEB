@@ -38,7 +38,7 @@ export function SectionHeading({
       <p className="font-mono text-xs uppercase tracking-[0.18em] text-gradient-static">
         {eyebrow}
       </p>
-      <h2 className="mt-3 font-serif text-3xl leading-tight text-navy sm:text-4xl">
+      <h2 className="mt-3 font-serif text-3xl leading-tight text-ink sm:text-4xl">
         {title}
       </h2>
       {intro && <p className="mt-4 text-base leading-relaxed text-slate">{intro}</p>}
@@ -54,7 +54,7 @@ export function Chip({
   tone?: "neutral" | "primary" | "accent";
 }) {
   const tones = {
-    neutral: "border-border bg-white/70 text-slate",
+    neutral: "border-border bg-surface/70 text-slate",
     primary:
       "border-primary/30 bg-primary/10 text-primary-deep",
     accent: "border-accent/40 bg-accent/10 text-accent-deep",

@@ -2,18 +2,17 @@ import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
-/** Blue-white galaxy dust — no pink / purple. */
+/** Warm botanical dust for Research backdrop. */
 export const HERO_GALAXY_PALETTE = [
-  new THREE.Color("#2F80ED"),
-  new THREE.Color("#4499E5"),
-  new THREE.Color("#56CCF2"),
-  new THREE.Color("#6EB8F5"),
-  new THREE.Color("#7EC8E8"),
-  new THREE.Color("#A8D8F0"),
-  new THREE.Color("#B8D4F5"),
-  new THREE.Color("#C4E4FF"),
-  new THREE.Color("#D8F0FF"),
-  new THREE.Color("#EEF6FC"),
+  new THREE.Color("#8F514C"),
+  new THREE.Color("#B9786F"),
+  new THREE.Color("#D4A59E"),
+  new THREE.Color("#8A9275"),
+  new THREE.Color("#A8AD98"),
+  new THREE.Color("#C4C9B8"),
+  new THREE.Color("#E8E2D8"),
+  new THREE.Color("#F8F1E8"),
+  new THREE.Color("#FFFDF8"),
   new THREE.Color("#FFFFFF"),
 ] as const;
 

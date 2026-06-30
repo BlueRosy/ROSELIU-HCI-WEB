@@ -40,7 +40,7 @@ export default function News() {
                   )}
                 </div>
                 {item.title && (
-                  <h3 className="mt-3 font-serif text-xl text-navy">{item.title}</h3>
+                  <h3 className="mt-3 font-serif text-xl text-ink">{item.title}</h3>
                 )}
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-slate">{item.text}</p>
               </article>
@@ -56,7 +56,7 @@ export default function News() {
                 Full timeline
               </h3>
             </Reveal>
-            <ol className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-white/60">
+            <ol className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface/60">
               {timeline.map((item, i) => (
                 <li key={`timeline-${item.date}-${i}`}>
                   <Reveal delay={i * 0.04}>
@@ -65,7 +65,7 @@ export default function News() {
                         {item.date}
                       </span>
                       <div className="flex flex-1 flex-wrap items-baseline gap-x-3 gap-y-2">
-                        <p className="flex-1 text-[15px] leading-relaxed text-navy">
+                        <p className="flex-1 text-[15px] leading-relaxed text-ink">
                           {item.text}
                         </p>
                         {item.tag && (

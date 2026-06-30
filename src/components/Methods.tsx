@@ -16,8 +16,8 @@ export default function Methods() {
         <div className="mt-10 grid gap-5 sm:grid-cols-2">
           {methods.groups.map((group, i) => (
             <Reveal key={group.title} delay={i * 0.06}>
-              <div className="h-full rounded-2xl border border-border bg-white/60 p-7 shadow-soft">
-                <h3 className="font-serif text-lg text-navy">{group.title}</h3>
+              <div className="h-full rounded-2xl border border-border bg-surface/60 p-7 shadow-soft">
+                <h3 className="font-serif text-lg text-ink">{group.title}</h3>
                 <ul className="mt-4 space-y-2">
                   {group.items.map((item) => (
                     <li
@@ -62,7 +62,7 @@ export default function Methods() {
               {methods.technical.map((item) => (
                 <span
                   key={item}
-                  className="rounded-lg border border-border bg-white/70 px-3 py-1 font-mono text-xs text-slate"
+                  className="rounded-lg border border-border bg-surface/70 px-3 py-1 font-mono text-xs text-slate"
                 >
                   {item}
                 </span>

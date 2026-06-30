@@ -25,7 +25,7 @@ export default function Contact() {
         <Reveal delay={0.08}>
           <a
             href={`mailto:${profile.email}`}
-            className="mt-8 inline-block font-serif text-2xl text-navy underline decoration-primary/40 decoration-2 underline-offset-4 transition hover:decoration-accent sm:text-3xl"
+            className="mt-8 inline-block font-serif text-2xl text-ink underline decoration-primary/40 decoration-2 underline-offset-4 transition hover:decoration-accent sm:text-3xl"
           >
             {profile.email}
           </a>
@@ -39,7 +39,7 @@ export default function Contact() {
                 href={s.href}
                 target={s.href.startsWith("mailto") ? undefined : "_blank"}
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-white/70 px-4 py-2 text-sm font-medium text-navy transition hover:border-primary/40 hover:text-primary-deep"
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 px-4 py-2 text-sm font-medium text-ink transition hover:border-primary/40 hover:text-primary-deep"
               >
                 <s.icon size={16} /> {s.label}
               </a>

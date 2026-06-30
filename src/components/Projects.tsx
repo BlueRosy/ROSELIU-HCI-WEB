@@ -35,7 +35,7 @@ function ProjectCard({
       type="button"
       onClick={onOpen}
       aria-haspopup="dialog"
-      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-white/70 text-left shadow-soft transition hover:-translate-y-1 hover:shadow-lift focus-visible:-translate-y-1"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface/70 text-left shadow-soft transition hover:-translate-y-1 hover:shadow-lift focus-visible:-translate-y-1"
     >
       {project.image && (
         <div className="aspect-[16/10] overflow-hidden border-b border-border bg-bg">
@@ -54,7 +54,7 @@ function ProjectCard({
           </span>
         </div>
         <p className="mt-2 font-mono text-xs text-slate">{project.context}</p>
-        <h3 className="mt-2 font-serif text-lg leading-snug text-navy">
+        <h3 className="mt-2 font-serif text-lg leading-snug text-ink">
           {project.title}
         </h3>
         <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate">
@@ -150,7 +150,7 @@ function ProjectModal({
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-white/80 text-navy shadow-soft backdrop-blur transition hover:bg-white"
+          className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-surface/80 text-ink shadow-soft backdrop-blur transition hover:bg-white"
         >
           <X size={18} />
         </button>
@@ -165,7 +165,7 @@ function ProjectModal({
             )}
           </div>
           <p className="mt-3 font-mono text-xs text-slate">{project.context}</p>
-          <h3 className="mt-2 font-serif text-2xl leading-snug text-navy">
+          <h3 className="mt-2 font-serif text-2xl leading-snug text-ink">
             {project.title}
           </h3>
 
@@ -173,14 +173,14 @@ function ProjectModal({
             {project.question}
           </p>
 
-          <p className="mt-4 text-sm leading-relaxed text-navy">
+          <p className="mt-4 text-sm leading-relaxed text-ink">
             <span className="font-medium">Contribution — </span>
             {project.contribution}
           </p>
 
           {project.role && (
             <p className="mt-4 text-sm leading-relaxed text-slate/90">
-              <span className="font-medium text-navy">Role — </span>
+              <span className="font-medium text-ink">Role — </span>
               {project.role}
             </p>
           )}
@@ -234,7 +234,7 @@ function ProjectModal({
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-white px-3.5 py-1.5 text-xs font-medium text-navy transition hover:border-primary/40 hover:text-primary-deep"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-white px-3.5 py-1.5 text-xs font-medium text-ink transition hover:border-primary/40 hover:text-primary-deep"
                 >
                   <Icon size={14} /> {link.label}
                 </a>

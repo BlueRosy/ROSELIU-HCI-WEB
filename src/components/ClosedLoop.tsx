@@ -1,6 +1,7 @@
 import { Suspense, lazy, useRef, useState } from "react";
 import { useInView } from "framer-motion";
 import { loop } from "../content/site";
+import { closedLoopGradient, palette } from "../theme/palette";
 
 const ClosedLoopScene = lazy(() => import("../three/ClosedLoopScene"));
 
@@ -25,9 +26,9 @@ function LoopSVG({ activeKey }: { activeKey: string }) {
     >
       <defs>
         <linearGradient id="loopGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#4499E5" />
-          <stop offset="0.5" stopColor="#6EB8F5" />
-          <stop offset="1" stopColor="#9DD9D9" />
+          <stop offset="0" stopColor={closedLoopGradient.start} />
+          <stop offset="0.5" stopColor={palette.primary} />
+          <stop offset="1" stopColor={closedLoopGradient.end} />
         </linearGradient>
       </defs>
       <circle
@@ -44,7 +45,7 @@ function LoopSVG({ activeKey }: { activeKey: string }) {
         const { x, y } = nodeXY(i, loop.length);
         const isActive = n.key === activeKey;
         const t = loop.length > 1 ? i / (loop.length - 1) : 0;
-        const color = `color-mix(in srgb, #4499E5 ${(1 - t) * 100}%, #9DD9D9)`;
+        const color = `color-mix(in srgb, ${closedLoopGradient.start} ${(1 - t) * 100}%, ${closedLoopGradient.end})`;
         return (
           <g key={n.key}>
             {(isActive || n.current) && (
@@ -120,7 +121,7 @@ export default function ClosedLoop({ enable3D }: { enable3D: boolean }) {
                   className={`flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition ${
                     isActive
                       ? "border-primary/40 bg-primary/10 text-primary-deep"
-                      : "border-border bg-white/60 text-slate hover:border-primary/30"
+                      : "border-border bg-surface/60 text-slate hover:border-primary/30"
                   }`}
                 >
                   <span className="font-mono text-xs opacity-70">
@@ -140,7 +141,7 @@ export default function ClosedLoop({ enable3D }: { enable3D: boolean }) {
 
         <div className="glass mt-6 rounded-2xl p-6 shadow-soft">
           <div className="flex items-center gap-2">
-            <h3 className="font-serif text-xl text-navy">{activeNode.label}</h3>
+            <h3 className="font-serif text-xl text-ink">{activeNode.label}</h3>
             {activeNode.current && (
               <span className="rounded-full bg-accent/15 px-2 py-0.5 font-mono text-[10px] text-accent-deep">
                 current focus

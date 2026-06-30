@@ -44,7 +44,7 @@ export default function CV() {
                         <p className="font-mono text-xs uppercase tracking-[0.14em] text-slate">
                           {h.label}
                         </p>
-                        <p className="mt-1 text-[15px] leading-relaxed text-navy">
+                        <p className="mt-1 text-[15px] leading-relaxed text-ink">
                           {h.text}
                         </p>
                       </div>

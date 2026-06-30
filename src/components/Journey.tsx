@@ -25,7 +25,7 @@ function JourneyEntry({
         <span className="font-mono text-xs text-slate/70">·</span>
         <span className="font-mono text-xs text-slate/70">{stop.place}</span>
       </div>
-      <h4 className="mt-1 font-serif text-lg text-navy">{stop.title}</h4>
+      <h4 className="mt-1 font-serif text-lg text-ink">{stop.title}</h4>
       <p className="mt-1 text-sm leading-relaxed text-slate">{stop.detail}</p>
     </div>
   );
@@ -33,7 +33,7 @@ function JourneyEntry({
 
 export default function Journey() {
   return (
-    <section id="journey" className="section-anchor py-24">
+    <section id="journey" className="section-anchor section-alt py-24">
       <div className="mx-auto max-w-5xl px-5">
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">

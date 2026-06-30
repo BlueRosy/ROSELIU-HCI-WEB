@@ -8,7 +8,7 @@ export function HeroAvatarGlow() {
       className="pointer-events-none absolute inset-x-[8%] bottom-[6%] h-[24%] rounded-full blur-3xl"
       style={{
         background:
-          "radial-gradient(ellipse, rgba(68,153,229,0.28) 0%, rgba(110,184,245,0.18) 45%, rgba(157,217,217,0.14) 75%, transparent 90%)",
+          "radial-gradient(ellipse, rgba(185,120,111,0.24) 0%, rgba(138,146,117,0.16) 45%, rgba(212,165,158,0.12) 75%, transparent 90%)",
       }}
       aria-hidden="true"
     />
@@ -40,7 +40,7 @@ export default function HeroAvatarSlot({
                 <span className="sr-only">Loading 3D avatar</span>
               )}
               {state === "idle" && (
-                <span className="font-serif text-4xl text-navy/15 sm:text-5xl">YL</span>
+                <span className="font-serif text-4xl text-ink/15 sm:text-5xl">YL</span>
               )}
             </div>
           </div>
@@ -49,7 +49,7 @@ export default function HeroAvatarSlot({
 
       {showError && (
         <div className="flex h-full w-full items-center justify-center rounded-2xl bg-gradient-to-br from-primary/12 to-accent/10">
-          <span className="font-serif text-5xl text-navy/25">YL</span>
+          <span className="font-serif text-5xl text-ink/25">YL</span>
           <span className="sr-only">Avatar unavailable</span>
         </div>
       )}

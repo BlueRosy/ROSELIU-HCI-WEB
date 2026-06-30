@@ -4,7 +4,7 @@ import { Reveal, SectionHeading } from "./primitives";
 
 export default function Research({ enable3D }: { enable3D: boolean }) {
   return (
-    <section id="research" className="section-anchor py-24">
+    <section id="research" className="section-anchor section-alt py-24">
       <div className="mx-auto max-w-5xl px-5">
         <Reveal>
           <SectionHeading
@@ -30,7 +30,7 @@ export default function Research({ enable3D }: { enable3D: boolean }) {
               <p className="font-mono text-xs uppercase tracking-[0.16em] text-primary-deep">
                 Research Focus
               </p>
-              <p className="mt-3 font-serif text-lg leading-snug text-navy">
+              <p className="mt-3 font-serif text-lg leading-snug text-ink">
                 {research.focus}
               </p>
             </div>
@@ -41,9 +41,9 @@ export default function Research({ enable3D }: { enable3D: boolean }) {
         <div className="mt-14 grid gap-5 md:grid-cols-2">
           {research.themes.map((t, i) => (
             <Reveal key={t.index} delay={i * 0.08}>
-              <article className="group h-full rounded-2xl border border-border bg-white/70 p-7 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lift">
+              <article className="group h-full rounded-2xl border border-border bg-surface/70 p-7 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lift">
                 <span className="font-mono text-3xl text-primary/40">{t.index}</span>
-                <h3 className="mt-3 font-serif text-xl leading-snug text-navy">
+                <h3 className="mt-3 font-serif text-xl leading-snug text-ink">
                   {t.title}
                 </h3>
                 <p className="mt-3 text-[15px] leading-relaxed text-slate">{t.body}</p>
@@ -53,7 +53,7 @@ export default function Research({ enable3D }: { enable3D: boolean }) {
         </div>
 
         {/* Closed-loop framework exhibit */}
-        <div className="relative mt-20 overflow-hidden rounded-3xl border border-border bg-white/40 p-6 sm:p-10">
+        <div className="relative mt-20 overflow-hidden rounded-3xl border border-border bg-surface/40 p-6 sm:p-10">
           <div
             className="pointer-events-none absolute inset-0 opacity-60"
             style={{
@@ -67,7 +67,7 @@ export default function Research({ enable3D }: { enable3D: boolean }) {
                 <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary-deep">
                   The Loop
                 </p>
-                <h3 className="mt-3 font-serif text-2xl text-navy sm:text-3xl">
+                <h3 className="mt-3 font-serif text-2xl text-ink sm:text-3xl">
                   Sensing &rarr; Interpretation &rarr; Intervention &rarr; Action &rarr; Sustainability &amp; Safety
                 </h3>
                 <p className="mt-3 text-base leading-relaxed text-slate">

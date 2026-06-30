@@ -34,7 +34,7 @@ export default function Nav() {
         <a
           href="#top"
           onClick={closeMenu}
-          className={`flex items-center gap-2 rounded-full px-3 py-1.5 font-serif text-base text-navy transition ${
+          className={`flex items-center gap-2 rounded-full px-3 py-1.5 font-serif text-base text-ink transition ${
             scrolled ? "glass shadow-soft" : ""
           }`}
         >
@@ -66,7 +66,7 @@ export default function Nav() {
           aria-expanded={menuOpen}
           aria-controls="mobile-nav"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
-          className={`flex h-10 w-10 items-center justify-center rounded-full text-navy transition sm:hidden ${
+          className={`flex h-10 w-10 items-center justify-center rounded-full text-ink transition sm:hidden ${
             scrolled || menuOpen ? "glass shadow-soft" : ""
           }`}
         >

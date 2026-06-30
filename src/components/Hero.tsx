@@ -3,23 +3,9 @@ import { motion } from "framer-motion";
 import { ArrowRight, Download, Mail } from "lucide-react";
 import { hero, profile } from "../content/site";
 import { HeroParallaxProvider } from "../hooks/useHeroParallax.tsx";
-import { useHero3D } from "../hooks/useHero3D";
-import HeroSkyBackground from "./HeroSkyBackground";
-import HeroSkyCanvas from "./HeroSkyCanvas";
-import HeroAvatarLoader from "./HeroAvatarLoader";
-import HeroAvatarSlot from "./HeroAvatarSlot";
+import HeroBotanicalBackground from "./HeroBotanicalBackground";
+import HeroBotanicalFigure from "./HeroBotanicalFigure";
 import HeroSignalCards from "./HeroSignalCards";
-
-function HeroFigure() {
-  const hero3D = useHero3D();
-  const use3D = hero3D && profile.heroMode === "3d";
-
-  if (!use3D) {
-    return <HeroAvatarSlot state="idle" />;
-  }
-
-  return <HeroAvatarLoader />;
-}
 
 export default function Hero({ enable3D: _enable3D }: { enable3D: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -32,19 +18,18 @@ export default function Hero({ enable3D: _enable3D }: { enable3D: boolean }) {
         className="relative flex min-h-[92vh] items-center overflow-hidden"
       >
         <div className="pointer-events-none absolute inset-0 z-0">
-          <HeroSkyBackground />
-          <HeroSkyCanvas />
+          <HeroBotanicalBackground />
           <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-bg" />
         </div>
 
-        <div className="relative z-10 mx-auto w-full max-w-5xl px-5 pt-28 pb-16">
+        <div className="relative z-10 mx-auto w-full max-w-5xl px-5 py-28 pb-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="grid items-center gap-8 md:grid-cols-[1fr_420px] md:gap-12"
+            className="grid items-stretch gap-10 md:grid-cols-[1fr_1.05fr] md:gap-8 lg:gap-12"
           >
-            <div className="order-2 md:order-1">
+            <div className="relative z-20 order-2 md:order-1">
               <p className="font-mono text-sm text-slate">
                 <span
                   className="accent-dot mr-2 inline-block h-2 w-2 rounded-full align-middle"
@@ -56,7 +41,7 @@ export default function Hero({ enable3D: _enable3D }: { enable3D: boolean }) {
 
               <h1 className="mt-5 max-w-3xl font-serif text-3xl leading-[1.1] sm:text-4xl md:text-5xl">
                 <span className="text-gradient">{hero.headline}</span>
-                <span className="mt-2 block text-xl font-normal leading-snug text-navy/90 sm:text-2xl md:text-[1.65rem]">
+                <span className="mt-2 block text-xl font-normal leading-snug text-ink/90 sm:text-2xl md:text-[1.65rem]">
                   {hero.headlineSub}
                 </span>
               </h1>
@@ -83,7 +68,7 @@ export default function Hero({ enable3D: _enable3D }: { enable3D: boolean }) {
                   href={profile.cv}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-border bg-white/70 px-5 py-2.5 text-sm font-medium text-navy transition hover:border-primary/50 hover:text-primary-deep"
+                  className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/80 px-5 py-2.5 text-sm font-medium text-ink transition hover:border-primary/50 hover:text-primary-deep"
                 >
                   <Download size={16} /> Download CV
                 </a>
@@ -103,7 +88,7 @@ export default function Hero({ enable3D: _enable3D }: { enable3D: boolean }) {
                   {hero.tags.map((t) => (
                     <span
                       key={t}
-                      className="inline-flex items-center rounded-full border border-border bg-white/70 px-3 py-1 font-mono text-xs text-slate"
+                      className="inline-flex items-center rounded-full border border-border bg-surface/80 px-3 py-1 font-mono text-xs text-slate"
                     >
                       {t}
                     </span>
@@ -112,11 +97,11 @@ export default function Hero({ enable3D: _enable3D }: { enable3D: boolean }) {
               </div>
             </div>
 
-            <div className="order-1 mx-auto w-full max-w-[360px] md:order-2 md:max-w-[440px]">
-              <div className="relative min-h-[320px] overflow-visible md:min-h-[420px]">
-                <div className="relative z-10 overflow-visible rounded-2xl border-0 bg-transparent shadow-none">
-                  <HeroFigure />
-                </div>
+            <div className="relative order-1 min-h-[420px] md:order-2 md:min-h-0">
+              <div className="pointer-events-none absolute inset-0 z-0 overflow-visible">
+                <HeroBotanicalFigure />
+              </div>
+              <div className="relative z-10 h-full min-h-[inherit]">
                 <HeroSignalCards />
               </div>
             </div>

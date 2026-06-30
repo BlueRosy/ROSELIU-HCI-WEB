@@ -3,7 +3,7 @@ import { Chip, Reveal, SectionHeading } from "./primitives";
 
 export default function About() {
   return (
-    <section id="about" className="section-anchor py-24">
+    <section id="about" className="section-anchor section-alt py-24">
       <div className="mx-auto max-w-5xl px-5">
         <div className="grid gap-10 lg:grid-cols-[1fr_0.55fr] lg:items-start">
           <Reveal>
@@ -16,7 +16,7 @@ export default function About() {
                   </p>
                 ))}
                 {profile.seekingPhd && (
-                  <p className="rounded-xl border border-primary/25 bg-primary/[0.06] p-4 text-[15px] leading-relaxed text-navy">
+                  <p className="rounded-xl border border-primary/25 bg-primary/[0.06] p-4 text-[15px] leading-relaxed text-ink">
                     {about.seekingLine}
                   </p>
                 )}
@@ -52,7 +52,7 @@ export default function About() {
                     </div>
                   </div>
                 </div>
-                <p className="font-serif text-lg text-navy">{profile.name}</p>
+                <p className="font-serif text-lg text-ink">{profile.name}</p>
                 <p className="mt-0.5 font-mono text-xs text-slate">{profile.nameZh}</p>
               </div>
 
@@ -63,7 +63,7 @@ export default function About() {
                 {currentLens.map((item) => (
                   <li
                     key={item}
-                    className="flex items-center gap-2 text-[15px] leading-relaxed text-navy"
+                    className="flex items-center gap-2 text-[15px] leading-relaxed text-ink"
                   >
                     <span className="accent-dot inline-block h-2 w-2 shrink-0 rounded-full" />
                     {item}

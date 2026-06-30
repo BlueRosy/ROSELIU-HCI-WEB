@@ -15,9 +15,10 @@ export const profile = {
   heroPhoto: "/Rose-PersonalImage/Rose3.jpg",
   heroArt: "/Rose-PersonalImage/Rose-3D.png",
   aboutPhoto: "/Rose-PersonalImage/Rose.2.jpg",
-  heroMode: "3d" as const,
+  heroMode: "illustration" as const,
+  heroIllustration: "/Rose-PersonalImage/h1.png",
   avatar3d: "/Rose-PersonalImage/chibi-reading.glb",
-  heroParallax: "/Rose-PersonalImage/借鉴.png",
+  heroParallax: "/Rose-PersonalImage/h1.png",
   cv: "/Yanqing_Liu_CV.pdf",
   // TODO(assets): confirm social links
   socials: {

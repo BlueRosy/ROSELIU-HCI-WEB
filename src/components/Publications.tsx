@@ -3,7 +3,7 @@ import { Reveal, SectionHeading, StatusBadge } from "./primitives";
 
 export default function Publications() {
   return (
-    <section id="publications" className="section-anchor py-24">
+    <section id="publications" className="section-anchor section-alt py-24">
       <div className="mx-auto max-w-5xl px-5">
         <Reveal>
           <SectionHeading
@@ -13,7 +13,7 @@ export default function Publications() {
           />
         </Reveal>
 
-        <ul className="mt-10 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-white/60">
+        <ul className="mt-10 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface/60">
           {publications.map((pub) => (
             <li key={pub.title}>
               <Reveal>
@@ -28,7 +28,7 @@ export default function Publications() {
                     </span>
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-serif text-lg leading-snug text-navy">
+                    <h3 className="font-serif text-lg leading-snug text-ink">
                       {pub.title}
                     </h3>
                     <p className="mt-1.5 text-sm text-slate">{pub.authors}</p>

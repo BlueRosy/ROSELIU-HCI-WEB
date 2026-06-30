@@ -2,9 +2,10 @@ import { useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import type { LoopNode } from "../content/site";
+import { palette } from "../theme/palette";
 
-const PRIMARY = new THREE.Color("#6EB8F5");
-const ACCENT = new THREE.Color("#9DD9D9");
+const PRIMARY = new THREE.Color(palette.primaryDeep);
+const ACCENT = new THREE.Color(palette.sage);
 const RADIUS = 2.6;
 
 function nodeColor(i: number, total: number) {
