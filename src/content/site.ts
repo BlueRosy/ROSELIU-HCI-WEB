@@ -20,11 +20,9 @@ export const profile = {
   avatar3d: "/Rose-PersonalImage/chibi-reading.glb",
   heroParallax: "/Rose-PersonalImage/h1.png",
   cv: "/Yanqing_Liu_CV.pdf",
-  // TODO(assets): confirm social links
   socials: {
-    github: "https://github.com/", // TODO
-    linkedin: "https://www.linkedin.com/", // TODO
-    scholar: "https://scholar.google.com/", // TODO
+    github: "https://github.com/BlueRosy",
+    linkedin: "https://www.linkedin.com/in/yanqing-liu-rose",
   },
   // Toggle the "seeking PhD opportunities" line in About
   seekingPhd: true,
@@ -156,6 +154,12 @@ export type ProjectType =
   | "Tool"
   | "Design Research";
 
+export type ProjectScreenshot = {
+  src: string;
+  alt: string;
+  caption?: string;
+};
+
 export type Project = {
   id: string;
   group: "research" | "tool";
@@ -169,8 +173,10 @@ export type Project = {
   role?: string;
   status?: string;
   accessType: AccessType;
-  // TODO(assets): place sanitized screenshots at public/projects/<image>
   image?: string;
+  /** cover = crop to frame; contain = show full mobile UI (Mindful Scroll). */
+  imageFit?: "cover" | "contain";
+  gallery?: ProjectScreenshot[];
   links: ProjectLink[];
 };
 
@@ -198,7 +204,40 @@ export const projects: Project[] = [
     role: "Independently designed & built the simulated platform (React/JS, Dockerized); led the pilot study (N=32) and analysis pipeline.",
     status: "Presentation at DMH 2026 · CHI 2027 manuscript in preparation",
     accessType: "private",
-    image: "/projects/mindful-scroll.svg",
+    image: "/Mindful-Scroll/feed.png",
+    imageFit: "contain",
+    gallery: [
+      {
+        src: "/Mindful-Scroll/consent.png",
+        alt: "Study consent and onboarding",
+        caption: "Consent flow · once",
+      },
+      {
+        src: "/Mindful-Scroll/startday-diary-daily.png",
+        alt: "Morning wellbeing diary",
+        caption: "Morning diary",
+      },
+      {
+        src: "/Mindful-Scroll/feed.png",
+        alt: "Simulated short-form video feed with interaction logging",
+        caption: "Feed · micro-interactions",
+      },
+      {
+        src: "/Mindful-Scroll/ema-diary.png",
+        alt: "EMA diary check-in interface",
+        caption: "EMA · state signals",
+      },
+      {
+        src: "/Mindful-Scroll/endday-reflection.png",
+        alt: "End-of-day reflection prompt",
+        caption: "Evening reflection",
+      },
+      {
+        src: "/Mindful-Scroll/chatbot-juanjuan-conversation.png",
+        alt: "In-app conversational support chat",
+        caption: "Conversational support",
+      },
+    ],
     links: [{ label: "Demo available upon request" }],
   },
   {
@@ -288,12 +327,35 @@ export const projects: Project[] = [
     methods: ["DuckDB-WASM", "React + TypeScript", "ECharts", "Statistical modeling"],
     focus: ["Data analysis", "Visualization", "Regression / model comparison"],
     accessType: "public",
-    image: "/projects/rose-stats-studio.svg",
-    links: [
-      // TODO(assets): add live URL + GitHub
-      { label: "Open live app", href: "#" },
-      { label: "Code", href: "#" },
+    image: "/rose-stats-studio/cover.png",
+    gallery: [
+      {
+        src: "/rose-stats-studio/gallery-correlation.png",
+        alt: "Correlation heatmap and bivariate scatter with regression",
+        caption: "Correlation · heatmap & scatter",
+      },
+      {
+        src: "/rose-stats-studio/gallery-histogram.png",
+        alt: "Histogram visualization with bin controls",
+        caption: "Visualization · histogram",
+      },
+      {
+        src: "/rose-stats-studio/gallery-category.png",
+        alt: "Category cross-tabulation with heatmap and stacked bars",
+        caption: "Category · cross-tab analysis",
+      },
+      {
+        src: "/rose-stats-studio/gallery-regression.png",
+        alt: "Regression model comparison and predicted vs actual plot",
+        caption: "Regression · model comparison",
+      },
+      {
+        src: "/rose-stats-studio/gallery-scatter.png",
+        alt: "Bivariate scatter plot with correlation statistics",
+        caption: "Bivariate · fit & significance",
+      },
     ],
+    links: [{ label: "Open live app", href: "https://rose-data-analysis.vercel.app/" }],
   },
   {
     id: "meal-right",
@@ -308,11 +370,43 @@ export const projects: Project[] = [
     methods: ["React", "HCI design patterns", "Responsive UI"],
     focus: ["Information hierarchy", "Visual feedback", "Accessibility"],
     accessType: "public",
-    image: "/projects/meal-right.svg",
+    image: "/meal-right/cover.png",
+    imageFit: "contain",
+    gallery: [
+      {
+        src: "/meal-right/gallery-welcome.png",
+        alt: "Meal Right welcome landing page",
+        caption: "Welcome · brand entry",
+      },
+      {
+        src: "/meal-right/gallery-signup.png",
+        alt: "Sign-up form with hand-drawn characters",
+        caption: "Sign up · onboarding",
+      },
+      {
+        src: "/meal-right/gallery-login.png",
+        alt: "Login screen with character illustration",
+        caption: "Log in · return visit",
+      },
+      {
+        src: "/meal-right/gallery-food-bag.png",
+        alt: "Food bag dashboard with cooking illustration",
+        caption: "Food bag · daily summary",
+      },
+      {
+        src: "/meal-right/gallery-add-food.png",
+        alt: "Search for meals to add to food bag",
+        caption: "Add food · meal search",
+      },
+      {
+        src: "/meal-right/gallery-diary.png",
+        alt: "Calorie diary empty state",
+        caption: "Cal diary · save foodbag",
+      },
+    ],
     links: [
-      // TODO(assets): add live URL + GitHub
-      { label: "Open live app", href: "#" },
-      { label: "Code", href: "#" },
+      { label: "Open live app", href: "https://mealright.vercel.app/" },
+      { label: "Code", href: "https://github.com/BlueRosy/Meal-Right" },
     ],
   },
 ];

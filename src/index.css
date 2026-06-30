@@ -647,6 +647,53 @@ body {
   animation: signal-card-breathe 5.5s ease-in-out infinite;
 }
 
+.project-preview--contain {
+  background:
+    radial-gradient(
+      120% 80% at 50% 0%,
+      color-mix(in srgb, var(--color-cream) 90%, transparent),
+      var(--color-bg) 70%
+    );
+}
+
+.project-gallery {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.25rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.project-gallery__item {
+  flex: 0 0 min(42%, 11rem);
+  scroll-snap-align: start;
+}
+
+.project-gallery__frame {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  box-shadow: 0 4px 16px rgba(47, 42, 38, 0.06);
+  border-radius: 1rem;
+}
+
+.project-gallery__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.project-gallery__caption {
+  margin-top: 0.5rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-slate);
+}
+
 @keyframes signal-card-breathe {
   0%,
   100% {

@@ -1,4 +1,4 @@
-import { ArrowUp, Code2, Link, Mail, GraduationCap } from "lucide-react";
+import { ArrowUp, Code2, Link, Mail } from "lucide-react";
 import { profile } from "../content/site";
 import { Reveal, SectionHeading } from "./primitives";
 
@@ -7,7 +7,6 @@ export default function Contact() {
     { label: "Email", href: `mailto:${profile.email}`, icon: Mail },
     { label: "GitHub", href: profile.socials.github, icon: Code2 },
     { label: "LinkedIn", href: profile.socials.linkedin, icon: Link },
-    { label: "Scholar", href: profile.socials.scholar, icon: GraduationCap },
   ];
 
   return (

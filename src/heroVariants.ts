@@ -1,20 +1,5 @@
-/** Hero illustration A/B — h5 (interactive vines) vs h8 (static composite). */
-export const HERO_VARIANTS = [
-  { path: "/", label: "h5", src: "/Rose-PersonalImage/h5.png" },
-  { path: "/v5", label: "h8", src: "/Rose-PersonalImage/h8.png" },
-] as const;
-
-export type HeroVariantPath = (typeof HERO_VARIANTS)[number]["path"];
-
-const LEGACY_H5_PATHS = new Set(["/v3"]);
-
-export function heroVariantForPath(pathname: string) {
-  const normalized = pathname.replace(/\/+$/, "") || "/";
-  if (LEGACY_H5_PATHS.has(normalized)) {
-    return HERO_VARIANTS[0];
-  }
-  return HERO_VARIANTS.find((v) => v.path === normalized) ?? HERO_VARIANTS[0];
-}
+/** Default hero illustration — h5 with SVG vine growth. */
+export const HERO_ILLUSTRATION = "/Rose-PersonalImage/h5.png";
 
 export function heroIllustrationId(src: string): string {
   const file = src.split("/").pop()?.split("?")[0] ?? "h5.png";
@@ -26,24 +11,17 @@ export function heroFigureOffsetForSrc(_src: string): number {
   return 0;
 }
 
-/**
- * Two-layer hero exports (same canvas size, pixel-aligned):
- * - figure — character without vines
- * - vines — vines/flowers on transparent background
- */
 export type HeroLayeredAssets = {
   figure: string;
   vines?: string;
 };
 
-/** h5: composite figure + SVG vine growth to signal cards. */
 export const HERO_LAYERED_ASSETS: Partial<Record<string, HeroLayeredAssets>> = {
   h5: {
-    figure: "/Rose-PersonalImage/h5.png",
+    figure: HERO_ILLUSTRATION,
   },
 };
 
-/** Illustrations with SVG vines growing from feet to signal cards. */
 export const HERO_SIGNAL_VINE_GROWTH_IDS = new Set(["h5"]);
 
 export function heroFigureSrc(src: string): string {
@@ -82,5 +60,4 @@ export function heroHasVineOverlay(src: string): boolean {
   return heroVineOverlaySrc(src) !== null;
 }
 
-/** Fired when hero PNG finishes loading — layout hooks can remeasure. */
 export const HERO_FIGURE_LOADED_EVENT = "hero-figure-loaded";

@@ -22,6 +22,58 @@ function linkIcon(label: string): LucideIcon {
   return ExternalLink;
 }
 
+function ProjectPreview({
+  project,
+  className = "",
+}: {
+  project: Project;
+  className?: string;
+}) {
+  if (!project.image) return null;
+  const contain = project.imageFit === "contain";
+
+  return (
+    <div
+      className={`overflow-hidden border-b border-border bg-bg ${contain ? "project-preview--contain" : ""} ${className}`}
+    >
+      <img
+        src={project.image}
+        alt={`${project.title} preview`}
+        loading="lazy"
+        className={
+          contain
+            ? "mx-auto h-full max-h-[min(420px,70vh)] w-auto max-w-[min(100%,280px)] object-contain py-4"
+            : "h-full w-full object-cover"
+        }
+      />
+    </div>
+  );
+}
+
+function ProjectGallery({ project }: { project: Project }) {
+  if (!project.gallery?.length) return null;
+
+  return (
+    <div className="mt-6">
+      <p className="mb-3 font-mono text-xs uppercase tracking-[0.14em] text-slate">
+        Study interface · sanitized screenshots
+      </p>
+      <div className="project-gallery">
+        {project.gallery.map((shot) => (
+          <figure key={shot.src} className="project-gallery__item">
+            <div className="project-gallery__frame">
+              <img src={shot.src} alt={shot.alt} loading="lazy" className="project-gallery__img" />
+            </div>
+            {shot.caption && (
+              <figcaption className="project-gallery__caption">{shot.caption}</figcaption>
+            )}
+          </figure>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /** Compact preview card — click to open full details. */
 function ProjectCard({
   project,
@@ -38,13 +90,8 @@ function ProjectCard({
       className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface/70 text-left shadow-soft transition hover:-translate-y-1 hover:shadow-lift focus-visible:-translate-y-1"
     >
       {project.image && (
-        <div className="aspect-[16/10] overflow-hidden border-b border-border bg-bg">
-          <img
-            src={project.image}
-            alt={`${project.title} preview`}
-            loading="lazy"
-            className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-          />
+        <div className="aspect-[16/10]">
+          <ProjectPreview project={project} className="h-full" />
         </div>
       )}
       <div className="flex flex-1 flex-col p-5">
@@ -137,13 +184,10 @@ function ProjectModal({
         transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
       >
         {project.image && (
-          <div className="aspect-[16/9] overflow-hidden rounded-t-3xl border-b border-border bg-bg">
-            <img
-              src={project.image}
-              alt={`${project.title} preview`}
-              className="h-full w-full object-cover"
-            />
-          </div>
+          <ProjectPreview
+            project={project}
+            className={`rounded-t-3xl ${project.imageFit === "contain" ? "aspect-auto min-h-[280px]" : "aspect-[16/9]"}`}
+          />
         )}
 
         <button
@@ -184,6 +228,8 @@ function ProjectModal({
               {project.role}
             </p>
           )}
+
+          <ProjectGallery project={project} />
 
           <div className="mt-6">
             <p className="mb-2 font-mono text-xs uppercase tracking-[0.14em] text-slate">
