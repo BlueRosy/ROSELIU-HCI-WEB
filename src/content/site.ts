@@ -543,12 +543,58 @@ export const about = {
   ] as const,
   seekingLine: "Seeking PhD opportunities",
   researchWorldLink: {
-    label: "Explore Research World",
-    hint: "An interactive map of my work from signals to support",
+    label: "Explore Research Atlas",
+    hint: "An interactive atlas of my research from signals to support",
     description:
-      "An interactive map of my work from everyday signals to empathic support.",
-    tags: "Signals · States · Support",
+      "An interactive atlas mapping everyday signals to empathic, safety-aware support.",
+    tags: "Signals · States · Support · Closed-loop",
     href: "/signals-to-support",
+  },
+} as const;
+
+export const researchAtlas = {
+  researchQuestion:
+    "How can everyday conversational and behavioral signals become safe, sustainable support?",
+  openingLine:
+    "An interactive map of my research on everyday mental wellbeing.",
+  projectEvidence: [
+    {
+      projectId: "mindful-scroll",
+      mapping: "Signals + States",
+      zones: ["signals", "states"] as const,
+    },
+    {
+      projectId: "cosim",
+      mapping: "States + Support",
+      zones: ["states", "support"] as const,
+    },
+    {
+      projectId: "caregiver",
+      mapping: "Support + Safety",
+      zones: ["support"] as const,
+    },
+    {
+      projectId: "misinfo-sharing",
+      mapping: "Responsible platform design",
+      zones: [] as const,
+    },
+  ],
+  zoneMethods: {
+    signals: [
+      "Interaction log analysis",
+      "Conversational log analysis",
+      "EMA & self-report design",
+    ],
+    states: [
+      "Mixed-methods research",
+      "Behavioral trace analysis",
+      "Thematic analysis",
+    ],
+    support: [
+      "Intervention design",
+      "Qualitative evaluation",
+      "Safety boundary design",
+    ],
   },
 } as const;
 
@@ -600,12 +646,12 @@ export const researchWorldAssets = {
 
 export const researchWorld = {
   title: "Signals to Support",
-  subtitle: "An Interactive Research Map",
+  subtitle: "An Interactive Research Atlas",
   intro:
-    "Explore how my work connects everyday digital traces, emotional states, and safe empathic support.",
+    "A visual atlas of how my work connects everyday digital traces, emotional states, and safe empathic support.",
   entryBody:
-    "Walk a rose garden research world — from everyday signals to emotional understanding and safe support.",
-  entryCta: "Start exploring",
+    "Click through the research pipeline — from signals to states to support — and see how projects evidence a closed-loop agenda.",
+  entryCta: "Explore the atlas",
   backLabel: "Back to Home",
   conventionalCta: "Want the conventional version?",
   zones: [

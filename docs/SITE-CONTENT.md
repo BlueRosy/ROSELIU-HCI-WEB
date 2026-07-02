@@ -4,7 +4,7 @@
 >
 > **不要改：** 以 `<!-- 固定 -->` 或 `路径:` 标注的技术字段（图片路径、链接 id 等），除非你明确要换资源。
 >
-> **当前结构：** 首页以 **About** 为首屏（无 Hero）；沉浸式研究地图在子页 **`/signals-to-support`**。
+> **当前结构：** 首页以 **About** 为首屏（无 Hero）；交互式研究地图在子页 **`/signals-to-support`**（Interactive Research Atlas）。
 
 ---
 
@@ -96,58 +96,41 @@
 
 ---
 
-## 4. Research World 子页 `/signals-to-support`
+## 4. Research Atlas 子页 `/signals-to-support`
 
-**文件：** `src/content/site.ts` → `researchWorld` + `researchWorldAssets` + `signalFlow`  
-**主题：** `src/theme/rwWonderland.ts`（Ivory Wonderland，暖色游戏地图感；主站 palette 不变）
+**文件：** `src/content/site.ts` → `researchWorld` + `researchAtlas` + `signalFlow` + `loop` + `projects`  
+**组件：** `src/components/research-atlas/`（`ResearchAtlasView` · `ResearchAtlasMap` · `ResearchAtlasDetail` · `ResearchAtlasProjects`）  
+**布局壳：** `RWLayout`（子页导航 + 返回首页 + 页脚 CTA）
 
-### 4.1 交互（桌面 + 3D 可用时）
+> 已弃用 Mario 式 WASD 3D 探索（`RWExplorationView` 等仍保留在代码库，但不再挂载）。
 
-- **加载：** `RWLoadingScreen` — 象牙底 + 玫瑰动画 + 进度条（非黑屏）
-- **导览：** `RWIntroOverlay` — 首次进入显示 trail 说明 + Start exploring
-- **全屏探索：** `RWExplorationView` — WASD 走动，走近地标/关卡牌按 **E**，**Esc** 关闭
-- **探索者：** `RWExplorerSilhouette`（暖色象牙斗篷剪影）
-- **区域地台：** `RWZonePlazas` — 五区彩色圆盘 + 粒子
-- **沿路节点：** `RWPathNodes` — focusCards 围绕各地标半圆排列
-- **入口：** `RWEntryPavilion` — 程序化拱门（可被 `entryPavilion` GLB 替换）
-- **终点：** `RWLoopCenter` — 双环 + 5 个 loop 节点柱
-- **底部导航：** `RWZoneProgressBar` — 点击传送
-- **移动端：** `RWMobileFallback` — zone 列表
+### 4.1 页面结构
 
-### 4.2 世界布局（压缩版 Research Trail）
+1. **Opening** — 标题、副标题、研究问题、动态管线示意图  
+2. **Interactive Research Atlas** — 中央 SVG 地图（Signals → States → Support + 外圈 Closed-loop）+ 左侧详情面板  
+3. **Closed-loop** — 复用首页 `ClosedLoop` 组件（2D SVG，无 3D）  
+4. **Project Evidence** — 项目如何支撑 research agenda
 
-| 地标 | 坐标 | Zone |
-|------|------|------|
-| Spawn | (0, 0, 5) | Entry Pavilion |
-| Tree 1 | (-4, 0, -1) | Signals Garden |
-| Tree 2 | (0, 0, -9) | States Observatory |
-| Tree 3 | (4, 0, -17) | Support Sanctuary |
-| Loop | (0, 0, -23) | Closed-loop Center |
+### 4.2 交互
 
-路径：直线脊 `PathRibbon` + 藤蔓 + 粒子。地面 40×40（非 70×70 荒野）。
+- 点击地图节点（Signals / States / Support 或 loop 五步）→ 左侧详情面板更新  
+- 详情含：说明、examples、focusCards、methods、related projects  
+- 无 WASD、无角色、无全屏 3D
 
-### 4.3 3D 资产（`public/research-world-elements/`）
+### 4.3 researchAtlas 数据
 
-| 键 | 原文件名 | 路径 | 用途 |
-|----|----------|------|------|
-| land | — | rose-land/rose-land.png | 地面 overlay + mobile |
-| tree | — | rose-tree-milestone/rose-tree-compressed.glb | 三区主树 |
-| vine | — | rose-vines/rose-vine-compressed.glb | 路径藤蔓 |
-| entryPavilion | entry拱门.glb | entry-pavilion/entry-pavilion-compressed.glb | Entry 入口拱门 |
-| closedLoopCore | loop发光环.glb | closed-loop-core/loop-glow-ring-compressed.glb | Loop 发光环 |
-| loopRelief | 粉色立体浮雕.glb | closed-loop-core/closed-loop-core-compressed.glb | Loop 浮雕 + 节点底座 |
-| observatoryPlatform | observatory观测台.glb | observatory-platform/observatory-platform-compressed.glb | States 观测台 |
-| signalsGardenBed | signals花床.glb | signals-garden-bed/signals-garden-bed-compressed.glb | Signals 区花床 ×4 |
-| supportSanctuary | support亭子.glb | support-sanctuary/support-sanctuary-compressed.glb | Support 庇护亭 |
-| pathStone | path石板.glb | path-stone/path-stone-compressed.glb | 路径石板 ×9 |
-| explorerCloak | 白色斗篷小人.glb | explorer-cloak/explorer-cloak-compressed.glb | 探索者角色 |
-| signalNodeIcon | 粉色立体浮雕.glb | signal-node-icon/signal-node-icon-compressed.glb | 关卡牌底座 |
+| 字段 | 用途 |
+|------|------|
+| `researchQuestion` | Opening 研究问题 |
+| `openingLine` | Opening 副文案 |
+| `zoneMethods` | 各区 Methods 标签 |
+| `projectEvidence` | 项目 → agenda 映射卡片 |
 
-### 4.4 Zones
+### 4.4 Zones（内容仍来自 researchWorld.zones）
 
 Entry → **Signals Garden** → **States Observatory** → **Support Sanctuary** → **Closed-loop Bridge**
 
-每区含 `focusCards`（3D 沿路节点 + overlay 可展开）+ 相关 projects。
+每区含 `focusCards` + 相关 `projectIds`。
 
 ### 4.5 signalFlow 标签
 
@@ -155,7 +138,13 @@ Entry → **Signals Garden** → **States Observatory** → **Support Sanctuary*
 - States: Stress · Emotional shifts · Resistance · Self-disclosure
 - Support: Empathic intervention · Reflection-to-action · Safety boundaries
 
----
+### 4.6 About 入口文案
+
+`about.researchWorldLink` → **Explore Research Atlas** · tags: Signals · States · Support · Closed-loop
+
+### 4.7 遗留 3D 资产（未删除，当前未使用）
+
+`public/research-world-elements/` 下 GLB/贴图仍可用于未来 2.5D isometric 等方案。
 
 ## 5. News
 
