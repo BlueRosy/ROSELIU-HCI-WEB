@@ -7,6 +7,7 @@ export type UniverseSceneState = {
   activeZone: MutableRefObject<string>;
   showProjectCards: MutableRefObject<boolean>;
   parallax: MutableRefObject<{ x: number; y: number }>;
+  invalidate: MutableRefObject<() => void>;
   onProjectSelect: (projectId: string) => void;
 };
 

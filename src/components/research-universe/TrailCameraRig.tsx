@@ -1,6 +1,6 @@
 import { useRef } from "react";
+import type * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
-import * as THREE from "three";
 import { sampleTrailCamera } from "./worldTrailConfig";
 import { useUniverse } from "./UniverseContext";
 
@@ -9,13 +9,11 @@ export default function TrailCameraRig() {
   const { scrollProgress, activeZone, showProjectCards } = useUniverse();
 
   useFrame(() => {
-    const { position, lookAt, activeZone: zone, showProjects } = sampleTrailCamera(
-      scrollProgress.current,
-    );
-    camera.position.copy(position);
-    camera.lookAt(lookAt);
-    activeZone.current = zone;
-    showProjectCards.current = showProjects;
+    const sample = sampleTrailCamera(scrollProgress.current);
+    camera.position.copy(sample.position);
+    camera.lookAt(sample.lookAt);
+    activeZone.current = sample.activeZone;
+    showProjectCards.current = sample.showProjects;
   });
 
   return null;

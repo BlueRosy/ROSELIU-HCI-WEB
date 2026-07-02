@@ -23,7 +23,6 @@ export type TrailStop = {
   zoneId: string;
 };
 
-/** Camera stops along the research trail — scroll scrubs between them. */
 export const TRAIL_STOPS: TrailStop[] = [
   {
     section: "hero",
@@ -57,9 +56,9 @@ export const TRAIL_STOPS: TrailStop[] = [
   },
   {
     section: "projects",
-    pathT: 0.97,
-    lookAt: [0, 2, -20],
-    zoneId: "loop",
+    pathT: 0.96,
+    lookAt: [0, 1.8, -14],
+    zoneId: "projects",
   },
 ];
 
@@ -67,8 +66,16 @@ const _point = new THREE.Vector3();
 const _tangent = new THREE.Vector3();
 const _cam = new THREE.Vector3();
 const _look = new THREE.Vector3();
+const _elev = new THREE.Vector3(0, 3.2, 0);
 
-export function sampleTrailCamera(progress: number) {
+export type TrailCameraSample = {
+  position: THREE.Vector3;
+  lookAt: THREE.Vector3;
+  activeZone: string;
+  showProjects: boolean;
+};
+
+export function sampleTrailCamera(progress: number): TrailCameraSample {
   const n = TRAIL_STOPS.length - 1;
   const scaled = progress * n;
   const i = Math.min(Math.floor(scaled), n - 1);
@@ -80,10 +87,9 @@ export function sampleTrailCamera(progress: number) {
   TRAIL_CURVE.getPointAt(pathT, _point);
   TRAIL_CURVE.getTangentAt(pathT, _tangent);
   _tangent.y = 0;
-  _tangent.normalize();
+  if (_tangent.lengthSq() > 0.0001) _tangent.normalize();
 
-  // Camera sits behind the path point, elevated — like walking the trail
-  _cam.copy(_point).addScaledVector(_tangent, -4.2).add(new THREE.Vector3(0, 3.2, 0));
+  _cam.copy(_point).addScaledVector(_tangent, -4.2).add(_elev);
 
   _look.set(
     a.lookAt[0] + (b.lookAt[0] - a.lookAt[0]) * t,
@@ -91,14 +97,27 @@ export function sampleTrailCamera(progress: number) {
     a.lookAt[2] + (b.lookAt[2] - a.lookAt[2]) * t,
   );
 
-  const activeZone =
-    t < 0.5 ? a.zoneId : b.zoneId;
-  const showProjects = b.section === "projects" && t > 0.4;
+  if (b.section === "projects" && t > 0.35) {
+    _cam.set(0, 5.5, 6);
+    _look.set(0, 0.5, -12);
+  }
+
+  const activeZone = t < 0.5 ? a.zoneId : b.zoneId;
+  const showProjects = b.section === "projects" && t > 0.25;
 
   return {
-    position: _cam.clone(),
-    lookAt: _look.clone(),
+    position: _cam,
+    lookAt: _look,
     activeZone,
     showProjects,
   };
 }
+
+export const TRAIL_STOP_LABELS: Record<ScrollSection, string> = {
+  hero: "Entry",
+  signals: "Signals",
+  states: "States",
+  support: "Support",
+  loop: "Loop",
+  projects: "Projects",
+};

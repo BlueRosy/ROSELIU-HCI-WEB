@@ -548,7 +548,7 @@ export const about = {
     description:
       "Walk a rose-garden research trail — Signals Garden, States Observatory, Support Sanctuary, and Closed-loop Center.",
     tags: "Signals · States · Support · Closed-loop",
-    href: "/signals-to-support",
+    href: "/rose-research-world",
   },
 } as const;
 

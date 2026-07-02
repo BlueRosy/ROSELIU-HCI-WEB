@@ -1,4 +1,5 @@
-import { Suspense, useMemo } from "react";
+import { Suspense, useMemo, useRef } from "react";
+import { useFrame } from "@react-three/fiber";
 import { useGLTF, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import { researchWorldAssets } from "../../content/site";
@@ -13,6 +14,8 @@ import {
   RWSupportSanctuary,
 } from "../research-world/RWZoneAssets";
 import { LANDMARKS } from "../research-world/rwWorldConfig";
+import TrailPetalField from "./TrailPetalField";
+import { useUniverse } from "./UniverseContext";
 import { TRAIL_CURVE } from "./worldTrailConfig";
 
 const GROUND_SIZE = 40;
@@ -84,6 +87,18 @@ function TrailPath() {
 function MilestoneTrees() {
   const { scene } = useGLTF(researchWorldAssets.tree);
   const base = useMemo(() => scene.clone(true), [scene]);
+  const { activeZone } = useUniverse();
+  const lights = useRef<Record<string, THREE.PointLight | null>>({});
+
+  useFrame(() => {
+    for (const lm of LANDMARKS) {
+      if (lm.id === "loop") continue;
+      const light = lights.current[lm.id];
+      if (!light) continue;
+      const lit = activeZone.current === lm.zoneId;
+      light.intensity += ((lit ? 1.1 : 0.45) - light.intensity) * 0.06;
+    }
+  });
 
   return (
     <group>
@@ -91,8 +106,11 @@ function MilestoneTrees() {
         <group key={lm.id} position={lm.position}>
           <primitive object={base.clone(true)} scale={lm.treeScale} />
           <pointLight
+            ref={(el) => {
+              lights.current[lm.id] = el;
+            }}
             position={[0, 2.5, 0]}
-            intensity={0.7}
+            intensity={0.45}
             color={rwWonderland.pathGlow}
             distance={10}
           />
@@ -134,6 +152,11 @@ function WarmSky() {
   );
 }
 
+function TrailZonePlazas() {
+  const { activeZone } = useUniverse();
+  return <RWZonePlazas trailMode activeZoneRef={activeZone} hideLabels />;
+}
+
 export default function ResearchWorldTrailScene() {
   return (
     <Suspense fallback={null}>
@@ -142,7 +165,8 @@ export default function ResearchWorldTrailScene() {
       <TrailPath />
       <TrailVines />
       <MilestoneTrees />
-      <RWZonePlazas />
+      <TrailZonePlazas />
+      <TrailPetalField />
       <RWEntryPavilion />
       <RWSignalsGardenBeds />
       <RWObservatoryPlatform />

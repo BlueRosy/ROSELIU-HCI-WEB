@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Navigate, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 
 const SignalsToSupportPage = lazy(() => import("./pages/SignalsToSupportPage"));
@@ -17,7 +17,11 @@ export default function App() {
     <Suspense fallback={<PageFallback />}>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/signals-to-support" element={<SignalsToSupportPage />} />
+        <Route path="/rose-research-world" element={<SignalsToSupportPage />} />
+        <Route
+          path="/signals-to-support"
+          element={<Navigate to="/rose-research-world" replace />}
+        />
       </Routes>
     </Suspense>
   );

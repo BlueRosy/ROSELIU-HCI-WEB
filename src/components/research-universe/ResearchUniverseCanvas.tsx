@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
 import { rwWonderland } from "../../theme/rwWonderland";
@@ -41,20 +41,28 @@ export default function ResearchUniverseCanvas({
 }: {
   sceneState: UniverseSceneState;
 }) {
+  const invalidateBound = useRef(false);
+
   return (
     <UniverseProvider value={sceneState}>
       <Canvas
         camera={{ position: [0, 4, 9], fov: 48, near: 0.1, far: 80 }}
         dpr={[1, 1.5]}
+        frameloop="demand"
         style={{ pointerEvents: "none" }}
         gl={{
           antialias: true,
           alpha: false,
           powerPreference: "high-performance",
         }}
-        onCreated={({ gl }) => {
+        onCreated={({ gl, invalidate }) => {
           gl.toneMapping = THREE.ACESFilmicToneMapping;
           gl.toneMappingExposure = 1.0;
+          if (!invalidateBound.current) {
+            sceneState.invalidate.current = invalidate;
+            invalidateBound.current = true;
+            invalidate();
+          }
         }}
       >
         <Suspense fallback={null}>
