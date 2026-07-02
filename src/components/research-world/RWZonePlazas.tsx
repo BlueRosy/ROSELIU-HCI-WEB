@@ -1,9 +1,16 @@
 import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Text } from "@react-three/drei";
+import { Text, useTexture } from "@react-three/drei";
 import * as THREE from "three";
+import { researchWorldAssets } from "../../content/site";
 import { rwWonderland } from "../../theme/rwWonderland";
-import { ZONE_PLAZAS } from "./rwWorldConfig";
+import { ZONE_PLAZAS, type ZonePlaza } from "./rwWorldConfig";
+
+const ZONE_PLAZA_TEXTURES: Partial<Record<ZonePlaza["zoneId"], string>> = {
+  signals: researchWorldAssets.zonePlazas.signals,
+  states: researchWorldAssets.zonePlazas.states,
+  support: researchWorldAssets.zonePlazas.support,
+};
 
 function PlazaParticles({
   position,
@@ -56,7 +63,32 @@ function PlazaParticles({
   );
 }
 
-function PlazaDisc({ plaza }: { plaza: (typeof ZONE_PLAZAS)[number] }) {
+function PlazaLabelAndParticles({ plaza }: { plaza: ZonePlaza }) {
+  const hasTexture = Boolean(ZONE_PLAZA_TEXTURES[plaza.zoneId]);
+  return (
+    <>
+      <Text
+        position={[0, 0.5, -plaza.radius + 0.6]}
+        fontSize={0.2}
+        color={rwWonderland.text}
+        anchorX="center"
+        anchorY="middle"
+      >
+        {plaza.label}
+      </Text>
+      <PlazaParticles
+        position={[0, 0, 0]}
+        radius={plaza.radius}
+        color={plaza.particleColor}
+        count={
+          plaza.zoneId === "loop" ? 36 : hasTexture ? 12 : 20
+        }
+      />
+    </>
+  );
+}
+
+function SolidPlazaDisc({ plaza }: { plaza: ZonePlaza }) {
   return (
     <group position={plaza.position}>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, 0]}>
@@ -79,23 +111,59 @@ function PlazaDisc({ plaza }: { plaza: (typeof ZONE_PLAZAS)[number] }) {
           opacity={0.35}
         />
       </mesh>
-      <Text
-        position={[0, 0.5, -plaza.radius + 0.6]}
-        fontSize={0.2}
-        color={rwWonderland.text}
-        anchorX="center"
-        anchorY="middle"
-      >
-        {plaza.label}
-      </Text>
-      <PlazaParticles
-        position={[0, 0, 0]}
-        radius={plaza.radius}
-        color={plaza.particleColor}
-        count={plaza.zoneId === "loop" ? 36 : 20}
-      />
+      <PlazaLabelAndParticles plaza={plaza} />
     </group>
   );
+}
+
+function TexturedPlazaDisc({
+  plaza,
+  texturePath,
+}: {
+  plaza: ZonePlaza;
+  texturePath: string;
+}) {
+  const map = useTexture(texturePath);
+  useMemo(() => {
+    map.wrapS = map.wrapT = THREE.ClampToEdgeWrapping;
+    map.colorSpace = THREE.SRGBColorSpace;
+    map.anisotropy = 4;
+  }, [map]);
+
+  return (
+    <group position={plaza.position}>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, 0]}>
+        <circleGeometry args={[plaza.radius, 64]} />
+        <meshPhysicalMaterial
+          map={map}
+          color="#ffffff"
+          emissive={plaza.emissive}
+          emissiveIntensity={0.08}
+          roughness={0.45}
+          metalness={0.03}
+          transparent
+          opacity={0.88}
+        />
+      </mesh>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.025, 0]}>
+        <ringGeometry args={[plaza.radius - 0.06, plaza.radius, 64]} />
+        <meshBasicMaterial
+          color={rwWonderland.panelBorder}
+          transparent
+          opacity={0.28}
+        />
+      </mesh>
+      <PlazaLabelAndParticles plaza={plaza} />
+    </group>
+  );
+}
+
+function PlazaDisc({ plaza }: { plaza: ZonePlaza }) {
+  const texturePath = ZONE_PLAZA_TEXTURES[plaza.zoneId];
+  if (texturePath) {
+    return <TexturedPlazaDisc plaza={plaza} texturePath={texturePath} />;
+  }
+  return <SolidPlazaDisc plaza={plaza} />;
 }
 
 export default function RWZonePlazas() {

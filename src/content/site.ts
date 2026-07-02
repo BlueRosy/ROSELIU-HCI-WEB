@@ -591,6 +591,11 @@ export const researchWorldAssets = {
     "/research-world-elements/explorer-cloak/explorer-cloak-compressed.glb",
   signalNodeIcon:
     "/research-world-elements/signal-node-icon/signal-node-icon-compressed.glb",
+  zonePlazas: {
+    signals: "/research-world-elements/zone-plazas/signals-plaza.png",
+    states: "/research-world-elements/zone-plazas/states-plaza.png",
+    support: "/research-world-elements/zone-plazas/support-plaza.png",
+  },
 } as const;
 
 export const researchWorld = {
