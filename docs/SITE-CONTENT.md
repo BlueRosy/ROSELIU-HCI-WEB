@@ -61,91 +61,84 @@
 
 ---
 
-## 3. About 首屏（首页 landing）
+## 3. About（单 section，已合并 More）
 
-**文件：** `src/content/site.ts` → `about` + `hero`（headline 复用）
+**文件：** `src/content/site.ts` → `about` + `hero` + `interests` + `currentLens`  
+**组件：** `About.tsx` · `AboutIdentityCard.tsx` · `AboutWorldPortal.tsx` · `AboutBottomCards.tsx`
 
-首页第一个 section 为 About，包含身份、研究主张、CTA 与联系方式。
+**布局：** 左栏 60% 研究身份/CTA · 右栏 40% 两小卡（Identity + Portal）· 底部三卡（Methods / Current Lens / Beyond research）
 
-### 3.1 首屏文案
+### 3.1 左栏
 
-| 字段 | 来源 | 当前内容 |
-|------|------|----------|
-| 姓名 | profile.name / nameZh | Yanqing (Rose) Liu · 刘艳青 |
-| role | profile.role | HCI Researcher · Research Fellow, HII Lab, Duke Kunshan University |
-| headline | hero.headline | From Signals to Support |
-| headlineSub | hero.headlineSub | Building Human-Centered Systems for Everyday Mental Wellbeing |
-| intro | about.intro | I'm Rose — an HCI researcher… |
-| researchInterest | about.researchInterest | Closed-loop systems for everyday mental wellbeing… |
-| researchAreas | about.researchAreas | HCI · Human-Centered AI · Digital Wellbeing · Conversational Support · Emotional & Social Computing |
-
-### 3.2 首屏按钮
-
-| 按钮 | 行为 |
+| 字段 | 来源 |
 |------|------|
-| View Research | 跳转 #research |
-| Download CV | 打开 profile.cv |
-| Explore Research World → | 跳转 `/signals-to-support` |
+| 姓名 / role | profile |
+| headline / headlineSub | hero |
+| intro | about.intro |
+| researchInterest | about.researchInterest（closed-loop focus，含 autonomy/safety） |
+| researchAreas | about.researchAreas chips |
+| CTA | View Research · Download CV |
 
-### 3.3 首屏联系
+### 3.2 右栏（无重复姓名）
 
-Email · GitHub · LinkedIn（来自 `profile.email` / `profile.socials`）
+| 卡片 | 内容 |
+|------|------|
+| Identity card | 头像 · Seeking PhD · phdAreas 关键词 · Email/GitHub/LinkedIn |
+| Portal card | ✦ Explore Research World →（interactive 文案） |
+
+### 3.3 底部三卡
+
+| 卡片 | 内容 |
+|------|------|
+| Methods I use | about.methods |
+| Current Lens | currentLens |
+| Beyond research | interests |
 
 ---
 
-## 4. About 下半 + Research World 子页
+## 4. Research World 子页 `/signals-to-support`
 
-**文件：** `src/content/site.ts` → `about` + `interests` + `currentLens` + `researchWorld` + `signalFlow`
+**文件：** `src/content/site.ts` → `researchWorld` + `researchWorldAssets` + `signalFlow`  
+**主题：** `src/theme/rwWonderland.ts`（Ivory Wonderland，暖色游戏地图感；主站 palette 不变）
 
-### 4.1 About 下半 Section 标题（写在组件里）
+### 4.1 交互（桌面 + 3D 可用时）
 
-| 字段 | 当前内容 |
-|------|----------|
-| eyebrow | More |
-| title | A little about me |
+- **全屏探索：** `RWExplorationView` — WASD 走动，走近地标/沿路关卡牌按 **E** 交互，**Esc** 关闭
+- **探索者：** `RWExplorerSilhouette`（中性剪影，非 Rose Girl）
+- **沿路节点：** `RWPathNodes` — focusCards 玻璃关卡牌分布在路径两侧
+- **底部导航：** `RWZoneProgressBar` — Entry → Signals → States → Support → Loop，点击传送
+- **Zone 面板：** 右下角紧凑浮窗（非全屏遮罩）
+- **移动端 / 无 3D：** `RWMobileFallback` — zone 列表 + rose-land 静态底
 
-### 4.2 正文 bio（一段）
+### 4.2 世界布局
 
-Methodologically, I combine conversational log analysis, behavioral trace analysis, mixed-methods research, and lightweight system prototyping…
+| 地标 | 坐标 | Zone |
+|------|------|------|
+| Spawn | (0, 0, 8) | Entry |
+| Tree 1 | (-6, 0, -2) | Signals Garden |
+| Tree 2 | (0, 0, -14) | States Observatory |
+| Tree 3 | (6, 0, -26) | Support Sanctuary |
+| Loop ring | (0, 0, -34) | Closed-loop Bridge |
 
-### 4.3 PhD 提示框（seekingPhd = true 时显示）
+路径：`PathRibbon` 发光带 + 藤蔓 GLB + 玫瑰金粒子。树上玻璃面板朝向玩家。
 
-I am currently seeking PhD opportunities in HCI, human-centered AI, and digital mental health / wellbeing.
+### 4.3 3D 资产（`public/research-world-elements/`）
 
-### 4.4 Beyond research 兴趣标签
+| 键 | 路径 | 用途 |
+|----|------|------|
+| land | rose-land/rose-land.png | 地面极淡 overlay（6%）+ mobile fallback |
+| tree | rose-tree-milestone/rose-tree-compressed.glb | 三区 milestone ×3 |
+| vine | rose-vines/rose-vine-compressed.glb | 路径藤蔓 |
 
-```
-Singing
-Sports & Fitness
-Travel
-Photography
-```
+桌面探索者使用程序化剪影，不再加载 figureWalk GLB。
 
-### 4.5 Current Lens 列表
+### 4.4 Zones
 
-```
-Emotionally attuned
-Behaviorally grounded
-Autonomy-preserving
-Safety-aware over time
-```
+Entry → **Signals Garden** → **States Observatory** → **Support Sanctuary** → **Closed-loop Bridge**
 
-### 4.6 侧边栏底部 PhD 领域
+每区含 `focusCards`（3D 沿路节点 + overlay 可展开）+ 相关 projects。
 
-来自 `about.phdAreas`：Looking for PhD opportunities in HCI · Human-Centered AI · Digital Wellbeing · Emotional Computing
-
-### 4.7 Research World 子页 `/signals-to-support`
-
-**文件：** `src/content/site.ts` → `researchWorld` + `signalFlow`
-
-| 字段 | 内容 |
-|------|------|
-| title | Signals to Support |
-| subtitle | An Interactive Research Map |
-| entryCta | Start exploring |
-| zones | Entry → Signals → States → Support → Closed loop |
-
-**signalFlow（子页 Signals/States/Support 区标签）：**
+### 4.5 signalFlow 标签
 
 - Signals: Conversational logs · Behavioral traces · Micro-interactions
 - States: Stress · Emotional shifts · Resistance · Self-disclosure

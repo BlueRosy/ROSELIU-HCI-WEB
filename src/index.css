@@ -334,6 +334,22 @@ body {
   }
 }
 
+.about-profile-card {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transform-style: preserve-3d;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .about-profile-card:hover {
+    transform: perspective(900px) rotateX(1.5deg) rotateY(-2deg);
+    box-shadow: 0 12px 40px color-mix(in srgb, var(--color-primary) 12%, transparent);
+  }
+
+  .rw-portal-card:hover {
+    box-shadow: 0 0 24px color-mix(in srgb, var(--color-primary) 18%, transparent);
+  }
+}
+
 .hero-avatar-slot__frame {
   position: absolute;
   inset: 0;

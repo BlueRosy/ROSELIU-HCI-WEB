@@ -27,11 +27,17 @@ export default function RWClosedLoopZone({
         <div className="mb-10">
           <RWZonePanel zone={zone} />
         </div>
-        <div className="relative mx-auto aspect-square w-full max-w-2xl">
-          {!enable3D && <RWZoneFallback zoneId="loop" />}
-          <Suspense fallback={<RWZoneFallback zoneId="loop" />}>
-            <ClosedLoop enable3D={enable3D} />
-          </Suspense>
+        <div className="glass relative mx-auto aspect-square w-full max-w-2xl rounded-2xl border border-border/50 p-4 shadow-soft backdrop-blur-md">
+          {!enable3D && (
+            <div className="absolute inset-0 z-0 overflow-hidden rounded-2xl opacity-30">
+              <RWZoneFallback zoneId="loop" />
+            </div>
+          )}
+          <div className="relative z-10">
+            <Suspense fallback={<RWZoneFallback zoneId="loop" />}>
+              <ClosedLoop enable3D={enable3D} />
+            </Suspense>
+          </div>
         </div>
       </div>
     </section>

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { projects, signalFlow, type ResearchWorldZone } from "../../content/site";
+import RWFocusCards from "./RWFocusCards";
 
 export default function RWZonePanel({
   zone,
@@ -21,7 +22,7 @@ export default function RWZonePanel({
           : [];
 
   return (
-    <div className="glass max-w-md rounded-2xl border border-border/60 p-6 shadow-soft backdrop-blur-md">
+    <div className="glass max-w-lg rounded-2xl border border-border/60 p-6 shadow-soft backdrop-blur-md">
       <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary-deep">
         {zone.label}
       </p>
@@ -41,6 +42,10 @@ export default function RWZonePanel({
         </ul>
       )}
 
+      {zone.focusCards && zone.focusCards.length > 0 && (
+        <RWFocusCards cards={zone.focusCards} />
+      )}
+
       {linkedProjects.length > 0 && (
         <div className="mt-5 border-t border-border pt-4">
           <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-slate">
@@ -51,7 +56,7 @@ export default function RWZonePanel({
               project ? (
                 <li key={project.id}>
                   <Link
-                    to={`/#projects`}
+                    to="/#projects"
                     className="block rounded-lg border border-border/80 bg-surface/50 px-3 py-2 text-sm text-ink transition hover:border-primary/30 hover:bg-primary/5"
                   >
                     <span className="font-medium">{project.title}</span>

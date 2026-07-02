@@ -523,9 +523,9 @@ export const currentLens = [
 
 export const about = {
   intro:
-    "I'm Rose — an HCI researcher and Research Fellow at Duke Kunshan University's HII Lab. I study how conversational and behavioral patterns reveal everyday stress and emotional states, and how these signals can inform safe, long-term, empathic interventions.",
+    "I am an HCI researcher studying how conversational patterns, behavioral traces, and lightweight self-reports can reveal everyday stress and emotional states — and how these signals can inform safe, long-term, empathic interventions.",
   researchInterest:
-    "Closed-loop systems for everyday mental wellbeing: sensing stress from conversational and behavioral signals, interpreting mechanisms, selecting support strategies, and helping users translate reflection into sustainable action.",
+    "My current focus is closed-loop wellbeing systems: sensing everyday signals, interpreting mechanisms, selecting support strategies, and helping people translate reflection into sustainable action while preserving autonomy and safety.",
   researchAreas: [
     "HCI",
     "Human-Centered AI",
@@ -534,18 +534,28 @@ export const about = {
     "Emotional & Social Computing",
   ] as const,
   phdAreas:
-    "Looking for PhD opportunities in HCI · Human-Centered AI · Digital Wellbeing · Emotional Computing",
-  bio: [
-    "Methodologically, I combine conversational log analysis, behavioral trace analysis, mixed-methods research, and lightweight system prototyping. I am particularly interested in reflection-to-action mechanisms: how digital support can help people move from emotional awareness to concrete, low-burden actions while preserving autonomy and safety.",
-  ],
-  seekingLine:
-    "I am currently seeking PhD opportunities in HCI, human-centered AI, and digital mental health / wellbeing.",
+    "HCI · Human-Centered AI · Digital Wellbeing · Emotional Computing",
+  methods: [
+    "Conversational log analysis",
+    "Behavioral trace analysis",
+    "Mixed-methods research",
+    "Lightweight system prototyping",
+  ] as const,
+  seekingLine: "Seeking PhD opportunities",
   researchWorldLink: {
     label: "Explore Research World",
-    hint: "A visual map of my work from signals to support",
+    hint: "An interactive map of my work from signals to support",
+    description:
+      "An interactive map of my work from everyday signals to empathic support.",
+    tags: "Signals · States · Support",
     href: "/signals-to-support",
   },
 } as const;
+
+export type FocusCard = {
+  title: string;
+  body: string;
+};
 
 export type ResearchWorldZone = {
   id: string;
@@ -553,7 +563,16 @@ export type ResearchWorldZone = {
   title: string;
   body: string;
   projectIds?: string[];
+  focusCards?: FocusCard[];
 };
+
+export const researchWorldAssets = {
+  land: "/research-world-elements/rose-land/rose-land.png",
+  tree: "/research-world-elements/rose-tree-milestone/rose-tree-compressed.glb",
+  vine: "/research-world-elements/rose-vines/rose-vine-compressed.glb",
+  figureWalk:
+    "/research-world-elements/Rose_Girl_Rigged_biped/rose-figure-walk-compressed.glb",
+} as const;
 
 export const researchWorld = {
   title: "Signals to Support",
@@ -561,7 +580,7 @@ export const researchWorld = {
   intro:
     "Explore how my work connects everyday digital traces, emotional states, and safe empathic support.",
   entryBody:
-    "Enter a research map of how everyday digital traces become interpretable emotional states and safe, empathic support.",
+    "Walk a rose garden research world — from everyday signals to emotional understanding and safe support.",
   entryCta: "Start exploring",
   backLabel: "Back to Home",
   conventionalCta: "Want the conventional version?",
@@ -574,28 +593,78 @@ export const researchWorld = {
     },
     {
       id: "signals",
-      label: "Signals",
+      label: "Signals Garden",
       title: "Everyday traces",
       body: "Signals are the everyday traces people already leave behind: micro-interactions, conversational patterns, and lightweight self-reports.",
       projectIds: ["mindful-scroll", "cosim", "caregiver"],
+      focusCards: [
+        {
+          title: "Micro-interactions",
+          body: "Swipe, pause, replay, scroll speed, and comment actions on short-form platforms.",
+        },
+        {
+          title: "Conversational logs",
+          body: "Support dialogues, disclosure cues, and emotional language in conversation.",
+        },
+        {
+          title: "Daily self-reports",
+          body: "EMA, stress, anxiety, sleep, and mood check-ins.",
+        },
+      ],
     },
     {
       id: "states",
-      label: "States",
+      label: "States Observatory",
       title: "Emotional understanding",
       body: "I study how these signals can reveal stress, anxiety, emotional shifts, readiness, resistance, and self-disclosure.",
       projectIds: ["mindful-scroll", "misinfo-sharing"],
+      focusCards: [
+        {
+          title: "Stress & anxiety",
+          body: "Everyday, subclinical emotional burden across contexts.",
+        },
+        {
+          title: "Mood shifts",
+          body: "Short-term emotional changes and contextual triggers.",
+        },
+        {
+          title: "Readiness & resistance",
+          body: "When people are — or are not — ready for support.",
+        },
+        {
+          title: "Self-disclosure",
+          body: "How people reveal needs in conversation.",
+        },
+      ],
     },
     {
       id: "support",
-      label: "Support",
+      label: "Support Sanctuary",
       title: "Safe intervention",
       body: "The goal is not only prediction, but support: helping people translate reflection into safe, sustainable action.",
       projectIds: ["mindful-scroll", "cosim", "caregiver"],
+      focusCards: [
+        {
+          title: "Reflection prompts",
+          body: "Helping users notice patterns without cognitive overload.",
+        },
+        {
+          title: "Low-burden actions",
+          body: "Small achievable steps grounded in daily life.",
+        },
+        {
+          title: "Safety boundaries",
+          body: "Autonomy, dependency risk, and long-term wellbeing.",
+        },
+        {
+          title: "Conversational support",
+          body: "Empathic but not over-attached interaction.",
+        },
+      ],
     },
     {
       id: "loop",
-      label: "Closed loop",
+      label: "Closed-loop Bridge",
       title: "Sustaining wellbeing",
       body: "Across my work, I ask how human-centered systems can sense, interpret, support, and sustain everyday mental wellbeing over time.",
     },
