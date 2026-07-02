@@ -522,12 +522,84 @@ export const currentLens = [
 ] as const;
 
 export const about = {
+  intro:
+    "I'm Rose — an HCI researcher and Research Fellow at Duke Kunshan University's HII Lab. I study how conversational and behavioral patterns reveal everyday stress and emotional states, and how these signals can inform safe, long-term, empathic interventions.",
+  researchInterest:
+    "Closed-loop systems for everyday mental wellbeing: sensing stress from conversational and behavioral signals, interpreting mechanisms, selecting support strategies, and helping users translate reflection into sustainable action.",
+  researchAreas: [
+    "HCI",
+    "Human-Centered AI",
+    "Digital Wellbeing",
+    "Conversational Support",
+    "Emotional & Social Computing",
+  ] as const,
+  phdAreas:
+    "Looking for PhD opportunities in HCI · Human-Centered AI · Digital Wellbeing · Emotional Computing",
   bio: [
-    "I am an HCI researcher interested in data-driven digital systems for everyday mental wellbeing. My work examines how conversational and behavioral patterns can reveal stress, emotional shifts, resistance, and self-disclosure, and how these signals can inform safe, sustainable, and empathic interventions.",
     "Methodologically, I combine conversational log analysis, behavioral trace analysis, mixed-methods research, and lightweight system prototyping. I am particularly interested in reflection-to-action mechanisms: how digital support can help people move from emotional awareness to concrete, low-burden actions while preserving autonomy and safety.",
   ],
   seekingLine:
     "I am currently seeking PhD opportunities in HCI, human-centered AI, and digital mental health / wellbeing.",
+  researchWorldLink: {
+    label: "Explore Research World",
+    hint: "A visual map of my work from signals to support",
+    href: "/signals-to-support",
+  },
+} as const;
+
+export type ResearchWorldZone = {
+  id: string;
+  label: string;
+  title: string;
+  body: string;
+  projectIds?: string[];
+};
+
+export const researchWorld = {
+  title: "Signals to Support",
+  subtitle: "An Interactive Research Map",
+  intro:
+    "Explore how my work connects everyday digital traces, emotional states, and safe empathic support.",
+  entryBody:
+    "Enter a research map of how everyday digital traces become interpretable emotional states and safe, empathic support.",
+  entryCta: "Start exploring",
+  backLabel: "Back to Home",
+  conventionalCta: "Want the conventional version?",
+  zones: [
+    {
+      id: "entry",
+      label: "Entry",
+      title: "From Signals to Support",
+      body: "A visual journey through how I connect sensing, interpretation, and empathic intervention in everyday mental wellbeing research.",
+    },
+    {
+      id: "signals",
+      label: "Signals",
+      title: "Everyday traces",
+      body: "Signals are the everyday traces people already leave behind: micro-interactions, conversational patterns, and lightweight self-reports.",
+      projectIds: ["mindful-scroll", "cosim", "caregiver"],
+    },
+    {
+      id: "states",
+      label: "States",
+      title: "Emotional understanding",
+      body: "I study how these signals can reveal stress, anxiety, emotional shifts, readiness, resistance, and self-disclosure.",
+      projectIds: ["mindful-scroll", "misinfo-sharing"],
+    },
+    {
+      id: "support",
+      label: "Support",
+      title: "Safe intervention",
+      body: "The goal is not only prediction, but support: helping people translate reflection into safe, sustainable action.",
+      projectIds: ["mindful-scroll", "cosim", "caregiver"],
+    },
+    {
+      id: "loop",
+      label: "Closed loop",
+      title: "Sustaining wellbeing",
+      body: "Across my work, I ask how human-centered systems can sense, interpret, support, and sustain everyday mental wellbeing over time.",
+    },
+  ] as ResearchWorldZone[],
 } as const;
 
 export type JourneyStop = {

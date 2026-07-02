@@ -4,7 +4,7 @@
 >
 > **不要改：** 以 `<!-- 固定 -->` 或 `路径:` 标注的技术字段（图片路径、链接 id 等），除非你明确要换资源。
 >
-> **当前 Hero：** 仅 **h5**（默认首页 `/`），无 v3 / v8 等其它版本。
+> **当前结构：** 首页以 **About** 为首屏（无 Hero）；沉浸式研究地图在子页 **`/signals-to-support`**。
 
 ---
 
@@ -57,75 +57,56 @@
 
 | 用途 | 路径 |
 |------|------|
-| Hero 插画 | /Rose-PersonalImage/h5.png |
 | About 头像 | /Rose-PersonalImage/Rose.2.jpg |
 
 ---
 
-## 3. Hero（首页首屏）
+## 3. About 首屏（首页 landing）
 
-**文件：** `src/content/site.ts` → `hero` + `signalFlow`
+**文件：** `src/content/site.ts` → `about` + `hero`（headline 复用）
 
-### 3.1 主文案
+首页第一个 section 为 About，包含身份、研究主张、CTA 与联系方式。
 
-| 字段 | 当前内容 |
-|------|----------|
-| headline | From Signals to Support |
-| headlineSub | Building Human-Centered Systems for Everyday Mental Wellbeing |
-| intro | I'm Rose — an HCI researcher and Research Fellow at Duke Kunshan University's HII Lab. I study how conversational and behavioral patterns reveal everyday stress and emotional states, and how these signals can inform safe, long-term, empathic interventions. |
-| researchInterest | Closed-loop systems for everyday mental wellbeing: sensing stress from conversational and behavioral signals, interpreting mechanisms, selecting support strategies, and helping users translate reflection into sustainable action. |
+### 3.1 首屏文案
 
-### 3.2 Research areas 标签（Hero 底部 chips）
+| 字段 | 来源 | 当前内容 |
+|------|------|----------|
+| 姓名 | profile.name / nameZh | Yanqing (Rose) Liu · 刘艳青 |
+| role | profile.role | HCI Researcher · Research Fellow, HII Lab, Duke Kunshan University |
+| headline | hero.headline | From Signals to Support |
+| headlineSub | hero.headlineSub | Building Human-Centered Systems for Everyday Mental Wellbeing |
+| intro | about.intro | I'm Rose — an HCI researcher… |
+| researchInterest | about.researchInterest | Closed-loop systems for everyday mental wellbeing… |
+| researchAreas | about.researchAreas | HCI · Human-Centered AI · Digital Wellbeing · Conversational Support · Emotional & Social Computing |
 
-```
-HCI
-Human-Centered AI
-Digital Wellbeing
-Conversational Support
-Emotional & Social Computing
-```
-
-### 3.3 Hero 按钮
+### 3.2 首屏按钮
 
 | 按钮 | 行为 |
 |------|------|
 | View Research | 跳转 #research |
 | Download CV | 打开 profile.cv |
-| Contact | mailto profile.email |
+| Explore Research World → | 跳转 `/signals-to-support` |
 
-### 3.4 Signal 卡片（Signals → States → Support）
+### 3.3 首屏联系
 
-**pipeline 标题链：** Signals → States → Support
-
-**卡片 1 — Signals**
-- Conversational logs · Behavioral traces · Micro-interactions
-
-**卡片 2 — States**
-- Stress · Emotional shifts · Resistance · Self-disclosure
-
-**卡片 3 — Support**
-- Empathic intervention · Reflection-to-action · Safety boundaries
+Email · GitHub · LinkedIn（来自 `profile.email` / `profile.socials`）
 
 ---
 
-## 4. About
+## 4. About 下半 + Research World 子页
 
-**文件：** `src/content/site.ts` → `about` + `interests` + `currentLens`
+**文件：** `src/content/site.ts` → `about` + `interests` + `currentLens` + `researchWorld` + `signalFlow`
 
-### 4.1 Section 标题（写在组件里）
+### 4.1 About 下半 Section 标题（写在组件里）
 
 | 字段 | 当前内容 |
 |------|----------|
-| eyebrow | About |
+| eyebrow | More |
 | title | A little about me |
 
-### 4.2 正文 bio（两段，按顺序）
+### 4.2 正文 bio（一段）
 
-**段落 1：**  
-I am an HCI researcher interested in data-driven digital systems for everyday mental wellbeing. My work examines how conversational and behavioral patterns can reveal stress, emotional shifts, resistance, and self-disclosure, and how these signals can inform safe, sustainable, and empathic interventions.
-
-**段落 2：**  
-Methodologically, I combine conversational log analysis, behavioral trace analysis, mixed-methods research, and lightweight system prototyping. I am particularly interested in reflection-to-action mechanisms: how digital support can help people move from emotional awareness to concrete, low-burden actions while preserving autonomy and safety.
+Methodologically, I combine conversational log analysis, behavioral trace analysis, mixed-methods research, and lightweight system prototyping…
 
 ### 4.3 PhD 提示框（seekingPhd = true 时显示）
 
@@ -149,9 +130,26 @@ Autonomy-preserving
 Safety-aware over time
 ```
 
-### 4.6 侧边栏底部（写在 About.tsx 组件里）
+### 4.6 侧边栏底部 PhD 领域
 
-Looking for PhD opportunities in HCI · Human-Centered AI · Digital Wellbeing · Emotional Computing
+来自 `about.phdAreas`：Looking for PhD opportunities in HCI · Human-Centered AI · Digital Wellbeing · Emotional Computing
+
+### 4.7 Research World 子页 `/signals-to-support`
+
+**文件：** `src/content/site.ts` → `researchWorld` + `signalFlow`
+
+| 字段 | 内容 |
+|------|------|
+| title | Signals to Support |
+| subtitle | An Interactive Research Map |
+| entryCta | Start exploring |
+| zones | Entry → Signals → States → Support → Closed loop |
+
+**signalFlow（子页 Signals/States/Support 区标签）：**
+
+- Signals: Conversational logs · Behavioral traces · Micro-interactions
+- States: Stress · Emotional shifts · Resistance · Self-disclosure
+- Support: Empathic intervention · Reflection-to-action · Safety boundaries
 
 ---
 

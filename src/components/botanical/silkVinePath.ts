@@ -1,6 +1,6 @@
-import type { Point } from "./heroFootGarden";
+type Point = { x: number; y: number };
 
-/** Silky SVG path builders — same C / S language as `HERO_VINE_PATHS`. */
+/** Silky SVG path builders — same C / S language as hero vine paths. */
 export function silkMove(p: Point): string {
   return `M ${p.x} ${p.y}`;
 }
