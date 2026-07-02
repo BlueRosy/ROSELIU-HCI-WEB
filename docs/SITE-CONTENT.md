@@ -103,34 +103,44 @@
 
 ### 4.1 交互（桌面 + 3D 可用时）
 
-- **全屏探索：** `RWExplorationView` — WASD 走动，走近地标/沿路关卡牌按 **E** 交互，**Esc** 关闭
-- **探索者：** `RWExplorerSilhouette`（中性剪影，非 Rose Girl）
-- **沿路节点：** `RWPathNodes` — focusCards 玻璃关卡牌分布在路径两侧
-- **底部导航：** `RWZoneProgressBar` — Entry → Signals → States → Support → Loop，点击传送
-- **Zone 面板：** 右下角紧凑浮窗（非全屏遮罩）
-- **移动端 / 无 3D：** `RWMobileFallback` — zone 列表 + rose-land 静态底
+- **加载：** `RWLoadingScreen` — 象牙底 + 玫瑰动画 + 进度条（非黑屏）
+- **导览：** `RWIntroOverlay` — 首次进入显示 trail 说明 + Start exploring
+- **全屏探索：** `RWExplorationView` — WASD 走动，走近地标/关卡牌按 **E**，**Esc** 关闭
+- **探索者：** `RWExplorerSilhouette`（暖色象牙斗篷剪影）
+- **区域地台：** `RWZonePlazas` — 五区彩色圆盘 + 粒子
+- **沿路节点：** `RWPathNodes` — focusCards 围绕各地标半圆排列
+- **入口：** `RWEntryPavilion` — 程序化拱门（可被 `entryPavilion` GLB 替换）
+- **终点：** `RWLoopCenter` — 双环 + 5 个 loop 节点柱
+- **底部导航：** `RWZoneProgressBar` — 点击传送
+- **移动端：** `RWMobileFallback` — zone 列表
 
-### 4.2 世界布局
+### 4.2 世界布局（压缩版 Research Trail）
 
 | 地标 | 坐标 | Zone |
 |------|------|------|
-| Spawn | (0, 0, 8) | Entry |
-| Tree 1 | (-6, 0, -2) | Signals Garden |
-| Tree 2 | (0, 0, -14) | States Observatory |
-| Tree 3 | (6, 0, -26) | Support Sanctuary |
-| Loop ring | (0, 0, -34) | Closed-loop Bridge |
+| Spawn | (0, 0, 5) | Entry Pavilion |
+| Tree 1 | (-4, 0, -1) | Signals Garden |
+| Tree 2 | (0, 0, -9) | States Observatory |
+| Tree 3 | (4, 0, -17) | Support Sanctuary |
+| Loop | (0, 0, -23) | Closed-loop Center |
 
-路径：`PathRibbon` 发光带 + 藤蔓 GLB + 玫瑰金粒子。树上玻璃面板朝向玩家。
+路径：直线脊 `PathRibbon` + 藤蔓 + 粒子。地面 40×40（非 70×70 荒野）。
 
 ### 4.3 3D 资产（`public/research-world-elements/`）
 
 | 键 | 路径 | 用途 |
 |----|------|------|
-| land | rose-land/rose-land.png | 地面极淡 overlay（6%）+ mobile fallback |
-| tree | rose-tree-milestone/rose-tree-compressed.glb | 三区 milestone ×3 |
+| land | rose-land/rose-land.png | 地面 6% overlay + mobile |
+| tree | rose-tree-milestone/rose-tree-compressed.glb | 三区主树 |
 | vine | rose-vines/rose-vine-compressed.glb | 路径藤蔓 |
+| entryPavilion | entry-pavilion/entry-pavilion-compressed.glb | 可选 P0 |
+| closedLoopCore | closed-loop-core/closed-loop-core-compressed.glb | 可选 P0 |
+| observatoryPlatform | observatory-platform/observatory-platform-compressed.glb | 可选 P0 |
+| signalsGardenBed | signals-garden-bed/... | 可选 P1 花床 |
+| supportSanctuary | support-sanctuary/... | 可选 P1 庇护亭 |
+| pathStone | path-stone/... | 可选 P1 石板 |
 
-桌面探索者使用程序化剪影，不再加载 figureWalk GLB。
+缺失 GLB 时使用程序化 fallback，站点仍可 build。
 
 ### 4.4 Zones
 

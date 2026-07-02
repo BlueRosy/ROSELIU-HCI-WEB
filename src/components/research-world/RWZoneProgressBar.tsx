@@ -3,6 +3,14 @@ import { rwWonderland } from "../../theme/rwWonderland";
 
 const NAV_ZONES = researchWorld.zones;
 
+const SHORT_LABEL: Record<string, string> = {
+  entry: "Entry",
+  signals: "Signals",
+  states: "States",
+  support: "Support",
+  loop: "Loop",
+};
+
 export default function RWZoneProgressBar({
   activeZoneId,
   onSelect,
@@ -12,7 +20,7 @@ export default function RWZoneProgressBar({
 }) {
   return (
     <nav
-      className="pointer-events-auto fixed bottom-5 left-1/2 z-30 flex max-w-[min(96vw,720px)] -translate-x-1/2 items-center gap-1 overflow-x-auto rounded-full border px-2 py-1.5 backdrop-blur-md"
+      className="pointer-events-auto fixed bottom-5 left-1/2 z-30 flex max-w-[min(96vw,820px)] -translate-x-1/2 items-center gap-1 overflow-x-auto rounded-full border px-2 py-1.5 backdrop-blur-md"
       style={{
         backgroundColor: rwWonderland.hudBg,
         borderColor: rwWonderland.hudBorder,
@@ -32,12 +40,15 @@ export default function RWZoneProgressBar({
               type="button"
               onClick={() => onSelect(zone.id)}
               aria-current={isActive ? "step" : undefined}
-              className="shrink-0 rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.1em] transition"
+              title={zone.label}
+              className={`shrink-0 rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.08em] transition ${
+                isActive ? "animate-pulse" : ""
+              }`}
               style={
                 isActive
                   ? {
-                      borderColor: "rgba(185, 120, 111, 0.5)",
-                      backgroundColor: "rgba(185, 120, 111, 0.15)",
+                      borderColor: "rgba(185, 120, 111, 0.55)",
+                      backgroundColor: "rgba(185, 120, 111, 0.18)",
                       color: rwWonderland.pathGlowBright,
                     }
                   : {
@@ -46,7 +57,7 @@ export default function RWZoneProgressBar({
                     }
               }
             >
-              {zone.id === "entry" ? "Entry" : zone.label.split(" ")[0]}
+              {SHORT_LABEL[zone.id] ?? zone.label}
             </button>
           </div>
         );

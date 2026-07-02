@@ -3,6 +3,8 @@ import * as THREE from "three";
 import { hero, researchWorld } from "../../content/site";
 import { rwWonderland } from "../../theme/rwWonderland";
 import RWCardDetailOverlay from "./RWCardDetailOverlay";
+import RWIntroOverlay from "./RWIntroOverlay";
+import RWLoadingScreen from "./RWLoadingScreen";
 import RWZoneContentOverlay from "./RWZoneContentOverlay";
 import RWZoneProgressBar from "./RWZoneProgressBar";
 import { getTeleportPosition, type PathNode, zoneById } from "./rwWorldConfig";
@@ -11,22 +13,12 @@ import { useRWKeyboard } from "./useRWKeyboard";
 
 const RWWorldCanvas = lazy(() => import("./RWWorldCanvas"));
 
-function LoadingScreen() {
-  return (
-    <div
-      className="flex h-full w-full items-center justify-center"
-      style={{ backgroundColor: rwWonderland.background }}
-    >
-      <p className="font-mono text-sm tracking-[0.2em] text-slate">
-        Entering research world…
-      </p>
-    </div>
-  );
-}
-
 export default function RWExplorationView() {
-  const keysRef = useRWKeyboard(true);
-  const playerPosRef = useRef(new THREE.Vector3(0, 0, 8));
+  const [introDone, setIntroDone] = useState(
+    () => typeof window !== "undefined" && !!localStorage.getItem("rw-intro-seen"),
+  );
+  const keysRef = useRWKeyboard(introDone);
+  const playerPosRef = useRef(new THREE.Vector3(0, 0, 5));
   const teleportTargetRef = useRef<THREE.Vector3 | null>(null);
   const pathNodesRef = useRef<PathNode[]>([]);
   const [nearZoneId, setNearZoneId] = useState<string | null>(null);
@@ -36,11 +28,20 @@ export default function RWExplorationView() {
   const [navZoneId, setNavZoneId] = useState<string | null>("entry");
   const [showHints, setShowHints] = useState(true);
   const [moving, setMoving] = useState(false);
+  const [sceneReady, setSceneReady] = useState(false);
+  const [loadingVisible, setLoadingVisible] = useState(true);
 
   useEffect(() => {
     const t = window.setTimeout(() => setShowHints(false), 5000);
     return () => window.clearTimeout(t);
   }, []);
+
+  useEffect(() => {
+    if (sceneReady) {
+      const t = window.setTimeout(() => setLoadingVisible(false), 900);
+      return () => window.clearTimeout(t);
+    }
+  }, [sceneReady]);
 
   const handleOpenZone = useCallback((zoneId: string) => {
     setActiveCardId(null);
@@ -68,7 +69,7 @@ export default function RWExplorationView() {
   }, [handleClose]);
 
   useRWInteraction({
-    enabled: true,
+    enabled: introDone,
     nearZoneId,
     nearNodeId,
     activeZoneId,
@@ -85,7 +86,9 @@ export default function RWExplorationView() {
 
   return (
     <div className="fixed inset-0 z-0" style={{ backgroundColor: rwWonderland.background }}>
-      <Suspense fallback={<LoadingScreen />}>
+      {loadingVisible && <RWLoadingScreen done={sceneReady} />}
+
+      <Suspense fallback={null}>
         <RWWorldCanvas
           keysRef={keysRef}
           playerPosRef={playerPosRef}
@@ -97,8 +100,11 @@ export default function RWExplorationView() {
           onMovingChange={setMoving}
           teleportTargetRef={teleportTargetRef}
           pathNodesRef={pathNodesRef}
+          onSceneReady={() => setSceneReady(true)}
         />
       </Suspense>
+
+      {!introDone && <RWIntroOverlay onStart={() => setIntroDone(true)} />}
 
       <div className="pointer-events-none fixed inset-0 z-10">
         <div className="absolute left-5 top-28 max-w-xs">
@@ -109,35 +115,39 @@ export default function RWExplorationView() {
           <p className="mt-2 text-sm leading-relaxed text-slate">{hero.headlineSub}</p>
         </div>
 
-        {nearZone && !activeZoneId && !activeCardId && (
+        {introDone && nearZone && !activeZoneId && !activeCardId && (
           <div className="glass absolute left-1/2 top-24 -translate-x-1/2 rounded-full border border-primary/30 px-4 py-2 font-mono text-xs uppercase tracking-[0.14em] text-primary-deep">
             Press E — {nearZone.label}
           </div>
         )}
 
-        {nearNodeId && !nearZoneId && !activeZoneId && !activeCardId && (
+        {introDone && nearNodeId && !nearZoneId && !activeZoneId && !activeCardId && (
           <div className="glass absolute left-1/2 top-24 -translate-x-1/2 rounded-full border border-primary/30 px-4 py-2 font-mono text-xs uppercase tracking-[0.14em] text-primary-deep">
             Press E — read card
           </div>
         )}
 
-        {(nearZoneId || moving) && (
+        {introDone && (nearZoneId || moving) && (
           <p className="absolute bottom-24 left-5 font-mono text-[10px] uppercase tracking-[0.16em] text-slate/80">
             {nearZone ? `Near: ${nearZone.label}` : "Exploring"}
             {moving ? " · walking" : ""}
           </p>
         )}
 
-        <div
-          className={`glass absolute bottom-20 right-4 rounded-full border border-border/60 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.14em] text-slate transition-opacity duration-700 md:bottom-24 ${
-            showHints ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          WASD move · E interact · Esc close
-        </div>
+        {introDone && (
+          <div
+            className={`glass absolute bottom-20 right-4 rounded-full border border-border/60 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.14em] text-slate transition-opacity duration-700 md:bottom-24 ${
+              showHints ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            WASD move · E interact · Esc close
+          </div>
+        )}
       </div>
 
-      <RWZoneProgressBar activeZoneId={navZoneId} onSelect={handleNavSelect} />
+      {introDone && (
+        <RWZoneProgressBar activeZoneId={navZoneId} onSelect={handleNavSelect} />
+      )}
 
       {activeZoneId && (
         <RWZoneContentOverlay zoneId={activeZoneId} onClose={handleClose} />

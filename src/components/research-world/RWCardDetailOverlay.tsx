@@ -32,7 +32,7 @@ export default function RWCardDetailOverlay({
           <X size={14} />
         </button>
         <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-primary-deep">
-          {node.zoneId}
+          {node.category}
         </p>
         <h3 className="mt-1 font-serif text-lg text-ink">{node.title}</h3>
         <p className="mt-2 text-sm leading-relaxed text-slate">{node.body}</p>

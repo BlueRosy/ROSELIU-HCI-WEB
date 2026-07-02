@@ -572,6 +572,19 @@ export const researchWorldAssets = {
   vine: "/research-world-elements/rose-vines/rose-vine-compressed.glb",
   figureWalk:
     "/research-world-elements/Rose_Girl_Rigged_biped/rose-figure-walk-compressed.glb",
+  /** Optional P0 GLBs — procedural fallback when missing */
+  entryPavilion:
+    "/research-world-elements/entry-pavilion/entry-pavilion-compressed.glb",
+  closedLoopCore:
+    "/research-world-elements/closed-loop-core/closed-loop-core-compressed.glb",
+  observatoryPlatform:
+    "/research-world-elements/observatory-platform/observatory-platform-compressed.glb",
+  /** Optional P1 GLBs */
+  signalsGardenBed:
+    "/research-world-elements/signals-garden-bed/signals-garden-bed-compressed.glb",
+  supportSanctuary:
+    "/research-world-elements/support-sanctuary/support-sanctuary-compressed.glb",
+  pathStone: "/research-world-elements/path-stone/path-stone-compressed.glb",
 } as const;
 
 export const researchWorld = {

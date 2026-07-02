@@ -15,6 +15,7 @@ export default function RWWorldCanvas({
   onMovingChange,
   teleportTargetRef,
   pathNodesRef,
+  onSceneReady,
 }: {
   keysRef: React.MutableRefObject<KeyState>;
   playerPosRef: React.MutableRefObject<THREE.Vector3>;
@@ -26,12 +27,13 @@ export default function RWWorldCanvas({
   onMovingChange: (moving: boolean) => void;
   teleportTargetRef: React.MutableRefObject<THREE.Vector3 | null>;
   pathNodesRef: React.MutableRefObject<PathNode[]>;
+  onSceneReady?: () => void;
 }) {
   return (
     <Canvas
       frameloop="always"
       dpr={[1, 1.25]}
-      camera={{ position: [0, 4.5, 15], fov: 42 }}
+      camera={{ position: [0, 4, 11], fov: 44 }}
       gl={{ antialias: true, alpha: false, powerPreference: "high-performance" }}
       className="h-full w-full"
       tabIndex={0}
@@ -48,6 +50,7 @@ export default function RWWorldCanvas({
           onMovingChange={onMovingChange}
           teleportTargetRef={teleportTargetRef}
           pathNodesRef={pathNodesRef}
+          onSceneReady={onSceneReady}
         />
       </Suspense>
     </Canvas>
