@@ -19,13 +19,13 @@ export default function NodeSatellites({
     const count = node.satellites.length;
     return node.satellites.map((label, i) => {
       const angle = (i / count) * Math.PI * 2;
-      const r = 1.1 + (i % 2) * 0.25;
-      return { label, angle, r, y: Math.sin(angle * 2) * 0.15 };
+      const r = 1.25 + (i % 2) * 0.35;
+      return { label, angle, r, y: Math.sin(angle * 2) * 0.2 };
     });
   }, [nodeId]);
 
   useFrame((_, delta) => {
-    if (group.current) group.current.rotation.y += delta * 0.25;
+    if (group.current) group.current.rotation.y += delta * 0.18;
   });
 
   const col = new THREE.Color(color);
@@ -42,13 +42,14 @@ export default function NodeSatellites({
           ]}
         >
           <mesh>
-            <sphereGeometry args={[0.06, 12, 12]} />
-            <meshStandardMaterial
+            <sphereGeometry args={[0.045, 10, 10]} />
+            <meshBasicMaterial
               color={col}
-              emissive={col}
-              emissiveIntensity={0.6}
+              toneMapped={false}
               transparent
-              opacity={0.85}
+              opacity={0.9}
+              blending={THREE.AdditiveBlending}
+              depthWrite={false}
             />
           </mesh>
         </group>

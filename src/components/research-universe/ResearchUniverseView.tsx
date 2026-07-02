@@ -32,6 +32,8 @@ export default function ResearchUniverseView() {
   const activeNode = useRef<UniverseNodeId | null>(null);
   const showProjectCards = useRef(false);
   const parallax = useRef({ x: 0, y: 0 });
+  const parallaxRaf = useRef<number | null>(null);
+  const pending = useRef({ x: 0, y: 0 });
 
   const onProjectSelect = useCallback((projectId: string) => {
     setSelectedProject(projectId);
@@ -50,9 +52,13 @@ export default function ResearchUniverseView() {
     if (!enable3D || !scrollRef.current) return;
 
     const onMouseMove = (e: MouseEvent) => {
-      const nx = (e.clientX / window.innerWidth - 0.5) * 2;
-      const ny = (e.clientY / window.innerHeight - 0.5) * 2;
-      parallax.current = { x: nx, y: ny };
+      pending.current.x = (e.clientX / window.innerWidth - 0.5) * 2;
+      pending.current.y = (e.clientY / window.innerHeight - 0.5) * 2;
+      if (parallaxRaf.current !== null) return;
+      parallaxRaf.current = requestAnimationFrame(() => {
+        parallax.current = { x: pending.current.x, y: pending.current.y };
+        parallaxRaf.current = null;
+      });
     };
     window.addEventListener("mousemove", onMouseMove);
 
@@ -61,7 +67,7 @@ export default function ResearchUniverseView() {
         trigger: scrollRef.current,
         start: "top top",
         end: "bottom bottom",
-        scrub: 1,
+        scrub: 0.6,
         onUpdate: (self) => {
           scrollProgress.current = self.progress;
           const idx = Math.min(
@@ -75,6 +81,7 @@ export default function ResearchUniverseView() {
 
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
+      if (parallaxRaf.current !== null) cancelAnimationFrame(parallaxRaf.current);
       ctx.revert();
     };
   }, [enable3D]);
