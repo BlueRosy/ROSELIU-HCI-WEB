@@ -543,11 +543,11 @@ export const about = {
   ] as const,
   seekingLine: "Seeking PhD opportunities",
   researchWorldLink: {
-    label: "Explore Research Atlas",
-    hint: "An interactive atlas of my research from signals to support",
+    label: "Explore Research Universe",
+    hint: "A cinematic 3D atlas of my research from signals to support",
     description:
-      "An interactive atlas mapping everyday signals to empathic, safety-aware support.",
-    tags: "Signals · States · Support · Closed-loop",
+      "A scroll-driven 3D research universe mapping everyday signals to empathic, safety-aware support.",
+    tags: "Signals · States · Support · Safety · Closed-loop",
     href: "/signals-to-support",
   },
 } as const;
@@ -595,6 +595,95 @@ export const researchAtlas = {
       "Qualitative evaluation",
       "Safety boundary design",
     ],
+  },
+} as const;
+
+export type UniverseNodeId = "signals" | "states" | "support" | "safety";
+
+export type UniverseNode = {
+  id: UniverseNodeId;
+  label: string;
+  color: string;
+  satellites: readonly string[];
+  narrative: {
+    index: string;
+    title: string;
+    body: string;
+  };
+};
+
+export const researchUniverse = {
+  subtitle: "A 3D Research Universe",
+  hero: {
+    title: "From Signals to Support",
+    subtitle: "Building human-centered systems for everyday mental wellbeing.",
+    body: "Explore how everyday traces become emotional understanding and safe support.",
+  },
+  nodes: [
+    {
+      id: "signals",
+      label: "Signals",
+      color: "#8A9275",
+      satellites: [
+        "Conversational logs",
+        "Self-reports",
+        "Micro-interactions",
+        "Behavioral traces",
+      ],
+      narrative: {
+        index: "01",
+        title: "Everyday traces of emotion and behavior",
+        body: "I study conversational logs, self-reports, and micro-interactions as signals of stress, mood shifts, and daily wellbeing.",
+      },
+    },
+    {
+      id: "states",
+      label: "States",
+      color: "#7A8A9A",
+      satellites: ["Stress", "Mood shifts", "Readiness", "Self-disclosure"],
+      narrative: {
+        index: "02",
+        title: "Interpreting emotional and behavioral states",
+        body: "These signals become meaningful when interpreted as states such as stress, anxiety, readiness, and self-disclosure.",
+      },
+    },
+    {
+      id: "support",
+      label: "Support",
+      color: "#B9786F",
+      satellites: [
+        "Reflection prompts",
+        "Empathic responses",
+        "Low-burden actions",
+        "Safety boundaries",
+      ],
+      narrative: {
+        index: "03",
+        title: "Designing low-burden, empathic support",
+        body: "The goal is to help people reflect, act, and receive support without increasing dependency or burden.",
+      },
+    },
+    {
+      id: "safety",
+      label: "Safety",
+      color: "#D4A59E",
+      satellites: [
+        "Autonomy",
+        "Long-term wellbeing",
+        "Responsible AI",
+        "Boundaries",
+      ],
+      narrative: {
+        index: "04",
+        title: "Closed-loop safety over time",
+        body: "Support systems must be sustainable, autonomy-preserving, and safe over time — evaluating retention, dependency risks, and adaptive boundaries.",
+      },
+    },
+  ] as const satisfies readonly UniverseNode[],
+  projectsSection: {
+    index: "05",
+    title: "Projects as evidence",
+    body: "Each project supports a part of the signals-to-support pipeline — not a standalone demo.",
   },
 } as const;
 
@@ -646,7 +735,7 @@ export const researchWorldAssets = {
 
 export const researchWorld = {
   title: "Signals to Support",
-  subtitle: "An Interactive Research Atlas",
+  subtitle: "A 3D Research Universe",
   intro:
     "A visual atlas of how my work connects everyday digital traces, emotional states, and safe empathic support.",
   entryBody:

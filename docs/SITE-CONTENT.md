@@ -4,7 +4,7 @@
 >
 > **不要改：** 以 `<!-- 固定 -->` 或 `路径:` 标注的技术字段（图片路径、链接 id 等），除非你明确要换资源。
 >
-> **当前结构：** 首页以 **About** 为首屏（无 Hero）；交互式研究地图在子页 **`/signals-to-support`**（Interactive Research Atlas）。
+> **当前结构：** 首页以 **About** 为首屏（无 Hero）；**3D Research Universe** 在子页 **`/signals-to-support`**。
 
 ---
 
@@ -96,55 +96,46 @@
 
 ---
 
-## 4. Research Atlas 子页 `/signals-to-support`
+## 4. 3D Research Universe 子页 `/signals-to-support`
 
-**文件：** `src/content/site.ts` → `researchWorld` + `researchAtlas` + `signalFlow` + `loop` + `projects`  
-**组件：** `src/components/research-atlas/`（`ResearchAtlasView` · `ResearchAtlasMap` · `ResearchAtlasDetail` · `ResearchAtlasProjects`）  
-**布局壳：** `RWLayout`（子页导航 + 返回首页 + 页脚 CTA）
+**文件：** `src/content/site.ts` → `researchUniverse` + `researchAtlas` + `researchWorld` + `projects`  
+**组件：** `src/components/research-universe/`（`ResearchUniverseView` · `ResearchUniverseCanvas` · `ScrollNarrative` · `FloatingProjectCards` · `ProjectDetailPanel`）  
+**配置：** `universeConfig.ts`（节点 3D 坐标、镜头关键帧）  
+**布局壳：** `RWLayout`  
+**依赖：** `gsap` + ScrollTrigger（滚动驱动镜头）
 
-> 已弃用 Mario 式 WASD 3D 探索（`RWExplorationView` 等仍保留在代码库，但不再挂载）。
+> Mario 式 WASD 3D 探索（`RWExplorationView`）已弃用。移动端 / reduced-motion 回退到 2D `ResearchAtlasView`。
 
-### 4.1 页面结构
+### 4.1 页面结构（桌面 3D）
 
-1. **Opening** — 标题、副标题、研究问题、动态管线示意图  
-2. **Interactive Research Atlas** — 中央 SVG 地图（Signals → States → Support + 外圈 Closed-loop）+ 左侧详情面板  
-3. **Closed-loop** — 复用首页 `ClosedLoop` 组件（2D SVG，无 3D）  
-4. **Project Evidence** — 项目如何支撑 research agenda
+1. **固定全屏 Canvas** — 发光闭环 + 粒子流 + 四玻璃节点 + 3D 漂浮项目卡  
+2. **滚动叙事层** — 6 段 HTML overlay（Hero → Signals → States → Support → Safety → Projects）  
+3. **GSAP ScrollTrigger** — scrub 镜头路径，无需键盘操作  
+4. **项目侧栏** — 点击 3D 项目卡打开 `ProjectDetailPanel`
 
-### 4.2 交互
+### 4.2 四主节点（researchUniverse.nodes）
 
-- 点击地图节点（Signals / States / Support 或 loop 五步）→ 左侧详情面板更新  
-- 详情含：说明、examples、focusCards、methods、related projects  
-- 无 WASD、无角色、无全屏 3D
+Signals → States → Support → Safety（闭环）
 
-### 4.3 researchAtlas 数据
+每节点含 `satellites` + `narrative`（滚动段文案）
 
-| 字段 | 用途 |
-|------|------|
-| `researchQuestion` | Opening 研究问题 |
-| `openingLine` | Opening 副文案 |
-| `zoneMethods` | 各区 Methods 标签 |
-| `projectEvidence` | 项目 → agenda 映射卡片 |
+### 4.3 Fallback（2D Atlas）
 
-### 4.4 Zones（内容仍来自 researchWorld.zones）
+`useEnable3D()` 为 false 时渲染 `research-atlas/ResearchAtlasView`
 
-Entry → **Signals Garden** → **States Observatory** → **Support Sanctuary** → **Closed-loop Bridge**
+### 4.4 About 入口文案
 
-每区含 `focusCards` + 相关 `projectIds`。
+`about.researchWorldLink` → **Explore Research Universe** · tags: Signals · States · Support · Safety · Closed-loop
 
-### 4.5 signalFlow 标签
+### 4.5 signalFlow 标签（2D fallback 仍使用）
 
 - Signals: Conversational logs · Behavioral traces · Micro-interactions
 - States: Stress · Emotional shifts · Resistance · Self-disclosure
 - Support: Empathic intervention · Reflection-to-action · Safety boundaries
 
-### 4.6 About 入口文案
+### 4.6 遗留资产
 
-`about.researchWorldLink` → **Explore Research Atlas** · tags: Signals · States · Support · Closed-loop
-
-### 4.7 遗留 3D 资产（未删除，当前未使用）
-
-`public/research-world-elements/` 下 GLB/贴图仍可用于未来 2.5D isometric 等方案。
+`public/research-world-elements/` GLB/贴图保留，当前 Universe 页面未使用。
 
 ## 5. News
 
