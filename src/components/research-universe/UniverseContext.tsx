@@ -1,11 +1,10 @@
 import { createContext, useContext, type MutableRefObject } from "react";
-import type { UniverseNodeId } from "../../content/site";
-import type { ScrollSection } from "./universeConfig";
+import type { ScrollSection } from "./worldTrailConfig";
 
 export type UniverseSceneState = {
   scrollProgress: MutableRefObject<number>;
   activeSection: MutableRefObject<ScrollSection>;
-  activeNode: MutableRefObject<UniverseNodeId | null>;
+  activeZone: MutableRefObject<string>;
   showProjectCards: MutableRefObject<boolean>;
   parallax: MutableRefObject<{ x: number; y: number }>;
   onProjectSelect: (projectId: string) => void;

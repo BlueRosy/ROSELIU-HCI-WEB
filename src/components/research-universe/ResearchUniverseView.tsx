@@ -9,12 +9,12 @@ import {
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEnable3D } from "../../hooks/useEnable3D";
-import type { UniverseNodeId } from "../../content/site";
 import ProjectDetailPanel from "./ProjectDetailPanel";
 import ResearchUniverseFallback from "./ResearchUniverseFallback";
 import ScrollNarrative from "./ScrollNarrative";
+import TrailProgressBar from "./TrailProgressBar";
 import type { UniverseSceneState } from "./UniverseContext";
-import { SCROLL_SECTIONS, type ScrollSection } from "./universeConfig";
+import { SCROLL_SECTIONS, type ScrollSection } from "./worldTrailConfig";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,10 +26,11 @@ export default function ResearchUniverseView() {
   const enable3D = useEnable3D();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
+  const [currentSection, setCurrentSection] = useState<ScrollSection>("hero");
 
   const scrollProgress = useRef(0);
   const activeSection = useRef<ScrollSection>("hero");
-  const activeNode = useRef<UniverseNodeId | null>(null);
+  const activeZone = useRef("entry");
   const showProjectCards = useRef(false);
   const parallax = useRef({ x: 0, y: 0 });
   const parallaxRaf = useRef<number | null>(null);
@@ -42,7 +43,7 @@ export default function ResearchUniverseView() {
   const sceneState: UniverseSceneState = {
     scrollProgress,
     activeSection,
-    activeNode,
+    activeZone,
     showProjectCards,
     parallax,
     onProjectSelect,
@@ -67,7 +68,7 @@ export default function ResearchUniverseView() {
         trigger: scrollRef.current,
         start: "top top",
         end: "bottom bottom",
-        scrub: 0.6,
+        scrub: 0.8,
         onUpdate: (self) => {
           scrollProgress.current = self.progress;
           const idx = Math.min(
@@ -75,6 +76,7 @@ export default function ResearchUniverseView() {
             Math.floor(self.progress * SCROLL_SECTIONS.length),
           );
           activeSection.current = SCROLL_SECTIONS[idx];
+          setCurrentSection(SCROLL_SECTIONS[idx]);
         },
       });
     }, scrollRef);
@@ -105,6 +107,8 @@ export default function ResearchUniverseView() {
       <div ref={scrollRef} className="relative z-10">
         <ScrollNarrative />
       </div>
+
+      <TrailProgressBar activeSection={currentSection} />
 
       <ProjectDetailPanel
         projectId={selectedProject}

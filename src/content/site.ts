@@ -543,11 +543,11 @@ export const about = {
   ] as const,
   seekingLine: "Seeking PhD opportunities",
   researchWorldLink: {
-    label: "Explore Research Universe",
-    hint: "A cinematic 3D atlas of my research from signals to support",
+    label: "Explore Research World",
+    hint: "Scroll through an immersive research trail from signals to support",
     description:
-      "A scroll-driven 3D research universe mapping everyday signals to empathic, safety-aware support.",
-    tags: "Signals · States · Support · Safety · Closed-loop",
+      "Walk a rose-garden research trail — Signals Garden, States Observatory, Support Sanctuary, and Closed-loop Center.",
+    tags: "Signals · States · Support · Closed-loop",
     href: "/signals-to-support",
   },
 } as const;
@@ -735,12 +735,12 @@ export const researchWorldAssets = {
 
 export const researchWorld = {
   title: "Signals to Support",
-  subtitle: "A 3D Research Universe",
+  subtitle: "An Immersive Research World",
   intro:
-    "A visual atlas of how my work connects everyday digital traces, emotional states, and safe empathic support.",
+    "Scroll through a rose-garden research trail — from everyday signals to emotional understanding and safe support.",
   entryBody:
-    "Click through the research pipeline — from signals to states to support — and see how projects evidence a closed-loop agenda.",
-  entryCta: "Explore the atlas",
+    "Follow the path through Signals Garden, States Observatory, Support Sanctuary, and the Closed-loop Center.",
+  entryCta: "Begin the journey",
   backLabel: "Back to Home",
   conventionalCta: "Want the conventional version?",
   zones: [

@@ -1,94 +1,110 @@
-import { researchAtlas, researchUniverse, researchWorld } from "../../content/site";
+import { researchAtlas, researchWorld } from "../../content/site";
+import ResearchAtlasProjects from "../research-atlas/ResearchAtlasProjects";
+import { TRAIL_STOPS } from "./worldTrailConfig";
 
 function NarrativeBlock({
-  index,
+  eyebrow,
   title,
   body,
   align = "left",
 }: {
-  index?: string;
+  eyebrow: string;
   title: string;
   body: string;
-  align?: "left" | "center";
+  align?: "left" | "center" | "right";
 }) {
   const alignClass =
-    align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-md";
+    align === "center"
+      ? "mx-auto max-w-xl text-center"
+      : align === "right"
+        ? "ml-auto max-w-md text-right"
+        : "max-w-md";
 
   return (
     <div
       className={`glass rounded-2xl border border-border/50 p-6 shadow-soft backdrop-blur-md sm:p-8 ${alignClass}`}
     >
-      {index && (
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-gradient-static">
-          {index}
-        </p>
-      )}
+      <p className="font-mono text-xs uppercase tracking-[0.2em] text-gradient-static">
+        {eyebrow}
+      </p>
       <h2 className="mt-2 font-serif text-2xl text-ink sm:text-3xl">{title}</h2>
       <p className="mt-3 text-[15px] leading-relaxed text-slate">{body}</p>
     </div>
   );
 }
 
+const SECTION_ALIGN: Record<string, "left" | "center" | "right"> = {
+  hero: "center",
+  signals: "left",
+  states: "center",
+  support: "right",
+  loop: "center",
+};
+
 export default function ScrollNarrative() {
+  const narrativeStops = TRAIL_STOPS.filter((s) => s.section !== "projects");
+
   return (
     <div className="pointer-events-none">
-      {/* Hero */}
-      <section
-        data-section="hero"
-        className="flex min-h-screen items-center justify-center px-5 pt-24"
-      >
-        <div className="pointer-events-auto mx-auto max-w-2xl text-center">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-gradient-static">
-            {researchWorld.subtitle}
-          </p>
-          <h1 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">
-            {researchUniverse.hero.title}
-          </h1>
-          <p className="mt-3 text-lg text-slate">{researchUniverse.hero.subtitle}</p>
-          <p className="mt-4 text-base leading-relaxed text-slate">
-            {researchUniverse.hero.body}
-          </p>
-          <p className="mx-auto mt-6 max-w-lg rounded-2xl border border-primary/20 bg-primary/5 px-5 py-4 font-serif text-lg italic text-ink">
-            {researchAtlas.researchQuestion}
-          </p>
-        </div>
-      </section>
+      {narrativeStops.map((stop, i) => {
+        const zone = researchWorld.zones.find((z) => z.id === stop.zoneId);
+        if (!zone) return null;
+        const align = SECTION_ALIGN[stop.section] ?? "left";
+        const index = String(i + 1).padStart(2, "0");
 
-      {researchUniverse.nodes.map((node) => (
-        <section
-          key={node.id}
-          data-section={node.id}
-          className="flex min-h-screen items-center px-5 py-20"
-        >
-          <NarrativeBlock
-            index={node.narrative.index}
-            title={node.narrative.title}
-            body={node.narrative.body}
-            align={node.id === "states" || node.id === "safety" ? "center" : "left"}
-          />
-        </section>
-      ))}
+        return (
+          <section
+            key={stop.section}
+            data-section={stop.section}
+            className="flex min-h-screen items-center px-5 py-20 pt-28"
+          >
+            {stop.section === "hero" ? (
+              <div className="pointer-events-auto mx-auto max-w-2xl text-center">
+                <p className="font-mono text-xs uppercase tracking-[0.2em] text-gradient-static">
+                  {researchWorld.subtitle}
+                </p>
+                <h1 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">
+                  {researchWorld.title}
+                </h1>
+                <p className="mt-4 text-base leading-relaxed text-slate sm:text-lg">
+                  {researchWorld.intro}
+                </p>
+                <p className="mx-auto mt-6 max-w-lg rounded-2xl border border-primary/20 bg-primary/5 px-5 py-4 font-serif text-lg italic text-ink">
+                  {researchAtlas.researchQuestion}
+                </p>
+                <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.14em] text-slate">
+                  ↓ Scroll to walk the trail
+                </p>
+              </div>
+            ) : (
+              <NarrativeBlock
+                eyebrow={`${index} · ${zone.label}`}
+                title={zone.title}
+                body={zone.body}
+                align={align}
+              />
+            )}
+          </section>
+        );
+      })}
 
-      {/* Projects */}
       <section
         data-section="projects"
-        className="flex min-h-screen items-center justify-center px-5 py-20"
+        className="pointer-events-auto flex min-h-screen flex-col items-center justify-center px-5 py-20"
       >
-        <div className="pointer-events-auto mx-auto max-w-lg text-center">
-          <NarrativeBlock
-            index={researchUniverse.projectsSection.index}
-            title={researchUniverse.projectsSection.title}
-            body={researchUniverse.projectsSection.body}
-            align="center"
-          />
-          <p className="mt-6 font-mono text-xs text-slate">
-            Click a floating card in the scene to open project details →
+        <div className="mb-10 max-w-lg text-center">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-gradient-static">
+            06 · Project evidence
           </p>
+          <h2 className="mt-2 font-serif text-3xl text-ink">How projects support the agenda</h2>
+          <p className="mt-3 text-slate">{researchAtlas.researchQuestion}</p>
+        </div>
+        <div className="w-full max-w-4xl">
+          <ResearchAtlasProjects />
         </div>
       </section>
 
-      {/* Spacer for footer scroll */}
-      <div className="h-[40vh]" aria-hidden />
+      <div className="h-[35vh]" aria-hidden />
     </div>
   );
 }
