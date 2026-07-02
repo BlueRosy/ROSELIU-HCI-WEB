@@ -11,6 +11,12 @@ import RWPathNodes from "./RWPathNodes";
 import RWTreePanels from "./RWTreePanels";
 import RWZonePlazas from "./RWZonePlazas";
 import {
+  RWObservatoryPlatform,
+  RWPathStones,
+  RWSignalsGardenBeds,
+  RWSupportSanctuary,
+} from "./RWZoneAssets";
+import {
   findNearestLandmark,
   findNearestPathNode,
   LANDMARKS,
@@ -289,6 +295,10 @@ export default function RWWorldScene({
       <PathParticles />
       <RWEntryPavilion />
       <MilestoneTrees />
+      <RWObservatoryPlatform />
+      <RWSignalsGardenBeds />
+      <RWSupportSanctuary />
+      <RWPathStones />
       <RWLoopCenter />
       <VinePath />
       <RWPathNodes
@@ -314,3 +324,12 @@ export default function RWWorldScene({
 
 useGLTF.preload(researchWorldAssets.tree);
 useGLTF.preload(researchWorldAssets.vine);
+useGLTF.preload(researchWorldAssets.explorerCloak);
+useGLTF.preload(researchWorldAssets.entryPavilion);
+useGLTF.preload(researchWorldAssets.observatoryPlatform);
+useGLTF.preload(researchWorldAssets.signalsGardenBed);
+useGLTF.preload(researchWorldAssets.supportSanctuary);
+useGLTF.preload(researchWorldAssets.pathStone);
+useGLTF.preload(researchWorldAssets.closedLoopCore);
+useGLTF.preload(researchWorldAssets.loopRelief);
+useGLTF.preload(researchWorldAssets.signalNodeIcon);

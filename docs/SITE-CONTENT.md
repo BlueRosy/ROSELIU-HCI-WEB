@@ -128,19 +128,20 @@
 
 ### 4.3 3D 资产（`public/research-world-elements/`）
 
-| 键 | 路径 | 用途 |
-|----|------|------|
-| land | rose-land/rose-land.png | 地面 6% overlay + mobile |
-| tree | rose-tree-milestone/rose-tree-compressed.glb | 三区主树 |
-| vine | rose-vines/rose-vine-compressed.glb | 路径藤蔓 |
-| entryPavilion | entry-pavilion/entry-pavilion-compressed.glb | 可选 P0 |
-| closedLoopCore | closed-loop-core/closed-loop-core-compressed.glb | 可选 P0 |
-| observatoryPlatform | observatory-platform/observatory-platform-compressed.glb | 可选 P0 |
-| signalsGardenBed | signals-garden-bed/... | 可选 P1 花床 |
-| supportSanctuary | support-sanctuary/... | 可选 P1 庇护亭 |
-| pathStone | path-stone/... | 可选 P1 石板 |
-
-缺失 GLB 时使用程序化 fallback，站点仍可 build。
+| 键 | 原文件名 | 路径 | 用途 |
+|----|----------|------|------|
+| land | — | rose-land/rose-land.png | 地面 overlay + mobile |
+| tree | — | rose-tree-milestone/rose-tree-compressed.glb | 三区主树 |
+| vine | — | rose-vines/rose-vine-compressed.glb | 路径藤蔓 |
+| entryPavilion | entry拱门.glb | entry-pavilion/entry-pavilion-compressed.glb | Entry 入口拱门 |
+| closedLoopCore | loop发光环.glb | closed-loop-core/loop-glow-ring-compressed.glb | Loop 发光环 |
+| loopRelief | 粉色立体浮雕.glb | closed-loop-core/closed-loop-core-compressed.glb | Loop 浮雕 + 节点底座 |
+| observatoryPlatform | observatory观测台.glb | observatory-platform/observatory-platform-compressed.glb | States 观测台 |
+| signalsGardenBed | signals花床.glb | signals-garden-bed/signals-garden-bed-compressed.glb | Signals 区花床 ×4 |
+| supportSanctuary | support亭子.glb | support-sanctuary/support-sanctuary-compressed.glb | Support 庇护亭 |
+| pathStone | path石板.glb | path-stone/path-stone-compressed.glb | 路径石板 ×9 |
+| explorerCloak | 白色斗篷小人.glb | explorer-cloak/explorer-cloak-compressed.glb | 探索者角色 |
+| signalNodeIcon | 粉色立体浮雕.glb | signal-node-icon/signal-node-icon-compressed.glb | 关卡牌底座 |
 
 ### 4.4 Zones
 

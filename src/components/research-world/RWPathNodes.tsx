@@ -2,8 +2,9 @@ import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
 import * as THREE from "three";
-import { researchWorld } from "../../content/site";
+import { researchWorld, researchWorldAssets } from "../../content/site";
 import { rwWonderland } from "../../theme/rwWonderland";
+import { useNormalizedGltf } from "./RWGltfModel";
 import { buildPathNodes, type PathNode } from "./rwWorldConfig";
 
 function PathNodeCard({
@@ -25,8 +26,13 @@ function PathNodeCard({
     group.current.lookAt(p.x, group.current.position.y, p.z);
   });
 
+  const podium = useNormalizedGltf(researchWorldAssets.signalNodeIcon, 0.45);
+
   return (
     <group ref={group} position={node.position}>
+      <group position={[0, -0.55, 0]}>
+        <primitive object={podium.clone(true)} />
+      </group>
       <mesh>
         <boxGeometry args={[1.25, 0.62, 0.04]} />
         <meshPhysicalMaterial

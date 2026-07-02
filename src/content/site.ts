@@ -576,6 +576,8 @@ export const researchWorldAssets = {
   entryPavilion:
     "/research-world-elements/entry-pavilion/entry-pavilion-compressed.glb",
   closedLoopCore:
+    "/research-world-elements/closed-loop-core/loop-glow-ring-compressed.glb",
+  loopRelief:
     "/research-world-elements/closed-loop-core/closed-loop-core-compressed.glb",
   observatoryPlatform:
     "/research-world-elements/observatory-platform/observatory-platform-compressed.glb",
@@ -585,6 +587,10 @@ export const researchWorldAssets = {
   supportSanctuary:
     "/research-world-elements/support-sanctuary/support-sanctuary-compressed.glb",
   pathStone: "/research-world-elements/path-stone/path-stone-compressed.glb",
+  explorerCloak:
+    "/research-world-elements/explorer-cloak/explorer-cloak-compressed.glb",
+  signalNodeIcon:
+    "/research-world-elements/signal-node-icon/signal-node-icon-compressed.glb",
 } as const;
 
 export const researchWorld = {
