@@ -10,6 +10,7 @@ import type { ScrollSection } from "./worldTrailConfig";
 export function useTrailKeyboard(
   currentSection: ScrollSection,
   scrollTriggerRef: MutableRefObject<ScrollTrigger | null>,
+  invalidateRef: MutableRefObject<() => void>,
 ) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -30,10 +31,12 @@ export function useTrailKeyboard(
       const target = forward
         ? nextSection(currentSection)
         : prevSection(currentSection);
-      scrollToSection(target, scrollTriggerRef.current);
+      scrollToSection(target, scrollTriggerRef.current, {
+        invalidate: () => invalidateRef.current(),
+      });
     };
 
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [currentSection, scrollTriggerRef]);
+  }, [currentSection, scrollTriggerRef, invalidateRef]);
 }

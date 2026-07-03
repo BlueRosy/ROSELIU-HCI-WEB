@@ -3,6 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
 import { rwWonderland } from "../../theme/rwWonderland";
 import ResearchWorldTrailScene from "./ResearchWorldTrailScene";
+import TrailAnimationDriver from "./TrailAnimationDriver";
 import TrailCameraRig, { SceneParallaxGroup } from "./TrailCameraRig";
 import type { UniverseSceneState } from "./UniverseContext";
 import { UniverseProvider } from "./UniverseContext";
@@ -29,6 +30,7 @@ function Scene() {
       <directionalLight position={[-6, 8, -4]} intensity={0.35} color={rwWonderland.rim} />
 
       <TrailCameraRig />
+      <TrailAnimationDriver />
       <SceneParallaxGroup>
         <ResearchWorldTrailScene />
       </SceneParallaxGroup>

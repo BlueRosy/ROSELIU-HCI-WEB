@@ -98,8 +98,9 @@ export function sampleTrailCamera(progress: number): TrailCameraSample {
   );
 
   if (b.section === "projects" && t > 0.35) {
-    _cam.set(0, 5.5, 6);
-    _look.set(0, 0.5, -12);
+    const blend = Math.min(1, (t - 0.35) / 0.65);
+    _cam.set(0, 4.2 + blend * 2.3, -8 - blend * 2);
+    _look.set(0, 1.2 + blend * 0.3, -23);
   }
 
   const activeZone = t < 0.5 ? a.zoneId : b.zoneId;

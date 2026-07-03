@@ -119,10 +119,12 @@ function PlazaLabelAndParticles({
 function SolidPlazaDisc({
   plaza,
   hideLabels,
+  hideDiscs,
   activeZoneRef,
 }: {
   plaza: ZonePlaza;
   hideLabels?: boolean;
+  hideDiscs?: boolean;
   activeZoneRef?: MutableRefObject<string>;
 }) {
   const discMat = useRef<THREE.MeshPhysicalMaterial>(null);
@@ -139,27 +141,31 @@ function SolidPlazaDisc({
 
   return (
     <group position={plaza.position}>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, 0]}>
-        <circleGeometry args={[plaza.radius, 48]} />
-        <meshPhysicalMaterial
-          ref={discMat}
-          color={plaza.color}
-          emissive={plaza.emissive}
-          emissiveIntensity={0.12}
-          roughness={0.35}
-          metalness={0.05}
-          transparent
-          opacity={0.72}
-        />
-      </mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.025, 0]}>
-        <ringGeometry args={[plaza.radius - 0.05, plaza.radius, 64]} />
-        <meshBasicMaterial
-          color={rwWonderland.panelBorder}
-          transparent
-          opacity={0.35}
-        />
-      </mesh>
+      {!hideDiscs && (
+        <>
+          <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, 0]}>
+            <circleGeometry args={[plaza.radius, 48]} />
+            <meshPhysicalMaterial
+              ref={discMat}
+              color={plaza.color}
+              emissive={plaza.emissive}
+              emissiveIntensity={0.12}
+              roughness={0.35}
+              metalness={0.05}
+              transparent
+              opacity={0.72}
+            />
+          </mesh>
+          <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.025, 0]}>
+            <ringGeometry args={[plaza.radius - 0.05, plaza.radius, 64]} />
+            <meshBasicMaterial
+              color={rwWonderland.panelBorder}
+              transparent
+              opacity={0.35}
+            />
+          </mesh>
+        </>
+      )}
       <PlazaLabelAndParticles
         plaza={plaza}
         hideLabels={hideLabels}
@@ -173,11 +179,13 @@ function TexturedPlazaDisc({
   plaza,
   texturePath,
   hideLabels,
+  hideDiscs,
   activeZoneRef,
 }: {
   plaza: ZonePlaza;
   texturePath: string;
   hideLabels?: boolean;
+  hideDiscs?: boolean;
   activeZoneRef?: MutableRefObject<string>;
 }) {
   const map = useTexture(texturePath);
@@ -201,28 +209,32 @@ function TexturedPlazaDisc({
 
   return (
     <group position={plaza.position}>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, 0]}>
-        <circleGeometry args={[plaza.radius, 64]} />
-        <meshPhysicalMaterial
-          ref={discMat}
-          map={map}
-          color="#ffffff"
-          emissive={plaza.emissive}
-          emissiveIntensity={0.08}
-          roughness={0.45}
-          metalness={0.03}
-          transparent
-          opacity={0.88}
-        />
-      </mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.025, 0]}>
-        <ringGeometry args={[plaza.radius - 0.06, plaza.radius, 64]} />
-        <meshBasicMaterial
-          color={rwWonderland.panelBorder}
-          transparent
-          opacity={0.28}
-        />
-      </mesh>
+      {!hideDiscs && (
+        <>
+          <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, 0]}>
+            <circleGeometry args={[plaza.radius, 64]} />
+            <meshPhysicalMaterial
+              ref={discMat}
+              map={map}
+              color="#ffffff"
+              emissive={plaza.emissive}
+              emissiveIntensity={0.08}
+              roughness={0.45}
+              metalness={0.03}
+              transparent
+              opacity={0.88}
+            />
+          </mesh>
+          <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.025, 0]}>
+            <ringGeometry args={[plaza.radius - 0.06, plaza.radius, 64]} />
+            <meshBasicMaterial
+              color={rwWonderland.panelBorder}
+              transparent
+              opacity={0.28}
+            />
+          </mesh>
+        </>
+      )}
       <PlazaLabelAndParticles
         plaza={plaza}
         hideLabels={hideLabels}
@@ -235,10 +247,12 @@ function TexturedPlazaDisc({
 function PlazaDisc({
   plaza,
   hideLabels,
+  hideDiscs,
   activeZoneRef,
 }: {
   plaza: ZonePlaza;
   hideLabels?: boolean;
+  hideDiscs?: boolean;
   activeZoneRef?: MutableRefObject<string>;
 }) {
   const texturePath = ZONE_PLAZA_TEXTURES[plaza.zoneId];
@@ -248,6 +262,7 @@ function PlazaDisc({
         plaza={plaza}
         texturePath={texturePath}
         hideLabels={hideLabels}
+        hideDiscs={hideDiscs}
         activeZoneRef={activeZoneRef}
       />
     );
@@ -256,6 +271,7 @@ function PlazaDisc({
     <SolidPlazaDisc
       plaza={plaza}
       hideLabels={hideLabels}
+      hideDiscs={hideDiscs}
       activeZoneRef={activeZoneRef}
     />
   );
@@ -265,12 +281,14 @@ type RWZonePlazasProps = {
   trailMode?: boolean;
   activeZoneRef?: MutableRefObject<string>;
   hideLabels?: boolean;
+  hideDiscs?: boolean;
 };
 
 export default function RWZonePlazas({
   trailMode = false,
   activeZoneRef,
   hideLabels = false,
+  hideDiscs = false,
 }: RWZonePlazasProps) {
   const zoneRef = trailMode ? activeZoneRef : undefined;
 
@@ -281,6 +299,7 @@ export default function RWZonePlazas({
           key={plaza.zoneId}
           plaza={plaza}
           hideLabels={hideLabels || trailMode}
+          hideDiscs={hideDiscs}
           activeZoneRef={zoneRef}
         />
       ))}

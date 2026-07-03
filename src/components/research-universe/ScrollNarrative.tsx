@@ -15,13 +15,15 @@ function TrailCaption({
 }) {
   const edgeClass =
     edge === "left"
-      ? "trail-caption trail-caption--edge-left"
+      ? "trail-caption--edge-left"
       : edge === "right"
-        ? "trail-caption trail-caption--edge-right"
-        : "trail-caption trail-caption--center";
+        ? "trail-caption--edge-right"
+        : "trail-caption--center";
 
   return (
-    <div className={edgeClass}>
+    <div
+      className={`trail-caption glass rounded-2xl border border-primary/15 p-6 shadow-lift ring-1 ring-primary/10 backdrop-blur-md sm:p-8 ${edgeClass}`}
+    >
       <p className="font-mono text-xs uppercase tracking-[0.2em] text-gradient-static">
         {eyebrow}
       </p>
@@ -61,7 +63,7 @@ export default function ScrollNarrative() {
             }`}
           >
             {stop.section === "hero" ? (
-              <div className="pointer-events-auto trail-caption trail-caption--hero mx-auto max-w-2xl text-center">
+              <div className="pointer-events-auto glass-hero trail-caption--hero mx-auto max-w-2xl rounded-2xl border border-primary/15 p-8 text-center shadow-lift ring-1 ring-primary/10">
                 <p className="font-mono text-xs uppercase tracking-[0.2em] text-gradient-static">
                   {researchWorld.subtitle}
                 </p>
@@ -91,7 +93,7 @@ export default function ScrollNarrative() {
         data-section="projects"
         className="trail-section pointer-events-auto flex min-h-screen flex-col items-center justify-center px-5 py-20"
       >
-        <div className="trail-caption trail-caption--center mb-10 max-w-lg text-center">
+        <div className="trail-caption trail-caption--center glass mb-10 max-w-lg rounded-2xl border border-primary/15 p-6 text-center shadow-lift ring-1 ring-primary/10 backdrop-blur-md sm:p-8">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-gradient-static">
             06 · Project evidence
           </p>
@@ -103,7 +105,7 @@ export default function ScrollNarrative() {
         </div>
       </section>
 
-      <div className="h-[35vh]" aria-hidden />
+      <div className="h-[15vh]" aria-hidden />
     </div>
   );
 }

@@ -20,21 +20,33 @@ export function sectionAtProgress(progress: number): ScrollSection {
   return SCROLL_SECTIONS[idx];
 }
 
+export type ScrollToSectionOptions = {
+  duration?: number;
+  invalidate?: () => void;
+};
+
 export function scrollToSection(
   section: ScrollSection,
   scrollTrigger: ScrollTrigger | null,
-  duration = 0.85,
+  options: ScrollToSectionOptions = {},
 ) {
   if (!scrollTrigger) return;
+  const { duration = 0.85, invalidate } = options;
   const target = progressForSection(section);
   const max = scrollTrigger.end - scrollTrigger.start;
   const y = scrollTrigger.start + target * max;
 
-  gsap.to(window, {
-    scrollTo: y,
+  const scrollObj = { y: window.scrollY };
+  gsap.to(scrollObj, {
+    y,
     duration,
     ease: "power2.inOut",
-    onUpdate: () => ScrollTrigger.update(),
+    onUpdate: () => {
+      window.scrollTo(0, scrollObj.y);
+      ScrollTrigger.update();
+      invalidate?.();
+    },
+    onComplete: () => invalidate?.(),
   });
 }
 

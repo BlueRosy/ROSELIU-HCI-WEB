@@ -154,7 +154,9 @@ function WarmSky() {
 
 function TrailZonePlazas() {
   const { activeZone } = useUniverse();
-  return <RWZonePlazas trailMode activeZoneRef={activeZone} hideLabels />;
+  return (
+    <RWZonePlazas trailMode activeZoneRef={activeZone} hideLabels hideDiscs />
+  );
 }
 
 export default function ResearchWorldTrailScene() {
@@ -172,7 +174,7 @@ export default function ResearchWorldTrailScene() {
       <RWObservatoryPlatform />
       <RWSupportSanctuary />
       <RWPathStones />
-      <RWLoopCenter />
+      <RWLoopCenter trailMode />
     </Suspense>
   );
 }

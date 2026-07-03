@@ -4,23 +4,25 @@ import { rwWonderland } from "../../theme/rwWonderland";
 import { RWClosedLoopCoreGlb } from "./RWZoneAssets";
 import { LANDMARKS } from "./rwWorldConfig";
 
-export default function RWLoopCenter() {
+export default function RWLoopCenter({ trailMode = false }: { trailMode?: boolean }) {
   const lm = LANDMARKS.find((l) => l.id === "loop");
   if (!lm) return null;
 
   return (
     <group position={lm.position}>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.03, 0]}>
-        <circleGeometry args={[3.2, 48]} />
-        <meshPhysicalMaterial
-          color="#F0E8E4"
-          emissive={rwWonderland.pathGlow}
-          emissiveIntensity={0.12}
-          transparent
-          opacity={0.7}
-          roughness={0.25}
-        />
-      </mesh>
+      {!trailMode && (
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.03, 0]}>
+          <circleGeometry args={[3.2, 48]} />
+          <meshPhysicalMaterial
+            color="#F0E8E4"
+            emissive={rwWonderland.pathGlow}
+            emissiveIntensity={0.12}
+            transparent
+            opacity={0.7}
+            roughness={0.25}
+          />
+        </mesh>
+      )}
       <RWClosedLoopCoreGlb />
       {loop.map((node, i) => {
         const angle = (i / loop.length) * Math.PI * 2 - Math.PI / 2;

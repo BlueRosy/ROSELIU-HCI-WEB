@@ -51,10 +51,12 @@ export default function ResearchUniverseView() {
   }, []);
 
   const navigateToSection = useCallback((section: ScrollSection) => {
-    scrollToSection(section, scrollTriggerRef.current);
+    scrollToSection(section, scrollTriggerRef.current, {
+      invalidate: () => invalidate.current(),
+    });
   }, []);
 
-  useTrailKeyboard(currentSection, scrollTriggerRef);
+  useTrailKeyboard(currentSection, scrollTriggerRef, invalidate);
 
   const sceneState: UniverseSceneState = {
     scrollProgress,
