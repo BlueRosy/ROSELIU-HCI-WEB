@@ -49,7 +49,7 @@ export default function ResearchUniverseCanvas({
     <UniverseProvider value={sceneState}>
       <Canvas
         camera={{ position: [0, 4, 9], fov: 48, near: 0.1, far: 80 }}
-        dpr={[1, 1.5]}
+        dpr={[1, 1.25]}
         frameloop="demand"
         style={{ pointerEvents: "none" }}
         gl={{

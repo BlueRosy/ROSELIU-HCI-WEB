@@ -14,7 +14,9 @@ import {
   RWSupportSanctuary,
 } from "../research-world/RWZoneAssets";
 import { LANDMARKS } from "../research-world/rwWorldConfig";
+import TrailGroundScatter from "./TrailGroundScatter";
 import TrailPetalField from "./TrailPetalField";
+import TrailTwilightSky from "./TrailTwilightSky";
 import { useUniverse } from "./UniverseContext";
 import { TRAIL_CURVE } from "./worldTrailConfig";
 
@@ -90,6 +92,15 @@ function MilestoneTrees() {
   const { activeZone } = useUniverse();
   const lights = useRef<Record<string, THREE.PointLight | null>>({});
 
+  const treeInstances = useMemo(
+    () =>
+      LANDMARKS.filter((lm) => lm.id !== "loop").map((lm) => ({
+        lm,
+        obj: base.clone(true),
+      })),
+    [base],
+  );
+
   useFrame(() => {
     for (const lm of LANDMARKS) {
       if (lm.id === "loop") continue;
@@ -102,9 +113,9 @@ function MilestoneTrees() {
 
   return (
     <group>
-      {LANDMARKS.filter((lm) => lm.id !== "loop").map((lm) => (
+      {treeInstances.map(({ lm, obj }) => (
         <group key={lm.id} position={lm.position}>
-          <primitive object={base.clone(true)} scale={lm.treeScale} />
+          <primitive object={obj} scale={lm.treeScale} />
           <pointLight
             ref={(el) => {
               lights.current[lm.id] = el;
@@ -122,7 +133,8 @@ function MilestoneTrees() {
 
 function TrailVines() {
   const { scene } = useGLTF(researchWorldAssets.vine);
-  const vine = useMemo(() => scene.clone(true), [scene]);
+  const vineBase = useMemo(() => scene.clone(true), [scene]);
+
   const placements = useMemo(() => {
     const pts = TRAIL_CURVE.getSpacedPoints(6);
     return pts.slice(1, -1).map((p, i) => ({
@@ -132,23 +144,19 @@ function TrailVines() {
     }));
   }, []);
 
+  const vineInstances = useMemo(
+    () => placements.map((pl) => ({ ...pl, obj: vineBase.clone(true) })),
+    [placements, vineBase],
+  );
+
   return (
     <group>
-      {placements.map((pl, i) => (
+      {vineInstances.map((pl, i) => (
         <group key={i} position={pl.position} rotation={pl.rot}>
-          <primitive object={vine.clone(true)} scale={pl.scale} />
+          <primitive object={pl.obj} scale={pl.scale} />
         </group>
       ))}
     </group>
-  );
-}
-
-function WarmSky() {
-  return (
-    <mesh position={[0, 0, GROUND_CENTER_Z]} scale={[-1, 1, 1]}>
-      <sphereGeometry args={[55, 32, 32]} />
-      <meshBasicMaterial color={rwWonderland.fog} side={THREE.BackSide} />
-    </mesh>
   );
 }
 
@@ -162,8 +170,9 @@ function TrailZonePlazas() {
 export default function ResearchWorldTrailScene() {
   return (
     <Suspense fallback={null}>
-      <WarmSky />
+      <TrailTwilightSky />
       <TrailGround />
+      <TrailGroundScatter />
       <TrailPath />
       <TrailVines />
       <MilestoneTrees />

@@ -2,6 +2,12 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SCROLL_SECTIONS, type ScrollSection } from "./worldTrailConfig";
 
+let activeScrollTween: gsap.core.Tween | null = null;
+
+export function isScrollTweenActive(): boolean {
+  return activeScrollTween !== null;
+}
+
 export function sectionIndex(section: ScrollSection): number {
   return SCROLL_SECTIONS.indexOf(section);
 }
@@ -23,6 +29,7 @@ export function sectionAtProgress(progress: number): ScrollSection {
 export type ScrollToSectionOptions = {
   duration?: number;
   invalidate?: () => void;
+  isScrollingRef?: { current: boolean };
 };
 
 export function scrollToSection(
@@ -31,22 +38,35 @@ export function scrollToSection(
   options: ScrollToSectionOptions = {},
 ) {
   if (!scrollTrigger) return;
-  const { duration = 0.85, invalidate } = options;
+
+  activeScrollTween?.kill();
+  activeScrollTween = null;
+
+  const { duration = 0.45, invalidate, isScrollingRef } = options;
   const target = progressForSection(section);
   const max = scrollTrigger.end - scrollTrigger.start;
   const y = scrollTrigger.start + target * max;
 
+  if (isScrollingRef) isScrollingRef.current = true;
+  scrollTrigger.disable();
+
   const scrollObj = { y: window.scrollY };
-  gsap.to(scrollObj, {
+  activeScrollTween = gsap.to(scrollObj, {
     y,
     duration,
-    ease: "power2.inOut",
+    ease: "power3.out",
     onUpdate: () => {
       window.scrollTo(0, scrollObj.y);
       ScrollTrigger.update();
       invalidate?.();
     },
-    onComplete: () => invalidate?.(),
+    onComplete: () => {
+      scrollTrigger.enable();
+      ScrollTrigger.refresh();
+      if (isScrollingRef) isScrollingRef.current = false;
+      invalidate?.();
+      activeScrollTween = null;
+    },
   });
 }
 

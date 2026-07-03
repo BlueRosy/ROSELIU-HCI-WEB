@@ -41,6 +41,12 @@ function PlazaParticles({
     return arr;
   }, [count, radius]);
 
+  const baseY = useMemo(() => {
+    const base = new Float32Array(count);
+    for (let i = 0; i < count; i++) base[i] = positions[i * 3 + 1];
+    return base;
+  }, [count, positions]);
+
   useFrame((state) => {
     if (!points.current) return;
     const trailMode = Boolean(activeZoneRef && zoneId);
@@ -54,8 +60,10 @@ function PlazaParticles({
 
     const attr = points.current.geometry.getAttribute("position") as THREE.BufferAttribute;
     const arr = attr.array as Float32Array;
+    const baseYArr = baseY;
+    const t = state.clock.elapsedTime;
     for (let i = 0; i < count; i++) {
-      arr[i * 3 + 1] += Math.sin(state.clock.elapsedTime * 1.2 + i) * 0.003;
+      arr[i * 3 + 1] = baseYArr[i] + Math.sin(t * 1.2 + i) * 0.003;
     }
     attr.needsUpdate = true;
   });

@@ -19,6 +19,7 @@ import type { UniverseSceneState } from "./UniverseContext";
 import {
   scrollToSection,
   sectionAtProgress,
+  isScrollTweenActive,
 } from "./trailScrollUtils";
 import { useTrailKeyboard } from "./useTrailKeyboard";
 import { SCROLL_SECTIONS, type ScrollSection } from "./worldTrailConfig";
@@ -29,11 +30,15 @@ const ResearchUniverseCanvas = lazy(
   () => import("./ResearchUniverseCanvas"),
 );
 
+const PARALLAX_THRESHOLD = 0.012;
+const INVALIDATE_MIN_MS = 1000 / 60;
+
 export default function ResearchUniverseView() {
   const enable3D = useEnable3D();
   const scrollRef = useRef<HTMLDivElement>(null);
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
   const lastSectionRef = useRef<ScrollSection>("hero");
+  const lastInvalidateTime = useRef(0);
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const [currentSection, setCurrentSection] = useState<ScrollSection>("hero");
 
@@ -45,6 +50,14 @@ export default function ResearchUniverseView() {
   const parallaxRaf = useRef<number | null>(null);
   const pending = useRef({ x: 0, y: 0 });
   const invalidate = useRef<() => void>(() => {});
+  const isScrollingRef = useRef(false);
+
+  const throttledInvalidate = useCallback(() => {
+    const now = performance.now();
+    if (now - lastInvalidateTime.current < INVALIDATE_MIN_MS) return;
+    lastInvalidateTime.current = now;
+    invalidate.current();
+  }, []);
 
   const onProjectSelect = useCallback((projectId: string) => {
     setSelectedProject(projectId);
@@ -52,11 +65,13 @@ export default function ResearchUniverseView() {
 
   const navigateToSection = useCallback((section: ScrollSection) => {
     scrollToSection(section, scrollTriggerRef.current, {
+      duration: 0.45,
       invalidate: () => invalidate.current(),
+      isScrollingRef,
     });
   }, []);
 
-  useTrailKeyboard(currentSection, scrollTriggerRef, invalidate);
+  useTrailKeyboard(activeSection, scrollTriggerRef, invalidate, isScrollingRef);
 
   const sceneState: UniverseSceneState = {
     scrollProgress,
@@ -65,6 +80,7 @@ export default function ResearchUniverseView() {
     showProjectCards,
     parallax,
     invalidate,
+    isScrollingRef,
     onProjectSelect,
   };
 
@@ -72,14 +88,20 @@ export default function ResearchUniverseView() {
     if (!enable3D || !scrollRef.current) return;
 
     const onMouseMove = (e: MouseEvent) => {
-      pending.current.x = (e.clientX / window.innerWidth - 0.5) * 2;
-      pending.current.y = (e.clientY / window.innerHeight - 0.5) * 2;
+      const nx = (e.clientX / window.innerWidth - 0.5) * 2;
+      const ny = (e.clientY / window.innerHeight - 0.5) * 2;
+      const dx = Math.abs(nx - pending.current.x);
+      const dy = Math.abs(ny - pending.current.y);
+      if (dx + dy < PARALLAX_THRESHOLD) return;
+
+      pending.current.x = nx;
+      pending.current.y = ny;
       if (parallaxRaf.current !== null) return;
       parallaxRaf.current = requestAnimationFrame(() => {
         parallax.current.x = pending.current.x;
         parallax.current.y = pending.current.y;
         parallaxRaf.current = null;
-        invalidate.current();
+        throttledInvalidate();
       });
     };
     window.addEventListener("mousemove", onMouseMove);
@@ -89,7 +111,7 @@ export default function ResearchUniverseView() {
         trigger: scrollRef.current,
         start: "top top",
         end: "bottom bottom",
-        scrub: 0.55,
+        scrub: 0.35,
         snap: {
           snapTo: 1 / (SCROLL_SECTIONS.length - 1),
           duration: { min: 0.12, max: 0.4 },
@@ -106,7 +128,13 @@ export default function ResearchUniverseView() {
             setCurrentSection(section);
           }
 
-          invalidate.current();
+          if (Math.abs(self.getVelocity()) > 0.5) {
+            isScrollingRef.current = true;
+          } else if (!isScrollTweenActive()) {
+            isScrollingRef.current = false;
+          }
+
+          throttledInvalidate();
         },
       });
     }, scrollRef);
@@ -117,7 +145,7 @@ export default function ResearchUniverseView() {
       scrollTriggerRef.current = null;
       ctx.revert();
     };
-  }, [enable3D]);
+  }, [enable3D, throttledInvalidate]);
 
   if (!enable3D) {
     return <ResearchUniverseFallback />;

@@ -8,6 +8,7 @@ export type UniverseSceneState = {
   showProjectCards: MutableRefObject<boolean>;
   parallax: MutableRefObject<{ x: number; y: number }>;
   invalidate: MutableRefObject<() => void>;
+  isScrollingRef: MutableRefObject<boolean>;
   onProjectSelect: (projectId: string) => void;
 };
 
