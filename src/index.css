@@ -895,13 +895,14 @@ body {
   pointer-events: none;
 }
 
-/* Research World Trail — scroll narrative layout (glass styling via utilities) */
+/* Research World Trail — layout only (GSAP handles snap) */
 .trail-scroll-root {
-  scroll-snap-type: y proximity;
+  /* no CSS scroll-snap — conflicts with GSAP ScrollTrigger */
 }
 
 .trail-section {
-  scroll-snap-align: start;
+  height: 100vh;
+  min-height: 100vh;
 }
 
 .trail-caption {

@@ -1,23 +1,19 @@
-import { Suspense, useMemo, useRef } from "react";
-import { useFrame } from "@react-three/fiber";
+import { Suspense, useMemo } from "react";
 import { useGLTF, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import { researchWorldAssets } from "../../content/site";
 import { rwWonderland } from "../../theme/rwWonderland";
 import RWEntryPavilion from "../research-world/RWEntryPavilion";
 import RWLoopCenter from "../research-world/RWLoopCenter";
-import RWZonePlazas from "../research-world/RWZonePlazas";
 import {
   RWObservatoryPlatform,
   RWPathStones,
   RWSignalsGardenBeds,
   RWSupportSanctuary,
 } from "../research-world/RWZoneAssets";
-import { LANDMARKS } from "../research-world/rwWorldConfig";
 import TrailGroundScatter from "./TrailGroundScatter";
 import TrailPetalField from "./TrailPetalField";
 import TrailTwilightSky from "./TrailTwilightSky";
-import { useUniverse } from "./UniverseContext";
 import { TRAIL_CURVE } from "./worldTrailConfig";
 
 const GROUND_SIZE = 40;
@@ -86,87 +82,6 @@ function TrailPath() {
   );
 }
 
-function MilestoneTrees() {
-  const { scene } = useGLTF(researchWorldAssets.tree);
-  const base = useMemo(() => scene.clone(true), [scene]);
-  const { activeZone } = useUniverse();
-  const lights = useRef<Record<string, THREE.PointLight | null>>({});
-
-  const treeInstances = useMemo(
-    () =>
-      LANDMARKS.filter((lm) => lm.id !== "loop").map((lm) => ({
-        lm,
-        obj: base.clone(true),
-      })),
-    [base],
-  );
-
-  useFrame(() => {
-    for (const lm of LANDMARKS) {
-      if (lm.id === "loop") continue;
-      const light = lights.current[lm.id];
-      if (!light) continue;
-      const lit = activeZone.current === lm.zoneId;
-      light.intensity += ((lit ? 1.1 : 0.45) - light.intensity) * 0.06;
-    }
-  });
-
-  return (
-    <group>
-      {treeInstances.map(({ lm, obj }) => (
-        <group key={lm.id} position={lm.position}>
-          <primitive object={obj} scale={lm.treeScale} />
-          <pointLight
-            ref={(el) => {
-              lights.current[lm.id] = el;
-            }}
-            position={[0, 2.5, 0]}
-            intensity={0.45}
-            color={rwWonderland.pathGlow}
-            distance={10}
-          />
-        </group>
-      ))}
-    </group>
-  );
-}
-
-function TrailVines() {
-  const { scene } = useGLTF(researchWorldAssets.vine);
-  const vineBase = useMemo(() => scene.clone(true), [scene]);
-
-  const placements = useMemo(() => {
-    const pts = TRAIL_CURVE.getSpacedPoints(6);
-    return pts.slice(1, -1).map((p, i) => ({
-      position: [p.x + (i % 2 ? 0.8 : -0.8), 0, p.z] as [number, number, number],
-      rot: [0, i * 0.9, 0] as [number, number, number],
-      scale: 0.55 + (i % 3) * 0.1,
-    }));
-  }, []);
-
-  const vineInstances = useMemo(
-    () => placements.map((pl) => ({ ...pl, obj: vineBase.clone(true) })),
-    [placements, vineBase],
-  );
-
-  return (
-    <group>
-      {vineInstances.map((pl, i) => (
-        <group key={i} position={pl.position} rotation={pl.rot}>
-          <primitive object={pl.obj} scale={pl.scale} />
-        </group>
-      ))}
-    </group>
-  );
-}
-
-function TrailZonePlazas() {
-  const { activeZone } = useUniverse();
-  return (
-    <RWZonePlazas trailMode activeZoneRef={activeZone} hideLabels hideDiscs />
-  );
-}
-
 export default function ResearchWorldTrailScene() {
   return (
     <Suspense fallback={null}>
@@ -174,9 +89,6 @@ export default function ResearchWorldTrailScene() {
       <TrailGround />
       <TrailGroundScatter />
       <TrailPath />
-      <TrailVines />
-      <MilestoneTrees />
-      <TrailZonePlazas />
       <TrailPetalField />
       <RWEntryPavilion />
       <RWSignalsGardenBeds />
@@ -188,8 +100,6 @@ export default function ResearchWorldTrailScene() {
   );
 }
 
-useGLTF.preload(researchWorldAssets.tree);
-useGLTF.preload(researchWorldAssets.vine);
 useGLTF.preload(researchWorldAssets.entryPavilion);
 useGLTF.preload(researchWorldAssets.signalsGardenBed);
 useGLTF.preload(researchWorldAssets.observatoryPlatform);

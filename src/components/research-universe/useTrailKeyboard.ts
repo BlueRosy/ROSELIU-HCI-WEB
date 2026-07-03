@@ -12,6 +12,8 @@ export function useTrailKeyboard(
   scrollTriggerRef: MutableRefObject<ScrollTrigger | null>,
   invalidateRef: MutableRefObject<() => void>,
   isScrollingRef: MutableRefObject<boolean>,
+  scrollProgressRef: MutableRefObject<number>,
+  onSectionChange: (section: ScrollSection) => void,
 ) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -32,13 +34,23 @@ export function useTrailKeyboard(
       const current = activeSectionRef.current;
       const target = forward ? nextSection(current) : prevSection(current);
       scrollToSection(target, scrollTriggerRef.current, {
-        duration: 0.45,
+        duration: 0.5,
         invalidate: () => invalidateRef.current(),
         isScrollingRef,
+        scrollProgressRef,
+        activeSectionRef,
+        onSectionChange,
       });
     };
 
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [activeSectionRef, scrollTriggerRef, invalidateRef, isScrollingRef]);
+  }, [
+    activeSectionRef,
+    scrollTriggerRef,
+    invalidateRef,
+    isScrollingRef,
+    scrollProgressRef,
+    onSectionChange,
+  ]);
 }

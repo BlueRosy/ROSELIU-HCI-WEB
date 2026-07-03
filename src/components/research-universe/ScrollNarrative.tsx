@@ -56,7 +56,7 @@ export default function ScrollNarrative() {
           <section
             key={stop.section}
             data-section={stop.section}
-            className={`trail-section flex min-h-screen px-5 py-20 ${
+            className={`trail-section flex h-screen px-5 py-20 ${
               stop.section === "hero"
                 ? "items-start justify-center pt-28"
                 : "items-center"
@@ -91,7 +91,7 @@ export default function ScrollNarrative() {
 
       <section
         data-section="projects"
-        className="trail-section pointer-events-auto flex min-h-screen flex-col items-center justify-center px-5 py-20"
+        className="trail-section pointer-events-auto flex h-screen flex-col items-center justify-center px-5 py-20"
       >
         <div className="trail-caption trail-caption--center glass mb-10 max-w-lg rounded-2xl border border-primary/15 p-6 text-center shadow-lift ring-1 ring-primary/10 backdrop-blur-md sm:p-8">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-gradient-static">
@@ -104,8 +104,6 @@ export default function ScrollNarrative() {
           <ResearchAtlasProjects />
         </div>
       </section>
-
-      <div className="h-[15vh]" aria-hidden />
     </div>
   );
 }
