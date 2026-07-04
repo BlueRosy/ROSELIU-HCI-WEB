@@ -75,15 +75,22 @@ export type TrailCameraSample = {
   showProjects: boolean;
 };
 
+/** Smootherstep: eases in/out with a flat plateau near each landmark so the
+ * camera "settles" on a stop before drifting toward the next one. */
+function smootherstep(t: number): number {
+  return t * t * t * (t * (t * 6 - 15) + 10);
+}
+
 export function sampleTrailCamera(progress: number): TrailCameraSample {
   const n = TRAIL_STOPS.length - 1;
   const scaled = progress * n;
   const i = Math.min(Math.floor(scaled), n - 1);
   const t = scaled - i;
+  const te = smootherstep(t);
   const a = TRAIL_STOPS[i];
   const b = TRAIL_STOPS[i + 1];
 
-  const pathT = a.pathT + (b.pathT - a.pathT) * t;
+  const pathT = a.pathT + (b.pathT - a.pathT) * te;
   TRAIL_CURVE.getPointAt(pathT, _point);
   TRAIL_CURVE.getTangentAt(pathT, _tangent);
   _tangent.y = 0;
@@ -92,13 +99,13 @@ export function sampleTrailCamera(progress: number): TrailCameraSample {
   _cam.copy(_point).addScaledVector(_tangent, -4.2).add(_elev);
 
   _look.set(
-    a.lookAt[0] + (b.lookAt[0] - a.lookAt[0]) * t,
-    a.lookAt[1] + (b.lookAt[1] - a.lookAt[1]) * t + 1.2,
-    a.lookAt[2] + (b.lookAt[2] - a.lookAt[2]) * t,
+    a.lookAt[0] + (b.lookAt[0] - a.lookAt[0]) * te,
+    a.lookAt[1] + (b.lookAt[1] - a.lookAt[1]) * te + 1.2,
+    a.lookAt[2] + (b.lookAt[2] - a.lookAt[2]) * te,
   );
 
-  if (b.section === "projects" && t > 0.35) {
-    const blend = Math.min(1, (t - 0.35) / 0.65);
+  if (b.section === "projects" && te > 0.3) {
+    const blend = Math.min(1, (te - 0.3) / 0.7);
     _cam.set(0, 4.2 + blend * 2.3, -8 - blend * 2);
     _look.set(0, 1.2 + blend * 0.3, -23);
   }

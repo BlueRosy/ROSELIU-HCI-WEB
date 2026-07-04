@@ -61,10 +61,11 @@ function TwilightStars() {
       <pointsMaterial
         ref={mat}
         color="#FFF5EE"
-        size={0.28}
+        size={0.32}
         transparent
         opacity={0.7}
         depthWrite={false}
+        fog={false}
         sizeAttenuation
       />
     </points>
@@ -93,31 +94,33 @@ function PinkMoon() {
   useFrame(({ clock }) => {
     if (!group.current) return;
     const t = clock.getElapsedTime();
-    group.current.position.y = 14 + Math.sin(t * 0.12) * 0.3;
+    group.current.position.y = 11 + Math.sin(t * 0.12) * 0.3;
   });
 
   return (
-    <group ref={group} position={[6, 14, -6]} renderOrder={10}>
-      <sprite scale={[10, 10, 1]} renderOrder={9}>
+    <group ref={group} position={[8, 11, -26]} renderOrder={10}>
+      <sprite scale={[17, 17, 1]} renderOrder={9}>
         <spriteMaterial
           map={glowTex}
           transparent
           depthWrite={false}
           depthTest={false}
+          fog={false}
         />
       </sprite>
       <mesh renderOrder={10}>
-        <sphereGeometry args={[1.4, 20, 20]} />
-        <meshBasicMaterial color="#F0C0D4" toneMapped={false} />
+        <sphereGeometry args={[2, 24, 24]} />
+        <meshBasicMaterial color="#F5C4D8" toneMapped={false} fog={false} />
       </mesh>
-      <mesh scale={[1.05, 1.05, 1.05]} renderOrder={11}>
-        <sphereGeometry args={[1.4, 20, 20]} />
+      <mesh scale={[1.06, 1.06, 1.06]} renderOrder={11}>
+        <sphereGeometry args={[2, 24, 24]} />
         <meshBasicMaterial
           color="#E8A0BC"
           transparent
-          opacity={0.35}
+          opacity={0.4}
           depthWrite={false}
           depthTest={false}
+          fog={false}
         />
       </mesh>
     </group>

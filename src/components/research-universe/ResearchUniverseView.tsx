@@ -2,6 +2,7 @@ import {
   lazy,
   Suspense,
   useCallback,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -15,12 +16,15 @@ import ScrollNarrative from "./ScrollNarrative";
 import TrailAmbientAudio from "./TrailAmbientAudio";
 import TrailIntroOverlay from "./TrailIntroOverlay";
 import TrailProgressBar from "./TrailProgressBar";
+import TrailSkyCityIntro from "./TrailSkyCityIntro";
 import type { UniverseSceneState } from "./UniverseContext";
 import {
   isScrollTweenActive,
   isSnapSuspended,
+  measuredProgressAt,
+  refreshSectionAnchors,
   scrollToSection,
-  sectionAtProgress,
+  sectionFromProgress,
   snapToNearestSection,
 } from "./trailScrollUtils";
 import { useTrailKeyboard } from "./useTrailKeyboard";
@@ -41,6 +45,7 @@ export default function ResearchUniverseView() {
   const lastSectionRef = useRef<ScrollSection>("hero");
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const [currentSection, setCurrentSection] = useState<ScrollSection>("hero");
+  const [entered, setEntered] = useState(false);
 
   const scrollProgress = useRef(0);
   const activeSection = useRef<ScrollSection>("hero");
@@ -61,6 +66,31 @@ export default function ResearchUniverseView() {
   const onProjectSelect = useCallback((projectId: string) => {
     setSelectedProject(projectId);
   }, []);
+
+  const handleEnter = useCallback(() => {
+    setEntered(true);
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Lock page scroll (and stray keyboard nav) while the sky-city intro is up.
+  useEffect(() => {
+    if (!enable3D || entered) return;
+    const prevBody = document.body.style.overflow;
+    const prevHtml = document.documentElement.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    window.scrollTo(0, 0);
+    return () => {
+      document.body.style.overflow = prevBody;
+      document.documentElement.style.overflow = prevHtml;
+    };
+  }, [enable3D, entered]);
+
+  // After the intro unlocks scrolling, re-measure so anchors/range are correct.
+  useEffect(() => {
+    if (!enable3D || !entered) return;
+    ScrollTrigger.refresh();
+  }, [enable3D, entered]);
 
   const navigateToSection = useCallback(
     (section: ScrollSection) => {
@@ -125,20 +155,24 @@ export default function ResearchUniverseView() {
         trigger: scrollRef.current,
         start: "top top",
         end: "bottom bottom",
-        scrub: 0.5,
+        scrub: 0.6,
         snap: {
           snapTo: (progress) => {
             if (isSnapSuspended()) return progress;
             return snapToNearestSection(progress, scrollTriggerRef.current);
           },
-          duration: { min: 0.15, max: 0.45 },
-          delay: 0.05,
+          duration: { min: 0.3, max: 0.8 },
+          delay: 0.12,
           ease: "power2.inOut",
         },
         onUpdate: (self) => {
-          scrollProgress.current = self.progress;
-          const section = sectionAtProgress(self.progress, scrollTriggerRef.current);
+          const st = scrollTriggerRef.current;
+          const range = (st?.end ?? 0) - (st?.start ?? 0);
+          const scrollY = (st?.start ?? 0) + self.progress * range;
+          const p = measuredProgressAt(scrollY, st);
+          scrollProgress.current = p;
 
+          const section = sectionFromProgress(p);
           activeSection.current = section;
           if (section !== lastSectionRef.current) {
             lastSectionRef.current = section;
@@ -156,8 +190,13 @@ export default function ResearchUniverseView() {
       });
     }, scrollRef);
 
+    const refreshAnchors = () => refreshSectionAnchors(scrollTriggerRef.current);
+    ScrollTrigger.addEventListener("refresh", refreshAnchors);
+    refreshAnchors();
+
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
+      ScrollTrigger.removeEventListener("refresh", refreshAnchors);
       if (parallaxRaf.current !== null) cancelAnimationFrame(parallaxRaf.current);
       scrollTriggerRef.current = null;
       ctx.revert();
@@ -195,6 +234,8 @@ export default function ResearchUniverseView() {
         projectId={selectedProject}
         onClose={() => setSelectedProject(null)}
       />
+
+      {!entered && <TrailSkyCityIntro onEnter={handleEnter} />}
     </>
   );
 }

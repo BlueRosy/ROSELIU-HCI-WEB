@@ -726,6 +726,24 @@ export const researchWorldAssets = {
     "/research-world-elements/explorer-cloak/explorer-cloak-compressed.glb",
   signalNodeIcon:
     "/research-world-elements/signal-node-icon/signal-node-icon-compressed.glb",
+  /** Distinct zone landmarks (Meshy, Draco + webp + simplified) */
+  moonGatePortal:
+    "/research-world-elements/new-landmarks/moon-gate-portal.glb",
+  roseCompassPlaza:
+    "/research-world-elements/new-landmarks/rose-compass-plaza.glb",
+  signalBeacon: "/research-world-elements/new-landmarks/signal-beacon.glb",
+  emotionPrismTower:
+    "/research-world-elements/new-landmarks/emotion-prism-tower.glb",
+  reflectionPond: "/research-world-elements/new-landmarks/reflection-pond.glb",
+  gazebo: "/research-world-elements/new-landmarks/gazebo.glb",
+  researchLanternTower:
+    "/research-world-elements/new-landmarks/research-lantern-tower.glb",
+  thesisArchive: "/research-world-elements/new-landmarks/thesis-archive.glb",
+  trellisArch: "/research-world-elements/new-landmarks/trellis-arch.glb",
+  petalBench: "/research-world-elements/new-landmarks/petal-bench.glb",
+  roseFountain: "/research-world-elements/new-landmarks/rose-fountain.glb",
+  wildflowerMeadow:
+    "/research-world-elements/new-landmarks/wildflower-meadow.glb",
   zonePlazas: {
     signals: "/research-world-elements/zone-plazas/signals-plaza.png",
     states: "/research-world-elements/zone-plazas/states-plaza.png",

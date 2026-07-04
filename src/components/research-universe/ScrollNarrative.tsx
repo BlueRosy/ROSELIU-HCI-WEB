@@ -56,7 +56,7 @@ export default function ScrollNarrative() {
           <section
             key={stop.section}
             data-section={stop.section}
-            className={`trail-section flex h-screen px-5 py-20 ${
+            className={`trail-section flex h-[132vh] px-5 py-20 ${
               stop.section === "hero"
                 ? "items-start justify-center pt-28"
                 : "items-center"

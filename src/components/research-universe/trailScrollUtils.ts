@@ -23,7 +23,11 @@ export function progressForSection(section: ScrollSection): number {
   return idx / (SCROLL_SECTIONS.length - 1);
 }
 
-/** Scroll Y (px) when section top aligns with viewport top. */
+/**
+ * Scroll Y (px) that centres a section in the viewport. This is the "anchor"
+ * where the section's caption reads as active AND the camera should sit on that
+ * section's landmark — so labels, snap, and camera all agree.
+ */
 export function getSectionScrollTarget(
   section: ScrollSection,
   scrollTrigger: ScrollTrigger | null,
@@ -37,8 +41,69 @@ export function getSectionScrollTarget(
 
   const rootTop = root.getBoundingClientRect().top + window.scrollY;
   const elTop = el.getBoundingClientRect().top + window.scrollY;
-  const offset = elTop - rootTop;
-  return scrollTrigger.start + offset;
+  const centerOffset = el.offsetHeight / 2 - window.innerHeight / 2;
+  const anchor = scrollTrigger.start + (elTop - rootTop) + centerOffset;
+  return Math.max(scrollTrigger.start, Math.min(scrollTrigger.end, anchor));
+}
+
+/**
+ * Cached section anchors (scroll Y that centres each section). Reading rects
+ * every scroll frame risks layout thrash, so we recompute only on refresh.
+ */
+let anchorCache: number[] | null = null;
+
+export function refreshSectionAnchors(scrollTrigger: ScrollTrigger | null): void {
+  if (!scrollTrigger?.trigger) {
+    anchorCache = null;
+    return;
+  }
+  const arr: number[] = [];
+  for (const s of SCROLL_SECTIONS) {
+    const a = getSectionScrollTarget(s, scrollTrigger);
+    if (a === null) {
+      anchorCache = null;
+      return;
+    }
+    arr.push(a);
+  }
+  anchorCache = arr;
+}
+
+function getAnchors(scrollTrigger: ScrollTrigger | null): number[] | null {
+  if (!anchorCache) refreshSectionAnchors(scrollTrigger);
+  return anchorCache;
+}
+
+/**
+ * Normalised progress in [0,1] where each section anchor lands on an even
+ * boundary k/(N-1). Decouples the camera + labels from uneven section heights,
+ * so caption, landmark, and snap target always line up.
+ */
+export function measuredProgressAt(
+  scrollY: number,
+  scrollTrigger: ScrollTrigger | null,
+): number {
+  const anchors = getAnchors(scrollTrigger);
+  if (!anchors) return progressFromScrollY(scrollY, scrollTrigger);
+  const n = anchors.length - 1;
+  if (scrollY <= anchors[0]) return 0;
+  if (scrollY >= anchors[n]) return 1;
+  for (let k = 0; k < n; k++) {
+    const y0 = anchors[k];
+    const y1 = anchors[k + 1];
+    if (scrollY >= y0 && scrollY <= y1) {
+      const span = Math.max(1, y1 - y0);
+      return (k + (scrollY - y0) / span) / n;
+    }
+  }
+  return 1;
+}
+
+/** Nearest section for a normalised (section-space) progress value. */
+export function sectionFromProgress(progress: number): ScrollSection {
+  const n = SCROLL_SECTIONS.length - 1;
+  const idx = Math.max(0, Math.min(n, Math.round(progress * n)));
+  return SCROLL_SECTIONS[idx];
 }
 
 export function progressFromScrollY(
@@ -123,7 +188,7 @@ export function scrollToSection(
       window.scrollTo(0, scrollObj.y);
       ScrollTrigger.update();
 
-      const p = progressFromScrollY(scrollObj.y, scrollTrigger);
+      const p = measuredProgressAt(scrollObj.y, scrollTrigger);
       if (scrollProgressRef) scrollProgressRef.current = p;
       if (activeSectionRef) activeSectionRef.current = section;
 
@@ -133,11 +198,10 @@ export function scrollToSection(
       snapSuspended = false;
       if (isScrollingRef) isScrollingRef.current = false;
       if (scrollProgressRef) {
-        scrollProgressRef.current = progressFromScrollY(y, scrollTrigger);
+        scrollProgressRef.current = measuredProgressAt(y, scrollTrigger);
       }
       if (activeSectionRef) activeSectionRef.current = section;
       onSectionChange?.(section);
-      ScrollTrigger.refresh();
       invalidate?.();
       activeScrollTween = null;
     },
@@ -154,22 +218,20 @@ export function prevSection(current: ScrollSection): ScrollSection {
   return SCROLL_SECTIONS[Math.max(idx - 1, 0)];
 }
 
-/** Snap progress to nearest section based on DOM positions. */
+/** Snap progress (ScrollTrigger space) to the nearest section anchor. */
 export function snapToNearestSection(
   progress: number,
   scrollTrigger: ScrollTrigger | null,
 ): number {
-  if (!scrollTrigger?.trigger) {
+  const anchors = getAnchors(scrollTrigger);
+  if (!anchors || !scrollTrigger) {
     const step = 1 / (SCROLL_SECTIONS.length - 1);
     return Math.round(progress / step) * step;
   }
 
   let bestProgress = progress;
   let bestDist = Infinity;
-
-  for (const section of SCROLL_SECTIONS) {
-    const y = getSectionScrollTarget(section, scrollTrigger);
-    if (y === null) continue;
+  for (const y of anchors) {
     const p = progressFromScrollY(y, scrollTrigger);
     const dist = Math.abs(progress - p);
     if (dist < bestDist) {

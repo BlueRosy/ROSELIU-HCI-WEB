@@ -109,7 +109,7 @@ function buildScatterLayout() {
   }
 
   const roseClusters: RoseCluster[] = [];
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 6; i++) {
     const x = (seededRandom(i * 13.3) - 0.5) * 20;
     const z = -2 - seededRandom(i * 9.1) * 24;
     if (nearLandmark(x, z)) continue;

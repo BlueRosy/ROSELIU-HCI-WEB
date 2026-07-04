@@ -23,5 +23,7 @@ dist-ssr
 *.sw?
 .vercel
 
-# Full-resolution 3D source (107MB) — kept locally, not deployed
+# Full-resolution 3D source — kept locally, not deployed
 model-src
+# Raw Meshy GLB exports (huge); only the compressed new-landmarks/ are committed
+public/research-world-elements/new assets/

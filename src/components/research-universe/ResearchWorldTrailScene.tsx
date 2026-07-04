@@ -3,17 +3,12 @@ import { useGLTF, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import { researchWorldAssets } from "../../content/site";
 import { rwWonderland } from "../../theme/rwWonderland";
-import RWEntryPavilion from "../research-world/RWEntryPavilion";
-import RWLoopCenter from "../research-world/RWLoopCenter";
-import {
-  RWObservatoryPlatform,
-  RWPathStones,
-  RWSignalsGardenBeds,
-  RWSupportSanctuary,
-} from "../research-world/RWZoneAssets";
+import { RWPathStones } from "../research-world/RWZoneAssets";
+import TrailDecor from "./TrailDecor";
 import TrailGroundScatter from "./TrailGroundScatter";
 import TrailPetalField from "./TrailPetalField";
 import TrailTwilightSky from "./TrailTwilightSky";
+import TrailZoneLandmarks from "./TrailZoneLandmarks";
 import { TRAIL_CURVE } from "./worldTrailConfig";
 
 const GROUND_SIZE = 40;
@@ -90,19 +85,11 @@ export default function ResearchWorldTrailScene() {
       <TrailGroundScatter />
       <TrailPath />
       <TrailPetalField />
-      <RWEntryPavilion />
-      <RWSignalsGardenBeds />
-      <RWObservatoryPlatform />
-      <RWSupportSanctuary />
+      <TrailZoneLandmarks />
+      <TrailDecor />
       <RWPathStones />
-      <RWLoopCenter trailMode />
     </Suspense>
   );
 }
 
-useGLTF.preload(researchWorldAssets.entryPavilion);
-useGLTF.preload(researchWorldAssets.signalsGardenBed);
-useGLTF.preload(researchWorldAssets.observatoryPlatform);
-useGLTF.preload(researchWorldAssets.supportSanctuary);
 useGLTF.preload(researchWorldAssets.pathStone);
-useGLTF.preload(researchWorldAssets.closedLoopCore);
