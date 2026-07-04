@@ -80,12 +80,14 @@ function buildScatterLayout() {
   }
 
   const vines: ScatterVine[] = [];
-  for (let i = 0; i < 14; i++) {
-    const t = 0.06 + (i / 14) * 0.88;
+  for (let i = 0; i < 10; i++) {
+    const t = 0.06 + (i / 10) * 0.88;
     const pt = TRAIL_CURVE.getPointAt(t);
-    const side = i % 2 === 0 ? 1.6 : -1.8;
-    const x = pt.x + side;
-    const z = pt.z + (seededRandom(i * 2.1) - 0.5) * 1.2;
+    const tangent = TRAIL_CURVE.getTangentAt(t);
+    const side = i % 2 === 0 ? 3.2 : -3.4;
+    const off = new THREE.Vector3(-tangent.z, 0, tangent.x).multiplyScalar(side);
+    const x = pt.x + off.x;
+    const z = pt.z + off.z + (seededRandom(i * 2.1) - 0.5) * 1.2;
     if (nearLandmark(x, z)) continue;
     vines.push({
       position: [x, 0, z],

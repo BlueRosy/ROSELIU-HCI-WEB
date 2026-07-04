@@ -16,6 +16,7 @@ import ScrollNarrative from "./ScrollNarrative";
 import TrailAmbientAudio from "./TrailAmbientAudio";
 import TrailIntroOverlay from "./TrailIntroOverlay";
 import TrailProgressBar from "./TrailProgressBar";
+import TrailSceneLoader from "./TrailSceneLoader";
 import TrailSkyCityIntro from "./TrailSkyCityIntro";
 import type { UniverseSceneState } from "./UniverseContext";
 import {
@@ -46,6 +47,11 @@ export default function ResearchUniverseView() {
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const [currentSection, setCurrentSection] = useState<ScrollSection>("hero");
   const [entered, setEntered] = useState(false);
+  // `entering` covers the sky-city → entry hand-off (loader visible until the
+  // main scene's models finish streaming in); `sceneReady` retires the loader.
+  const [entering, setEntering] = useState(false);
+  const [sceneReady, setSceneReady] = useState(false);
+  const showLoader = entering && !sceneReady;
 
   const scrollProgress = useRef(0);
   const activeSection = useRef<ScrollSection>("hero");
@@ -67,9 +73,27 @@ export default function ResearchUniverseView() {
     setSelectedProject(projectId);
   }, []);
 
+  // Fires the moment "Enter" is clicked (before the intro finishes fading) so
+  // the loader is already up behind the intro — no white flash in the gap.
+  const handleEnterStart = useCallback(() => {
+    setSceneReady(false);
+    setEntering(true);
+    // Warm the main scene chunk + its GLB preloads now (no WebGL context yet),
+    // so models are already downloading while the intro fades out.
+    import("./ResearchUniverseCanvas");
+  }, []);
+
   const handleEnter = useCallback(() => {
     setEntered(true);
     window.scrollTo(0, 0);
+  }, []);
+
+  // Let visitors fly back up to the sky-city intro at any time.
+  const handleReplayIntro = useCallback(() => {
+    window.scrollTo(0, 0);
+    setEntered(false);
+    setEntering(false);
+    setSceneReady(false);
   }, []);
 
   // Lock page scroll (and stray keyboard nav) while the sky-city intro is up.
@@ -214,20 +238,27 @@ export default function ResearchUniverseView() {
         style={{ pointerEvents: "none" }}
         aria-hidden
       >
-        <Suspense fallback={null}>
-          <ResearchUniverseCanvas sceneState={sceneState} />
-        </Suspense>
+        {/* Only mount the main WebGL canvas after the intro is gone, so the two
+            heavy contexts never run at once (was causing "Context Lost"). */}
+        {entered && (
+          <Suspense fallback={null}>
+            <ResearchUniverseCanvas sceneState={sceneState} />
+          </Suspense>
+        )}
       </div>
 
       <div ref={scrollRef} className="trail-scroll-root relative z-10">
         <ScrollNarrative />
       </div>
 
-      <TrailProgressBar
-        activeSection={currentSection}
-        onNavigate={navigateToSection}
-      />
-      <TrailIntroOverlay />
+      {!showLoader && (
+        <TrailProgressBar
+          activeSection={currentSection}
+          onNavigate={navigateToSection}
+          onReplayIntro={handleReplayIntro}
+        />
+      )}
+      {!showLoader && <TrailIntroOverlay />}
       <TrailAmbientAudio />
 
       <ProjectDetailPanel
@@ -235,7 +266,21 @@ export default function ResearchUniverseView() {
         onClose={() => setSelectedProject(null)}
       />
 
-      {!entered && <TrailSkyCityIntro onEnter={handleEnter} />}
+      {showLoader && (
+        <TrailSceneLoader
+          onReady={() => {
+            setSceneReady(true);
+            setEntering(false);
+          }}
+        />
+      )}
+
+      {!entered && (
+        <TrailSkyCityIntro
+          onEnter={handleEnter}
+          onEnterStart={handleEnterStart}
+        />
+      )}
     </>
   );
 }

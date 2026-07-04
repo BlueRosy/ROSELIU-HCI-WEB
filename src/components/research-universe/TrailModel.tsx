@@ -7,18 +7,26 @@ export type NormalizeOpts = {
   targetY?: number;
   /** Scale so the model's largest horizontal span equals this. Overrides targetY. */
   targetXZ?: number;
+  /** Correct a model's authored orientation (radians), baked in before measuring. */
+  tiltX?: number;
+  tiltZ?: number;
 };
 
 /**
- * Clone + normalize a GLB once: scale to a target size, drop onto the ground
- * (min.y = 0), and centre it on x/z. Wide, flat pieces (plazas, ponds, meadows)
- * can be sized by footprint (targetXZ) instead of height (targetY).
+ * Clone + normalize a GLB once: apply any orientation correction, scale to a
+ * target size, drop onto the ground (min.y = 0), and centre it on x/z. Wide,
+ * flat pieces (plazas, ponds, meadows) can be sized by footprint (targetXZ)
+ * instead of height (targetY).
  */
 export function useTrailModel(url: string, opts: NormalizeOpts) {
   const { scene } = useGLTF(url);
-  const { targetY, targetXZ } = opts;
+  const { targetY, targetXZ, tiltX = 0, tiltZ = 0 } = opts;
   return useMemo(() => {
     const clone = scene.clone(true);
+    // Bake orientation correction first so sizing + grounding use the final pose.
+    clone.rotation.set(tiltX, 0, tiltZ);
+    clone.updateMatrixWorld(true);
+
     const box = new THREE.Box3().setFromObject(clone);
     const size = new THREE.Vector3();
     box.getSize(size);
@@ -38,7 +46,7 @@ export function useTrailModel(url: string, opts: NormalizeOpts) {
     clone.position.z -= center.z;
     clone.position.y -= grounded.min.y;
     return clone;
-  }, [scene, targetY, targetXZ]);
+  }, [scene, targetY, targetXZ, tiltX, tiltZ]);
 }
 
 export default function TrailModel({
@@ -47,12 +55,14 @@ export default function TrailModel({
   rotationY = 0,
   targetY,
   targetXZ,
+  tiltX,
+  tiltZ,
 }: {
   url: string;
   position: [number, number, number];
   rotationY?: number;
 } & NormalizeOpts) {
-  const model = useTrailModel(url, { targetY, targetXZ });
+  const model = useTrailModel(url, { targetY, targetXZ, tiltX, tiltZ });
   return (
     <group position={position} rotation={[0, rotationY, 0]}>
       <primitive object={model} />

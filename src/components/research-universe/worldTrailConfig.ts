@@ -66,7 +66,10 @@ const _point = new THREE.Vector3();
 const _tangent = new THREE.Vector3();
 const _cam = new THREE.Vector3();
 const _look = new THREE.Vector3();
-const _elev = new THREE.Vector3(0, 3.2, 0);
+/** How far behind each stop the camera sits along the path tangent (matches the
+ * 7eb2fb2 framing that read cleanly with these landmark sizes). */
+const CAM_BACK = 4.2;
+const CAM_ELEV = 3.2;
 
 export type TrailCameraSample = {
   position: THREE.Vector3;
@@ -96,7 +99,19 @@ export function sampleTrailCamera(progress: number): TrailCameraSample {
   _tangent.y = 0;
   if (_tangent.lengthSq() > 0.0001) _tangent.normalize();
 
-  _cam.copy(_point).addScaledVector(_tangent, -4.2).add(_elev);
+  // The entry gate is a big glass dome — ease the camera further back (and a
+  // touch higher) right at the entry so it frames the gate instead of engulfing
+  // it. Fades out to the normal distance by the time we reach signals.
+  let camBack = CAM_BACK;
+  let camElev = CAM_ELEV;
+  if (i === 0) {
+    const entryEase = 1 - te;
+    camBack += entryEase * 3.2;
+    camElev += entryEase * 0.9;
+  }
+
+  _cam.copy(_point).addScaledVector(_tangent, -camBack);
+  _cam.y += camElev;
 
   _look.set(
     a.lookAt[0] + (b.lookAt[0] - a.lookAt[0]) * te,

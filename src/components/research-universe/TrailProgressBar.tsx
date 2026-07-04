@@ -15,13 +15,28 @@ const STOP_LABELS = Object.fromEntries(
 export default function TrailProgressBar({
   activeSection,
   onNavigate,
+  onReplayIntro,
 }: {
   activeSection: ScrollSection;
   onNavigate: (section: ScrollSection) => void;
+  onReplayIntro?: () => void;
 }) {
   return (
     <div className="fixed bottom-8 left-1/2 z-20 -translate-x-1/2">
       <div className="glass flex items-center gap-1 rounded-full border border-border/50 px-3 py-2 shadow-soft backdrop-blur-md">
+        {onReplayIntro && (
+          <>
+            <button
+              type="button"
+              onClick={onReplayIntro}
+              className="pointer-events-auto rounded-full px-2.5 py-1 font-mono text-[9px] uppercase tracking-wider text-primary transition hover:bg-primary/10 hover:text-primary-deep"
+              title="Return to the Rose Sky Castle intro"
+            >
+              ✦ Sky Castle
+            </button>
+            <span className="mx-0.5 h-3 w-px bg-border/60" aria-hidden />
+          </>
+        )}
         {TRAIL_STOPS.map((stop) => {
           const active = activeSection === stop.section;
           const label = STOP_LABELS[stop.section]?.split(" ")[0] ?? stop.section;

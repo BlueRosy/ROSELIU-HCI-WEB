@@ -9,19 +9,22 @@ import TrailModel from "./TrailModel";
 
 const P = LANDMARK_BY_ZONE;
 
-/** Entry: moon-gate portal (the "dome" you fly through) + compass plaza medallion. */
+/** Entry: moon-gate portal (the "dome" you frame the trail through) + a flat
+ * compass-plaza medallion on the ground. The plaza GLB is authored as a
+ * vertical XY disc, so tiltX lays it flat before sizing. */
 function EntryGate() {
   return (
     <group>
       <TrailModel
         url={researchWorldAssets.roseCompassPlaza}
-        position={[0, 0.02, 4]}
-        targetXZ={7}
+        position={[0, 0.02, 4.5]}
+        targetXZ={6}
+        tiltX={-Math.PI / 2}
       />
       <TrailModel
         url={researchWorldAssets.moonGatePortal}
-        position={[0, 0, 3.4]}
-        targetY={4.4}
+        position={[0, 0, 1.8]}
+        targetY={3.4}
       />
     </group>
   );
@@ -66,27 +69,20 @@ function StatesPrism() {
   );
 }
 
-/** Support: reflection pond + a gazebo beside it. */
+/** Support: a single gazebo sanctuary. */
 function SupportSanctuary() {
   const p = P.support.position;
   return (
-    <group position={[p[0], 0, p[2]]}>
-      <TrailModel
-        url={researchWorldAssets.reflectionPond}
-        position={[0, 0.02, 0]}
-        targetXZ={5.5}
-      />
-      <TrailModel
-        url={researchWorldAssets.gazebo}
-        position={[1.9, 0, -1.4]}
-        targetY={3.2}
-        rotationY={-Math.PI * 0.25}
-      />
-    </group>
+    <TrailModel
+      url={researchWorldAssets.gazebo}
+      position={[p[0], 0, p[2]]}
+      targetY={3.4}
+      rotationY={-Math.PI * 0.15}
+    />
   );
 }
 
-/** Loop: research lantern tower (culmination) + thesis archive beside it. */
+/** Loop: research lantern tower (culmination). */
 function LoopCulmination() {
   const light = useRef<THREE.PointLight>(null);
   useFrame(({ clock }) => {
@@ -99,13 +95,7 @@ function LoopCulmination() {
       <TrailModel
         url={researchWorldAssets.researchLanternTower}
         position={[0, 0, 0]}
-        targetY={4.8}
-      />
-      <TrailModel
-        url={researchWorldAssets.thesisArchive}
-        position={[-3.4, 0, -1.2]}
-        targetY={3.0}
-        rotationY={Math.PI * 0.2}
+        targetY={4.6}
       />
       <pointLight
         ref={light}
@@ -134,7 +124,5 @@ useGLTF.preload(researchWorldAssets.moonGatePortal);
 useGLTF.preload(researchWorldAssets.roseCompassPlaza);
 useGLTF.preload(researchWorldAssets.signalBeacon);
 useGLTF.preload(researchWorldAssets.emotionPrismTower);
-useGLTF.preload(researchWorldAssets.reflectionPond);
 useGLTF.preload(researchWorldAssets.gazebo);
 useGLTF.preload(researchWorldAssets.researchLanternTower);
-useGLTF.preload(researchWorldAssets.thesisArchive);

@@ -732,6 +732,11 @@ export const researchWorldAssets = {
   roseCompassPlaza:
     "/research-world-elements/new-landmarks/rose-compass-plaza.glb",
   signalBeacon: "/research-world-elements/new-landmarks/signal-beacon.glb",
+  signalBeaconOrb:
+    "/research-world-elements/new-landmarks/signal-beacon-orb.glb",
+  scholarGazebo: "/research-world-elements/new-landmarks/scholar-gazebo.glb",
+  gardenDoor: "/research-world-elements/new-landmarks/garden-door.glb",
+  loopGlowRing: "/research-world-elements/new-landmarks/loop-glow-ring-v2.glb",
   emotionPrismTower:
     "/research-world-elements/new-landmarks/emotion-prism-tower.glb",
   reflectionPond: "/research-world-elements/new-landmarks/reflection-pond.glb",
@@ -744,6 +749,10 @@ export const researchWorldAssets = {
   roseFountain: "/research-world-elements/new-landmarks/rose-fountain.glb",
   wildflowerMeadow:
     "/research-world-elements/new-landmarks/wildflower-meadow.glb",
+  /** Sky-city set (Draco + webp compressed from Meshy) */
+  pinkMoon: "/research-world-elements/new-landmarks/pink-moon.glb",
+  roseAirship: "/research-world-elements/new-landmarks/rose-airship.glb",
+  skyCastle: "/research-world-elements/new-landmarks/sky-castle.glb",
   zonePlazas: {
     signals: "/research-world-elements/zone-plazas/signals-plaza.png",
     states: "/research-world-elements/zone-plazas/states-plaza.png",

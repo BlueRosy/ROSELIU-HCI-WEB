@@ -40,21 +40,26 @@ export function RWObservatoryPlatform() {
 export function RWSignalsGardenBeds() {
   const lm = LANDMARKS.find((l) => l.id === "signals");
   if (!lm) return null;
-  const offsets: [number, number, number][] = [
-    [-1.8, 0, 1.2],
-    [1.6, 0, 0.8],
-    [-0.5, 0, 2],
-    [1.2, 0, -1.5],
+  // Distinct glowing "signal beacon orb" (whiter regenerated asset) as the
+  // signals landmark, with a couple of low garden beds tucked around its base.
+  const bedOffsets: [number, number, number][] = [
+    [-1.9, 0, 1.3],
+    [1.7, 0, -1.2],
   ];
   return (
     <group position={lm.position}>
-      {offsets.map((off, i) => (
+      <GltfClone
+        url={researchWorldAssets.signalBeaconOrb}
+        position={[0, 0, 0]}
+        targetHeight={2.8}
+      />
+      {bedOffsets.map((off, i) => (
         <GltfClone
           key={i}
           url={researchWorldAssets.signalsGardenBed}
           position={off}
-          rotation={[0, i * 0.9, 0]}
-          targetHeight={0.9}
+          rotation={[0, i * 1.4, 0]}
+          targetHeight={0.8}
         />
       ))}
     </group>
@@ -64,6 +69,7 @@ export function RWSignalsGardenBeds() {
 export function RWSupportSanctuary() {
   const lm = LANDMARKS.find((l) => l.id === "support");
   if (!lm) return null;
+  // The original pink sanctuary — restored (was wrongly swapped for a gazebo).
   return (
     <GltfClone
       url={researchWorldAssets.supportSanctuary}
@@ -111,28 +117,27 @@ export function RWPathStones() {
 
 export function RWClosedLoopCoreGlb() {
   const group = useRef<THREE.Group>(null);
-  const ring = useNormalizedGltf(researchWorldAssets.closedLoopCore, 3.2);
-  const relief = useNormalizedGltf(researchWorldAssets.loopRelief, 1.8);
+  // Thesis Archive as the closed-loop culmination — a distinct upright landmark
+  // (replaces the glow ring / blue dome that duplicated the STATES landmark).
+  const archive = useNormalizedGltf(researchWorldAssets.thesisArchive, 3.4);
 
   useFrame((state) => {
-    if (group.current) group.current.rotation.y = state.clock.elapsedTime * 0.06;
+    if (group.current) group.current.rotation.y = state.clock.elapsedTime * 0.08;
   });
 
   return (
     <group ref={group}>
-      <primitive object={ring.clone(true)} />
-      <group position={[0, 0.2, 0]} scale={[0.85, 0.85, 0.85]}>
-        <primitive object={relief.clone(true)} />
-      </group>
+      <primitive object={archive.clone(true)} />
     </group>
   );
 }
 
 useGLTF.preload(researchWorldAssets.observatoryPlatform);
 useGLTF.preload(researchWorldAssets.signalsGardenBed);
+useGLTF.preload(researchWorldAssets.signalBeaconOrb);
 useGLTF.preload(researchWorldAssets.supportSanctuary);
 useGLTF.preload(researchWorldAssets.pathStone);
-useGLTF.preload(researchWorldAssets.closedLoopCore);
-useGLTF.preload(researchWorldAssets.loopRelief);
-useGLTF.preload(researchWorldAssets.entryPavilion);
+useGLTF.preload(researchWorldAssets.thesisArchive);
+useGLTF.preload(researchWorldAssets.scholarGazebo);
+useGLTF.preload(researchWorldAssets.gardenDoor);
 useGLTF.preload(researchWorldAssets.signalNodeIcon);
