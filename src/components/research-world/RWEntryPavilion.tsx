@@ -6,17 +6,38 @@ import RWGltfModel from "./RWGltfModel";
 export default function RWEntryPavilion() {
   return (
     <group position={[0, 0, 3.2]}>
-      {/* Garden door — the gate you pass through onto the trail. */}
+      {/* Clean entry apron — keeps hero / title area readable */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.012, 2.2]}>
+        <circleGeometry args={[2.8, 48]} />
+        <meshStandardMaterial
+          color="#FFF5F0"
+          emissive={rwWonderland.pathGlow}
+          emissiveIntensity={0.08}
+          roughness={0.35}
+          metalness={0.04}
+        />
+      </mesh>
       <RWGltfModel
         url={researchWorldAssets.gardenDoor}
         position={[0, 0, 1.9]}
         targetHeight={3.6}
       />
-      {/* Scholar gazebo set behind the gate as the welcome pavilion. */}
       <RWGltfModel
         url={researchWorldAssets.scholarGazebo}
         position={[0, 0, -0.6]}
         targetHeight={2.6}
+      />
+      <RWGltfModel
+        url={researchWorldAssets.trellisArch}
+        position={[-2.4, 0, 1.4]}
+        rotation={[0, 0.35, 0]}
+        targetHeight={2.2}
+      />
+      <RWGltfModel
+        url={researchWorldAssets.trellisArch}
+        position={[2.4, 0, 1.4]}
+        rotation={[0, -0.35, 0]}
+        targetHeight={2.2}
       />
       <Text
         position={[0, 2.5, 1.95]}

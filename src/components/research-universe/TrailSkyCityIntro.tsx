@@ -1,17 +1,19 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import gsap from "gsap";
 import * as THREE from "three";
 import { researchWorld, researchWorldAssets } from "../../content/site";
 import { useSkyModel } from "./TrailTwilightSky";
+import { SkyCityWaterfallSheets } from "./TrailRoseSea";
 
 /** The floating rose sky-city (v2) that the visitor flies down from. */
 const SKY_CITY_GLB = researchWorldAssets.skyCastle;
 
-const ROSE = "#D4A59E";
 const PETAL_COLORS = ["#F5C4D8", "#F3B6CC", "#FADCE6", "#E8A0BC", "#FFF0F5"];
 const PETAL_COUNT = 280;
+const INTRO_GRADIENT =
+  "linear-gradient(180deg, #FFF5F8 0%, #FFEDE8 45%, #FFE8DF 78%, #FFF0F5 100%)";
 
 const petalGeometry = (() => {
   const s = new THREE.Shape();
@@ -21,36 +23,17 @@ const petalGeometry = (() => {
   return new THREE.ShapeGeometry(s);
 })();
 
-/** Hero pink moon (v2) with a soft glow halo, hung upper-left in the sky. */
+/** Hero pink moon — slow rotation only (no sprite halo). */
 function PinkMoon() {
   const group = useRef<THREE.Group>(null);
-  const glowTex = useMemo(() => {
-    const canvas = document.createElement("canvas");
-    canvas.width = 128;
-    canvas.height = 128;
-    const ctx = canvas.getContext("2d")!;
-    const grad = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
-    grad.addColorStop(0, "rgba(247, 200, 220, 0.9)");
-    grad.addColorStop(0.4, "rgba(232, 160, 190, 0.34)");
-    grad.addColorStop(1, "rgba(232, 180, 200, 0)");
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, 128, 128);
-    const tex = new THREE.CanvasTexture(canvas);
-    tex.colorSpace = THREE.SRGBColorSpace;
-    return tex;
-  }, []);
-
   const moon = useSkyModel(researchWorldAssets.pinkMoon, 3.6);
 
   useFrame(({ clock }) => {
-    if (group.current) group.current.rotation.y = clock.getElapsedTime() * 0.03;
+    if (group.current) group.current.rotation.y = clock.getElapsedTime() * 0.025;
   });
 
   return (
     <group position={[-5.2, 4.3, -11]}>
-      <sprite scale={[13, 13, 1]} position={[0, 0, -0.5]}>
-        <spriteMaterial map={glowTex} transparent depthWrite={false} depthTest={false} />
-      </sprite>
       <group ref={group}>
         <primitive object={moon} />
       </group>
@@ -58,10 +41,40 @@ function PinkMoon() {
   );
 }
 
+/** Lift GLB stone toward warm rose ivory — avoids the castle reading grey/dark. */
+function applyWarmSkyTint(root: THREE.Object3D) {
+  const warm = new THREE.Color("#FFF2EA");
+  const emissive = new THREE.Color("#E8A8B8");
+  root.traverse((obj) => {
+    const mesh = obj as THREE.Mesh;
+    if (!mesh.isMesh) return;
+    const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+    for (const raw of mats) {
+      if (!(raw instanceof THREE.MeshStandardMaterial)) continue;
+      raw.color.lerp(warm, 0.16);
+      raw.emissive.copy(emissive);
+      raw.emissiveIntensity = 0.1;
+      raw.metalness = Math.max(0, raw.metalness * 0.65);
+      raw.roughness = Math.min(1, raw.roughness * 0.92 + 0.04);
+      raw.needsUpdate = true;
+    }
+  });
+}
+
 /** The floating rose sky-city, centered so the fly-in framing stays consistent. */
 function SkyCastle() {
   const castle = useSkyModel(SKY_CITY_GLB, 5);
-  return <primitive object={castle} />;
+  const model = useMemo(() => {
+    const c = castle.clone(true);
+    applyWarmSkyTint(c);
+    return c;
+  }, [castle]);
+  return (
+    <group>
+      <primitive object={model} />
+      <SkyCityWaterfallSheets />
+    </group>
+  );
 }
 
 /** Zeppelin (v2) drifting FAR in the distance so it reads much smaller than the
@@ -192,9 +205,9 @@ function Clouds() {
         <mesh key={i} position={c.pos} scale={[c.scale, c.scale * 0.5, c.scale]}>
           <sphereGeometry args={[1, 14, 12]} />
           <meshStandardMaterial
-            color="#FFFBF6"
+            color="#FFFCFA"
             transparent
-            opacity={0.5}
+            opacity={0.38}
             roughness={1}
             depthWrite={false}
           />
@@ -237,38 +250,6 @@ function Stars() {
   );
 }
 
-/** Soft volumetric moonlight — a translucent cone spilling from the moon. */
-function MoonlightShaft() {
-  return (
-    <group position={[-5.2, 4.3, -11]} rotation={[0.42, 0, 0.34]}>
-      <mesh position={[0, -6.5, 0]}>
-        <coneGeometry args={[5.5, 13, 28, 1, true]} />
-        <meshBasicMaterial
-          color="#FCE6F0"
-          transparent
-          opacity={0.1}
-          side={THREE.DoubleSide}
-          depthWrite={false}
-          blending={THREE.AdditiveBlending}
-          fog={false}
-        />
-      </mesh>
-      <mesh position={[0, -6.5, 0]} scale={0.6}>
-        <coneGeometry args={[5.5, 13, 28, 1, true]} />
-        <meshBasicMaterial
-          color="#FFF0F6"
-          transparent
-          opacity={0.13}
-          side={THREE.DoubleSide}
-          depthWrite={false}
-          blending={THREE.AdditiveBlending}
-          fog={false}
-        />
-      </mesh>
-    </group>
-  );
-}
-
 function IntroScene({ zoom }: { zoom: React.MutableRefObject<number> }) {
   const { camera } = useThree();
   const city = useRef<THREE.Group>(null);
@@ -292,20 +273,62 @@ function IntroScene({ zoom }: { zoom: React.MutableRefObject<number> }) {
 
   return (
     <>
-      <hemisphereLight args={["#FFF3F8", "#E7C8D2", 0.6]} />
-      <ambientLight intensity={0.55} color="#FFF6EE" />
-      <directionalLight position={[4, 8, 6]} intensity={1.15} color="#FFF3E8" />
-      <directionalLight position={[-5, 3, -4]} intensity={0.45} color={ROSE} />
+      <hemisphereLight args={["#FFF9F6", "#FFE4EA", 0.88]} />
+      <ambientLight intensity={0.78} color="#FFF5F0" />
+      <directionalLight position={[3, 10, 8]} intensity={1.4} color="#FFF8F2" />
+      <directionalLight position={[-4, 5, 5]} intensity={0.58} color="#F5D0D8" />
+      <pointLight position={[0, 2.5, 7]} intensity={0.55} color="#FFE8EE" distance={22} decay={2} />
       <PinkMoon />
-      <MoonlightShaft />
       <Stars />
       <IntroAirship />
       <Clouds />
       <FallingPetals />
       <group ref={city}>
-        <SkyCastle />
+        <Suspense fallback={null}>
+          <SkyCastle />
+        </Suspense>
       </group>
     </>
+  );
+}
+
+/** Isolated intro canvas — context-loss recovery keeps the sky city from dying. */
+function SkyCityIntroCanvas({
+  zoom,
+}: {
+  zoom: React.MutableRefObject<number>;
+}) {
+  const [canvasKey, setCanvasKey] = useState(0);
+  const remounts = useRef(0);
+
+  return (
+    <Canvas
+      key={canvasKey}
+      camera={{ position: [0, 1.7, 8.2], fov: 46, near: 0.1, far: 80 }}
+      dpr={[1, 1.5]}
+      gl={{
+        antialias: true,
+        alpha: true,
+        powerPreference: "high-performance",
+      }}
+      style={{ position: "absolute", inset: 0 }}
+      onCreated={({ gl }) => {
+        gl.toneMapping = THREE.ACESFilmicToneMapping;
+        gl.toneMappingExposure = 1.2;
+        gl.setClearColor(0x000000, 0);
+        const el = gl.domElement;
+        el.addEventListener("webglcontextlost", (event) => {
+          event.preventDefault();
+          if (remounts.current >= 2) return;
+          remounts.current += 1;
+          window.setTimeout(() => setCanvasKey((k) => k + 1), 150);
+        });
+      }}
+    >
+      <Suspense fallback={null}>
+        <IntroScene zoom={zoom} />
+      </Suspense>
+    </Canvas>
   );
 }
 
@@ -335,18 +358,10 @@ export default function TrailSkyCityIntro({
         leaving ? "opacity-0" : "opacity-100"
       }`}
       style={{
-        background:
-          "linear-gradient(180deg, #F3D9E4 0%, #FBEFE6 45%, #F6E4D4 78%, #EFD6C4 100%)",
+        background: INTRO_GRADIENT,
       }}
     >
-      <Canvas
-        camera={{ position: [0, 1.7, 8.2], fov: 46, near: 0.1, far: 60 }}
-        dpr={[1, 1.5]}
-        gl={{ antialias: true, alpha: true }}
-        style={{ position: "absolute", inset: 0 }}
-      >
-        <IntroScene zoom={zoom} />
-      </Canvas>
+      <SkyCityIntroCanvas zoom={zoom} />
 
       {/* bloom flash on enter */}
       <div
@@ -355,22 +370,22 @@ export default function TrailSkyCityIntro({
         }`}
       />
 
-      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-end pb-[16vh] text-center sm:justify-center sm:pb-0">
-        <p className="font-mono text-xs uppercase tracking-[0.28em] text-primary/80">
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col items-center pb-[11vh] pt-32 text-center">
+        <p className="sky-intro-eyebrow font-mono text-[0.68rem] uppercase sm:text-xs">
           {researchWorld.subtitle}
         </p>
-        <h1 className="mt-4 max-w-2xl px-6 font-serif text-4xl leading-tight text-ink drop-shadow-sm sm:text-6xl">
+        <h1 className="sky-intro-title mt-3 max-w-2xl px-6 font-serif text-4xl leading-[1.12] sm:text-[3.25rem]">
           {researchWorld.title}
         </h1>
-        <p className="mt-4 max-w-md px-6 text-sm leading-relaxed text-slate sm:text-base">
-          A floating rose castle above the clouds — enter to walk the research
+        <p className="sky-intro-body mx-auto mt-3 max-w-md px-6 text-sm leading-relaxed sm:text-base">
+          Welcome to Rose Liu&apos;s Research World — Enter to walk the research
           trail below.
         </p>
         <button
           type="button"
           onClick={handleEnter}
           disabled={leaving}
-          className="pointer-events-auto mt-8 rounded-full border border-primary/30 bg-white/70 px-8 py-3 font-serif text-lg text-ink shadow-lift backdrop-blur-md transition-all hover:scale-[1.04] hover:bg-white/90 disabled:opacity-60"
+          className="sky-intro-cta pointer-events-auto mt-7 rounded-full px-8 py-3 font-serif text-lg transition-all hover:scale-[1.04] disabled:opacity-60"
         >
           {researchWorld.entryCta}
         </button>
@@ -379,6 +394,7 @@ export default function TrailSkyCityIntro({
   );
 }
 
-useGLTF.preload(researchWorldAssets.skyCastle);
-useGLTF.preload(researchWorldAssets.pinkMoon);
-useGLTF.preload(researchWorldAssets.roseAirship);
+useGLTF.clear(researchWorldAssets.skyCastle);
+useGLTF.preload(researchWorldAssets.skyCastle, "/draco/gltf/");
+useGLTF.preload(researchWorldAssets.pinkMoon, "/draco/gltf/");
+useGLTF.preload(researchWorldAssets.roseAirship, "/draco/gltf/");

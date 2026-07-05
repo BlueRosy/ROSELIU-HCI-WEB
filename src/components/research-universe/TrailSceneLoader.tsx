@@ -5,7 +5,7 @@ import { researchWorld } from "../../content/site";
 /** Same palette as the sky-city intro so the hand-off reads as one continuous
  * scene rather than a cut to a different screen. */
 const INTRO_GRADIENT =
-  "linear-gradient(180deg, #F3D9E4 0%, #FBEFE6 45%, #F6E4D4 78%, #EFD6C4 100%)";
+  "linear-gradient(180deg, #FFF5F8 0%, #FFEDE8 45%, #FFE8DF 78%, #FFF0F5 100%)";
 
 /**
  * Full-screen rose loader shown while the main trail scene's GLBs stream in.
@@ -15,39 +15,54 @@ const INTRO_GRADIENT =
  * gap, then fades out once the loading manager settles and tells the parent to
  * unmount it.
  */
-export default function TrailSceneLoader({ onReady }: { onReady: () => void }) {
+export default function TrailSceneLoader({
+  onReady,
+  trailActive = false,
+}: {
+  onReady: () => void;
+  /** True once the trail canvas is mounted and its GLBs are loading. */
+  trailActive?: boolean;
+}) {
   const { active, progress } = useProgress();
   const [hiding, setHiding] = useState(false);
   const started = useRef(false);
   const done = useRef(false);
 
-  // Only trust "finished" after a fresh loading burst actually began — the
-  // intro already drove the manager to 100%, so ignore that stale state.
   useEffect(() => {
+    if (!trailActive) return;
+    started.current = false;
+    done.current = false;
+    setHiding(false);
+  }, [trailActive]);
+
+  // Only trust "finished" after the trail canvas is live and a load burst began.
+  useEffect(() => {
+    if (!trailActive) return;
     if (active) started.current = true;
-  }, [active]);
+  }, [active, trailActive]);
 
   useEffect(() => {
-    if (done.current) return;
+    if (!trailActive || done.current) return;
     if (started.current && !active && progress >= 100) {
       done.current = true;
       // Small settle so the first frame is painted before we reveal it.
       const t = window.setTimeout(() => setHiding(true), 400);
       return () => window.clearTimeout(t);
     }
-  }, [active, progress]);
+  }, [active, progress, trailActive]);
 
   // Safety net: if every asset is already cached (no new load fires) reveal
   // anyway so we can never get stuck on the loader.
   useEffect(() => {
+    if (!trailActive) return;
     const t = window.setTimeout(() => {
       if (!done.current) {
         done.current = true;
         setHiding(true);
       }
-    }, 2600);
+    }, 4000);
     return () => window.clearTimeout(t);
-  }, []);
+  }, [trailActive]);
 
   const shown = Math.min(100, Math.round(progress));
 

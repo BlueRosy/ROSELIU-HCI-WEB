@@ -5,6 +5,9 @@ import { SCROLL_SECTIONS, type ScrollSection } from "./worldTrailConfig";
 let activeScrollTween: gsap.core.Tween | null = null;
 let snapSuspended = false;
 
+/** Keyboard / pill navigation — comfortable pace between landmarks. */
+export const TRAIL_SECTION_SCROLL_DURATION = 1.55;
+
 export function isScrollTweenActive(): boolean {
   return activeScrollTween !== null;
 }
@@ -147,6 +150,7 @@ export function sectionAtProgress(
 
 export type ScrollToSectionOptions = {
   duration?: number;
+  ease?: string;
   invalidate?: () => void;
   isScrollingRef?: { current: boolean };
   scrollProgressRef?: { current: number };
@@ -168,7 +172,8 @@ export function scrollToSection(
   activeScrollTween = null;
 
   const {
-    duration = 0.5,
+    duration = TRAIL_SECTION_SCROLL_DURATION,
+    ease = "power2.inOut",
     invalidate,
     isScrollingRef,
     scrollProgressRef,
@@ -183,14 +188,14 @@ export function scrollToSection(
   activeScrollTween = gsap.to(scrollObj, {
     y,
     duration,
-    ease: "power2.inOut",
+    ease,
     onUpdate: () => {
       window.scrollTo(0, scrollObj.y);
       ScrollTrigger.update();
 
       const p = measuredProgressAt(scrollObj.y, scrollTrigger);
       if (scrollProgressRef) scrollProgressRef.current = p;
-      if (activeSectionRef) activeSectionRef.current = section;
+      if (activeSectionRef) activeSectionRef.current = sectionFromProgress(p);
 
       invalidate?.();
     },

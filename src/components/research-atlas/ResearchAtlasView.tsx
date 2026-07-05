@@ -130,7 +130,16 @@ export default function ResearchAtlasView() {
 
       {/* Project evidence */}
       <section className="mx-auto mt-24 max-w-6xl px-5">
-        <ResearchAtlasProjects />
+        <Reveal>
+          <SectionHeading
+            eyebrow="Project evidence"
+            title="How projects support the agenda"
+            intro="Each project is evidence for a part of the signals-to-support pipeline — not a standalone demo."
+          />
+        </Reveal>
+        <div className="mt-10">
+          <ResearchAtlasProjects />
+        </div>
       </section>
     </main>
   );

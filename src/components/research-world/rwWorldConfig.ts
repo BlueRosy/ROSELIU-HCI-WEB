@@ -8,9 +8,9 @@ export type KeyState = {
 };
 
 export const WORLD_BOUNDS = {
-  xMin: -8,
-  xMax: 8,
-  zMin: -26,
+  xMin: -16,
+  xMax: 16,
+  zMin: -30,
   zMax: 7,
 } as const;
 
@@ -30,32 +30,37 @@ export type Landmark = {
   panelOffset: [number, number, number];
 };
 
+/** Tripod plaza: three landmarks on a mild scalene triangle; loop core sits
+ * slightly forward toward entry. Camera choreography keys off DISC_CENTER. */
+export const DISC_CENTER: [number, number, number] = [0.2, 0, -10.2];
+export const DISC_RADIUS = 10.5;
+
 export const LANDMARKS: Landmark[] = [
   {
     id: "signals",
     zoneId: "signals",
-    position: [-4, 0, -1],
+    position: [-6.2, 0, -6.8],
     treeScale: 1.1,
     panelOffset: [0, 3.8, 0],
   },
   {
     id: "states",
     zoneId: "states",
-    position: [0, 0, -9],
+    position: [0.6, 0, -18.2],
     treeScale: 1.2,
     panelOffset: [0, 4, 0],
   },
   {
     id: "support",
     zoneId: "support",
-    position: [4, 0, -17],
+    position: [5.4, 0, -8.2],
     treeScale: 1.1,
     panelOffset: [0, 3.8, 0],
   },
   {
     id: "loop",
     zoneId: "loop",
-    position: [0, 0, -23],
+    position: [0.2, 0, -10.2],
     treeScale: 0.85,
     panelOffset: [0, 3.5, 0],
   },
@@ -65,18 +70,17 @@ export const LANDMARK_BY_ZONE: Record<string, Landmark> = Object.fromEntries(
   LANDMARKS.map((lm) => [lm.zoneId, lm]),
 );
 
-/** Straighter spine path: Entry → Signals → States → Support → Loop */
+/** Entry walkway leading from the spawn onto the south edge of the tripod disc.
+ * The ring + spokes on the disc itself are drawn as their own geometry in the
+ * trail scene; this curve is just the approach (used for the ribbon, stepping
+ * stones, and to keep ground scatter off the path). */
 export const PATH_POINTS: [number, number, number][] = [
   [0, 0, 5],
-  [0, 0, 2],
-  [-2, 0, 0],
-  [-4, 0, -1],
-  [-2, 0, -5],
-  [0, 0, -9],
-  [2, 0, -13],
-  [4, 0, -17],
-  [2, 0, -20],
-  [0, 0, -23],
+  [0, 0, 2.5],
+  [0, 0, 0.5],
+  [0, 0, -1.5],
+  [0, 0, -4.8],
+  [0.1, 0, -7.6],
 ];
 
 export type ZonePlaza = {
@@ -101,8 +105,8 @@ export const ZONE_PLAZAS: ZonePlaza[] = [
   },
   {
     zoneId: "signals",
-    position: [-4, 0, -1],
-    radius: 4,
+    position: [-6.2, 0, -6.8],
+    radius: 5.2,
     color: "#E8EDE4",
     emissive: "#C5D4B8",
     label: "Signals Garden",
@@ -110,8 +114,8 @@ export const ZONE_PLAZAS: ZonePlaza[] = [
   },
   {
     zoneId: "states",
-    position: [0, 0, -9],
-    radius: 4.2,
+    position: [0.6, 0, -18.2],
+    radius: 5.4,
     color: "#E4E8ED",
     emissive: "#B8C5D4",
     label: "States Observatory",
@@ -119,8 +123,8 @@ export const ZONE_PLAZAS: ZonePlaza[] = [
   },
   {
     zoneId: "support",
-    position: [4, 0, -17],
-    radius: 4,
+    position: [5.4, 0, -8.2],
+    radius: 5.2,
     color: "#EDE4E4",
     emissive: "#D4B8B8",
     label: "Support Sanctuary",
@@ -128,11 +132,11 @@ export const ZONE_PLAZAS: ZonePlaza[] = [
   },
   {
     zoneId: "loop",
-    position: [0, 0, -23],
+    position: [0.2, 0, -10.2],
     radius: 4.5,
     color: "#F0E8E4",
     emissive: "#D4A59E",
-    label: "Closed-loop Center",
+    label: "Closed-loop Core",
     particleColor: "#B9786F",
   },
 ];

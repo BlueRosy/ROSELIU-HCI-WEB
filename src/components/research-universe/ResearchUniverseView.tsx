@@ -27,6 +27,7 @@ import {
   scrollToSection,
   sectionFromProgress,
   snapToNearestSection,
+  TRAIL_SECTION_SCROLL_DURATION,
 } from "./trailScrollUtils";
 import { useTrailKeyboard } from "./useTrailKeyboard";
 import type { ScrollSection } from "./worldTrailConfig";
@@ -47,6 +48,9 @@ export default function ResearchUniverseView() {
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const [currentSection, setCurrentSection] = useState<ScrollSection>("hero");
   const [entered, setEntered] = useState(false);
+  // Trail canvas mounts slightly after intro tears down so two WebGL contexts
+  // never overlap (that overlap was blanking the sky-city view).
+  const [trailCanvasLive, setTrailCanvasLive] = useState(false);
   // `entering` covers the sky-city → entry hand-off (loader visible until the
   // main scene's models finish streaming in); `sceneReady` retires the loader.
   const [entering, setEntering] = useState(false);
@@ -80,7 +84,7 @@ export default function ResearchUniverseView() {
     setEntering(true);
     // Warm the main scene chunk + its GLB preloads now (no WebGL context yet),
     // so models are already downloading while the intro fades out.
-    import("./ResearchUniverseCanvas");
+    void import("./ResearchUniverseCanvas");
   }, []);
 
   const handleEnter = useCallback(() => {
@@ -116,10 +120,20 @@ export default function ResearchUniverseView() {
     ScrollTrigger.refresh();
   }, [enable3D, entered]);
 
+  useEffect(() => {
+    if (!entered) {
+      setTrailCanvasLive(false);
+      return;
+    }
+    const t = window.setTimeout(() => setTrailCanvasLive(true), 600);
+    return () => window.clearTimeout(t);
+  }, [entered]);
+
   const navigateToSection = useCallback(
     (section: ScrollSection) => {
       scrollToSection(section, scrollTriggerRef.current, {
-        duration: 0.5,
+        duration: TRAIL_SECTION_SCROLL_DURATION,
+        ease: "power2.inOut",
         invalidate: () => invalidate.current(),
         isScrollingRef,
         scrollProgressRef: scrollProgress,
@@ -240,14 +254,18 @@ export default function ResearchUniverseView() {
       >
         {/* Only mount the main WebGL canvas after the intro is gone, so the two
             heavy contexts never run at once (was causing "Context Lost"). */}
-        {entered && (
+        {trailCanvasLive && (
           <Suspense fallback={null}>
             <ResearchUniverseCanvas sceneState={sceneState} />
           </Suspense>
         )}
       </div>
 
-      <div ref={scrollRef} className="trail-scroll-root relative z-10">
+      <div
+        ref={scrollRef}
+        className={`trail-scroll-root relative z-10 ${entered ? "" : "invisible"}`}
+        aria-hidden={!entered}
+      >
         <ScrollNarrative />
       </div>
 
@@ -268,6 +286,7 @@ export default function ResearchUniverseView() {
 
       {showLoader && (
         <TrailSceneLoader
+          trailActive={trailCanvasLive}
           onReady={() => {
             setSceneReady(true);
             setEntering(false);

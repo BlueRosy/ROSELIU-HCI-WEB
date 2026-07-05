@@ -439,7 +439,7 @@ LLM-assisted analysis workflows
 | Roots | Hefei, Anhui, China | Born in Hefei, Anhui | Where my curiosity about people, behavior, and the everyday systems that shape wellbeing first took root. |
 | 2016 – 2020 | Macau, China | B.Sc. in Applied Economics, MUST | Ranked 2/882 in the School of Business; foundations in statistics, behavioral economics, and game theory. |
 | 2021 – 2023 | New York, USA | M.S. in Applied Analytics, Columbia University | Research design, storytelling with data, and applied text & NLP analytics. |
-| 2023 – 2024 | Shanghai, China | Data Engineer, CIB Fintech (兴业数金) | Full-time data engineer on enterprise big-data architecture projects… |
+| 2023 – 2024 | Shanghai, China | Data Engineer, CIB Fintech | Full-time data engineer on enterprise big-data architecture projects… |
 | 2024 | Beijing, China | Frontend Developer Intern | Led frontend of a RAG workflow platform; cut workflow creation time from 2 hours to 30 minutes. |
 | 2025 – 2026 | Sydney, Australia | M.S. in Information Technology, UNSW | Interactive design and web front-end programming. WAM 90.3 / High Distinction. |
 | 2026 – 2027 | Kunshan, China | Research Fellow, HII Lab, Duke Kunshan University | Leading a two-phase study on short-form video behavior, mental wellbeing signals, and in-app interventions. |

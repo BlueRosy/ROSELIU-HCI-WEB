@@ -4,7 +4,10 @@ import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { researchWorldAssets } from "../../content/site";
 import { useNormalizedGltf } from "./RWGltfModel";
+import RWMilestoneBase, { PLINTH_HEIGHT } from "./RWMilestoneBase";
 import { LANDMARKS, PATH_POINTS } from "./rwWorldConfig";
+
+const DRACO = "/draco/gltf/";
 
 function GltfClone({
   url,
@@ -29,53 +32,59 @@ export function RWObservatoryPlatform() {
   const lm = LANDMARKS.find((l) => l.id === "states");
   if (!lm) return null;
   return (
-    <GltfClone
-      url={researchWorldAssets.observatoryPlatform}
-      position={[lm.position[0], 0, lm.position[2] - 0.5]}
-      targetHeight={2.8}
-    />
+    <>
+      <RWMilestoneBase
+        position={lm.position}
+        index="03"
+        label="States"
+        accent="#C4848F"
+      />
+      <GltfClone
+        url={researchWorldAssets.designLandmarks.statesObservatory}
+        position={[lm.position[0], PLINTH_HEIGHT, lm.position[2]]}
+        targetHeight={3.8}
+      />
+    </>
   );
 }
 
 export function RWSignalsGardenBeds() {
   const lm = LANDMARKS.find((l) => l.id === "signals");
   if (!lm) return null;
-  // Distinct glowing "signal beacon orb" (whiter regenerated asset) as the
-  // signals landmark, with a couple of low garden beds tucked around its base.
-  const bedOffsets: [number, number, number][] = [
-    [-1.9, 0, 1.3],
-    [1.7, 0, -1.2],
-  ];
   return (
-    <group position={lm.position}>
-      <GltfClone
-        url={researchWorldAssets.signalBeaconOrb}
-        position={[0, 0, 0]}
-        targetHeight={2.8}
+    <>
+      <RWMilestoneBase
+        position={lm.position}
+        index="02"
+        label="Signals"
+        accent="#8A9275"
       />
-      {bedOffsets.map((off, i) => (
-        <GltfClone
-          key={i}
-          url={researchWorldAssets.signalsGardenBed}
-          position={off}
-          rotation={[0, i * 1.4, 0]}
-          targetHeight={0.8}
-        />
-      ))}
-    </group>
+      <GltfClone
+        url={researchWorldAssets.designLandmarks.signalsGarden}
+        position={[lm.position[0], PLINTH_HEIGHT, lm.position[2]]}
+        targetHeight={3.6}
+      />
+    </>
   );
 }
 
 export function RWSupportSanctuary() {
   const lm = LANDMARKS.find((l) => l.id === "support");
   if (!lm) return null;
-  // The original pink sanctuary — restored (was wrongly swapped for a gazebo).
   return (
-    <GltfClone
-      url={researchWorldAssets.supportSanctuary}
-      position={[lm.position[0], 0, lm.position[2] - 0.3]}
-      targetHeight={2.6}
-    />
+    <>
+      <RWMilestoneBase
+        position={lm.position}
+        index="04"
+        label="Support"
+        accent="#B9786F"
+      />
+      <GltfClone
+        url={researchWorldAssets.designLandmarks.supportSanctuary}
+        position={[lm.position[0], PLINTH_HEIGHT, lm.position[2]]}
+        targetHeight={3.5}
+      />
+    </>
   );
 }
 
@@ -88,8 +97,8 @@ export function RWPathStones() {
 
   const stones = useMemo(() => {
     const items: { pos: THREE.Vector3; rot: number }[] = [];
-    for (let i = 1; i < 10; i++) {
-      const t = i / 10;
+    for (let i = 1; i < 8; i++) {
+      const t = i / 8;
       const pos = curve.getPointAt(t);
       const tangent = curve.getTangentAt(t);
       items.push({
@@ -115,15 +124,25 @@ export function RWPathStones() {
   );
 }
 
-export function RWClosedLoopCoreGlb() {
+export function RWClosedLoopCoreGlb({ accent = false }: { accent?: boolean }) {
   const group = useRef<THREE.Group>(null);
-  // Thesis Archive as the closed-loop culmination — a distinct upright landmark
-  // (replaces the glow ring / blue dome that duplicated the STATES landmark).
-  const archive = useNormalizedGltf(researchWorldAssets.thesisArchive, 3.4);
+  const archive = useNormalizedGltf(
+    researchWorldAssets.designLandmarks.closedLoop,
+    accent ? 0.52 : 3.6,
+  );
 
   useFrame((state) => {
-    if (group.current) group.current.rotation.y = state.clock.elapsedTime * 0.08;
+    if (accent || !group.current) return;
+    group.current.rotation.y = state.clock.elapsedTime * 0.06;
   });
+
+  if (accent) {
+    return (
+      <group position={[0, 0.04, 0]} scale={[1, 0.14, 1]}>
+        <primitive object={archive.clone(true)} />
+      </group>
+    );
+  }
 
   return (
     <group ref={group}>
@@ -132,12 +151,8 @@ export function RWClosedLoopCoreGlb() {
   );
 }
 
-useGLTF.preload(researchWorldAssets.observatoryPlatform);
-useGLTF.preload(researchWorldAssets.signalsGardenBed);
-useGLTF.preload(researchWorldAssets.signalBeaconOrb);
-useGLTF.preload(researchWorldAssets.supportSanctuary);
+useGLTF.preload(researchWorldAssets.designLandmarks.signalsGarden, DRACO);
+useGLTF.preload(researchWorldAssets.designLandmarks.statesObservatory, DRACO);
+useGLTF.preload(researchWorldAssets.designLandmarks.supportSanctuary, DRACO);
+useGLTF.preload(researchWorldAssets.designLandmarks.closedLoop, DRACO);
 useGLTF.preload(researchWorldAssets.pathStone);
-useGLTF.preload(researchWorldAssets.thesisArchive);
-useGLTF.preload(researchWorldAssets.scholarGazebo);
-useGLTF.preload(researchWorldAssets.gardenDoor);
-useGLTF.preload(researchWorldAssets.signalNodeIcon);

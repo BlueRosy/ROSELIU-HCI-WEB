@@ -16,18 +16,19 @@ function Scene() {
         attach="fog"
         args={[rwWonderland.fog, rwWonderland.fogNear, rwWonderland.fogFar]}
       />
-      <ambientLight intensity={0.65} color="#FFF8F0" />
+      <ambientLight intensity={0.74} color="#FFF6F0" />
       <hemisphereLight
-        args={["#FFF5EE", rwWonderland.ground, 0.55]}
+        args={["#FFF8F5", "#F5E0DC", 0.62]}
         position={[0, 20, 0]}
       />
       <directionalLight
         position={[8, 14, 10]}
-        intensity={1.1}
-        color="#FFFAF5"
+        intensity={1.22}
+        color="#FFF5EE"
         castShadow={false}
       />
-      <directionalLight position={[-6, 8, -4]} intensity={0.35} color={rwWonderland.rim} />
+      <directionalLight position={[-6, 8, -4]} intensity={0.45} color="#E8B4BC" />
+      <pointLight position={[0, 4, 8]} intensity={0.35} color="#FFE8EE" distance={28} decay={2} />
 
       <TrailCameraRig />
       <TrailAnimationDriver />
@@ -59,7 +60,7 @@ export default function ResearchUniverseCanvas({
         }}
         onCreated={({ gl, invalidate }) => {
           gl.toneMapping = THREE.ACESFilmicToneMapping;
-          gl.toneMappingExposure = 1.0;
+          gl.toneMappingExposure = 1.1;
           if (!invalidateBound.current) {
             sceneState.invalidate.current = invalidate;
             invalidateBound.current = true;

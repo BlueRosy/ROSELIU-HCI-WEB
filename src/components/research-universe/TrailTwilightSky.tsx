@@ -3,14 +3,15 @@ import { useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { researchWorldAssets } from "../../content/site";
-import { rwWonderland } from "../../theme/rwWonderland";
 
 const SKY_RADIUS = 55;
+
+const DRACO_PATH = "/draco/gltf/";
 
 /** Load a GLB, scale so its largest dimension = targetSize, recenter at the
  * origin, and disable fog so sky props stay crisp against the gradient. */
 export function useSkyModel(url: string, targetSize: number) {
-  const { scene } = useGLTF(url);
+  const { scene } = useGLTF(url, DRACO_PATH);
   return useMemo(() => {
     const clone = scene.clone(true);
     const box = new THREE.Box3().setFromObject(clone);
@@ -25,10 +26,15 @@ export function useSkyModel(url: string, targetSize: number) {
     clone.position.sub(center);
     clone.traverse((o) => {
       const mesh = o as THREE.Mesh;
-      if (!mesh.material) return;
+      if (!mesh.isMesh) return;
+      mesh.frustumCulled = false;
       const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
       mats.forEach((m) => {
-        (m as THREE.Material & { fog?: boolean }).fog = false;
+        const mat = m as THREE.MeshStandardMaterial & {
+          fog?: boolean;
+          customProgramCacheKey?: () => string;
+        };
+        mat.fog = false;
       });
     });
     return clone;
@@ -177,9 +183,9 @@ function SkyAirship() {
 export default function TrailTwilightSky() {
   const uniforms = useMemo(
     () => ({
-      topColor: { value: new THREE.Color("#FFF0F5") },
-      horizonColor: { value: new THREE.Color(rwWonderland.fog) },
-      duskColor: { value: new THREE.Color("#E8C4D0") },
+      topColor: { value: new THREE.Color("#FFF5F8") },
+      horizonColor: { value: new THREE.Color("#FFE8E4") },
+      duskColor: { value: new THREE.Color("#FAD0DC") },
     }),
     [],
   );
@@ -203,5 +209,5 @@ export default function TrailTwilightSky() {
   );
 }
 
-useGLTF.preload(researchWorldAssets.pinkMoon);
-useGLTF.preload(researchWorldAssets.roseAirship);
+useGLTF.preload(researchWorldAssets.pinkMoon, DRACO_PATH);
+useGLTF.preload(researchWorldAssets.roseAirship, DRACO_PATH);

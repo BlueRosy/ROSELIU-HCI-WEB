@@ -2,8 +2,14 @@ import { useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
+const DRACO_PATH = "/draco/gltf/";
+
+function needsDraco(url: string) {
+  return url.includes("new-landmarks") || url.includes("new-design-landmarks");
+}
+
 export function useNormalizedGltf(url: string, targetHeight = 2) {
-  const { scene } = useGLTF(url);
+  const { scene } = useGLTF(url, needsDraco(url) ? DRACO_PATH : undefined);
   return useMemo(() => {
     const clone = scene.clone(true);
     const box = new THREE.Box3().setFromObject(clone);

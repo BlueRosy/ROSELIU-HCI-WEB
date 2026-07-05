@@ -1,5 +1,10 @@
 import * as THREE from "three";
-import { LANDMARK_BY_ZONE, PATH_POINTS } from "../research-world/rwWorldConfig";
+import {
+  DISC_CENTER,
+  DISC_RADIUS,
+  LANDMARK_BY_ZONE,
+  PATH_POINTS,
+} from "../research-world/rwWorldConfig";
 
 export const TRAIL_CURVE = new THREE.CatmullRomCurve3(
   PATH_POINTS.map((p) => new THREE.Vector3(...p)),
@@ -18,58 +23,95 @@ export type ScrollSection = (typeof SCROLL_SECTIONS)[number];
 
 export type TrailStop = {
   section: ScrollSection;
-  pathT: number;
+  camPos: [number, number, number];
   lookAt: [number, number, number];
   zoneId: string;
+  /** When set, camera orbits DISC_CENTER at this radius (tripod arc). */
+  orbitAngle?: number;
+  orbitHeight?: number;
 };
+
+const ORBIT_R = DISC_RADIUS + 3.2;
+const [CX, , CZ] = DISC_CENTER;
+
+function landmarkAngle(zoneId: string): number {
+  const lm = LANDMARK_BY_ZONE[zoneId];
+  if (!lm) return 0;
+  return Math.atan2(lm.position[0] - CX, lm.position[2] - CZ);
+}
+
+function orbitCam(angle: number, height: number): [number, number, number] {
+  return [CX + Math.sin(angle) * ORBIT_R, height, CZ + Math.cos(angle) * ORBIT_R];
+}
+
+function landmarkLook(zoneId: string): [number, number, number] {
+  const lm = LANDMARK_BY_ZONE[zoneId];
+  if (!lm) return [CX, 1.2, CZ];
+  return [lm.position[0], 1.4, lm.position[2]];
+}
 
 export const TRAIL_STOPS: TrailStop[] = [
   {
     section: "hero",
-    pathT: 0.04,
-    lookAt: [0, 1.5, 4],
+    camPos: [0, 5.4, 12.8],
+    lookAt: [0, 1.7, 3.2],
     zoneId: "entry",
   },
   {
     section: "signals",
-    pathT: 0.28,
-    lookAt: LANDMARK_BY_ZONE.signals.position,
-    zoneId: "signals",
+    ...(() => {
+      const a = landmarkAngle("signals");
+      return {
+        camPos: orbitCam(a, 3.9),
+        lookAt: landmarkLook("signals"),
+        zoneId: "signals",
+        orbitAngle: a,
+        orbitHeight: 3.9,
+      };
+    })(),
   },
   {
     section: "states",
-    pathT: 0.48,
-    lookAt: LANDMARK_BY_ZONE.states.position,
-    zoneId: "states",
+    ...(() => {
+      const a = landmarkAngle("states");
+      return {
+        camPos: orbitCam(a, 4.4),
+        lookAt: landmarkLook("states"),
+        zoneId: "states",
+        orbitAngle: a,
+        orbitHeight: 4.4,
+      };
+    })(),
   },
   {
     section: "support",
-    pathT: 0.68,
-    lookAt: LANDMARK_BY_ZONE.support.position,
-    zoneId: "support",
+    ...(() => {
+      const a = landmarkAngle("support");
+      return {
+        camPos: orbitCam(a, 3.9),
+        lookAt: landmarkLook("support"),
+        zoneId: "support",
+        orbitAngle: a,
+        orbitHeight: 3.9,
+      };
+    })(),
   },
   {
     section: "loop",
-    pathT: 0.88,
-    lookAt: LANDMARK_BY_ZONE.loop.position,
+    camPos: [CX, 10.5, CZ + 11.5],
+    lookAt: [CX, 0.3, CZ],
     zoneId: "loop",
   },
   {
     section: "projects",
-    pathT: 0.96,
-    lookAt: [0, 1.8, -14],
+    camPos: [0, 13, 6.5],
+    lookAt: [0, 0.2, CZ - 0.5],
     zoneId: "projects",
   },
 ];
 
-const _point = new THREE.Vector3();
-const _tangent = new THREE.Vector3();
 const _cam = new THREE.Vector3();
 const _look = new THREE.Vector3();
-/** How far behind each stop the camera sits along the path tangent (matches the
- * 7eb2fb2 framing that read cleanly with these landmark sizes). */
-const CAM_BACK = 4.2;
-const CAM_ELEV = 3.2;
 
 export type TrailCameraSample = {
   position: THREE.Vector3;
@@ -78,10 +120,36 @@ export type TrailCameraSample = {
   showProjects: boolean;
 };
 
-/** Smootherstep: eases in/out with a flat plateau near each landmark so the
- * camera "settles" on a stop before drifting toward the next one. */
 function smootherstep(t: number): number {
   return t * t * t * (t * (t * 6 - 15) + 10);
+}
+
+function lerpAngle(a: number, b: number, t: number): number {
+  let delta = b - a;
+  while (delta > Math.PI) delta -= Math.PI * 2;
+  while (delta < -Math.PI) delta += Math.PI * 2;
+  return a + delta * t;
+}
+
+function sampleOrbitSegment(
+  a: TrailStop,
+  b: TrailStop,
+  te: number,
+  outCam: THREE.Vector3,
+  outLook: THREE.Vector3,
+) {
+  const angA = a.orbitAngle ?? 0;
+  const angB = b.orbitAngle ?? 0;
+  const hA = a.orbitHeight ?? 3.9;
+  const hB = b.orbitHeight ?? 3.9;
+  const ang = lerpAngle(angA, angB, te);
+  const h = hA + (hB - hA) * te;
+  outCam.set(CX + Math.sin(ang) * ORBIT_R, h, CZ + Math.cos(ang) * ORBIT_R);
+  outLook.set(
+    a.lookAt[0] + (b.lookAt[0] - a.lookAt[0]) * te,
+    a.lookAt[1] + (b.lookAt[1] - a.lookAt[1]) * te,
+    a.lookAt[2] + (b.lookAt[2] - a.lookAt[2]) * te,
+  );
 }
 
 export function sampleTrailCamera(progress: number): TrailCameraSample {
@@ -93,36 +161,26 @@ export function sampleTrailCamera(progress: number): TrailCameraSample {
   const a = TRAIL_STOPS[i];
   const b = TRAIL_STOPS[i + 1];
 
-  const pathT = a.pathT + (b.pathT - a.pathT) * te;
-  TRAIL_CURVE.getPointAt(pathT, _point);
-  TRAIL_CURVE.getTangentAt(pathT, _tangent);
-  _tangent.y = 0;
-  if (_tangent.lengthSq() > 0.0001) _tangent.normalize();
+  const useOrbitArc =
+    a.orbitAngle != null &&
+    b.orbitAngle != null &&
+    a.section !== "hero" &&
+    b.section !== "loop" &&
+    b.section !== "projects";
 
-  // The entry gate is a big glass dome — ease the camera further back (and a
-  // touch higher) right at the entry so it frames the gate instead of engulfing
-  // it. Fades out to the normal distance by the time we reach signals.
-  let camBack = CAM_BACK;
-  let camElev = CAM_ELEV;
-  if (i === 0) {
-    const entryEase = 1 - te;
-    camBack += entryEase * 3.2;
-    camElev += entryEase * 0.9;
-  }
-
-  _cam.copy(_point).addScaledVector(_tangent, -camBack);
-  _cam.y += camElev;
-
-  _look.set(
-    a.lookAt[0] + (b.lookAt[0] - a.lookAt[0]) * te,
-    a.lookAt[1] + (b.lookAt[1] - a.lookAt[1]) * te + 1.2,
-    a.lookAt[2] + (b.lookAt[2] - a.lookAt[2]) * te,
-  );
-
-  if (b.section === "projects" && te > 0.3) {
-    const blend = Math.min(1, (te - 0.3) / 0.7);
-    _cam.set(0, 4.2 + blend * 2.3, -8 - blend * 2);
-    _look.set(0, 1.2 + blend * 0.3, -23);
+  if (useOrbitArc) {
+    sampleOrbitSegment(a, b, te, _cam, _look);
+  } else {
+    _cam.set(
+      a.camPos[0] + (b.camPos[0] - a.camPos[0]) * te,
+      a.camPos[1] + (b.camPos[1] - a.camPos[1]) * te,
+      a.camPos[2] + (b.camPos[2] - a.camPos[2]) * te,
+    );
+    _look.set(
+      a.lookAt[0] + (b.lookAt[0] - a.lookAt[0]) * te,
+      a.lookAt[1] + (b.lookAt[1] - a.lookAt[1]) * te,
+      a.lookAt[2] + (b.lookAt[2] - a.lookAt[2]) * te,
+    );
   }
 
   const activeZone = t < 0.5 ? a.zoneId : b.zoneId;

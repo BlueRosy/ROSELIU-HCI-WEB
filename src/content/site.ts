@@ -753,6 +753,17 @@ export const researchWorldAssets = {
   pinkMoon: "/research-world-elements/new-landmarks/pink-moon.glb",
   roseAirship: "/research-world-elements/new-landmarks/rose-airship.glb",
   skyCastle: "/research-world-elements/new-landmarks/sky-castle.glb",
+  /** v2 design landmarks (Draco compressed) */
+  designLandmarks: {
+    signalsGarden:
+      "/research-world-elements/new-design-landmarks/compressed/ai-signal-garden.glb",
+    statesObservatory:
+      "/research-world-elements/new-design-landmarks/compressed/state-observatory.glb",
+    supportSanctuary:
+      "/research-world-elements/new-design-landmarks/compressed/intervention-sanctuary.glb",
+    closedLoop:
+      "/research-world-elements/new-design-landmarks/compressed/closed-loop.glb",
+  },
   zonePlazas: {
     signals: "/research-world-elements/zone-plazas/signals-plaza.png",
     states: "/research-world-elements/zone-plazas/states-plaza.png",
@@ -850,9 +861,9 @@ export const researchWorld = {
     },
     {
       id: "loop",
-      label: "Closed-loop Bridge",
+      label: "Closed-loop Core",
       title: "Sustaining wellbeing",
-      body: "Across my work, I ask how human-centered systems can sense, interpret, support, and sustain everyday mental wellbeing over time.",
+      body: "Signals, states, and support continuously feed back through one system — sensing, interpreting, intervening, and sustaining everyday mental wellbeing over time.",
     },
   ] as ResearchWorldZone[],
 } as const;
@@ -887,7 +898,7 @@ export const journey: JourneyStop[] = [
   {
     place: "Shanghai, China",
     period: "2023 – 2024",
-    title: "Data Engineer, CIB Fintech (兴业数金)",
+    title: "Data Engineer, CIB Fintech",
     detail:
       "Full-time data engineer on enterprise big-data architecture projects, coordinating the overall organization and delivery of large-scale data-platform initiatives.",
   },

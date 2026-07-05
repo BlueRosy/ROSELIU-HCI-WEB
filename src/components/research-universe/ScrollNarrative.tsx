@@ -38,7 +38,7 @@ const SECTION_EDGE: Record<string, "left" | "right" | "center"> = {
   signals: "left",
   states: "left",
   support: "right",
-  loop: "center",
+  loop: "left",
 };
 
 export default function ScrollNarrative() {
@@ -93,12 +93,17 @@ export default function ScrollNarrative() {
         data-section="projects"
         className="trail-section pointer-events-auto flex h-screen flex-col items-center justify-center px-5 py-20"
       >
-        <div className="trail-caption trail-caption--center glass mb-10 max-w-lg rounded-2xl border border-primary/15 p-6 text-center shadow-lift ring-1 ring-primary/10 backdrop-blur-md sm:p-8">
+        <div className="trail-caption trail-caption--center trail-caption--bare mx-auto mb-10 max-w-xl text-center">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-gradient-static">
             06 · Project evidence
           </p>
-          <h2 className="mt-2 font-serif text-3xl text-ink">How projects support the agenda</h2>
-          <p className="mt-3 text-slate">{researchAtlas.researchQuestion}</p>
+          <h2 className="mt-2 font-serif text-3xl text-ink sm:text-4xl">
+            How projects support the agenda
+          </h2>
+          <p className="mx-auto mt-3 max-w-lg text-base leading-relaxed text-slate">
+            Each project is evidence for a part of the signals-to-support pipeline
+            — not a standalone demo.
+          </p>
         </div>
         <div className="w-full max-w-4xl">
           <ResearchAtlasProjects />

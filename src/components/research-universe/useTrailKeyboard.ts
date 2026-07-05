@@ -1,9 +1,11 @@
 import { useEffect, type MutableRefObject } from "react";
 import type { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
+  isScrollTweenActive,
   nextSection,
   prevSection,
   scrollToSection,
+  TRAIL_SECTION_SCROLL_DURATION,
 } from "./trailScrollUtils";
 import type { ScrollSection } from "./worldTrailConfig";
 
@@ -30,11 +32,15 @@ export function useTrailKeyboard(
 
       if (!forward && !back) return;
       e.preventDefault();
+      if (isScrollTweenActive()) return;
 
       const current = activeSectionRef.current;
       const target = forward ? nextSection(current) : prevSection(current);
+      if (target === current) return;
+
       scrollToSection(target, scrollTriggerRef.current, {
-        duration: 0.5,
+        duration: TRAIL_SECTION_SCROLL_DURATION,
+        ease: "power2.inOut",
         invalidate: () => invalidateRef.current(),
         isScrollingRef,
         scrollProgressRef,

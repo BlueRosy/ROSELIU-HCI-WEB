@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { projects, researchAtlas } from "../../content/site";
-import { Reveal, SectionHeading } from "../primitives";
+import { Reveal } from "../primitives";
 
 const ZONE_LABELS: Record<string, string> = {
   signals: "Signals",
@@ -11,12 +11,7 @@ const ZONE_LABELS: Record<string, string> = {
 export default function ResearchAtlasProjects() {
   return (
     <Reveal>
-      <SectionHeading
-        eyebrow="Project evidence"
-        title="How projects support the agenda"
-        intro="Each project is evidence for a part of the signals-to-support pipeline — not a standalone demo."
-      />
-      <ul className="mt-10 grid gap-4 sm:grid-cols-2">
+      <ul className="grid gap-4 sm:grid-cols-2">
         {researchAtlas.projectEvidence.map((entry, i) => {
           const project = projects.find((p) => p.id === entry.projectId);
           if (!project) return null;
