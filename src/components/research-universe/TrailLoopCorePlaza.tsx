@@ -1,7 +1,7 @@
 import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { rwWonderland } from "../../theme/rwWonderland";
+import { getRwWonderland } from "../../theme/rwWonderland";
 import { RWClosedLoopCoreGlb } from "../research-world/RWZoneAssets";
 import { DISC_CENTER } from "../research-world/rwWorldConfig";
 import { useUniverse } from "./UniverseContext";
@@ -66,7 +66,8 @@ export default function TrailLoopCorePlaza() {
     () => new THREE.TubeGeometry(curve, 128, 0.035, 8, true),
     [curve],
   );
-  const { activeZone, scrollProgress } = useUniverse();
+  const { activeZone, scrollProgress, timeOfDay } = useUniverse();
+  const palette = getRwWonderland(timeOfDay.current);
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
@@ -104,8 +105,8 @@ export default function TrailLoopCorePlaza() {
           color="#F5EFE8"
           roughness={0.42}
           metalness={0.06}
-          emissive={rwWonderland.pathGlow}
-          emissiveIntensity={0.1}
+          emissive={palette.pathGlow}
+          emissiveIntensity={timeOfDay.current === "night" ? 0.14 : 0.1}
         />
       </mesh>
 
@@ -113,7 +114,7 @@ export default function TrailLoopCorePlaza() {
         <meshStandardMaterial
           ref={ribbonMat}
           color="#F0D8DC"
-          emissive={rwWonderland.pathGlowBright}
+          emissive={palette.pathGlowBright}
           emissiveIntensity={0.38}
           transparent
           opacity={0.88}
@@ -125,7 +126,7 @@ export default function TrailLoopCorePlaza() {
       <mesh geometry={haloGeo} position={[0, 0.28, 0]} renderOrder={3}>
         <meshBasicMaterial
           ref={haloMat}
-          color={rwWonderland.pathGlowBright}
+          color={palette.pathGlowBright}
           transparent
           opacity={0.12}
           depthWrite={false}
@@ -142,7 +143,7 @@ export default function TrailLoopCorePlaza() {
       >
         <sphereGeometry args={[0.06, 8, 8]} />
         <meshBasicMaterial
-          color={rwWonderland.pathGlowBright}
+          color={palette.pathGlowBright}
           transparent
           opacity={0.75}
           depthWrite={false}
@@ -151,6 +152,33 @@ export default function TrailLoopCorePlaza() {
       </instancedMesh>
 
       <pointLight position={[0, 1.2, 0]} intensity={0.55} color="#FFE8EE" distance={12} />
+      <LoopCampfireLight />
     </group>
+  );
+}
+
+function LoopCampfireLight() {
+  const { timeOfDay } = useUniverse();
+  const light = useRef<THREE.PointLight>(null);
+  const night = timeOfDay.current === "night";
+  const palette = getRwWonderland(timeOfDay.current);
+
+  useFrame(({ clock }) => {
+    if (!light.current || !night) return;
+    const t = clock.getElapsedTime();
+    light.current.intensity = 0.5 + Math.sin(t * 1.3) * 0.12;
+  });
+
+  if (!night) return null;
+
+  return (
+    <pointLight
+      ref={light}
+      position={[0, 0.35, 0]}
+      color={palette.campfire}
+      intensity={0.65}
+      distance={10}
+      decay={2}
+    />
   );
 }

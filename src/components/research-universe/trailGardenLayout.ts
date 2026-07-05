@@ -39,6 +39,45 @@ export type ScatterTree = {
   rot: number;
 };
 
+/** Dome apex for tree-canopy light arcs (above Loop Core). */
+export const TREE_LIGHT_APEX: [number, number, number] = [
+  DISC_CENTER[0],
+  13.5,
+  DISC_CENTER[2],
+];
+
+export type TreeLightArc = {
+  start: [number, number, number];
+  /** Outward bulge from disc centre (world XZ). */
+  bulgeX: number;
+  bulgeZ: number;
+  phase: number;
+};
+
+/** Pick ~7 evenly spaced C-arc trees (not entry accents) as arc sources. */
+export function buildTreeLightArcSources(): TreeLightArc[] {
+  const { trees } = buildCGardenBoundary(42);
+  const target = 7;
+  const step = Math.max(1, Math.floor(trees.length / target));
+  const arcs: TreeLightArc[] = [];
+
+  for (let i = 0; i < trees.length && arcs.length < target; i += step) {
+    const t = trees[i];
+    const crownY = 2.35 + t.scale * 1.05;
+    const dx = t.position[0] - GARDEN_CX;
+    const dz = t.position[2] - GARDEN_CZ;
+    const dist = Math.hypot(dx, dz) || 1;
+    const bulge = 1.6 + seededRandom(i * 5.3 + 11) * 1.4;
+    arcs.push({
+      start: [t.position[0], crownY, t.position[2]],
+      bulgeX: (dx / dist) * bulge,
+      bulgeZ: (dz / dist) * bulge,
+      phase: seededRandom(i * 2.7) * Math.PI * 2,
+    });
+  }
+  return arcs;
+}
+
 export type ScatterVine = {
   position: [number, number, number];
   rot: [number, number, number];

@@ -85,7 +85,8 @@ function makeSpark(): Spark {
 export default function TrailProjectsFinale() {
   const petalMesh = useRef<THREE.InstancedMesh>(null);
   const sparkMesh = useRef<THREE.InstancedMesh>(null);
-  const { showProjectCards } = useUniverse();
+  const { showProjectCards, activeZone, timeOfDay, reducedMotion } = useUniverse();
+  const night = timeOfDay.current === "night";
   const vis = useRef(0);
   const colored = useRef(false);
   const dummy = useMemo(() => new THREE.Object3D(), []);
@@ -142,15 +143,17 @@ export default function TrailProjectsFinale() {
     }
 
     const target = showProjectCards.current ? 1 : 0;
-    vis.current += (target - vis.current) * Math.min(1, delta * 2.4);
+    const loopGlow =
+      night && activeZone.current === "loop" && !reducedMotion.current ? 0.35 : 0;
+    vis.current += (Math.max(target, loopGlow) - vis.current) * Math.min(1, delta * 2.4);
     const v = vis.current;
     const on = v > 0.01;
     pm.visible = on;
-    sm.visible = on;
+    sm.visible = on && !(reducedMotion.current && night);
     if (!on) return;
 
-    petalMaterial.opacity = v * 0.55;
-    sparkMaterial.opacity = v;
+    petalMaterial.opacity = v * (night ? 0.4 : 0.55);
+    sparkMaterial.opacity = v * (night ? 1.15 : 1);
     const t = state.clock.elapsedTime;
 
     for (let i = 0; i < PETAL_COUNT; i++) {

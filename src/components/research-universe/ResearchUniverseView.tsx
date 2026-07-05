@@ -10,6 +10,7 @@ import {
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEnable3D } from "../../hooks/useEnable3D";
+import useLocalTimeOfDay from "../../hooks/useLocalTimeOfDay";
 import ProjectDetailPanel from "./ProjectDetailPanel";
 import ResearchUniverseFallback from "./ResearchUniverseFallback";
 import ScrollNarrative from "./ScrollNarrative";
@@ -42,6 +43,13 @@ const PARALLAX_THRESHOLD = 0.015;
 
 export default function ResearchUniverseView() {
   const enable3D = useEnable3D();
+  const { timeOfDay } = useLocalTimeOfDay();
+  const timeOfDayRef = useRef(timeOfDay);
+  timeOfDayRef.current = timeOfDay;
+  const reducedMotion = useRef(
+    typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
   const scrollRef = useRef<HTMLDivElement>(null);
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
   const lastSectionRef = useRef<ScrollSection>("hero");
@@ -161,6 +169,8 @@ export default function ResearchUniverseView() {
     parallax,
     invalidate,
     isScrollingRef,
+    timeOfDay: timeOfDayRef,
+    reducedMotion,
     onProjectSelect,
   };
 

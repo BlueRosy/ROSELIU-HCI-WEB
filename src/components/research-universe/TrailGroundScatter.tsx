@@ -12,6 +12,7 @@ import {
   samplePathEdgePoints,
   type RoseCluster,
 } from "./trailGardenLayout";
+import { useUniverse } from "./UniverseContext";
 
 const petalShape = (() => {
   const shape = new THREE.Shape();
@@ -112,11 +113,18 @@ function ScatterPetal({ spec }: { spec: GroundPetal }) {
 }
 
 function RoseBush({ position, scale }: RoseCluster) {
+  const { timeOfDay } = useUniverse();
+  const night = timeOfDay.current === "night";
   return (
     <group position={position} scale={scale}>
       <mesh position={[0, 0.12, 0]}>
         <sphereGeometry args={[0.28, 8, 6]} />
-        <meshStandardMaterial color="#8A9275" roughness={0.75} />
+        <meshStandardMaterial
+          color={night ? "#4A5A48" : "#8A9275"}
+          emissive={night ? "#6A8A62" : "#000000"}
+          emissiveIntensity={night ? 0.12 : 0}
+          roughness={0.75}
+        />
       </mesh>
       {[0, 1, 2, 3].map((i) => {
         const a = (i / 4) * Math.PI * 2;
@@ -124,9 +132,9 @@ function RoseBush({ position, scale }: RoseCluster) {
           <mesh key={i} position={[Math.cos(a) * 0.16, 0.22, Math.sin(a) * 0.16]}>
             <sphereGeometry args={[0.08, 6, 6]} />
             <meshStandardMaterial
-              color="#E8A0BC"
-              emissive="#D4A59E"
-              emissiveIntensity={0.2}
+              color={night ? "#D890A8" : "#E8A0BC"}
+              emissive={night ? "#C4848F" : "#D4A59E"}
+              emissiveIntensity={night ? 0.35 : 0.2}
               roughness={0.55}
             />
           </mesh>
@@ -137,6 +145,8 @@ function RoseBush({ position, scale }: RoseCluster) {
 }
 
 function Fireflies({ positions }: { positions: Float32Array }) {
+  const { timeOfDay } = useUniverse();
+  const night = timeOfDay.current === "night";
   const count = positions.length / 3;
   const points = useRef<THREE.Points>(null);
   const mat = useRef<THREE.PointsMaterial>(null);
@@ -150,7 +160,8 @@ function Fireflies({ positions }: { positions: Float32Array }) {
   useFrame(({ clock }) => {
     if (!mat.current || !points.current) return;
     const t = clock.getElapsedTime();
-    mat.current.opacity = 0.45 + Math.sin(t * 1.4) * 0.2;
+    mat.current.opacity = (night ? 0.65 : 0.45) + Math.sin(t * 1.4) * 0.2;
+    if (night) mat.current.size = 0.16;
     const attr = points.current.geometry.getAttribute("position") as THREE.BufferAttribute;
     const arr = attr.array as Float32Array;
     for (let i = 0; i < count; i++) {
@@ -166,8 +177,8 @@ function Fireflies({ positions }: { positions: Float32Array }) {
       </bufferGeometry>
       <pointsMaterial
         ref={mat}
-        color="#D4E8A0"
-        size={0.12}
+        color={night ? "#E8F0A8" : "#D4E8A0"}
+        size={night ? 0.16 : 0.12}
         transparent
         opacity={0.5}
         depthWrite={false}

@@ -3,6 +3,8 @@ import { useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { researchWorldAssets } from "../../content/site";
+import { getRwWonderland } from "../../theme/rwWonderland";
+import { useUniverse } from "./UniverseContext";
 
 const SKY_RADIUS = 55;
 
@@ -30,10 +32,7 @@ export function useSkyModel(url: string, targetSize: number) {
       mesh.frustumCulled = false;
       const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
       mats.forEach((m) => {
-        const mat = m as THREE.MeshStandardMaterial & {
-          fog?: boolean;
-          customProgramCacheKey?: () => string;
-        };
+        const mat = m as THREE.MeshStandardMaterial & { fog?: boolean };
         mat.fog = false;
       });
     });
@@ -64,12 +63,11 @@ const skyFragmentShader = /* glsl */ `
   }
 `;
 
-function TwilightStars() {
+function TwilightStars({ count, night }: { count: number; night: boolean }) {
   const points = useRef<THREE.Points>(null);
   const mat = useRef<THREE.PointsMaterial>(null);
 
   const positions = useMemo(() => {
-    const count = 90;
     const pos = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
       const theta = Math.random() * Math.PI * 0.5 + Math.PI * 0.18;
@@ -80,12 +78,12 @@ function TwilightStars() {
       pos[i * 3 + 2] = r * Math.sin(theta) * Math.sin(phi);
     }
     return pos;
-  }, []);
+  }, [count]);
 
   useFrame(({ clock }) => {
     if (!mat.current) return;
     const t = clock.getElapsedTime();
-    mat.current.opacity = 0.65 + Math.sin(t * 0.8) * 0.12;
+    mat.current.opacity = (night ? 0.82 : 0.65) + Math.sin(t * 0.8) * 0.12;
     if (points.current) points.current.rotation.y = t * 0.006;
   });
 
@@ -96,8 +94,8 @@ function TwilightStars() {
       </bufferGeometry>
       <pointsMaterial
         ref={mat}
-        color="#FFF5EE"
-        size={0.32}
+        color={night ? "#FFF8F5" : "#FFF5EE"}
+        size={night ? 0.38 : 0.32}
         transparent
         opacity={0.7}
         depthWrite={false}
@@ -125,10 +123,9 @@ function glowSpriteTexture() {
   return tex;
 }
 
-/** Real pink-moon GLB hung in the sky, with a soft glow halo behind it. */
-function PinkMoon() {
+function PinkMoon({ night }: { night: boolean }) {
   const group = useRef<THREE.Group>(null);
-  const moon = useSkyModel(researchWorldAssets.pinkMoon, 5.5);
+  const moon = useSkyModel(researchWorldAssets.pinkMoon, night ? 6.2 : 5.5);
   const glowTex = useMemo(glowSpriteTexture, []);
 
   useFrame(({ clock }) => {
@@ -140,7 +137,7 @@ function PinkMoon() {
 
   return (
     <group ref={group} position={[9, 12, -28]}>
-      <sprite scale={[20, 20, 1]} position={[0, 0, -0.5]}>
+      <sprite scale={night ? [28, 28, 1] : [20, 20, 1]} position={[0, 0, -0.5]}>
         <spriteMaterial
           map={glowTex}
           transparent
@@ -154,7 +151,6 @@ function PinkMoon() {
   );
 }
 
-/** Miyazaki-style zeppelin drifting slowly high above the trail. */
 function SkyAirship() {
   const group = useRef<THREE.Group>(null);
   const ship = useSkyModel(researchWorldAssets.roseAirship, 8);
@@ -162,13 +158,11 @@ function SkyAirship() {
   useFrame(({ clock }) => {
     if (!group.current) return;
     const t = clock.getElapsedTime();
-    // Slow oval drift high in the sky, ahead of the trail.
     group.current.position.set(
       Math.sin(t * 0.045) * 15,
       15 + Math.sin(t * 0.18) * 0.7,
       -24 + Math.cos(t * 0.045) * 5,
     );
-    // Face roughly along the drift tangent + a gentle bank.
     group.current.rotation.y = Math.cos(t * 0.045) * 0.5 + Math.PI * 0.15;
     group.current.rotation.z = Math.sin(t * 0.09) * 0.05;
   });
@@ -181,13 +175,17 @@ function SkyAirship() {
 }
 
 export default function TrailTwilightSky() {
+  const { timeOfDay } = useUniverse();
+  const palette = getRwWonderland(timeOfDay.current);
+  const night = timeOfDay.current === "night";
+
   const uniforms = useMemo(
     () => ({
-      topColor: { value: new THREE.Color("#FFF5F8") },
-      horizonColor: { value: new THREE.Color("#FFE8E4") },
-      duskColor: { value: new THREE.Color("#FAD0DC") },
+      topColor: { value: new THREE.Color(palette.skyTop) },
+      horizonColor: { value: new THREE.Color(palette.skyHorizon) },
+      duskColor: { value: new THREE.Color(palette.skyDusk) },
     }),
-    [],
+    [palette.skyTop, palette.skyHorizon, palette.skyDusk],
   );
 
   return (
@@ -202,8 +200,8 @@ export default function TrailTwilightSky() {
           uniforms={uniforms}
         />
       </mesh>
-      <TwilightStars />
-      <PinkMoon />
+      <TwilightStars count={night ? 160 : 90} night={night} />
+      <PinkMoon night={night} />
       <SkyAirship />
     </group>
   );

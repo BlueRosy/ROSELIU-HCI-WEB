@@ -1,34 +1,66 @@
-import { Suspense, useRef } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Suspense, useMemo, useRef } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { rwWonderland } from "../../theme/rwWonderland";
+import { getRwWonderland } from "../../theme/rwWonderland";
 import ResearchWorldTrailScene from "./ResearchWorldTrailScene";
 import TrailAnimationDriver from "./TrailAnimationDriver";
 import TrailCameraRig, { SceneParallaxGroup } from "./TrailCameraRig";
 import type { UniverseSceneState } from "./UniverseContext";
-import { UniverseProvider } from "./UniverseContext";
+import { UniverseProvider, useUniverse } from "./UniverseContext";
 
 function Scene() {
+  const { timeOfDay } = useUniverse();
+  const palette = useMemo(
+    () => getRwWonderland(timeOfDay.current),
+    [timeOfDay.current],
+  );
+  const night = timeOfDay.current === "night";
+  const moonLight = useRef<THREE.DirectionalLight>(null);
+
+  useFrame(({ clock }) => {
+    if (!moonLight.current || !night) return;
+    const t = clock.getElapsedTime();
+    moonLight.current.intensity = 0.38 + Math.sin(t * 0.15) * 0.04;
+  });
+
   return (
     <>
-      <color attach="background" args={[rwWonderland.background]} />
-      <fog
-        attach="fog"
-        args={[rwWonderland.fog, rwWonderland.fogNear, rwWonderland.fogFar]}
-      />
-      <ambientLight intensity={0.74} color="#FFF6F0" />
+      <color attach="background" args={[palette.background]} />
+      <fog attach="fog" args={[palette.fog, palette.fogNear, palette.fogFar]} />
+      <ambientLight intensity={night ? 0.32 : 0.74} color={night ? "#4A3D52" : "#FFF6F0"} />
       <hemisphereLight
-        args={["#FFF8F5", "#F5E0DC", 0.62]}
+        args={[
+          night ? "#6B5068" : "#FFF8F5",
+          night ? "#1E1824" : "#F5E0DC",
+          night ? 0.5 : 0.62,
+        ]}
         position={[0, 20, 0]}
       />
       <directionalLight
         position={[8, 14, 10]}
-        intensity={1.22}
-        color="#FFF5EE"
+        intensity={night ? 0.28 : 1.22}
+        color={night ? "#C8A8B8" : "#FFF5EE"}
         castShadow={false}
       />
-      <directionalLight position={[-6, 8, -4]} intensity={0.45} color="#E8B4BC" />
-      <pointLight position={[0, 4, 8]} intensity={0.35} color="#FFE8EE" distance={28} decay={2} />
+      <directionalLight
+        ref={moonLight}
+        position={[9, 18, -22]}
+        intensity={night ? 0.38 : 0}
+        color="#F0D8E8"
+        castShadow={false}
+      />
+      <directionalLight
+        position={[-6, 8, -4]}
+        intensity={night ? 0.18 : 0.45}
+        color={night ? "#C4848F" : "#E8B4BC"}
+      />
+      <pointLight
+        position={[0, 4, 8]}
+        intensity={night ? 0.28 : 0.35}
+        color={night ? palette.pathGlowBright : "#FFE8EE"}
+        distance={28}
+        decay={2}
+      />
 
       <TrailCameraRig />
       <TrailAnimationDriver />
@@ -60,7 +92,7 @@ export default function ResearchUniverseCanvas({
         }}
         onCreated={({ gl, invalidate }) => {
           gl.toneMapping = THREE.ACESFilmicToneMapping;
-          gl.toneMappingExposure = 1.1;
+          gl.toneMappingExposure = sceneState.timeOfDay.current === "night" ? 1.05 : 1.1;
           if (!invalidateBound.current) {
             sceneState.invalidate.current = invalidate;
             invalidateBound.current = true;

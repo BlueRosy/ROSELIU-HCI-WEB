@@ -1,8 +1,9 @@
-import { Suspense, useMemo } from "react";
+import { Suspense, useMemo, useRef } from "react";
+import { useFrame } from "@react-three/fiber";
 import { useGLTF, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import { researchWorldAssets } from "../../content/site";
-import { rwWonderland } from "../../theme/rwWonderland";
+import { getRwWonderland } from "../../theme/rwWonderland";
 import RWEntryPavilion from "../research-world/RWEntryPavilion";
 import RWLoopCenter from "../research-world/RWLoopCenter";
 import {
@@ -21,11 +22,11 @@ import TrailLandmarkEffects from "./TrailLandmarkEffects";
 import TrailNarrativePaths from "./TrailNarrativePaths";
 import TrailPetalField from "./TrailPetalField";
 import TrailProjectsFinale from "./TrailProjectsFinale";
+import TrailTreeLightArcs from "./TrailTreeLightArcs";
 import TrailTwilightSky from "./TrailTwilightSky";
+import { useUniverse } from "./UniverseContext";
 import { TRAIL_CURVE } from "./worldTrailConfig";
 
-/** Match TrailTwilightSky horizon so ground ↔ sky reads as one warm bowl. */
-const SKY_HORIZON = rwWonderland.skyHorizon;
 const GROUND_CENTER_Z = -10;
 /** Circle replaces the old 52×52 square — removes hard corner cuts at entry. */
 const GROUND_RADIUS = 37;
@@ -66,6 +67,8 @@ function landmarkTriangleRibbon() {
 }
 
 function TrailGround() {
+  const { timeOfDay } = useUniverse();
+  const palette = getRwWonderland(timeOfDay.current);
   const landTex = useTexture(researchWorldAssets.land);
   landTex.wrapS = landTex.wrapT = THREE.RepeatWrapping;
   landTex.repeat.set(5, 5);
@@ -75,8 +78,8 @@ function TrailGround() {
       transparent: true,
       depthWrite: false,
       uniforms: {
-        innerColor: { value: new THREE.Color(rwWonderland.ground) },
-        outerColor: { value: new THREE.Color(SKY_HORIZON) },
+        innerColor: { value: new THREE.Color(palette.ground) },
+        outerColor: { value: new THREE.Color(palette.skyHorizon) },
       },
       vertexShader: /* glsl */ `
         varying vec2 vUv;
@@ -99,13 +102,13 @@ function TrailGround() {
       `,
       side: THREE.DoubleSide,
     });
-  }, []);
+  }, [palette.ground, palette.skyHorizon]);
 
   return (
     <group position={[0, 0, GROUND_CENTER_Z]}>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.02, 0]} receiveShadow>
         <circleGeometry args={[GROUND_BLEND_INNER, 80]} />
-        <meshStandardMaterial color={rwWonderland.ground} roughness={0.42} metalness={0.05} />
+        <meshStandardMaterial color={palette.ground} roughness={0.42} metalness={0.05} />
       </mesh>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.01, 0]}>
         <circleGeometry args={[GROUND_BLEND_INNER, 80]} />
@@ -124,6 +127,9 @@ function TrailGround() {
 }
 
 function TrailPath() {
+  const { timeOfDay } = useUniverse();
+  const palette = getRwWonderland(timeOfDay.current);
+  const night = timeOfDay.current === "night";
   const geometry = useMemo(() => {
     const points = TRAIL_CURVE.getSpacedPoints(80);
     const positions: number[] = [];
@@ -154,9 +160,9 @@ function TrailPath() {
   return (
     <mesh geometry={geometry}>
       <meshStandardMaterial
-        color={rwWonderland.pathRibbon}
-        emissive={rwWonderland.pathGlow}
-        emissiveIntensity={0.35}
+        color={palette.pathRibbon}
+        emissive={palette.pathGlow}
+        emissiveIntensity={night ? 0.52 : 0.35}
         roughness={0.4}
       />
     </mesh>
@@ -166,6 +172,10 @@ function TrailPath() {
 /** The tripod plaza floor: a big rose-stone disc, a rim glow, a ring threading
  * the three vertices, and spokes running from the glowing centre out to each. */
 function TrailDiscPlaza() {
+  const { timeOfDay } = useUniverse();
+  const palette = getRwWonderland(timeOfDay.current);
+  const night = timeOfDay.current === "night";
+  const discLight = useRef<THREE.PointLight>(null);
   const spokes = useMemo(() => {
     const [cx, , cz] = DISC_CENTER;
     return LANDMARKS.filter((l) => l.id !== "loop").map((l) => {
@@ -181,6 +191,12 @@ function TrailDiscPlaza() {
   }, []);
   const triangleGeo = useMemo(() => landmarkTriangleRibbon(), []);
 
+  useFrame(({ clock }) => {
+    if (!discLight.current || !night) return;
+    const t = clock.getElapsedTime();
+    discLight.current.intensity = 0.55 + Math.sin(t * 0.9) * 0.08;
+  });
+
   return (
     <group>
       <mesh
@@ -190,11 +206,11 @@ function TrailDiscPlaza() {
       >
         <circleGeometry args={[DISC_RADIUS, 64]} />
         <meshStandardMaterial
-          color="#F0E8E4"
+          color={palette.discStone}
           roughness={0.5}
           metalness={0.05}
-          emissive={rwWonderland.pathGlow}
-          emissiveIntensity={0.06}
+          emissive={palette.pathGlow}
+          emissiveIntensity={night ? 0.14 : 0.06}
         />
       </mesh>
       <mesh
@@ -203,20 +219,20 @@ function TrailDiscPlaza() {
       >
         <ringGeometry args={[DISC_RADIUS - 0.28, DISC_RADIUS, 64]} />
         <meshBasicMaterial
-          color={rwWonderland.pathGlowBright}
+          color={palette.pathGlowBright}
           transparent
-          opacity={0.38}
+          opacity={night ? 0.55 : 0.38}
           side={THREE.DoubleSide}
         />
       </mesh>
       <mesh geometry={triangleGeo}>
         <meshStandardMaterial
-          color={rwWonderland.pathRibbon}
-          emissive={rwWonderland.pathGlow}
-          emissiveIntensity={0.18}
+          color={palette.pathRibbon}
+          emissive={palette.pathGlow}
+          emissiveIntensity={night ? 0.32 : 0.18}
           roughness={0.4}
           transparent
-          opacity={0.55}
+          opacity={night ? 0.72 : 0.55}
           depthWrite={false}
           side={THREE.DoubleSide}
         />
@@ -225,20 +241,53 @@ function TrailDiscPlaza() {
         <mesh key={i} position={[s.mx, 0.05, s.mz]} rotation={[0, s.angle, 0]}>
           <boxGeometry args={[0.34, 0.04, s.len]} />
           <meshStandardMaterial
-            color={rwWonderland.pathRibbon}
-            emissive={rwWonderland.pathGlow}
-            emissiveIntensity={0.28}
+            color={palette.pathRibbon}
+            emissive={palette.pathGlow}
+            emissiveIntensity={night ? 0.42 : 0.28}
             roughness={0.4}
           />
         </mesh>
       ))}
       <pointLight
+        ref={discLight}
         position={[DISC_CENTER[0], 2.5, DISC_CENTER[2]]}
-        intensity={0.35}
-        color="#FFE8EE"
+        intensity={night ? 0.55 : 0.35}
+        color={night ? palette.pathGlowBright : "#FFE8EE"}
         distance={16}
       />
     </group>
+  );
+}
+
+/** Soft lantern + campfire glow beside entry (night only). */
+function EntryCampfireLights() {
+  const { timeOfDay } = useUniverse();
+  if (timeOfDay.current !== "night") return null;
+  const palette = getRwWonderland("night");
+  return (
+    <>
+      <pointLight
+        position={[-2.35, 1.2, 4.55]}
+        color={palette.campfire}
+        intensity={1.0}
+        distance={9}
+        decay={2}
+      />
+      <pointLight
+        position={[2.35, 1.2, 4.55]}
+        color={palette.campfire}
+        intensity={1.0}
+        distance={9}
+        decay={2}
+      />
+      <pointLight
+        position={[0, 0.4, 5.1]}
+        color={palette.pathGlowBright}
+        intensity={0.35}
+        distance={12}
+        decay={2}
+      />
+    </>
   );
 }
 
@@ -249,11 +298,13 @@ export default function ResearchWorldTrailScene() {
       <TrailGround />
       <TrailDiscPlaza />
       <TrailGroundScatter />
+      <TrailTreeLightArcs />
       <TrailNarrativePaths />
       <TrailPath />
       <TrailPetalField />
       <TrailLandmarkEffects />
       <RWEntryPavilion />
+      <EntryCampfireLights />
       <RWSignalsGardenBeds />
       <RWObservatoryPlatform />
       <RWSupportSanctuary />

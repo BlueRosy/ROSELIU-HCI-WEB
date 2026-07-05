@@ -1,4 +1,5 @@
 import { createContext, useContext, type MutableRefObject } from "react";
+import type { TimeOfDay } from "../../hooks/useLocalTimeOfDay";
 import type { ScrollSection } from "./worldTrailConfig";
 
 export type UniverseSceneState = {
@@ -9,6 +10,8 @@ export type UniverseSceneState = {
   parallax: MutableRefObject<{ x: number; y: number }>;
   invalidate: MutableRefObject<() => void>;
   isScrollingRef: MutableRefObject<boolean>;
+  timeOfDay: MutableRefObject<TimeOfDay>;
+  reducedMotion: MutableRefObject<boolean>;
   onProjectSelect: (projectId: string) => void;
 };
 
