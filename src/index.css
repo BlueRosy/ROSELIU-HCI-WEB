@@ -914,6 +914,19 @@ body {
   max-width: 42rem;
 }
 
+.trail-caption--hero-hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.trail-caption--hero-hidden [data-hero-part] {
+  opacity: 0;
+}
+
+.trail-caption--hero-visible [data-hero-part] {
+  opacity: 0;
+}
+
 .trail-caption--edge-left {
   margin-right: auto;
   margin-left: clamp(0.5rem, 4vw, 2rem);
@@ -934,6 +947,20 @@ body {
   .trail-caption--edge-right {
     margin-left: 52%;
   }
+
+  .trail-caption--edge-right.trail-caption--support-nudge {
+    margin-left: 66%;
+    margin-right: clamp(0.15rem, 1vw, 0.5rem);
+    max-width: 19rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .trail-caption--support-nudge {
+    margin-left: 66%;
+    margin-right: clamp(0.15rem, 1vw, 0.5rem);
+    max-width: 19rem;
+  }
 }
 
 .trail-caption--center {
@@ -947,6 +974,27 @@ body {
   box-shadow: none;
   backdrop-filter: none;
   padding: 0;
+}
+
+/* Night trail — light copy on dark 3D backdrop */
+.trail-caption--night h2,
+.trail-caption--night .text-ink {
+  color: #faf5f0;
+}
+
+.trail-caption--night p.text-slate,
+.trail-caption--night .text-slate {
+  color: rgba(245, 239, 232, 0.82);
+}
+
+.trail-active-caption {
+  will-change: opacity;
+}
+
+/* Projects finale — room for bottom nav; cards scroll with the page */
+.trail-section--projects {
+  min-height: 150vh;
+  height: auto;
 }
 
 /* Sky-city intro overlay — warm rose typography, kept off the castle center */

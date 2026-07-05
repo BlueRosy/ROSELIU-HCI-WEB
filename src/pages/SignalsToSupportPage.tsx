@@ -18,7 +18,7 @@ export default function SignalsToSupportPage() {
   }, []);
 
   return (
-    <RWLayout>
+    <RWLayout hideFooter>
       <ResearchUniverseView />
     </RWLayout>
   );

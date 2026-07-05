@@ -5,10 +5,13 @@ import { profile, researchWorld } from "../../content/site";
 
 export default function RWLayout({
   children,
+  hideFooter = false,
 }: {
   children: React.ReactNode;
   /** @deprecated exploration mode removed — atlas is always default layout */
   variant?: "default" | "exploration";
+  /** Immersive trail — no conventional footer below the scroll narrative. */
+  hideFooter?: boolean;
 }) {
   return (
     <div className="relative min-h-screen">
@@ -23,6 +26,7 @@ export default function RWLayout({
         </Link>
       </div>
       {children}
+      {!hideFooter && (
       <footer className="border-t border-border bg-section/50 py-16">
           <div className="mx-auto max-w-3xl px-5 text-center">
             <p className="font-mono text-xs uppercase tracking-[0.16em] text-slate">
@@ -50,6 +54,7 @@ export default function RWLayout({
             </div>
           </div>
       </footer>
+      )}
     </div>
   );
 }

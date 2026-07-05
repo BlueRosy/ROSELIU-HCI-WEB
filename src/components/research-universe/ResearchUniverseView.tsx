@@ -10,7 +10,7 @@ import {
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEnable3D } from "../../hooks/useEnable3D";
-import useLocalTimeOfDay from "../../hooks/useLocalTimeOfDay";
+import type { TimeOfDay } from "../../hooks/useLocalTimeOfDay";
 import ProjectDetailPanel from "./ProjectDetailPanel";
 import ResearchUniverseFallback from "./ResearchUniverseFallback";
 import ScrollNarrative from "./ScrollNarrative";
@@ -20,6 +20,7 @@ import TrailProgressBar from "./TrailProgressBar";
 import TrailSceneLoader from "./TrailSceneLoader";
 import TrailSkyCityIntro from "./TrailSkyCityIntro";
 import type { UniverseSceneState } from "./UniverseContext";
+import type { EntryCinematicPhase } from "./entryCinematic";
 import {
   isScrollTweenActive,
   isSnapSuspended,
@@ -27,6 +28,7 @@ import {
   refreshSectionAnchors,
   scrollToSection,
   sectionFromProgress,
+  setCinematicLocked,
   snapToNearestSection,
   TRAIL_SECTION_SCROLL_DURATION,
 } from "./trailScrollUtils";
@@ -43,9 +45,7 @@ const PARALLAX_THRESHOLD = 0.015;
 
 export default function ResearchUniverseView() {
   const enable3D = useEnable3D();
-  const { timeOfDay } = useLocalTimeOfDay();
-  const timeOfDayRef = useRef(timeOfDay);
-  timeOfDayRef.current = timeOfDay;
+  const timeOfDayRef = useRef<TimeOfDay>("day");
   const reducedMotion = useRef(
     typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches,
@@ -63,6 +63,9 @@ export default function ResearchUniverseView() {
   // main scene's models finish streaming in); `sceneReady` retires the loader.
   const [entering, setEntering] = useState(false);
   const [sceneReady, setSceneReady] = useState(false);
+  const [cinematicDone, setCinematicDone] = useState(false);
+  const [heroCaptionVisible, setHeroCaptionVisible] = useState(false);
+  const [cinematicSession, setCinematicSession] = useState(0);
   const showLoader = entering && !sceneReady;
 
   const scrollProgress = useRef(0);
@@ -75,6 +78,13 @@ export default function ResearchUniverseView() {
   const lastParallax = useRef({ x: 0, y: 0 });
   const invalidate = useRef<() => void>(() => {});
   const isScrollingRef = useRef(false);
+  const entryRevealArmed = useRef(false);
+  const entryCinematicActive = useRef(false);
+  const entryCinematicDone = useRef(false);
+  const entryCinematicT = useRef(0);
+  const entryCinematicElapsed = useRef(0);
+  const entryCinematicPhase = useRef<EntryCinematicPhase>("idle");
+  const heroCaptionVisibleRef = useRef(false);
 
   const onSectionChange = useCallback((section: ScrollSection) => {
     lastSectionRef.current = section;
@@ -103,9 +113,49 @@ export default function ResearchUniverseView() {
   // Let visitors fly back up to the sky-city intro at any time.
   const handleReplayIntro = useCallback(() => {
     window.scrollTo(0, 0);
+    entryRevealArmed.current = false;
+    entryCinematicActive.current = false;
+    entryCinematicDone.current = false;
+    entryCinematicT.current = 0;
+    entryCinematicElapsed.current = 0;
+    entryCinematicPhase.current = "idle";
+    heroCaptionVisibleRef.current = false;
+    setCinematicLocked(false);
+    setCinematicDone(false);
+    setHeroCaptionVisible(false);
+    setCinematicSession((n) => n + 1);
+    scrollTriggerRef.current?.enable();
     setEntered(false);
     setEntering(false);
     setSceneReady(false);
+  }, []);
+
+  const handleCinematicComplete = useCallback(() => {
+    entryCinematicDone.current = true;
+    entryCinematicActive.current = false;
+    setCinematicLocked(false);
+    setCinematicDone(true);
+    scrollTriggerRef.current?.enable();
+    ScrollTrigger.refresh();
+  }, []);
+
+  const handleCaptionReveal = useCallback(() => {
+    heroCaptionVisibleRef.current = true;
+    setHeroCaptionVisible(true);
+  }, []);
+
+  const startEntryCinematic = useCallback(() => {
+    entryRevealArmed.current = true;
+    entryCinematicActive.current = true;
+    entryCinematicDone.current = false;
+    entryCinematicT.current = 0;
+    entryCinematicElapsed.current = 0;
+    entryCinematicPhase.current = "framing";
+    heroCaptionVisibleRef.current = false;
+    setCinematicDone(false);
+    setHeroCaptionVisible(false);
+    scrollTriggerRef.current?.disable();
+    window.scrollTo(0, 0);
   }, []);
 
   // Lock page scroll (and stray keyboard nav) while the sky-city intro is up.
@@ -121,6 +171,26 @@ export default function ResearchUniverseView() {
       document.documentElement.style.overflow = prevHtml;
     };
   }, [enable3D, entered]);
+
+  // Lock scroll during entry cinematic (~4s).
+  useEffect(() => {
+    if (!enable3D || !entered || cinematicDone) return;
+
+    const block = (e: Event) => {
+      e.preventDefault();
+      e.stopPropagation();
+    };
+
+    window.addEventListener("wheel", block, { passive: false, capture: true });
+    window.addEventListener("touchmove", block, { passive: false, capture: true });
+    window.addEventListener("keydown", block, { capture: true });
+
+    return () => {
+      window.removeEventListener("wheel", block, { capture: true });
+      window.removeEventListener("touchmove", block, { capture: true });
+      window.removeEventListener("keydown", block, { capture: true });
+    };
+  }, [enable3D, entered, cinematicDone]);
 
   // After the intro unlocks scrolling, re-measure so anchors/range are correct.
   useEffect(() => {
@@ -169,9 +239,18 @@ export default function ResearchUniverseView() {
     parallax,
     invalidate,
     isScrollingRef,
+    entryRevealArmed,
+    entryCinematicActive,
+    entryCinematicDone,
+    entryCinematicT,
+    entryCinematicElapsed,
+    entryCinematicPhase,
+    heroCaptionVisible: heroCaptionVisibleRef,
     timeOfDay: timeOfDayRef,
     reducedMotion,
     onProjectSelect,
+    onCinematicComplete: handleCinematicComplete,
+    onCaptionReveal: handleCaptionReveal,
   };
 
   useLayoutEffect(() => {
@@ -207,7 +286,14 @@ export default function ResearchUniverseView() {
         snap: {
           snapTo: (progress) => {
             if (isSnapSuspended()) return progress;
-            return snapToNearestSection(progress, scrollTriggerRef.current);
+            const st = scrollTriggerRef.current;
+            if (!st) return progress;
+            const range = st.end - st.start;
+            const scrollY = st.start + progress * range;
+            if (sectionFromProgress(measuredProgressAt(scrollY, st)) === "projects") {
+              return progress;
+            }
+            return snapToNearestSection(progress, st);
           },
           duration: { min: 0.3, max: 0.8 },
           delay: 0.12,
@@ -276,7 +362,11 @@ export default function ResearchUniverseView() {
         className={`trail-scroll-root relative z-10 ${entered ? "" : "invisible"}`}
         aria-hidden={!entered}
       >
-        <ScrollNarrative />
+        <ScrollNarrative
+          key={cinematicSession}
+          heroCaptionVisible={heroCaptionVisible}
+          activeSection={currentSection}
+        />
       </div>
 
       {!showLoader && (
@@ -284,9 +374,15 @@ export default function ResearchUniverseView() {
           activeSection={currentSection}
           onNavigate={navigateToSection}
           onReplayIntro={handleReplayIntro}
+          cinematicLocked={!cinematicDone && entered}
         />
       )}
-      {!showLoader && <TrailIntroOverlay />}
+      {!showLoader && (
+        <TrailIntroOverlay
+          cinematicDone={cinematicDone}
+          hideHint={currentSection === "projects"}
+        />
+      )}
       <TrailAmbientAudio />
 
       <ProjectDetailPanel
@@ -300,6 +396,8 @@ export default function ResearchUniverseView() {
           onReady={() => {
             setSceneReady(true);
             setEntering(false);
+            setCinematicLocked(true);
+            startEntryCinematic();
           }}
         />
       )}

@@ -1,6 +1,7 @@
 import { useEffect, type MutableRefObject } from "react";
 import type { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
+  isCinematicLocked,
   isScrollTweenActive,
   nextSection,
   prevSection,
@@ -32,7 +33,7 @@ export function useTrailKeyboard(
 
       if (!forward && !back) return;
       e.preventDefault();
-      if (isScrollTweenActive()) return;
+      if (isScrollTweenActive() || isCinematicLocked()) return;
 
       const current = activeSectionRef.current;
       const target = forward ? nextSection(current) : prevSection(current);

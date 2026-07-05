@@ -32,7 +32,7 @@ function ArcRibbon({ arc }: { arc: TreeLightArc }) {
     for (let i = 0; i < points.length; i++) {
       const p = points[i];
       const t = i / (points.length - 1);
-      const halfW = THREE.MathUtils.lerp(0.11, 0.025, t);
+      const halfW = THREE.MathUtils.lerp(0.135, 0.032, t);
       const tangent =
         i < points.length - 1
           ? new THREE.Vector3().subVectors(points[i + 1], p).normalize()

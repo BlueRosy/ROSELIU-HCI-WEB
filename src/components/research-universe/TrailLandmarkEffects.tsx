@@ -2,19 +2,20 @@ import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { LANDMARKS } from "../research-world/rwWorldConfig";
+import { entryRevealBoost } from "./entryRevealBoost";
+import { landmarkFocus, landmarkGlowBoost } from "./landmarkFocus";
 import { useUniverse } from "./UniverseContext";
+import { zoneFromSection } from "./worldTrailConfig";
 
-function zoneIntensity(activeZone: string, zoneId: string, scrollProgress: number, targetProgress: number) {
-  const zoneMatch = activeZone === zoneId ? 1 : 0;
-  const scrollNear = 1 - Math.min(1, Math.abs(scrollProgress - targetProgress) * 8);
-  return Math.max(zoneMatch * 0.85, scrollNear * 0.35);
+function zoneIntensity(activeZone: string, zoneId: string): number {
+  return activeZone === zoneId ? 1 : 0;
 }
 
 function SignalsEffect() {
   const points = useRef<THREE.Points>(null);
   const mat = useRef<THREE.PointsMaterial>(null);
   const lm = LANDMARKS.find((l) => l.id === "signals")!;
-  const { activeZone, scrollProgress } = useUniverse();
+  const { activeSection, entryCinematicDone } = useUniverse();
   const positions = useRef(
     (() => {
       const arr = new Float32Array(36 * 3);
@@ -28,9 +29,16 @@ function SignalsEffect() {
   );
 
   useFrame(({ clock }) => {
+    if (!entryCinematicDone.current) {
+      if (mat.current) mat.current.opacity = 0;
+      return;
+    }
     const t = clock.getElapsedTime();
-    const intensity = zoneIntensity(activeZone.current, "signals", scrollProgress.current, 0.2);
-    if (mat.current) mat.current.opacity = 0.15 + intensity * 0.55;
+    const zone = zoneFromSection(activeSection.current);
+    const { strength, arrive } = landmarkFocus.current;
+    const glow = landmarkGlowBoost("signals", zone, strength, arrive);
+    const intensity = zoneIntensity(zone, "signals") + glow * 0.25;
+    if (mat.current) mat.current.opacity = 0.15 + intensity * 0.55 + entryRevealBoost.current.signals;
     if (points.current) points.current.rotation.y = t * 0.15;
   });
 
@@ -55,14 +63,23 @@ function SignalsEffect() {
 function StatesEffect() {
   const mesh = useRef<THREE.Mesh>(null);
   const lm = LANDMARKS.find((l) => l.id === "states")!;
-  const { activeZone, scrollProgress } = useUniverse();
+  const { activeSection, entryCinematicDone } = useUniverse();
 
   useFrame(({ clock }) => {
     if (!mesh.current) return;
+    if (!entryCinematicDone.current) {
+      const mat = mesh.current.material as THREE.MeshBasicMaterial;
+      mat.opacity = 0;
+      mesh.current.scale.setScalar(1);
+      return;
+    }
     const t = clock.getElapsedTime();
-    const intensity = zoneIntensity(activeZone.current, "states", scrollProgress.current, 0.4);
+    const zone = zoneFromSection(activeSection.current);
+    const { strength, arrive } = landmarkFocus.current;
+    const glow = landmarkGlowBoost("states", zone, strength, arrive);
+    const intensity = zoneIntensity(zone, "states") + glow * 0.2;
     const mat = mesh.current.material as THREE.MeshBasicMaterial;
-    mat.opacity = 0.08 + intensity * 0.22;
+    mat.opacity = 0.08 + intensity * 0.22 + entryRevealBoost.current.states;
     mesh.current.scale.setScalar(1 + intensity * 0.15 + Math.sin(t * 2) * 0.03);
   });
 
@@ -83,13 +100,20 @@ function StatesEffect() {
 function SupportEffect() {
   const light = useRef<THREE.PointLight>(null);
   const lm = LANDMARKS.find((l) => l.id === "support")!;
-  const { activeZone, scrollProgress } = useUniverse();
+  const { activeSection, entryCinematicDone } = useUniverse();
 
   useFrame(({ clock }) => {
     if (!light.current) return;
+    if (!entryCinematicDone.current) {
+      light.current.intensity = 0;
+      return;
+    }
     const t = clock.getElapsedTime();
-    const intensity = zoneIntensity(activeZone.current, "support", scrollProgress.current, 0.6);
-    light.current.intensity = 0.2 + intensity * 1.1 + Math.sin(t * 1.4) * 0.15;
+    const zone = zoneFromSection(activeSection.current);
+    const { strength, arrive } = landmarkFocus.current;
+    const glow = landmarkGlowBoost("support", zone, strength, arrive);
+    const intensity = zoneIntensity(zone, "support") + glow * 0.22;
+    light.current.intensity = 0.2 + intensity * 1.1 + Math.sin(t * 1.4) * 0.15 + entryRevealBoost.current.support * 2.5;
   });
 
   return (

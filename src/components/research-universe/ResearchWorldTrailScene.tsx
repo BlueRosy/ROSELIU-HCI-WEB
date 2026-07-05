@@ -4,6 +4,7 @@ import { useGLTF, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import { researchWorldAssets } from "../../content/site";
 import { getRwWonderland } from "../../theme/rwWonderland";
+import { entryRevealBoost } from "./entryRevealBoost";
 import RWEntryPavilion from "../research-world/RWEntryPavilion";
 import RWLoopCenter from "../research-world/RWLoopCenter";
 import {
@@ -18,7 +19,9 @@ import {
   LANDMARKS,
 } from "../research-world/rwWorldConfig";
 import TrailGroundScatter from "./TrailGroundScatter";
+import TrailEntryAmbience from "./TrailEntryAmbience";
 import TrailLandmarkEffects from "./TrailLandmarkEffects";
+import TrailLandmarkHighlight from "./TrailLandmarkHighlight";
 import TrailNarrativePaths from "./TrailNarrativePaths";
 import TrailPetalField from "./TrailPetalField";
 import TrailProjectsFinale from "./TrailProjectsFinale";
@@ -176,6 +179,7 @@ function TrailDiscPlaza() {
   const palette = getRwWonderland(timeOfDay.current);
   const night = timeOfDay.current === "night";
   const discLight = useRef<THREE.PointLight>(null);
+  const discMat = useRef<THREE.MeshStandardMaterial>(null);
   const spokes = useMemo(() => {
     const [cx, , cz] = DISC_CENTER;
     return LANDMARKS.filter((l) => l.id !== "loop").map((l) => {
@@ -192,9 +196,15 @@ function TrailDiscPlaza() {
   const triangleGeo = useMemo(() => landmarkTriangleRibbon(), []);
 
   useFrame(({ clock }) => {
-    if (!discLight.current || !night) return;
+    const loopBoost = entryRevealBoost.current.loop;
     const t = clock.getElapsedTime();
-    discLight.current.intensity = 0.55 + Math.sin(t * 0.9) * 0.08;
+    if (discMat.current) {
+      discMat.current.emissiveIntensity = (night ? 0.14 : 0.06) + loopBoost * 0.45;
+    }
+    if (discLight.current) {
+      const base = night ? 0.55 + Math.sin(t * 0.9) * 0.08 : 0.35;
+      discLight.current.intensity = base + loopBoost * 1.1;
+    }
   });
 
   return (
@@ -206,6 +216,7 @@ function TrailDiscPlaza() {
       >
         <circleGeometry args={[DISC_RADIUS, 64]} />
         <meshStandardMaterial
+          ref={discMat}
           color={palette.discStone}
           roughness={0.5}
           metalness={0.05}
@@ -259,36 +270,9 @@ function TrailDiscPlaza() {
   );
 }
 
-/** Soft lantern + campfire glow beside entry (night only). */
+/** @deprecated Entry campfires removed — day-only trail. */
 function EntryCampfireLights() {
-  const { timeOfDay } = useUniverse();
-  if (timeOfDay.current !== "night") return null;
-  const palette = getRwWonderland("night");
-  return (
-    <>
-      <pointLight
-        position={[-2.35, 1.2, 4.55]}
-        color={palette.campfire}
-        intensity={1.0}
-        distance={9}
-        decay={2}
-      />
-      <pointLight
-        position={[2.35, 1.2, 4.55]}
-        color={palette.campfire}
-        intensity={1.0}
-        distance={9}
-        decay={2}
-      />
-      <pointLight
-        position={[0, 0.4, 5.1]}
-        color={palette.pathGlowBright}
-        intensity={0.35}
-        distance={12}
-        decay={2}
-      />
-    </>
-  );
+  return null;
 }
 
 export default function ResearchWorldTrailScene() {
@@ -303,6 +287,8 @@ export default function ResearchWorldTrailScene() {
       <TrailPath />
       <TrailPetalField />
       <TrailLandmarkEffects />
+      <TrailLandmarkHighlight />
+      <TrailEntryAmbience />
       <RWEntryPavilion />
       <EntryCampfireLights />
       <RWSignalsGardenBeds />

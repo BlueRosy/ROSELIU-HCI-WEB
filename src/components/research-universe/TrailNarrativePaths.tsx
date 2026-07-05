@@ -2,7 +2,9 @@ import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { rwWonderland } from "../../theme/rwWonderland";
+import { pathRevealT, sampleEntryCinematicCamera } from "./entryCinematic";
 import { buildNarrativePaths, type NarrativePathDef } from "./trailGardenLayout";
+import { useUniverse } from "./UniverseContext";
 
 function pathCurve(path: NarrativePathDef) {
   return new THREE.CatmullRomCurve3(path.points.map((p) => new THREE.Vector3(...p)));
@@ -40,11 +42,41 @@ function PetalPath({ path }: { path: NarrativePathDef }) {
     () => ribbonGeometry(pathCurve(path), path.width ?? 0.5),
     [path],
   );
+  const isEntry = path.id === "entry-signals";
+  const {
+    entryCinematicActive,
+    entryCinematicDone,
+    entryCinematicPhase,
+    entryCinematicElapsed,
+    reducedMotion,
+  } = useUniverse();
 
   useFrame(({ clock }) => {
     if (!mat.current) return;
     const t = clock.getElapsedTime();
-    mat.current.emissiveIntensity = 0.28 + Math.sin(t * 1.2) * 0.08;
+    let base = 0.28 + Math.sin(t * 1.2) * 0.08;
+    let opacity = 0.82;
+    const shimmer = isEntry && Math.sin(t * 0.78) > 0.92 ? 0.06 : 0;
+
+    if (
+      isEntry &&
+      entryCinematicActive.current &&
+      !entryCinematicDone.current
+    ) {
+      const phase = entryCinematicPhase.current;
+      if (phase === "through" || phase === "inside" || phase === "caption") {
+        const sample = sampleEntryCinematicCamera(
+          entryCinematicElapsed.current,
+          reducedMotion.current,
+        );
+        const reveal = pathRevealT(sample.position.z);
+        base = 0.34 + reveal * 0.62 + shimmer;
+        opacity = 0.68 + reveal * 0.3;
+      }
+    }
+
+    mat.current.emissiveIntensity = base;
+    mat.current.opacity = opacity;
   });
 
   return (

@@ -1,5 +1,6 @@
 import { createContext, useContext, type MutableRefObject } from "react";
 import type { TimeOfDay } from "../../hooks/useLocalTimeOfDay";
+import type { EntryCinematicPhase } from "./entryCinematic";
 import type { ScrollSection } from "./worldTrailConfig";
 
 export type UniverseSceneState = {
@@ -10,9 +11,19 @@ export type UniverseSceneState = {
   parallax: MutableRefObject<{ x: number; y: number }>;
   invalidate: MutableRefObject<() => void>;
   isScrollingRef: MutableRefObject<boolean>;
+  /** True once the trail loader has cleared — entry cinematic may start. */
+  entryRevealArmed: MutableRefObject<boolean>;
+  entryCinematicActive: MutableRefObject<boolean>;
+  entryCinematicDone: MutableRefObject<boolean>;
+  entryCinematicT: MutableRefObject<number>;
+  entryCinematicElapsed: MutableRefObject<number>;
+  entryCinematicPhase: MutableRefObject<EntryCinematicPhase>;
+  heroCaptionVisible: MutableRefObject<boolean>;
   timeOfDay: MutableRefObject<TimeOfDay>;
   reducedMotion: MutableRefObject<boolean>;
   onProjectSelect: (projectId: string) => void;
+  onCinematicComplete?: () => void;
+  onCaptionReveal?: () => void;
 };
 
 const UniverseContext = createContext<UniverseSceneState | null>(null);

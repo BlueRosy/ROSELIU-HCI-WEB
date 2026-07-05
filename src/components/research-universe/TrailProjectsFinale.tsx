@@ -3,6 +3,7 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { heroPetalPalette } from "../../theme/palette";
 import { DISC_CENTER } from "../research-world/rwWorldConfig";
+import { entryRevealBoost } from "./entryRevealBoost";
 import { useUniverse } from "./UniverseContext";
 
 const PETAL_COUNT = 80;
@@ -142,7 +143,7 @@ export default function TrailProjectsFinale() {
       colored.current = true;
     }
 
-    const target = showProjectCards.current ? 1 : 0;
+    const target = showProjectCards.current ? 1 : entryRevealBoost.current.projects;
     const loopGlow =
       night && activeZone.current === "loop" && !reducedMotion.current ? 0.35 : 0;
     vis.current += (Math.max(target, loopGlow) - vis.current) * Math.min(1, delta * 2.4);

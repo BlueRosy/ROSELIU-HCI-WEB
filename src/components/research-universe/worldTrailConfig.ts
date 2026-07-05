@@ -53,8 +53,8 @@ function landmarkLook(zoneId: string): [number, number, number] {
 export const TRAIL_STOPS: TrailStop[] = [
   {
     section: "hero",
-    camPos: [0, 5.4, 12.8],
-    lookAt: [0, 1.7, 3.2],
+    camPos: [0, 4.8, 2.6],
+    lookAt: [0, 1.0, -8.2],
     zoneId: "entry",
   },
   {
@@ -202,3 +202,17 @@ export const TRAIL_STOP_LABELS: Record<ScrollSection, string> = {
   loop: "Loop",
   projects: "Projects",
 };
+
+/** Scroll section → 3D zone id (discrete stops, not camera blend midpoint). */
+export const SECTION_ZONE_ID: Record<ScrollSection, string> = {
+  hero: "entry",
+  signals: "signals",
+  states: "states",
+  support: "support",
+  loop: "loop",
+  projects: "projects",
+};
+
+export function zoneFromSection(section: ScrollSection): string {
+  return SECTION_ZONE_ID[section];
+}

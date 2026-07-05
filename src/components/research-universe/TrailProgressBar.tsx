@@ -16,14 +16,20 @@ export default function TrailProgressBar({
   activeSection,
   onNavigate,
   onReplayIntro,
+  cinematicLocked = false,
 }: {
   activeSection: ScrollSection;
   onNavigate: (section: ScrollSection) => void;
   onReplayIntro?: () => void;
+  cinematicLocked?: boolean;
 }) {
   return (
     <div className="fixed bottom-8 left-1/2 z-20 -translate-x-1/2">
-      <div className="glass flex items-center gap-1 rounded-full border border-border/50 px-3 py-2 shadow-soft backdrop-blur-md">
+      <div
+        className={`glass flex items-center gap-1 rounded-full border border-border/50 px-3 py-2 shadow-soft backdrop-blur-md ${
+          cinematicLocked ? "pointer-events-none opacity-50" : ""
+        }`}
+      >
         {onReplayIntro && (
           <>
             <button
@@ -58,7 +64,9 @@ export default function TrailProgressBar({
         })}
       </div>
       <p className="mt-2 text-center font-mono text-[10px] text-slate/80">
-        Scroll · ↑ ↓ · Space — or tap a stop
+        {activeSection === "projects"
+          ? "Scroll to browse project cards"
+          : "Scroll · ↑ ↓ · Space — or tap a stop"}
       </p>
     </div>
   );

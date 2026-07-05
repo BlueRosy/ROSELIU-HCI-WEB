@@ -83,24 +83,27 @@ function TwilightStars({ count, night }: { count: number; night: boolean }) {
   useFrame(({ clock }) => {
     if (!mat.current) return;
     const t = clock.getElapsedTime();
-    mat.current.opacity = (night ? 0.82 : 0.65) + Math.sin(t * 0.8) * 0.12;
+    mat.current.opacity = (night ? 0.95 : 0.65) + Math.sin(t * 0.8) * 0.08;
     if (points.current) points.current.rotation.y = t * 0.006;
   });
 
   return (
-    <points ref={points} frustumCulled={false} renderOrder={-2}>
+    <points ref={points} frustumCulled={false} renderOrder={10}>
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
       <pointsMaterial
         ref={mat}
         color={night ? "#FFF8F5" : "#FFF5EE"}
-        size={night ? 0.38 : 0.32}
+        size={night ? 0.52 : 0.32}
         transparent
-        opacity={0.7}
+        opacity={0.85}
         depthWrite={false}
+        depthTest={false}
         fog={false}
+        toneMapped={false}
         sizeAttenuation
+        blending={THREE.AdditiveBlending}
       />
     </points>
   );
@@ -200,7 +203,7 @@ export default function TrailTwilightSky() {
           uniforms={uniforms}
         />
       </mesh>
-      <TwilightStars count={night ? 160 : 90} night={night} />
+      <TwilightStars count={night ? 220 : 90} night={night} />
       <PinkMoon night={night} />
       <SkyAirship />
     </group>
