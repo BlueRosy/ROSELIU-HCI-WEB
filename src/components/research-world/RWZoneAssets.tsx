@@ -14,13 +14,15 @@ function GltfClone({
   position,
   rotation = [0, 0, 0],
   targetHeight = 2,
+  warmStone = false,
 }: {
   url: string;
   position: [number, number, number];
   rotation?: [number, number, number];
   targetHeight?: number;
+  warmStone?: boolean;
 }) {
-  const model = useNormalizedGltf(url, targetHeight);
+  const model = useNormalizedGltf(url, targetHeight, warmStone);
   return (
     <group position={position} rotation={rotation}>
       <primitive object={model.clone(true)} />
@@ -43,6 +45,7 @@ export function RWObservatoryPlatform() {
         url={researchWorldAssets.designLandmarks.statesObservatory}
         position={[lm.position[0], PLINTH_HEIGHT, lm.position[2]]}
         targetHeight={3.8}
+        warmStone
       />
     </>
   );

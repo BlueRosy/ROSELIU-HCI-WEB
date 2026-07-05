@@ -28,20 +28,23 @@ export type RwWonderlandPalette = {
   discStone: string;
 };
 
-/** Ivory Wonderland palette — Research World subpage (day / golden hour). */
+/**
+ * Bright rose garden — keep v5 luminance; sky top adds airy blue-white so the
+ * world is not one flat pink wash (reduces fatigue without muddying).
+ */
 export const rwWonderlandDay: RwWonderlandPalette = {
-  background: "#FFFCF9",
-  fog: "#FFE8E4",
-  fogNear: 26,
-  fogFar: 68,
+  background: "#FFFCFA",
+  fog: "#FFF8F6",
+  fogNear: 30,
+  fogFar: 76,
   skyHorizon: "#FFE8E4",
-  skyTop: "#FFF5F8",
-  skyDusk: "#FAD0DC",
+  skyTop: "#F2F6FB",
+  skyDusk: "#F8D4E0",
   ground: "#FAF0E8",
   groundEmissive: "#F5E4DC",
   groundOverlayOpacity: 0.06,
   grid: "#C4848F",
-  gridOpacity: 0.1,
+  gridOpacity: 0.09,
   pathGlow: "#D4A59E",
   pathGlowBright: "#C4848F",
   pathRibbon: "#F0D0C8",

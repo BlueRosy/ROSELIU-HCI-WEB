@@ -1,7 +1,7 @@
 import { researchWorld } from "../../content/site";
 import ResearchAtlasProjects from "../research-atlas/ResearchAtlasProjects";
 import HeroEntryCaption from "./HeroEntryCaption";
-import { TRAIL_STOPS, type ScrollSection } from "./worldTrailConfig";
+import { TRAIL_STOPS } from "./worldTrailConfig";
 
 function TrailCaption({
   eyebrow,
@@ -9,14 +9,12 @@ function TrailCaption({
   body,
   edge,
   edgeClassExtra,
-  night = false,
 }: {
   eyebrow: string;
   title: string;
   body: string;
   edge: "left" | "right" | "center";
   edgeClassExtra?: string;
-  night?: boolean;
 }) {
   const edgeClass =
     edge === "left"
@@ -27,7 +25,7 @@ function TrailCaption({
 
   return (
     <div
-      className={`trail-caption glass rounded-2xl border border-primary/15 p-6 shadow-lift ring-1 ring-primary/10 backdrop-blur-md sm:p-8 ${edgeClass}${edgeClassExtra ? ` ${edgeClassExtra}` : ""}${night ? " trail-caption--night" : ""}`}
+      className={`trail-caption glass rounded-2xl border border-primary/15 p-6 shadow-lift ring-1 ring-primary/10 backdrop-blur-md sm:p-8 ${edgeClass}${edgeClassExtra ? ` ${edgeClassExtra}` : ""}`}
     >
       <p className="font-mono text-xs uppercase tracking-[0.2em] text-gradient-static">
         {eyebrow}
@@ -46,68 +44,20 @@ const SECTION_EDGE: Record<string, "left" | "right" | "center"> = {
   loop: "left",
 };
 
-function ActiveTrailCaption({
-  activeSection,
-}: {
-  activeSection: ScrollSection;
-}) {
-  if (activeSection === "hero" || activeSection === "projects") return null;
-
-  const stop = TRAIL_STOPS.find((s) => s.section === activeSection);
-  const zone = stop ? researchWorld.zones.find((z) => z.id === stop.zoneId) : null;
-  if (!stop || !zone) return null;
-
-  const edge = SECTION_EDGE[stop.section] ?? "left";
-  const index = String(TRAIL_STOPS.indexOf(stop) + 1).padStart(2, "0");
-  const supportNudge = stop.section === "support";
-
-  return (
-    <div
-      className="trail-active-caption pointer-events-none fixed inset-x-0 top-0 z-[15] flex h-screen items-center px-5 py-20"
-      style={
-        activeSection === "loop"
-          ? { opacity: "var(--trail-loop-fade, 1)" }
-          : undefined
-      }
-      aria-live="polite"
-    >
-      <div
-        className={
-          edge === "left"
-            ? "w-full md:mr-auto md:max-w-none"
-            : edge === "right"
-              ? "w-full"
-              : "mx-auto"
-        }
-      >
-        <TrailCaption
-          eyebrow={`${index} · ${zone.label}`}
-          title={zone.title}
-          body={zone.body}
-          edge={edge}
-          edgeClassExtra={supportNudge ? "trail-caption--support-nudge" : undefined}
-        />
-      </div>
-    </div>
-  );
-}
-
 export default function ScrollNarrative({
   heroCaptionVisible = false,
-  activeSection = "hero",
 }: {
   heroCaptionVisible?: boolean;
-  activeSection?: ScrollSection;
 }) {
   const narrativeStops = TRAIL_STOPS.filter((s) => s.section !== "projects");
 
   return (
     <div className="pointer-events-none">
-      <ActiveTrailCaption activeSection={activeSection} />
-
-      {narrativeStops.map((stop) => {
+      {narrativeStops.map((stop, i) => {
         const zone = researchWorld.zones.find((z) => z.id === stop.zoneId);
         if (!zone) return null;
+        const edge = SECTION_EDGE[stop.section] ?? "left";
+        const index = String(i + 1).padStart(2, "0");
 
         return (
           <section
@@ -118,16 +68,19 @@ export default function ScrollNarrative({
                 ? "items-start justify-center pt-28"
                 : "items-center"
             }`}
-            aria-hidden={activeSection !== stop.section && stop.section !== "hero"}
           >
             {stop.section === "hero" ? (
-              <HeroEntryCaption
-                visible={heroCaptionVisible && activeSection === "hero"}
-              />
+              <HeroEntryCaption visible={heroCaptionVisible} />
             ) : (
-              <div className="sr-only">
-                {zone.title}
-              </div>
+              <TrailCaption
+                eyebrow={`${index} · ${zone.label}`}
+                title={zone.title}
+                body={zone.body}
+                edge={edge}
+                edgeClassExtra={
+                  stop.section === "support" ? "trail-caption--support-nudge" : undefined
+                }
+              />
             )}
           </section>
         );
@@ -135,9 +88,9 @@ export default function ScrollNarrative({
 
       <section
         data-section="projects"
-        className="trail-section trail-section--projects pointer-events-auto flex h-[132vh] flex-col items-center justify-center px-5 pb-36 py-20"
+        className="trail-section trail-section--projects pointer-events-auto flex h-screen flex-col items-center justify-center px-5 pb-36 py-20"
       >
-        <div className="trail-caption trail-caption--center trail-caption--bare trail-projects-header mx-auto mb-8 max-w-xl shrink-0 text-center">
+        <div className="trail-caption trail-caption--center trail-caption--bare trail-projects-header mx-auto mb-10 max-w-xl text-center">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-gradient-static">
             06 · Project evidence
           </p>

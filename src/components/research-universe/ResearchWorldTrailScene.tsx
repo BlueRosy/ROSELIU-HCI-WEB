@@ -1,10 +1,8 @@
-import { Suspense, useMemo, useRef } from "react";
-import { useFrame } from "@react-three/fiber";
+import { Suspense, useMemo } from "react";
 import { useGLTF, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import { researchWorldAssets } from "../../content/site";
 import { getRwWonderland } from "../../theme/rwWonderland";
-import { entryRevealBoost } from "./entryRevealBoost";
 import RWEntryPavilion from "../research-world/RWEntryPavilion";
 import RWLoopCenter from "../research-world/RWLoopCenter";
 import {
@@ -165,7 +163,7 @@ function TrailPath() {
       <meshStandardMaterial
         color={palette.pathRibbon}
         emissive={palette.pathGlow}
-        emissiveIntensity={night ? 0.52 : 0.35}
+        emissiveIntensity={night ? 0.52 : 0.28}
         roughness={0.4}
       />
     </mesh>
@@ -178,8 +176,6 @@ function TrailDiscPlaza() {
   const { timeOfDay } = useUniverse();
   const palette = getRwWonderland(timeOfDay.current);
   const night = timeOfDay.current === "night";
-  const discLight = useRef<THREE.PointLight>(null);
-  const discMat = useRef<THREE.MeshStandardMaterial>(null);
   const spokes = useMemo(() => {
     const [cx, , cz] = DISC_CENTER;
     return LANDMARKS.filter((l) => l.id !== "loop").map((l) => {
@@ -195,18 +191,6 @@ function TrailDiscPlaza() {
   }, []);
   const triangleGeo = useMemo(() => landmarkTriangleRibbon(), []);
 
-  useFrame(({ clock }) => {
-    const loopBoost = entryRevealBoost.current.loop;
-    const t = clock.getElapsedTime();
-    if (discMat.current) {
-      discMat.current.emissiveIntensity = (night ? 0.14 : 0.06) + loopBoost * 0.45;
-    }
-    if (discLight.current) {
-      const base = night ? 0.55 + Math.sin(t * 0.9) * 0.08 : 0.35;
-      discLight.current.intensity = base + loopBoost * 1.1;
-    }
-  });
-
   return (
     <group>
       <mesh
@@ -216,7 +200,6 @@ function TrailDiscPlaza() {
       >
         <circleGeometry args={[DISC_RADIUS, 64]} />
         <meshStandardMaterial
-          ref={discMat}
           color={palette.discStone}
           roughness={0.5}
           metalness={0.05}
@@ -232,7 +215,7 @@ function TrailDiscPlaza() {
         <meshBasicMaterial
           color={palette.pathGlowBright}
           transparent
-          opacity={night ? 0.55 : 0.38}
+          opacity={night ? 0.28 : 0.2}
           side={THREE.DoubleSide}
         />
       </mesh>
@@ -240,7 +223,7 @@ function TrailDiscPlaza() {
         <meshStandardMaterial
           color={palette.pathRibbon}
           emissive={palette.pathGlow}
-          emissiveIntensity={night ? 0.32 : 0.18}
+          emissiveIntensity={night ? 0.32 : 0.16}
           roughness={0.4}
           transparent
           opacity={night ? 0.72 : 0.55}
@@ -260,7 +243,6 @@ function TrailDiscPlaza() {
         </mesh>
       ))}
       <pointLight
-        ref={discLight}
         position={[DISC_CENTER[0], 2.5, DISC_CENTER[2]]}
         intensity={night ? 0.55 : 0.35}
         color={night ? palette.pathGlowBright : "#FFE8EE"}

@@ -4,9 +4,7 @@ import * as THREE from "three";
 import { getRwWonderland } from "../../theme/rwWonderland";
 import { RWClosedLoopCoreGlb } from "../research-world/RWZoneAssets";
 import { DISC_CENTER } from "../research-world/rwWorldConfig";
-import { landmarkFocus, landmarkGlowBoost } from "./landmarkFocus";
 import { useUniverse } from "./UniverseContext";
-import { zoneFromSection } from "./worldTrailConfig";
 
 const LEMNISCATE_A = 2.15;
 const PARTICLE_COUNT = 32;
@@ -60,10 +58,7 @@ export default function TrailLoopCorePlaza() {
   const [cx, , cz] = DISC_CENTER;
   const ribbonMat = useRef<THREE.MeshStandardMaterial>(null);
   const haloMat = useRef<THREE.MeshBasicMaterial>(null);
-  const discMat = useRef<THREE.MeshStandardMaterial>(null);
-  const coreLight = useRef<THREE.PointLight>(null);
   const particles = useRef<THREE.InstancedMesh>(null);
-  const particleMat = useRef<THREE.MeshBasicMaterial>(null);
   const dummy = useMemo(() => new THREE.Object3D(), []);
   const curve = useMemo(() => buildLemniscateCurve(LEMNISCATE_A), []);
   const ribbonGeo = useMemo(() => ribbonFromCurve(curve, 0.22), [curve]);
@@ -71,47 +66,31 @@ export default function TrailLoopCorePlaza() {
     () => new THREE.TubeGeometry(curve, 128, 0.035, 8, true),
     [curve],
   );
-  const { activeSection, timeOfDay } = useUniverse();
+  const { activeZone, scrollProgress, timeOfDay } = useUniverse();
   const palette = getRwWonderland(timeOfDay.current);
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
-    const zone = zoneFromSection(activeSection.current);
-    const { strength, arrive } = landmarkFocus.current;
-    const glow = landmarkGlowBoost("loop", zone, strength, arrive);
-    const loopLanded = glow > 0.02;
+    const zoneMatch = activeZone.current === "loop" ? 1 : 0;
+    const scrollNear = 1 - Math.min(1, Math.abs(scrollProgress.current - 0.8) * 8);
+    const boost = Math.max(zoneMatch * 0.85, scrollNear * 0.4);
 
     if (ribbonMat.current) {
-      ribbonMat.current.emissiveIntensity =
-        0.18 + glow * 0.42 + arrive * 0.18 + (loopLanded ? Math.sin(t * 1.1) * 0.05 : 0);
-      ribbonMat.current.color.set(loopLanded ? "#F5C8D4" : "#F0D8DC");
-      ribbonMat.current.emissive.set(loopLanded ? palette.pathGlowBright : palette.pathGlow);
+      ribbonMat.current.emissiveIntensity = 0.32 + boost * 0.28 + Math.sin(t * 1.1) * 0.06;
     }
     if (haloMat.current) {
-      haloMat.current.opacity = loopLanded ? 0.06 + glow * 0.22 + arrive * 0.12 : 0.03;
-    }
-    if (discMat.current) {
-      discMat.current.emissiveIntensity =
-        (timeOfDay.current === "night" ? 0.08 : 0.05) + glow * 0.22 + arrive * 0.1;
-      discMat.current.color.set(loopLanded ? "#FAE8EE" : "#F5EFE8");
-    }
-    if (coreLight.current) {
-      coreLight.current.intensity = 0.28 + glow * 0.65 + arrive * 0.25;
-    }
-    if (particleMat.current) {
-      particleMat.current.opacity = loopLanded ? 0.55 + glow * 0.28 : 0.35;
+      haloMat.current.opacity = 0.08 + boost * 0.18 + Math.sin(t * 0.9) * 0.04;
     }
 
     const mesh = particles.current;
     if (!mesh) return;
-    const particleScale = 0.42 + glow * 0.38;
     for (let i = 0; i < PARTICLE_COUNT; i++) {
       const phase = i / PARTICLE_COUNT;
       const u = (phase + t * 0.06) % 1;
       const p = curve.getPointAt(u);
       p.y = 0.18 + Math.sin(t * 2 + phase * Math.PI * 2) * 0.06;
       dummy.position.copy(p);
-      dummy.scale.setScalar(particleScale);
+      dummy.scale.setScalar(0.55 + boost * 0.35);
       dummy.updateMatrix();
       mesh.setMatrixAt(i, dummy.matrix);
     }
@@ -123,12 +102,11 @@ export default function TrailLoopCorePlaza() {
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.025, 0]} receiveShadow>
         <circleGeometry args={[3.35, 48]} />
         <meshStandardMaterial
-          ref={discMat}
           color="#F5EFE8"
           roughness={0.42}
           metalness={0.06}
           emissive={palette.pathGlow}
-          emissiveIntensity={timeOfDay.current === "night" ? 0.08 : 0.05}
+          emissiveIntensity={0.1}
         />
       </mesh>
 
@@ -136,10 +114,10 @@ export default function TrailLoopCorePlaza() {
         <meshStandardMaterial
           ref={ribbonMat}
           color="#F0D8DC"
-          emissive={palette.pathGlow}
-          emissiveIntensity={0.18}
+          emissive={palette.pathGlowBright}
+          emissiveIntensity={0.38}
           transparent
-          opacity={0.82}
+          opacity={0.88}
           roughness={0.35}
           depthWrite={false}
         />
@@ -150,7 +128,7 @@ export default function TrailLoopCorePlaza() {
           ref={haloMat}
           color={palette.pathGlowBright}
           transparent
-          opacity={0.03}
+          opacity={0.12}
           depthWrite={false}
           toneMapped={false}
         />
@@ -165,43 +143,15 @@ export default function TrailLoopCorePlaza() {
       >
         <sphereGeometry args={[0.06, 8, 8]} />
         <meshBasicMaterial
-          ref={particleMat}
           color={palette.pathGlowBright}
           transparent
-          opacity={0.35}
+          opacity={0.75}
           depthWrite={false}
           toneMapped={false}
         />
       </instancedMesh>
 
-      <pointLight ref={coreLight} position={[0, 1.2, 0]} intensity={0.28} color="#FFE8EE" distance={12} />
-      <LoopCampfireLight />
+      <pointLight position={[0, 1.2, 0]} intensity={0.55} color="#FFE8EE" distance={12} />
     </group>
-  );
-}
-
-function LoopCampfireLight() {
-  const { timeOfDay } = useUniverse();
-  const light = useRef<THREE.PointLight>(null);
-  const night = timeOfDay.current === "night";
-  const palette = getRwWonderland(timeOfDay.current);
-
-  useFrame(({ clock }) => {
-    if (!light.current || !night) return;
-    const t = clock.getElapsedTime();
-    light.current.intensity = 0.5 + Math.sin(t * 1.3) * 0.12;
-  });
-
-  if (!night) return null;
-
-  return (
-    <pointLight
-      ref={light}
-      position={[0, 0.35, 0]}
-      color={palette.campfire}
-      intensity={0.65}
-      distance={10}
-      decay={2}
-    />
   );
 }

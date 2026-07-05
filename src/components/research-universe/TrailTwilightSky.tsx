@@ -58,7 +58,7 @@ const skyFragmentShader = /* glsl */ `
     float h = normalize(vWorldPosition).y;
     float t = smoothstep(-0.1, 0.55, h);
     vec3 col = mix(horizonColor, topColor, t);
-    col = mix(col, duskColor, smoothstep(0.35, 0.85, h) * 0.35);
+    col = mix(col, duskColor, smoothstep(0.35, 0.85, h) * 0.28);
     gl_FragColor = vec4(col, 1.0);
   }
 `;

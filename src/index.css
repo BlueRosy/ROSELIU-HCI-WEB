@@ -987,14 +987,10 @@ body {
   color: rgba(245, 239, 232, 0.82);
 }
 
-.trail-active-caption {
-  will-change: opacity;
-}
-
-/* Projects finale — same rhythm as other trail sections (v5 snap feel) */
+/* Projects finale */
 .trail-section--projects {
-  min-height: 132vh;
-  height: 132vh;
+  min-height: 100vh;
+  height: auto;
 }
 
 /* Sky-city intro overlay — warm rose typography, kept off the castle center */

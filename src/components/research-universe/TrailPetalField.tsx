@@ -82,7 +82,7 @@ function Petal({ spec }: { spec: PetalSpec }) {
       <meshBasicMaterial
         color={spec.color}
         transparent
-        opacity={0.38}
+        opacity={0.3}
         side={THREE.DoubleSide}
         depthWrite={false}
       />

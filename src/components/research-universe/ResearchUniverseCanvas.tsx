@@ -29,7 +29,7 @@ function Scene() {
     <>
       <color attach="background" args={[palette.background]} />
       <fog attach="fog" args={[palette.fog, palette.fogNear, palette.fogFar]} />
-      <ambientLight intensity={night ? 0.22 : 0.74} color={night ? "#2A2030" : "#FFF6F0"} />
+      <ambientLight intensity={night ? 0.22 : 0.72} color={night ? "#2A2030" : "#FFF6F0"} />
       <hemisphereLight
         args={[
           night ? "#8A6888" : "#FFF8F5",
@@ -40,8 +40,8 @@ function Scene() {
       />
       <directionalLight
         position={[8, 14, 10]}
-        intensity={night ? 0.42 : 1.22}
-        color={night ? "#FFE8F0" : "#FFF5EE"}
+        intensity={night ? 0.42 : 1.12}
+        color={night ? "#FFE8F0" : "#FFFAF5"}
         castShadow={false}
       />
       <directionalLight
@@ -53,14 +53,14 @@ function Scene() {
       />
       <directionalLight
         position={[-6, 8, -4]}
-        intensity={night ? 0.28 : 0.45}
+        intensity={night ? 0.28 : 0.38}
         color={night ? "#FFC8D8" : "#E8B4BC"}
       />
       <pointLight
         position={[0, 4, 8]}
-        intensity={night ? 0.45 : 0.35}
+        intensity={night ? 0.45 : 0.3}
         color={night ? palette.pathGlowBright : "#FFE8EE"}
-        distance={32}
+        distance={30}
         decay={2}
       />
 
@@ -96,7 +96,7 @@ export default function ResearchUniverseCanvas({
         }}
         onCreated={({ gl, invalidate }) => {
           gl.toneMapping = THREE.ACESFilmicToneMapping;
-          gl.toneMappingExposure = sceneState.timeOfDay.current === "night" ? 1.42 : 1.1;
+          gl.toneMappingExposure = sceneState.timeOfDay.current === "night" ? 1.42 : 1.08;
           if (!invalidateBound.current) {
             sceneState.invalidate.current = invalidate;
             invalidateBound.current = true;
