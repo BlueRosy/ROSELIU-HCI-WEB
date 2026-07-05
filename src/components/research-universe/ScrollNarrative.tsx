@@ -1,5 +1,3 @@
-import { useEffect, useRef, useState } from "react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { researchWorld } from "../../content/site";
 import ResearchAtlasProjects from "../research-atlas/ResearchAtlasProjects";
 import HeroEntryCaption from "./HeroEntryCaption";
@@ -48,62 +46,11 @@ const SECTION_EDGE: Record<string, "left" | "right" | "center"> = {
   loop: "left",
 };
 
-/** Fade loop caption as the projects header rises into view — not at section midpoint. */
-function useLoopCaptionFade(activeSection: ScrollSection) {
-  const [opacity, setOpacity] = useState(1);
-  const raf = useRef<number | null>(null);
-
-  useEffect(() => {
-    if (activeSection !== "loop") {
-      setOpacity(1);
-      return;
-    }
-
-    const measure = () => {
-      const header = document.querySelector<HTMLElement>(".trail-projects-header");
-      if (!header) {
-        setOpacity(1);
-        return;
-      }
-      const top = header.getBoundingClientRect().top;
-      const vh = window.innerHeight;
-      const fadeStart = vh + 48;
-      const fadeEnd = vh * 0.58;
-      let next = 1;
-      if (top >= fadeStart) next = 1;
-      else if (top <= fadeEnd) next = 0;
-      else next = (top - fadeEnd) / (fadeStart - fadeEnd);
-      setOpacity(next);
-    };
-
-    const onScroll = () => {
-      if (raf.current !== null) return;
-      raf.current = requestAnimationFrame(() => {
-        raf.current = null;
-        measure();
-      });
-    };
-
-    measure();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    ScrollTrigger.addEventListener("refresh", measure);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      ScrollTrigger.removeEventListener("refresh", measure);
-      if (raf.current !== null) cancelAnimationFrame(raf.current);
-    };
-  }, [activeSection]);
-
-  return opacity;
-}
-
 function ActiveTrailCaption({
   activeSection,
 }: {
   activeSection: ScrollSection;
 }) {
-  const loopFade = useLoopCaptionFade(activeSection);
-
   if (activeSection === "hero" || activeSection === "projects") return null;
 
   const stop = TRAIL_STOPS.find((s) => s.section === activeSection);
@@ -117,11 +64,11 @@ function ActiveTrailCaption({
   return (
     <div
       className="trail-active-caption pointer-events-none fixed inset-x-0 top-0 z-[15] flex h-screen items-center px-5 py-20"
-      style={{
-        opacity: activeSection === "loop" ? loopFade : 1,
-        visibility:
-          activeSection === "loop" && loopFade < 0.04 ? "hidden" : "visible",
-      }}
+      style={
+        activeSection === "loop"
+          ? { opacity: "var(--trail-loop-fade, 1)" }
+          : undefined
+      }
       aria-live="polite"
     >
       <div
@@ -188,7 +135,7 @@ export default function ScrollNarrative({
 
       <section
         data-section="projects"
-        className="trail-section trail-section--projects pointer-events-auto flex min-h-[150vh] flex-col items-center px-5 pb-48 pt-14"
+        className="trail-section trail-section--projects pointer-events-auto flex h-[132vh] flex-col items-center justify-center px-5 pb-36 py-20"
       >
         <div className="trail-caption trail-caption--center trail-caption--bare trail-projects-header mx-auto mb-8 max-w-xl shrink-0 text-center">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-gradient-static">
@@ -202,12 +149,12 @@ export default function ScrollNarrative({
             — not a standalone demo.
           </p>
         </div>
-        <div className="w-full max-w-4xl pb-8">
+        <div className="w-full max-w-4xl">
           <ResearchAtlasProjects />
         </div>
       </section>
 
-      <div className="h-[22vh]" aria-hidden />
+      <div className="h-[15vh]" aria-hidden />
     </div>
   );
 }

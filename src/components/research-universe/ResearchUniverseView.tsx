@@ -52,6 +52,7 @@ export default function ResearchUniverseView() {
   );
   const scrollRef = useRef<HTMLDivElement>(null);
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
+  const projectsHeaderRef = useRef<HTMLElement | null>(null);
   const lastSectionRef = useRef<ScrollSection>("hero");
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const [currentSection, setCurrentSection] = useState<ScrollSection>("hero");
@@ -286,14 +287,7 @@ export default function ResearchUniverseView() {
         snap: {
           snapTo: (progress) => {
             if (isSnapSuspended()) return progress;
-            const st = scrollTriggerRef.current;
-            if (!st) return progress;
-            const range = st.end - st.start;
-            const scrollY = st.start + progress * range;
-            if (sectionFromProgress(measuredProgressAt(scrollY, st)) === "projects") {
-              return progress;
-            }
-            return snapToNearestSection(progress, st);
+            return snapToNearestSection(progress, scrollTriggerRef.current);
           },
           duration: { min: 0.3, max: 0.8 },
           delay: 0.12,
@@ -311,6 +305,33 @@ export default function ResearchUniverseView() {
           if (section !== lastSectionRef.current) {
             lastSectionRef.current = section;
             setCurrentSection(section);
+          }
+
+          const root = scrollRef.current;
+          if (root) {
+            if (section === "loop") {
+              const header =
+                projectsHeaderRef.current ??
+                (projectsHeaderRef.current = document.querySelector<HTMLElement>(
+                  ".trail-projects-header",
+                ));
+              let loopFade = 1;
+              if (header) {
+                const top = header.getBoundingClientRect().top;
+                const vh = window.innerHeight;
+                const fadeStart = vh + 48;
+                const fadeEnd = vh * 0.55;
+                if (top < fadeStart) {
+                  loopFade =
+                    top <= fadeEnd
+                      ? 0
+                      : (top - fadeEnd) / (fadeStart - fadeEnd);
+                }
+              }
+              root.style.setProperty("--trail-loop-fade", String(loopFade));
+            } else {
+              root.style.removeProperty("--trail-loop-fade");
+            }
           }
 
           if (Math.abs(self.getVelocity()) > 0.5) {

@@ -991,10 +991,10 @@ body {
   will-change: opacity;
 }
 
-/* Projects finale — room for bottom nav; cards scroll with the page */
+/* Projects finale — same rhythm as other trail sections (v5 snap feel) */
 .trail-section--projects {
-  min-height: 150vh;
-  height: auto;
+  min-height: 132vh;
+  height: 132vh;
 }
 
 /* Sky-city intro overlay — warm rose typography, kept off the castle center */

@@ -8,9 +8,6 @@ import { useUniverse } from "./UniverseContext";
 const BASE_FOV = 48;
 const THROUGH_FOV = 44;
 
-const _offset = { x: 0, y: 0, z: 0 };
-const _lookOffset = { x: 0, y: 0, z: 0 };
-
 export default function TrailCameraRig() {
   const { camera } = useThree();
   const {
@@ -26,7 +23,7 @@ export default function TrailCameraRig() {
 
   const fovRestored = useRef(false);
 
-  useFrame(({ clock }) => {
+  useFrame(() => {
     if (!entryCinematicDone.current) {
       const sample = sampleEntryCinematicCamera(
         entryCinematicActive.current ? entryCinematicElapsed.current : 0,
@@ -54,26 +51,8 @@ export default function TrailCameraRig() {
     }
 
     const sample = sampleTrailCamera(scrollProgress.current);
-    let px = sample.position.x;
-    let py = sample.position.y;
-    let pz = sample.position.z;
-    let lx = sample.lookAt.x;
-    let ly = sample.lookAt.y;
-    let lz = sample.lookAt.z;
-
-    if (scrollProgress.current < 0.1 && !reducedMotion.current) {
-      const t = clock.getElapsedTime();
-      _offset.y = Math.sin(t * 0.28) * 0.12;
-      _offset.z = Math.sin(t * 0.22 + 1.2) * 0.18;
-      _lookOffset.y = Math.sin(t * 0.24 + 0.6) * 0.06;
-      px += _offset.x;
-      py += _offset.y;
-      pz += _offset.z;
-      ly += _lookOffset.y;
-    }
-
-    camera.position.set(px, py, pz);
-    camera.lookAt(lx, ly, lz);
+    camera.position.copy(sample.position);
+    camera.lookAt(sample.lookAt);
     activeZone.current = sample.activeZone;
     showProjectCards.current = sample.showProjects;
   });
