@@ -53,7 +53,7 @@ export const LANDMARKS: Landmark[] = [
   {
     id: "support",
     zoneId: "support",
-    position: [5.4, 0, -8.2],
+    position: [6.2, 0, -6.8],
     treeScale: 1.1,
     panelOffset: [0, 3.8, 0],
   },
@@ -123,7 +123,7 @@ export const ZONE_PLAZAS: ZonePlaza[] = [
   },
   {
     zoneId: "support",
-    position: [5.4, 0, -8.2],
+    position: [6.2, 0, -6.8],
     radius: 5.2,
     color: "#EDE4E4",
     emissive: "#D4B8B8",

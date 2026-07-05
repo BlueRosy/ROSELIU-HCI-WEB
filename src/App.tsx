@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { Navigate, Routes, Route } from "react-router-dom";
+import RoseCursor from "./components/RoseCursor";
 import HomePage from "./pages/HomePage";
 
 const SignalsToSupportPage = lazy(() => import("./pages/SignalsToSupportPage"));
@@ -14,7 +15,9 @@ function PageFallback() {
 
 export default function App() {
   return (
-    <Suspense fallback={<PageFallback />}>
+    <>
+      <RoseCursor />
+      <Suspense fallback={<PageFallback />}>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/rose-research-world" element={<SignalsToSupportPage />} />
@@ -23,6 +26,7 @@ export default function App() {
           element={<Navigate to="/rose-research-world" replace />}
         />
       </Routes>
-    </Suspense>
+      </Suspense>
+    </>
   );
 }

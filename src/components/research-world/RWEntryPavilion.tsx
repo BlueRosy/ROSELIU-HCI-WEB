@@ -23,21 +23,16 @@ export default function RWEntryPavilion() {
         targetHeight={3.6}
       />
       <RWGltfModel
-        url={researchWorldAssets.scholarGazebo}
-        position={[0, 0, -0.6]}
-        targetHeight={2.6}
+        url={researchWorldAssets.entryLanternTower}
+        position={[-2.5, 0, 1.25]}
+        rotation={[0, 0.3, 0]}
+        targetHeight={2.9}
       />
       <RWGltfModel
-        url={researchWorldAssets.trellisArch}
-        position={[-2.4, 0, 1.4]}
-        rotation={[0, 0.35, 0]}
-        targetHeight={2.2}
-      />
-      <RWGltfModel
-        url={researchWorldAssets.trellisArch}
-        position={[2.4, 0, 1.4]}
-        rotation={[0, -0.35, 0]}
-        targetHeight={2.2}
+        url={researchWorldAssets.entryLanternTower}
+        position={[2.5, 0, 1.25]}
+        rotation={[0, -0.3, 0]}
+        targetHeight={2.9}
       />
       <Text
         position={[0, 2.5, 1.95]}

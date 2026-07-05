@@ -265,8 +265,7 @@ export default function ResearchWorldTrailScene() {
 }
 
 useGLTF.preload(researchWorldAssets.gardenDoor, "/draco/gltf/");
-useGLTF.preload(researchWorldAssets.scholarGazebo, "/draco/gltf/");
-useGLTF.preload(researchWorldAssets.trellisArch, "/draco/gltf/");
+useGLTF.preload(researchWorldAssets.entryLanternTower, "/draco/gltf/");
 useGLTF.preload(researchWorldAssets.designLandmarks.signalsGarden, "/draco/gltf/");
 useGLTF.preload(researchWorldAssets.designLandmarks.statesObservatory, "/draco/gltf/");
 useGLTF.preload(researchWorldAssets.designLandmarks.supportSanctuary, "/draco/gltf/");

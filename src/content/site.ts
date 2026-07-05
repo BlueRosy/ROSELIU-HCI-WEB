@@ -743,6 +743,8 @@ export const researchWorldAssets = {
   gazebo: "/research-world-elements/new-landmarks/gazebo.glb",
   researchLanternTower:
     "/research-world-elements/new-landmarks/research-lantern-tower.glb",
+  entryLanternTower:
+    "/research-world-elements/new-landmarks/compressed/entry-lantern-tower.glb",
   thesisArchive: "/research-world-elements/new-landmarks/thesis-archive.glb",
   trellisArch: "/research-world-elements/new-landmarks/trellis-arch.glb",
   petalBench: "/research-world-elements/new-landmarks/petal-bench.glb",

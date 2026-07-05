@@ -82,7 +82,7 @@ export function RWSupportSanctuary() {
       <GltfClone
         url={researchWorldAssets.designLandmarks.supportSanctuary}
         position={[lm.position[0], PLINTH_HEIGHT, lm.position[2]]}
-        targetHeight={3.5}
+        targetHeight={3.6}
       />
     </>
   );
