@@ -52,6 +52,7 @@ function ProjectPreview({
 
 function ProjectGallery({ project }: { project: Project }) {
   if (!project.gallery?.length) return null;
+  const contain = project.imageFit === "contain";
 
   return (
     <div className="mt-6">
@@ -61,7 +62,9 @@ function ProjectGallery({ project }: { project: Project }) {
       <div className="project-gallery">
         {project.gallery.map((shot) => (
           <figure key={shot.src} className="project-gallery__item">
-            <div className="project-gallery__frame">
+            <div
+              className={`project-gallery__frame${contain ? " project-gallery__frame--contain" : ""}`}
+            >
               <img src={shot.src} alt={shot.alt} loading="lazy" className="project-gallery__img" />
             </div>
             {shot.caption && (
@@ -186,7 +189,7 @@ function ProjectModal({
         {project.image && (
           <ProjectPreview
             project={project}
-            className={`rounded-t-3xl ${project.imageFit === "contain" ? "aspect-auto min-h-[280px]" : "aspect-[16/9]"}`}
+            className={`rounded-t-3xl ${project.imageFit === "contain" ? "aspect-auto min-h-[280px]" : "aspect-[16/10]"}`}
           />
         )}
 

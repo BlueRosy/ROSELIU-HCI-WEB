@@ -6,6 +6,7 @@ export default function AboutWorldPortal() {
   return (
     <Link
       to={about.researchWorldLink.href}
+      state={{ from: "/#about" }}
       title={about.researchWorldLink.hint}
       className="rw-portal-card group block rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/8 to-sage/10 p-5 shadow-soft transition hover:border-primary/50 hover:shadow-soft"
     >

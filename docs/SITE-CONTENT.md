@@ -94,6 +94,14 @@
 | Current Lens | currentLens |
 | Beyond research | interests |
 
+**interests（Beyond research chips）：**
+
+- Singing
+- Sports & Fitness
+- Travel
+- Photography
+- Building personal tools & sites
+
 ---
 
 ## 4. 3D Research Universe 子页 `/signals-to-support`
@@ -327,13 +335,31 @@ Live demo restricted due to ongoing research protocols. Screenshots and a saniti
 | methods | DuckDB-WASM · React + TypeScript · ECharts · Statistical modeling |
 | focus | Data analysis · Visualization · Regression / model comparison |
 | access | public |
-| image | /rose-stats-studio/cover.png（相关矩阵 + 散点全屏，卡片封面） |
-| gallery | Correlation → Histogram → Category → Regression → Bivariate scatter |
+| image | `/websites/rose-stats-studio/cover.png`（相关矩阵 + 散点全屏，卡片封面） |
+| gallery | Correlation → Histogram → Category → Regression → Bivariate scatter（见 `public/websites/rose-stats-studio/`） |
 | links | Open live app → https://rose-data-analysis.vercel.app/（私有仓库，无 Code 链接） |
 
 ---
 
-### 项目 F — meal-right（公开工具）
+### 项目 F — rose-literature（公开工具）
+
+| 字段 | 内容 |
+|------|------|
+| type | Tool · tool |
+| title | Rose's Literature |
+| context | Literature & scholar discovery for HCI researchers |
+| question | Google Scholar finds everything; this finds the right thread — and the right person. OpenAlex- and DBLP-backed search with method-aware filters, then LLM-assisted matching between your research interests and a scholar's profile before you reach out. |
+| contribution | Unifies thematic literature search, method-focused filtering, scholar profiling, and interest-to-advisor match into one personal research workflow — built first for my own PhD exploration. |
+| methods | OpenAlex · DBLP · LLM-assisted matching · React |
+| focus | Literature search · Scholar discovery · Interest matching · Research workflow |
+| access | public |
+| image | `/websites/rose-research-world/cover.png` |
+| gallery | Scholars → Results（见 `public/websites/rose-research-world/`） |
+| links | Open live app → https://rose-liternature-search.vercel.app/ |
+
+---
+
+### 项目 G — meal-right（公开工具）
 
 | 字段 | 内容 |
 |------|------|
@@ -345,9 +371,8 @@ Live demo restricted due to ongoing research protocols. Screenshots and a saniti
 | methods | React · HCI design patterns · Responsive UI |
 | focus | Information hierarchy · Visual feedback · Accessibility |
 | access | public |
-| image | `/meal-right/cover.png`（Food bag · 含 Nutrition Facts） |
-| imageFit | contain |
-| gallery | welcome → signup → login → food bag → add food → cal diary（共 6 张，见 `public/meal-right/gallery-*.png`） |
+| image | `/websites/meal-right/cover.png`（16:10 三屏拼贴：welcome + food bag + add food） |
+| gallery | onboarding 拼贴 · daily 拼贴（源竖屏在 `public/websites/meal-right/originals/`） |
 | links | Open live app → https://mealright.vercel.app/ · Code → https://github.com/BlueRosy/Meal-Right |
 
 ---

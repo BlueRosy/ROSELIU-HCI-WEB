@@ -50,18 +50,15 @@ body {
 
 /* Rose cursor — DOM overlay (Chromium/Arc caps CSS url() cursors at ~32×32 DIP) */
 @media (pointer: fine) {
+
   html.rose-cursor-on,
   html.rose-cursor-on * {
     cursor: none !important;
   }
 
-  html.rose-cursor-on.rose-cursor-on--text :where(
-      input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not(
-          [type="submit"]
-        ):not([type="button"]):not([type="reset"]),
-      textarea,
-      [contenteditable="true"]
-    ) {
+  html.rose-cursor-on.rose-cursor-on--text :where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="submit"]):not([type="button"]):not([type="reset"]),
+    textarea,
+    [contenteditable="true"]) {
     cursor: text !important;
   }
 }
@@ -101,13 +98,14 @@ body {
     opacity: 0;
     transform: translate(-50%, -50%) rotate(var(--petal-rot, 0deg)) scale(0.6);
   }
+
   12% {
     opacity: 0.52;
   }
+
   100% {
     opacity: 0;
-    transform: translate(calc(-50% + var(--petal-drift, 0px)), calc(-50% + 52px))
-      rotate(calc(var(--petal-rot, 0deg) + 95deg)) scale(0.25);
+    transform: translate(calc(-50% + var(--petal-drift, 0px)), calc(-50% + 52px)) rotate(calc(var(--petal-rot, 0deg) + 95deg)) scale(0.25);
   }
 }
 
@@ -128,21 +126,15 @@ body {
 
 .page-mesh {
   background-image:
-    radial-gradient(
-      42rem 42rem at 8% -8%,
+    radial-gradient(42rem 42rem at 8% -8%,
       color-mix(in srgb, var(--color-primary) 14%, transparent),
-      transparent 60%
-    ),
-    radial-gradient(
-      36rem 36rem at 100% 4%,
+      transparent 60%),
+    radial-gradient(36rem 36rem at 100% 4%,
       color-mix(in srgb, var(--color-sage) 12%, transparent),
-      transparent 58%
-    ),
-    radial-gradient(
-      48rem 48rem at 50% 120%,
+      transparent 58%),
+    radial-gradient(48rem 48rem at 50% 120%,
       color-mix(in srgb, var(--color-cream) 40%, transparent),
-      transparent 60%
-    );
+      transparent 60%);
 }
 
 /* ============================================================
@@ -169,12 +161,10 @@ body {
 }
 
 @utility text-gradient {
-  background-image: linear-gradient(
-    105deg,
-    #8f514c 0%,
-    #b9786f 42%,
-    #8a9275 100%
-  );
+  background-image: linear-gradient(105deg,
+      #8f514c 0%,
+      #b9786f 42%,
+      #8a9275 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -183,12 +173,10 @@ body {
 }
 
 @utility text-gradient-static {
-  background-image: linear-gradient(
-    105deg,
-    #8f514c 0%,
-    #b9786f 50%,
-    #8a9275 100%
-  );
+  background-image: linear-gradient(105deg,
+      #8f514c 0%,
+      #b9786f 50%,
+      #8a9275 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -227,10 +215,12 @@ body {
 }
 
 @keyframes gradient-breathe {
+
   0%,
   100% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
@@ -250,6 +240,7 @@ body {
   html {
     scroll-behavior: auto;
   }
+
   *,
   *::before,
   *::after {
@@ -307,11 +298,13 @@ body {
 }
 
 @keyframes about-ring-pulse {
+
   0%,
   100% {
     opacity: 0.18;
     filter: blur(10px);
   }
+
   50% {
     opacity: 0.36;
     filter: blur(12px);
@@ -319,6 +312,7 @@ body {
 }
 
 @keyframes about-ring-glow {
+
   0%,
   100% {
     box-shadow:
@@ -326,6 +320,7 @@ body {
       0 4px 18px color-mix(in srgb, var(--color-primary) 10%, transparent),
       0 0 14px color-mix(in srgb, var(--color-sage) 10%, transparent);
   }
+
   50% {
     box-shadow:
       0 0 0 1px color-mix(in srgb, var(--color-primary) 22%, transparent),
@@ -401,16 +396,12 @@ body {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(
-      52rem 40rem at 88% 18%,
+    radial-gradient(52rem 40rem at 88% 18%,
       color-mix(in srgb, var(--color-cream) 70%, transparent),
-      transparent 62%
-    ),
-    radial-gradient(
-      36rem 32rem at 12% 88%,
+      transparent 62%),
+    radial-gradient(36rem 32rem at 12% 88%,
       color-mix(in srgb, var(--color-sage) 10%, transparent),
-      transparent 58%
-    ),
+      transparent 58%),
     linear-gradient(180deg, #fffdf8 0%, #faf6ef 48%, #fffdf8 100%);
 }
 
@@ -426,12 +417,10 @@ body {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(
-    105deg,
-    rgba(255, 253, 248, 0.55) 0%,
-    rgba(255, 253, 248, 0.12) 38%,
-    transparent 58%
-  );
+  background: linear-gradient(105deg,
+      rgba(255, 253, 248, 0.55) 0%,
+      rgba(255, 253, 248, 0.12) 38%,
+      transparent 58%);
   pointer-events: none;
 }
 
@@ -455,15 +444,13 @@ body {
   transform-origin: 0 0;
   transform: scale(0.06, 0.15);
   opacity: 0;
-  animation: rose-petal-bloom var(--rose-bloom-duration, 5s)
-    cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: rose-petal-bloom var(--rose-bloom-duration, 5s) cubic-bezier(0.22, 1, 0.36, 1) forwards;
   animation-delay: var(--rose-delay, 0s);
 }
 
 .hero-rose__petal--inner {
   opacity: 0;
-  animation: rose-petal-bloom-inner var(--rose-bloom-duration, 5s)
-    cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: rose-petal-bloom-inner var(--rose-bloom-duration, 5s) cubic-bezier(0.22, 1, 0.36, 1) forwards;
   animation-delay: var(--rose-delay, 0s);
 }
 
@@ -477,10 +464,8 @@ body {
 .hero-rose__head {
   transform-origin: center;
   animation:
-    rose-head-grow var(--rose-bloom-duration, 5s) cubic-bezier(0.22, 1, 0.36, 1)
-      forwards,
-    rose-head-breathe 6.5s ease-in-out calc(var(--rose-bloom-duration, 5s) + 0.35s)
-      infinite;
+    rose-head-grow var(--rose-bloom-duration, 5s) cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    rose-head-breathe 6.5s ease-in-out calc(var(--rose-bloom-duration, 5s) + 0.35s) infinite;
 }
 
 .hero-rose__head--static {
@@ -512,20 +497,24 @@ body {
   0% {
     transform: scale(0.22);
   }
+
   45% {
     transform: scale(0.58);
   }
+
   100% {
     transform: scale(0.82);
   }
 }
 
 @keyframes rose-petal-bloom-inner {
+
   0%,
   58% {
     transform: scale(0.04, 0.1);
     opacity: 0;
   }
+
   100% {
     transform: scale(1, 1);
     opacity: 0.58;
@@ -537,12 +526,15 @@ body {
     transform: scale(0.06, 0.15) rotate(calc(var(--petal-i, 0) * -4deg));
     opacity: 0.15;
   }
+
   20% {
     opacity: 0.35;
   }
+
   55% {
     opacity: 0.75;
   }
+
   100% {
     transform: scale(1, 1) rotate(0deg);
     opacity: 0.68;
@@ -554,6 +546,7 @@ body {
     opacity: 0;
     transform: scale(0);
   }
+
   100% {
     opacity: 0.72;
     transform: scale(1);
@@ -567,16 +560,19 @@ body {
 }
 
 @keyframes rose-head-breathe {
+
   0%,
   100% {
     transform: scale(0.82);
   }
+
   50% {
     transform: scale(0.85);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .hero-rose__petal,
   .hero-rose__petal--inner {
     animation: none;
@@ -612,10 +608,12 @@ body {
 }
 
 @keyframes botanical-vine-shimmer {
+
   0%,
   100% {
     stroke-opacity: 0.55;
   }
+
   50% {
     stroke-opacity: 0.72;
   }
@@ -665,11 +663,9 @@ body {
 
 .project-preview--contain {
   background:
-    radial-gradient(
-      120% 80% at 50% 0%,
+    radial-gradient(120% 80% at 50% 0%,
       color-mix(in srgb, var(--color-cream) 90%, transparent),
-      var(--color-bg) 70%
-    );
+      var(--color-bg) 70%);
 }
 
 .project-gallery {
@@ -687,6 +683,7 @@ body {
 }
 
 .project-gallery__frame {
+  aspect-ratio: 16 / 10;
   overflow: hidden;
   border: 1px solid var(--color-border);
   background: var(--color-bg);
@@ -697,7 +694,25 @@ body {
 .project-gallery__img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Mobile / phone UI demos (e.g. Mindful Scroll) — show full frame, letterboxed */
+.project-gallery__frame--contain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(120% 80% at 50% 0%,
+      color-mix(in srgb, var(--color-cream) 90%, transparent),
+      var(--color-bg) 70%);
+}
+
+.project-gallery__frame--contain .project-gallery__img {
+  width: auto;
+  height: 100%;
+  max-width: 100%;
   object-fit: contain;
 }
 
@@ -711,12 +726,14 @@ body {
 }
 
 @keyframes signal-card-breathe {
+
   0%,
   100% {
     box-shadow:
       0 8px 24px rgba(47, 42, 38, 0.07),
       0 2px 8px rgba(143, 81, 76, 0.05);
   }
+
   50% {
     box-shadow:
       0 12px 32px rgba(47, 42, 38, 0.1),
@@ -740,6 +757,7 @@ body {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -773,8 +791,7 @@ body {
   --leaf-fade: 1.5s;
   animation:
     hero-signal-vine-fade-in var(--leaf-fade) ease var(--vine-leaf-delay, 0s) forwards,
-    hero-signal-vine-leaf-sway calc(4.5s + var(--leaf-sway-offset, 0s)) ease-in-out
-      calc(var(--vine-leaf-delay, 0s) + var(--leaf-fade)) infinite;
+    hero-signal-vine-leaf-sway calc(4.5s + var(--leaf-sway-offset, 0s)) ease-in-out calc(var(--vine-leaf-delay, 0s) + var(--leaf-fade)) infinite;
 }
 
 .hero-signal-vine__bloom {
@@ -784,10 +801,8 @@ body {
   --bloom-grow: 2.6s;
   --bloom-sway: 4s;
   animation:
-    hero-signal-vine-bloom-grow var(--bloom-grow) cubic-bezier(0.22, 1, 0.36, 1)
-      var(--bloom-delay, 0s) forwards,
-    hero-signal-vine-bloom-sway var(--bloom-sway) ease-in-out
-      calc(var(--bloom-delay, 0s) + var(--bloom-grow)) infinite;
+    hero-signal-vine-bloom-grow var(--bloom-grow) cubic-bezier(0.22, 1, 0.36, 1) var(--bloom-delay, 0s) forwards,
+    hero-signal-vine-bloom-sway var(--bloom-sway) ease-in-out calc(var(--bloom-delay, 0s) + var(--bloom-grow)) infinite;
 }
 
 .hero-signal-vine__bloom--bud {
@@ -798,6 +813,7 @@ body {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 0.42;
   }
@@ -808,18 +824,22 @@ body {
     opacity: 0;
     transform: scale(0.04);
   }
+
   28% {
     opacity: 0.45;
     transform: scale(calc(var(--bloom-scale, 0.5) * 0.22));
   }
+
   55% {
     opacity: 0.68;
     transform: scale(calc(var(--bloom-scale, 0.5) * 0.58));
   }
+
   78% {
     opacity: 0.82;
     transform: scale(calc(var(--bloom-scale, 0.5) * 0.88));
   }
+
   100% {
     opacity: 0.9;
     transform: scale(var(--bloom-scale, 0.5));
@@ -827,15 +847,18 @@ body {
 }
 
 @keyframes hero-signal-vine-bloom-sway {
+
   0%,
   100% {
     transform: scale(var(--bloom-scale, 0.5)) rotate(0deg);
     opacity: 0.88;
   }
+
   35% {
     transform: scale(calc(var(--bloom-scale, 0.5) * 1.045)) rotate(1.4deg);
     opacity: 0.94;
   }
+
   68% {
     transform: scale(calc(var(--bloom-scale, 0.5) * 0.975)) rotate(-1deg);
     opacity: 0.86;
@@ -843,11 +866,13 @@ body {
 }
 
 @keyframes hero-signal-vine-leaf-sway {
+
   0%,
   100% {
     transform: rotate(0deg);
     opacity: 0.42;
   }
+
   50% {
     transform: rotate(2.5deg);
     opacity: 0.48;
@@ -1000,20 +1025,17 @@ body {
 }
 
 .sky-intro-title {
-  background-image: linear-gradient(
-    128deg,
-    #5c4542 0%,
-    #8f5a62 28%,
-    #c07a86 52%,
-    #a66b72 72%,
-    #6f524c 100%
-  );
+  background-image: linear-gradient(128deg,
+      #5c4542 0%,
+      #8f5a62 28%,
+      #c07a86 52%,
+      #a66b72 72%,
+      #6f524c 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   text-shadow: none;
-  filter: drop-shadow(0 1px 0 rgba(255, 250, 248, 0.95))
-    drop-shadow(0 6px 18px rgba(255, 235, 228, 0.55));
+  filter: drop-shadow(0 1px 0 rgba(255, 250, 248, 0.95)) drop-shadow(0 6px 18px rgba(255, 235, 228, 0.55));
 }
 
 .sky-intro-body {
@@ -1040,11 +1062,13 @@ body {
 }
 
 @keyframes trail-intro-pulse {
+
   0%,
   100% {
     opacity: 0.55;
     transform: translateY(0);
   }
+
   50% {
     opacity: 1;
     transform: translateY(-3px);

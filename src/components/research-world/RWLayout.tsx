@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import Nav from "../Nav";
 import { profile, researchWorld } from "../../content/site";
+
+type LocationState = { from?: string } | null;
 
 export default function RWLayout({
   children,
@@ -13,17 +15,34 @@ export default function RWLayout({
   /** Immersive trail — no conventional footer below the scroll narrative. */
   hideFooter?: boolean;
 }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleBack = () => {
+    const from = (location.state as LocationState)?.from;
+    if (from) {
+      navigate(from);
+      return;
+    }
+    if (window.history.length > 1) {
+      navigate(-1);
+      return;
+    }
+    navigate("/#about");
+  };
+
   return (
     <div className="relative min-h-screen">
       <Nav variant="subpage" />
       <div className="fixed left-4 top-24 z-40">
-        <Link
-          to="/#about"
+        <button
+          type="button"
+          onClick={handleBack}
           className="glass inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm text-slate shadow-soft transition hover:text-primary-deep"
         >
           <ArrowLeft size={15} />
           {researchWorld.backLabel}
-        </Link>
+        </button>
       </div>
       {children}
       {!hideFooter && (

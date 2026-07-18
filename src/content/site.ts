@@ -67,6 +67,7 @@ export const interests = [
   "Sports & Fitness",
   "Travel",
   "Photography",
+  "Building personal tools & sites",
 ] as const;
 
 export const research = {
@@ -174,7 +175,7 @@ export type Project = {
   status?: string;
   accessType: AccessType;
   image?: string;
-  /** cover = crop to frame; contain = show full mobile UI (Mindful Scroll). */
+  /** cover = crop to 16:10 (desktop tools); contain = full mobile UI (Mindful Scroll only). */
   imageFit?: "cover" | "contain";
   gallery?: ProjectScreenshot[];
   links: ProjectLink[];
@@ -327,35 +328,73 @@ export const projects: Project[] = [
     methods: ["DuckDB-WASM", "React + TypeScript", "ECharts", "Statistical modeling"],
     focus: ["Data analysis", "Visualization", "Regression / model comparison"],
     accessType: "public",
-    image: "/rose-stats-studio/cover.png",
+    image: "/websites/rose-stats-studio/cover.png",
     gallery: [
       {
-        src: "/rose-stats-studio/gallery-correlation.png",
+        src: "/websites/rose-stats-studio/gallery-correlation.png",
         alt: "Correlation heatmap and bivariate scatter with regression",
         caption: "Correlation · heatmap & scatter",
       },
       {
-        src: "/rose-stats-studio/gallery-histogram.png",
+        src: "/websites/rose-stats-studio/gallery-histogram.png",
         alt: "Histogram visualization with bin controls",
         caption: "Visualization · histogram",
       },
       {
-        src: "/rose-stats-studio/gallery-category.png",
+        src: "/websites/rose-stats-studio/gallery-category.png",
         alt: "Category cross-tabulation with heatmap and stacked bars",
         caption: "Category · cross-tab analysis",
       },
       {
-        src: "/rose-stats-studio/gallery-regression.png",
+        src: "/websites/rose-stats-studio/gallery-regression.png",
         alt: "Regression model comparison and predicted vs actual plot",
         caption: "Regression · model comparison",
       },
       {
-        src: "/rose-stats-studio/gallery-scatter.png",
+        src: "/websites/rose-stats-studio/gallery-scatter.png",
         alt: "Bivariate scatter plot with correlation statistics",
         caption: "Bivariate · fit & significance",
       },
     ],
     links: [{ label: "Open live app", href: "https://rose-data-analysis.vercel.app/" }],
+  },
+  {
+    id: "rose-literature",
+    group: "tool",
+    projectType: "Tool",
+    title: "Rose's Literature",
+    context: "Literature & scholar discovery for HCI researchers",
+    question:
+      "Google Scholar finds everything; this finds the right thread \u2014 and the right person. OpenAlex- and DBLP-backed search with method-aware filters, then LLM-assisted matching between your research interests and a scholar's profile before you reach out.",
+    contribution:
+      "Unifies thematic literature search, method-focused filtering, scholar profiling, and interest-to-advisor match into one personal research workflow \u2014 built first for my own PhD exploration.",
+    methods: ["OpenAlex", "DBLP", "LLM-assisted matching", "React"],
+    focus: [
+      "Literature search",
+      "Scholar discovery",
+      "Interest matching",
+      "Research workflow",
+    ],
+    accessType: "public",
+    image: "/websites/rose-research-world/cover.png",
+    gallery: [
+      {
+        src: "/websites/rose-research-world/gallery-scholars.png",
+        alt: "Scholar search and interest-to-advisor matching landing",
+        caption: "Scholars · find & match",
+      },
+      {
+        src: "/websites/rose-research-world/gallery-results.png",
+        alt: "Literature search results with citation formats and deep-read actions",
+        caption: "Results · cite & deep-read",
+      },
+    ],
+    links: [
+      {
+        label: "Open live app",
+        href: "https://rose-liternature-search.vercel.app/",
+      },
+    ],
   },
   {
     id: "meal-right",
@@ -370,38 +409,17 @@ export const projects: Project[] = [
     methods: ["React", "HCI design patterns", "Responsive UI"],
     focus: ["Information hierarchy", "Visual feedback", "Accessibility"],
     accessType: "public",
-    image: "/meal-right/cover.png",
-    imageFit: "contain",
+    image: "/websites/meal-right/cover.png",
     gallery: [
       {
-        src: "/meal-right/gallery-welcome.png",
-        alt: "Meal Right welcome landing page",
-        caption: "Welcome · brand entry",
+        src: "/websites/meal-right/gallery-onboarding.png",
+        alt: "Meal Right onboarding collage: welcome, sign up, and log in",
+        caption: "Onboarding · welcome to login",
       },
       {
-        src: "/meal-right/gallery-signup.png",
-        alt: "Sign-up form with hand-drawn characters",
-        caption: "Sign up · onboarding",
-      },
-      {
-        src: "/meal-right/gallery-login.png",
-        alt: "Login screen with character illustration",
-        caption: "Log in · return visit",
-      },
-      {
-        src: "/meal-right/gallery-food-bag.png",
-        alt: "Food bag dashboard with cooking illustration",
-        caption: "Food bag · daily summary",
-      },
-      {
-        src: "/meal-right/gallery-add-food.png",
-        alt: "Search for meals to add to food bag",
-        caption: "Add food · meal search",
-      },
-      {
-        src: "/meal-right/gallery-diary.png",
-        alt: "Calorie diary empty state",
-        caption: "Cal diary · save foodbag",
+        src: "/websites/meal-right/gallery-daily.png",
+        alt: "Meal Right daily flow collage: food bag, add food, and calorie diary",
+        caption: "Daily flow · bag to diary",
       },
     ],
     links: [
