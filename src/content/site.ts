@@ -192,18 +192,25 @@ export const projects: Project[] = [
     title: "From Social Media Micro-Interactions to Mental State Cues",
     context: "Mindful Scroll · HII Lab, Duke Kunshan University",
     question:
-      "How can subtle interaction behaviors on social platforms reveal users\u2019 psychological states and inform timely wellbeing interventions?",
+      "How can short-form video micro-interactions and evening self-reflection dialogues reveal everyday stress and anxiety \u2014 and how should those signals shape a safe self-reflection intervention?",
     contribution:
-      "Links fine-grained interaction logs to self-reported wellbeing signals in a simulated short-form video platform, informing closed-loop intervention design.",
+      "A three-stage line: (1) evening Juanjuan dialogue logs \u2192 reflective behavioral-signal dataset and modeling pipeline (topic modeling, classifiers, between-/within-group longitudinal models) for an LLM-assisted self-reflection assistant; (2) SFV-specific micro-interactions as everyday stress/anxiety signals; (3) combine both signal findings into a self-reflection intervention for healthier SFV use under high stress or anxiety.",
     methods: [
-      "Behavioral log analysis",
-      "Pattern mining",
-      "Feature interpretation",
-      "Intervention opportunity mapping",
+      "Conversational log analysis",
+      "Topic modeling",
+      "Predictive / longitudinal modeling",
+      "Micro-interaction sensing",
+      "Intervention design",
     ],
-    focus: ["Sensing", "Timing", "Low-burden intervention"],
-    role: "Independently designed & built the simulated platform (React/JS, Dockerized); led the pilot study (N=32) and analysis pipeline.",
-    status: "Presentation at DMH 2026 · CHI 2027 manuscript in preparation",
+    focus: [
+      "Dialogue signals",
+      "Micro-interactions",
+      "Mental-state modeling",
+      "Self-reflection intervention",
+    ],
+    role: "Independently designed & built the simulated platform (React/JS, Dockerized); led the pilot study (N=32) and analysis pipelines across dialogue and micro-interaction tracks.",
+    status:
+      "DMH 2026 presented · IP&MC dataset/pipeline in prep (ddl Jul 31) · Conference Book planned (ddl Aug 31) · intervention design Sep 2026 · targeting CHI 2027 (intervention)",
     accessType: "private",
     image: "/Mindful-Scroll/cover.png",
     gallery: [
@@ -249,50 +256,67 @@ export const projects: Project[] = [
     links: [{ label: "Sanitized walkthrough upon request" }],
   },
   {
-    id: "caregiver",
-    group: "research",
-    projectType: "Study",
-    title: "Risk Communication & AI Literacy in GenAI-Supported Parenting",
-    context: "Caregiver AI-Literacy Study · Tsinghua University",
-    question:
-      "How can interactive GenAI tools improve parents\u2019 AI literacy and reduce moral disengagement in everyday parenting contexts?",
-    contribution:
-      "Links caregiving question themes in parent\u2013AI interactions to AI literacy and self-awareness, informing responsible caregiver-support design.",
-    methods: [
-      "Pre\u2013post survey",
-      "Conversational log analysis",
-      "OLS modeling",
-      "Qualitative analysis",
-    ],
-    focus: ["AI literacy", "Moral disengagement", "Risk awareness", "Responsible AI"],
-    role: "Developed an LLM-assisted topic-coding workflow with human correction; linked themes to participant profiles.",
-    status: "CHI 2027 manuscript in preparation",
-    accessType: "private",
-    image: "/projects/caregiver.svg",
-    links: [{ label: "Demo available upon request" }],
-  },
-  {
     id: "misinfo-sharing",
     group: "research",
     projectType: "Design Research",
     title: "Designing Social Platforms to Reduce Misinformation Sharing",
-    context: "Studio for Narrative Spaces, City University of Hong Kong",
+    context:
+      "Studio for Narrative Spaces · CityU · Ray LC (Summer Research Intern, from Jun 2026)",
     question:
-      "How do people respond differently to authentic versus misleading posts on social platforms, and how might platform design interrupt or reduce the sharing of misinformation?",
+      "Do treatment vs. control comment conditions change how people react to authentic and misleading-but-funny posts \u2014 via repost, share, report, or skip \u2014 and what mechanisms drive those shifts?",
     contribution:
-      "Compares behavioral responses to authentic vs. misleading posts across treatment conditions, informing responsible platform intervention design.",
+      "A/B behavioral experiment on a simulated social platform: treatment and control each with ~20 posts (~10 true / ~10 false-but-funny), with differing comment conditions; measures repost, share, report, and skip to inform responsible platform intervention design.",
     methods: [
       "Behavioral experiment design",
       "Treatment / control comparison",
       "Simulated platform development",
+      "Stimulus curation",
       "Interaction response analysis",
     ],
-    focus: ["Misinformation", "Responsible AI", "Platform design", "Behavioral response"],
-    role: "Building the simulated X / Instagram-style study platform and leading later analysis of how participants react to authentic versus misleading posts across treatment and control conditions. A longer-term goal is to explore LLM-based interventions that mitigate misinformation sharing.",
-    status: "Early stage \u2014 study platform in development",
+    focus: [
+      "Misinformation",
+      "Comment interventions",
+      "Platform design",
+      "Behavioral response",
+    ],
+    role: "Lead study-web layout and front-end development; contribute in meetings and in selecting posts and comments; may join later analysis and paper writing.",
+    status: "Data collection in progress \u00b7 targeting CHI 2027",
     accessType: "private",
     image: "/projects/misinfo-sharing.svg",
     links: [{ label: "Demo available upon request" }],
+  },
+  {
+    id: "harmony-forum",
+    group: "research",
+    projectType: "Study",
+    title: "Help-Seeking in an Open-Source Developer Community",
+    context: "Huawei HarmonyOS Developer Forum \u00b7 exploratory, Jul 2026\u2013",
+    question:
+      "How do developers seek help, debug, and share tooling in a large open-source community forum \u2014 and which discourse topics are research-ready for deeper HCI analysis?",
+    contribution:
+      "Crawl posts and comments from the Huawei HarmonyOS developer Q&A forum, run topic modeling with explicit topic mapping, then focus candidates such as help-seeking, tooling/bots, IoT, and automotive \u2014 informed by open-source developer and support/tool community literature, without claiming those prior papers as my own.",
+    methods: [
+      "Web scraping",
+      "Topic modeling",
+      "Community discourse analysis",
+      "Related-work synthesis",
+    ],
+    focus: [
+      "Help-seeking",
+      "Developer communities",
+      "Topic modeling",
+      "Open-source tooling",
+    ],
+    role: "Designing the crawl + topic-modeling pipeline and selecting which topics can sustain a paper narrative (including agent-related angles).",
+    status: "Exploratory \u00b7 topic selection underway",
+    accessType: "private",
+    image: "/projects/harmony-forum.svg",
+    links: [
+      {
+        label: "HarmonyOS developer forum",
+        href: "https://developer.huawei.com/consumer/cn/forum/",
+      },
+    ],
   },
   {
     id: "rose-stats-studio",
@@ -446,18 +470,36 @@ export const publications: Publication[] = [
   {
     authors: "Liu, Y., Zhu, Y., & Jin, Y.",
     title:
-      "Simulated Douyin-Style Short Video: Linking Interaction Logs to Self-Reported Mental Health and Well-Being, and In-App Interventions.",
+      "Evening Self-Reflection Dialogues on Short-Form Video Use: A Dataset and Modeling Pipeline for Stress and Anxiety Signals.",
+    venue:
+      "Information Processing & Management Conference (IP&MC), Dataset & Full Paper — targeting Jul 31, 2026",
+    year: "2026",
+    status: "In Preparation",
+  },
+  {
+    authors: "Liu, Y., Zhu, Y., & Jin, Y.",
+    title:
+      "Short-Form Video Micro-Interactions as Everyday Stress and Anxiety Signals: Modeling Behavioral Traces for Digital Mental Health.",
+    venue:
+      "DMH Conference Book — Maximising the Real-World Potential of Digital Mental Health (Springer Nature) — targeting Aug 31, 2026",
+    year: "2026",
+    status: "In Preparation",
+  },
+  {
+    authors: "Liu, Y., Zhu, Y., & Jin, Y.",
+    title:
+      "Designing Self-Reflection Interventions for Healthier Short-Form Video Use Under High Stress and Anxiety.",
     venue: "CHI (Full Paper) — targeting 2027",
     year: "2027",
     status: "Target Venue",
   },
   {
-    authors: "Liu, Y., Zhu, Y., & Jin, Y.",
+    authors: "Liu, Y., & LC, R.",
     title:
-      "A Conversational AI Agent for Short-Form Video Use: Dialogue-Derived Features for Improving Stress and Anxiety Prediction.",
-    venue: "Information Processing & Management Conference (IP&MC), Dataset & Full Paper",
-    year: "2026",
-    status: "In Preparation",
+      "Comment Conditions and Behavioral Responses to Authentic vs. Misleading Posts on a Simulated Social Platform.",
+    venue: "CHI (Full Paper) — targeting 2027",
+    year: "2027",
+    status: "Target Venue",
   },
 ];
 
@@ -566,14 +608,14 @@ export const researchAtlas = {
       zones: ["states", "support"] as const,
     },
     {
-      projectId: "caregiver",
-      mapping: "Support + Safety",
-      zones: ["support"] as const,
-    },
-    {
       projectId: "misinfo-sharing",
       mapping: "Responsible platform design",
-      zones: [] as const,
+      zones: ["states"] as const,
+    },
+    {
+      projectId: "harmony-forum",
+      mapping: "Community discourse signals",
+      zones: ["signals"] as const,
     },
   ],
   zoneMethods: {
@@ -792,7 +834,7 @@ export const researchWorld = {
       label: "Signals Garden",
       title: "Everyday traces",
       body: "Signals are the everyday traces people already leave behind: micro-interactions, conversational patterns, and lightweight self-reports.",
-      projectIds: ["mindful-scroll", "cosim", "caregiver"],
+      projectIds: ["mindful-scroll", "cosim", "harmony-forum"],
       focusCards: [
         {
           title: "Micro-interactions",
@@ -838,7 +880,7 @@ export const researchWorld = {
       label: "Support Sanctuary",
       title: "Safe intervention",
       body: "The goal is not only prediction, but support: helping people translate reflection into safe, sustainable action.",
-      projectIds: ["mindful-scroll", "cosim", "caregiver"],
+      projectIds: ["mindful-scroll", "cosim"],
       focusCards: [
         {
           title: "Reflection prompts",
@@ -917,13 +959,16 @@ export const journey: JourneyStop[] = [
     place: "Kunshan, China",
     period: "2026 – 2027",
     title: "Research Fellow, HII Lab, Duke Kunshan University",
-    detail: "Leading a two-phase study on short-form video behavior, mental wellbeing signals, and in-app interventions.",
+    detail:
+      "Leading Mindful-Scroll in three stages: dialogue-derived mental-state signals and modeling pipeline, SFV micro-interaction wellbeing modeling, then self-reflection intervention design for high-stress / high-anxiety use.",
   },
   {
     place: "Hong Kong, China",
     period: "Jun – Aug 2026",
-    title: "Summer Research Assistant, Studio for Narrative Spaces, CityU",
-    detail: "Built a simulated social media study platform to compare how participants respond to authentic versus misleading posts across treatment and control conditions; supporting platform development and subsequent behavioral analysis.",
+    title:
+      "Summer Research Intern, Studio for Narrative Spaces, CityU (Ray LC)",
+    detail:
+      "Joined Ray LC\u2019s group on a misinformation-sharing experiment: study-web layout and stimulus selection (posts / comments); data collection in progress, targeting CHI 2027.",
   },
 ];
 
@@ -936,6 +981,31 @@ export type NewsItem = {
 };
 
 export const news: NewsItem[] = [
+  {
+    date: "Aug 2026",
+    title: "DMH Conference Book",
+    text: "Planning a full paper on SFV micro-interaction signals for everyday stress and anxiety modeling — Springer conference book deadline August 31.",
+    tag: "Manuscript",
+  },
+  {
+    date: "Jul 2026",
+    title: "HarmonyOS Forum Study",
+    text: "Started an exploratory study of the Huawei HarmonyOS developer forum: crawl posts and comments, run topic modeling, and select research-ready themes around help-seeking and tooling.",
+    tag: "Role",
+  },
+  {
+    date: "Jul 2026",
+    title: "IP&MC 2026",
+    text: "Preparing a Mindful-Scroll manuscript on evening dialogue logs, a reflective-signal dataset, and the modeling pipeline — targeting the July 31 deadline.",
+    tag: "Manuscript",
+  },
+  {
+    date: "Jun 2026",
+    title: "Summer Research Intern",
+    text: "Joined Studio for Narrative Spaces at CityU under Ray LC and began the Misinformation Sharing project (study platform, stimulus design, and data collection).",
+    tag: "Role",
+    featured: true,
+  },
   {
     date: "Jun 2026",
     title: "DMH 2026",
@@ -969,7 +1039,7 @@ export const news: NewsItem[] = [
   },
   {
     date: "2027 Target",
-    text: "Preparing two manuscripts targeting CHI 2027 on short-form video wellbeing and caregiver AI literacy.",
+    text: "Targeting CHI 2027 with a Mindful-Scroll self-reflection intervention paper and a Misinformation Sharing behavioral experiment (data collection underway).",
     tag: "Manuscript",
   },
 ];

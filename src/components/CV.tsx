@@ -12,7 +12,7 @@ const highlights = [
   {
     icon: FlaskConical,
     label: "Research",
-    text: "Research Fellow @ DKU HII Lab · Research Intern @ Tsinghua Pervasive HCI · Summer RA @ CityU Studio for Narrative Spaces",
+    text: "Research Fellow @ DKU HII Lab · Research Intern @ Tsinghua Pervasive HCI · Summer Research Intern @ CityU Studio for Narrative Spaces (Ray LC)",
   },
   {
     icon: Wrench,

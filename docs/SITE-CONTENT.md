@@ -161,12 +161,16 @@ Signals → States → Support → Safety（闭环）
 
 | date | title | text | tag | featured |
 |------|-------|------|-----|----------|
+| Aug 2026 | DMH Conference Book | Planning a full paper on SFV micro-interaction signals for everyday stress and anxiety modeling — Springer conference book deadline August 31. | Manuscript | |
+| Jul 2026 | HarmonyOS Forum Study | Started an exploratory study of the Huawei HarmonyOS developer forum: crawl posts and comments, run topic modeling, and select research-ready themes around help-seeking and tooling. | Role | |
+| Jul 2026 | IP&MC 2026 | Preparing a Mindful-Scroll manuscript on evening dialogue logs, a reflective-signal dataset, and the modeling pipeline — targeting the July 31 deadline. | Manuscript | |
+| Jun 2026 | Summer Research Intern | Joined Studio for Narrative Spaces at CityU under Ray LC and began the Misinformation Sharing project (study platform, stimulus design, and data collection). | Role | ✓ |
 | Jun 2026 | DMH 2026 | Presenting Mindful-Scroll at the Digital Mental Health International Conference in Hong Kong. | Talk | ✓ |
 | 2026 | UIST 2026 | CoSim short paper (with the Tsinghua Pervasive HCI Group) is under review. | Paper | ✓ |
 | Feb 2026 | HII Lab | Started as a full-time Research Fellow at Duke Kunshan University, advised by Prof. Yucheng Jin. | Role | ✓ |
 | Dec 2025 | — | Joined Tsinghua University's Pervasive HCI Group as a Research Intern. | Role | |
 | 2025 | — | Received Australia's Global University Award at UNSW. | Award | |
-| 2027 Target | — | Preparing two manuscripts targeting CHI 2027 on short-form video wellbeing and caregiver AI literacy. | Manuscript | |
+| 2027 Target | — | Targeting CHI 2027 with a Mindful-Scroll self-reflection intervention paper and a Misinformation Sharing behavioral experiment (data collection underway). | Manuscript | |
 
 ---
 
@@ -256,12 +260,12 @@ Live demo restricted due to ongoing research protocols. Screenshots and a saniti
 | type | System · research |
 | title | From Social Media Micro-Interactions to Mental State Cues |
 | context | Mindful Scroll · HII Lab, Duke Kunshan University |
-| question | How can subtle interaction behaviors on social platforms reveal users' psychological states and inform timely wellbeing interventions? |
-| contribution | Links fine-grained interaction logs to self-reported wellbeing signals in a simulated short-form video platform, informing closed-loop intervention design. |
-| methods | Behavioral log analysis · Pattern mining · Feature interpretation · Intervention opportunity mapping |
-| focus | Sensing · Timing · Low-burden intervention |
-| role | Independently designed & built the simulated platform (React/JS, Dockerized); led the pilot study (N=32) and analysis pipeline. |
-| status | Presentation at DMH 2026 · CHI 2027 manuscript in preparation |
+| question | How can short-form video micro-interactions and evening self-reflection dialogues reveal everyday stress and anxiety — and how should those signals shape a safe self-reflection intervention? |
+| contribution | Three-stage line: (1) evening Juanjuan dialogue logs → reflective-signal dataset + modeling pipeline (IP&MC); (2) SFV micro-interactions as stress/anxiety signals (DMH Conference Book); (3) combine into self-reflection intervention for healthier SFV use (Sep → CHI 2027). |
+| methods | Conversational log analysis · Topic modeling · Predictive / longitudinal modeling · Micro-interaction sensing · Intervention design |
+| focus | Dialogue signals · Micro-interactions · Mental-state modeling · Self-reflection intervention |
+| role | Independently designed & built the simulated platform (React/JS, Dockerized); led the pilot study (N=32) and analysis pipelines across dialogue and micro-interaction tracks. |
+| status | DMH 2026 presented · IP&MC dataset/pipeline in prep (ddl Jul 31) · Conference Book planned (ddl Aug 31) · intervention design Sep 2026 · targeting CHI 2027 (intervention) |
 | access | private |
 | image | `/Mindful-Scroll/cover.png`（16:10 三屏拼贴：feed + morning diary + chat） |
 | gallery | study 拼贴 · support 拼贴（源竖屏在 `public/Mindful-Scroll/originals/`） |
@@ -287,39 +291,42 @@ Live demo restricted due to ongoing research protocols. Screenshots and a saniti
 
 ---
 
-### 项目 C — caregiver
-
-| 字段 | 内容 |
-|------|------|
-| type | Study · research |
-| title | Risk Communication & AI Literacy in GenAI-Supported Parenting |
-| context | Caregiver AI-Literacy Study · Tsinghua University |
-| question | How can interactive GenAI tools improve parents' AI literacy and reduce moral disengagement in everyday parenting contexts? |
-| contribution | Links caregiving question themes in parent–AI interactions to AI literacy and self-awareness, informing responsible caregiver-support design. |
-| methods | Pre–post survey · Conversational log analysis · OLS modeling · Qualitative analysis |
-| focus | AI literacy · Moral disengagement · Risk awareness · Responsible AI |
-| role | Developed an LLM-assisted topic-coding workflow with human correction; linked themes to participant profiles. |
-| status | CHI 2027 manuscript in preparation |
-| access | private |
-| links | Demo available upon request |
-
----
-
-### 项目 D — misinfo-sharing
+### 项目 C — misinfo-sharing
 
 | 字段 | 内容 |
 |------|------|
 | type | Design Research · research |
 | title | Designing Social Platforms to Reduce Misinformation Sharing |
-| context | Studio for Narrative Spaces, City University of Hong Kong |
-| question | How do people respond differently to authentic versus misleading posts on social platforms, and how might platform design interrupt or reduce the sharing of misinformation? |
-| contribution | Compares behavioral responses to authentic vs. misleading posts across treatment conditions, informing responsible platform intervention design. |
-| methods | Behavioral experiment design · Treatment / control comparison · Simulated platform development · Interaction response analysis |
-| focus | Misinformation · Responsible AI · Platform design · Behavioral response |
-| role | Building the simulated X / Instagram-style study platform and leading later analysis… |
-| status | Early stage — study platform in development |
+| context | Studio for Narrative Spaces · CityU · Ray LC (Summer Research Intern, from Jun 2026) |
+| question | Do treatment vs. control comment conditions change how people react to authentic and misleading-but-funny posts — via repost, share, report, or skip — and what mechanisms drive those shifts? |
+| contribution | A/B experiment: treatment/control each ~20 posts (~10 true / ~10 false-but-funny), differing comments; measures repost, share, report, skip for responsible platform design. |
+| methods | Behavioral experiment design · Treatment / control comparison · Simulated platform development · Stimulus curation · Interaction response analysis |
+| focus | Misinformation · Comment interventions · Platform design · Behavioral response |
+| role | Lead study-web layout and front-end; meetings; post/comment selection; may join later analysis and writing. |
+| status | Data collection in progress · targeting CHI 2027 |
 | access | private |
 | links | Demo available upon request |
+
+---
+
+### 项目 D — harmony-forum
+
+| 字段 | 内容 |
+|------|------|
+| type | Study · research |
+| title | Help-Seeking in an Open-Source Developer Community |
+| context | Huawei HarmonyOS Developer Forum · exploratory, Jul 2026– |
+| question | How do developers seek help, debug, and share tooling in a large open-source community forum — and which discourse topics are research-ready? |
+| contribution | Crawl forum posts/comments → topic modeling with mapping → focus help-seeking, tooling/bots, IoT, automotive; informed by open-source developer literature (not claimed as own papers). |
+| methods | Web scraping · Topic modeling · Community discourse analysis · Related-work synthesis |
+| focus | Help-seeking · Developer communities · Topic modeling · Open-source tooling |
+| role | Crawl + topic-modeling pipeline; topic selection for paper narrative. |
+| status | Exploratory · topic selection underway |
+| access | private |
+| image | `/projects/harmony-forum.svg`（placeholder） |
+| links | HarmonyOS developer forum → https://developer.huawei.com/consumer/cn/forum/ |
+
+> Caregiver / AI parenting 项目已从站点下架（不建 Archive）；不写「结果不显著」叙事。
 
 ---
 
@@ -395,8 +402,10 @@ Live demo restricted due to ongoing research protocols. Screenshots and a saniti
 |------|---------|-------|-------|--------|-----------|
 | 2026 | Liu, Y. | Mindful-Scroll: Linking Interaction Logs to Self-Reported Mental Health and Well-Being, and In-App Interventions. | Digital Mental Health International Conference (DMH), Hong Kong | Presentation | ✓ |
 | 2026 | Deng, W., Liu, Y., Chen, Y., Zhang, H., Li, Y., Mi, H., & Yu, C. | CoSim: Identifying Communication Patterns and Skill Development for Fudaoyuan in Chinese Universities. | UIST (Short Paper) | Under Review | |
-| 2027 | Liu, Y., Zhu, Y., & Jin, Y. | Simulated Douyin-Style Short Video: Linking Interaction Logs to Self-Reported Mental Health and Well-Being, and In-App Interventions. | CHI (Full Paper) — targeting 2027 | Target Venue | |
-| 2026 | Liu, Y., Zhu, Y., & Jin, Y. | A Conversational AI Agent for Short-Form Video Use: Dialogue-Derived Features for Improving Stress and Anxiety Prediction. | Information Processing & Management Conference (IP&MC), Dataset & Full Paper | In Preparation | |
+| 2026 | Liu, Y., Zhu, Y., & Jin, Y. | Evening Self-Reflection Dialogues on Short-Form Video Use: A Dataset and Modeling Pipeline for Stress and Anxiety Signals. | IP&MC Dataset & Full Paper — targeting Jul 31, 2026 | In Preparation | |
+| 2026 | Liu, Y., Zhu, Y., & Jin, Y. | Short-Form Video Micro-Interactions as Everyday Stress and Anxiety Signals… | DMH Conference Book (Springer Nature) — targeting Aug 31, 2026 | In Preparation | |
+| 2027 | Liu, Y., Zhu, Y., & Jin, Y. | Designing Self-Reflection Interventions for Healthier Short-Form Video Use Under High Stress and Anxiety. | CHI (Full Paper) — targeting 2027 | Target Venue | |
+| 2027 | Liu, Y., & LC, R. | Comment Conditions and Behavioral Responses to Authentic vs. Misleading Posts on a Simulated Social Platform. | CHI (Full Paper) — targeting 2027 | Target Venue | |
 
 ---
 
@@ -467,8 +476,8 @@ LLM-assisted analysis workflows
 | 2023 – 2024 | Shanghai, China | Data Engineer, CIB Fintech | Full-time data engineer on enterprise big-data architecture projects… |
 | 2024 | Beijing, China | Frontend Developer Intern | Led frontend of a RAG workflow platform; cut workflow creation time from 2 hours to 30 minutes. |
 | 2025 – 2026 | Sydney, Australia | M.S. in Information Technology, UNSW | Interactive design and web front-end programming. WAM 90.3 / High Distinction. |
-| 2026 – 2027 | Kunshan, China | Research Fellow, HII Lab, Duke Kunshan University | Leading a two-phase study on short-form video behavior, mental wellbeing signals, and in-app interventions. |
-| Jun – Aug 2026 | Hong Kong, China | Summer Research Assistant, Studio for Narrative Spaces, CityU | Built a simulated social media study platform… |
+| 2026 – 2027 | Kunshan, China | Research Fellow, HII Lab, Duke Kunshan University | Leading Mindful-Scroll in three stages: dialogue-derived mental-state signals and modeling pipeline, SFV micro-interaction wellbeing modeling, then self-reflection intervention design for high-stress / high-anxiety use. |
+| Jun – Aug 2026 | Hong Kong, China | Summer Research Intern, Studio for Narrative Spaces, CityU (Ray LC) | Joined Ray LC’s group on a misinformation-sharing experiment: study-web layout and stimulus selection (posts / comments); data collection in progress, targeting CHI 2027. |
 
 ---
 
@@ -489,7 +498,7 @@ LLM-assisted analysis workflows
 Columbia (M.S. Applied Analytics) · UNSW (M.S. IT, HD) · MUST (B.Sc. Economics, Rank 2/882)
 
 **Research**  
-Research Fellow @ DKU HII Lab · Research Intern @ Tsinghua Pervasive HCI · Summer RA @ CityU Studio for Narrative Spaces
+Research Fellow @ DKU HII Lab · Research Intern @ Tsinghua Pervasive HCI · Summer Research Intern @ CityU Studio for Narrative Spaces (Ray LC)
 
 **Building**  
 React / TypeScript front-end · data analysis & visualization · lightweight prototyping
