@@ -175,7 +175,7 @@ export type Project = {
   status?: string;
   accessType: AccessType;
   image?: string;
-  /** cover = crop to 16:10 (desktop tools); contain = full mobile UI (Mindful Scroll only). */
+  /** cover = crop to 16:10; contain = letterbox single mobile UI (prefer collage covers instead). */
   imageFit?: "cover" | "contain";
   gallery?: ProjectScreenshot[];
   links: ProjectLink[];
@@ -205,38 +205,17 @@ export const projects: Project[] = [
     role: "Independently designed & built the simulated platform (React/JS, Dockerized); led the pilot study (N=32) and analysis pipeline.",
     status: "Presentation at DMH 2026 · CHI 2027 manuscript in preparation",
     accessType: "private",
-    image: "/Mindful-Scroll/feed.png",
-    imageFit: "contain",
+    image: "/Mindful-Scroll/cover.png",
     gallery: [
       {
-        src: "/Mindful-Scroll/consent.png",
-        alt: "Study consent and onboarding",
-        caption: "Consent flow · once",
+        src: "/Mindful-Scroll/gallery-study.png",
+        alt: "Mindful Scroll study flow collage: consent, morning diary, and feed",
+        caption: "Study day · consent to feed",
       },
       {
-        src: "/Mindful-Scroll/startday-diary-daily.png",
-        alt: "Morning wellbeing diary",
-        caption: "Morning diary",
-      },
-      {
-        src: "/Mindful-Scroll/feed.png",
-        alt: "Simulated short-form video feed with interaction logging",
-        caption: "Feed · micro-interactions",
-      },
-      {
-        src: "/Mindful-Scroll/ema-diary.png",
-        alt: "EMA diary check-in interface",
-        caption: "EMA · state signals",
-      },
-      {
-        src: "/Mindful-Scroll/endday-reflection.png",
-        alt: "End-of-day reflection prompt",
-        caption: "Evening reflection",
-      },
-      {
-        src: "/Mindful-Scroll/chatbot-juanjuan-conversation.png",
-        alt: "In-app conversational support chat",
-        caption: "Conversational support",
+        src: "/Mindful-Scroll/gallery-support.png",
+        alt: "Mindful Scroll support collage: EMA diary, evening reflection, and chat",
+        caption: "Support · EMA to chat",
       },
     ],
     links: [{ label: "Demo available upon request" }],

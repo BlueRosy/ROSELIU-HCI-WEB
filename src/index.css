@@ -661,7 +661,41 @@ body {
   animation: signal-card-breathe 5.5s ease-in-out infinite;
 }
 
+.project-preview {
+  display: flex;
+  height: 100%;
+  padding: 0.7rem;
+  background:
+    linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--color-cream) 88%, transparent),
+      color-mix(in srgb, var(--color-bg) 92%, var(--color-primary) 4%)
+    );
+}
+
+.project-preview__inset {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 0.85rem;
+  border: 1px solid color-mix(in srgb, var(--color-border) 85%, transparent);
+  background: var(--color-surface);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, white 55%, transparent) inset,
+    0 6px 18px rgba(47, 42, 38, 0.06);
+}
+
 .project-preview--contain {
+  background:
+    radial-gradient(120% 80% at 50% 0%,
+      color-mix(in srgb, var(--color-cream) 90%, transparent),
+      var(--color-bg) 70%);
+}
+
+.project-preview--contain .project-preview__inset {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background:
     radial-gradient(120% 80% at 50% 0%,
       color-mix(in srgb, var(--color-cream) 90%, transparent),

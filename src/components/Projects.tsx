@@ -34,18 +34,20 @@ function ProjectPreview({
 
   return (
     <div
-      className={`overflow-hidden border-b border-border bg-bg ${contain ? "project-preview--contain" : ""} ${className}`}
+      className={`project-preview border-b border-border ${contain ? "project-preview--contain" : ""} ${className}`}
     >
-      <img
-        src={project.image}
-        alt={`${project.title} preview`}
-        loading="lazy"
-        className={
-          contain
-            ? "mx-auto h-full max-h-[min(420px,70vh)] w-auto max-w-[min(100%,280px)] object-contain py-4"
-            : "h-full w-full object-cover"
-        }
-      />
+      <div className="project-preview__inset">
+        <img
+          src={project.image}
+          alt={`${project.title} preview`}
+          loading="lazy"
+          className={
+            contain
+              ? "mx-auto h-full max-h-full w-auto max-w-[min(100%,240px)] object-contain"
+              : "h-full w-full object-cover"
+          }
+        />
+      </div>
     </div>
   );
 }
@@ -189,7 +191,7 @@ function ProjectModal({
         {project.image && (
           <ProjectPreview
             project={project}
-            className={`rounded-t-3xl ${project.imageFit === "contain" ? "aspect-auto min-h-[280px]" : "aspect-[16/10]"}`}
+            className={`rounded-t-3xl ${project.imageFit === "contain" ? "min-h-[280px]" : "aspect-[16/10]"}`}
           />
         )}
 

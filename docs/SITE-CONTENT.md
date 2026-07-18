@@ -263,8 +263,8 @@ Live demo restricted due to ongoing research protocols. Screenshots and a saniti
 | role | Independently designed & built the simulated platform (React/JS, Dockerized); led the pilot study (N=32) and analysis pipeline. |
 | status | Presentation at DMH 2026 · CHI 2027 manuscript in preparation |
 | access | private |
-| image | /Mindful-Scroll/feed.png（卡片封面，完整显示手机 UI） |
-| gallery | Consent（一次）→ Morning diary → Feed → EMA → Evening reflection → Conversational support |
+| image | `/Mindful-Scroll/cover.png`（16:10 三屏拼贴：feed + morning diary + chat） |
+| gallery | study 拼贴 · support 拼贴（源竖屏在 `public/Mindful-Scroll/originals/`） |
 | links | Demo available upon request |
 
 ---
