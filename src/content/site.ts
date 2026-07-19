@@ -33,7 +33,7 @@ export const hero = {
   headlineSub:
     "Building Data-Driven Human-Centered Systems for Everyday Mental Wellbeing",
   intro:
-    "I study how everyday digital interactions become signals for human-centered support. My work combines conversational log analysis, behavioral trace modeling, lightweight self-reports, and system prototyping to understand users\u2019 emotional states, needs, readiness, and interaction mechanisms.\n\nLooking forward, I aim to extend this work toward multimodal everyday sensing \u2014 integrating conversational, behavioral, contextual, and lightweight physiological signals to design adaptive, safety-aware support systems for wellbeing, reflection, and self-regulation.",
+    "I study how everyday digital interactions become signals for human-centered support. My work combines conversational log analysis, behavioral trace modeling, lightweight self-reports, and system prototyping to understand users\u2019 emotional states, needs, readiness, and interaction mechanisms.",
   researchInterest:
     "My current focus is closed-loop support systems: sensing everyday interaction signals, interpreting mechanisms, selecting appropriate support strategies, and helping people translate reflection into sustainable action while preserving autonomy and safety.",
   tags: [
@@ -581,7 +581,9 @@ export const currentLens = [
 
 export const about = {
   intro:
-    "I study how everyday digital interactions become signals for human-centered support. My work combines conversational log analysis, behavioral trace modeling, lightweight self-reports, and system prototyping to understand users\u2019 emotional states, needs, readiness, and interaction mechanisms.\n\nLooking forward, I aim to extend this work toward multimodal everyday sensing \u2014 integrating conversational, behavioral, contextual, and lightweight physiological signals to design adaptive, safety-aware support systems for wellbeing, reflection, and self-regulation.",
+    "I study how everyday digital interactions become signals for human-centered support. My work combines conversational log analysis, behavioral trace modeling, lightweight self-reports, and system prototyping to understand users\u2019 emotional states, needs, readiness, and interaction mechanisms.",
+  lookingForward:
+    "I aim to extend this work toward multimodal everyday sensing \u2014 integrating conversational, behavioral, contextual, and lightweight physiological signals to design adaptive, safety-aware support systems.",
   researchInterest:
     "My current focus is closed-loop support systems: sensing everyday interaction signals, interpreting mechanisms, selecting appropriate support strategies, and helping people translate reflection into sustainable action while preserving autonomy and safety.",
   researchAreas: [

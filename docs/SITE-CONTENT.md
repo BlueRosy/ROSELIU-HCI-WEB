@@ -75,19 +75,20 @@
 |------|------|
 | 姓名 / role | profile |
 | headline / headlineSub | hero |
-| intro | about.intro |
-| researchInterest | about.researchInterest（closed-loop **support** systems + interaction signals） |
+| intro | about.intro（当前工作一段） |
+| researchInterest | about.researchInterest（closed-loop support systems） |
 | researchAreas | HCI · HCAI · Digital Wellbeing · Multimodal Interaction Sensing · Conversational Support |
 | CTA | View Vision · Download CV |
 
-**About intro（两段）：** everyday digital interactions → signals for support（conversation / behavior / self-report / prototyping）；Looking forward → multimodal everyday sensing（contextual + lightweight physiological）。
+**布局平衡：** 左栏保留 headline + intro + focus；`lookingForward`（multimodal 未来向）放在右栏独立卡，右栏 `sticky`，避免左长右空。
 
-### 3.2 右栏（无重复姓名）
+### 3.2 右栏（sticky）
 
 | 卡片 | 内容 |
 |------|------|
-| Identity card | 头像 · Seeking PhD · phdAreas 关键词 · Email/GitHub/LinkedIn |
-| Portal card | ✦ Explore Research World →（interactive 文案） |
+| Identity card | 头像 · Seeking PhD · phdAreas · Email/GitHub/LinkedIn |
+| Looking forward | about.lookingForward（multimodal everyday sensing） |
+| Portal card | ✦ Explore Research World → |
 
 ### 3.3 底部三卡
 

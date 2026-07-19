@@ -1,6 +1,7 @@
 import { about, hero, profile } from "../content/site";
 import AboutBottomCards from "./AboutBottomCards";
 import AboutIdentityCard from "./AboutIdentityCard";
+import AboutLookingForward from "./AboutLookingForward";
 import AboutWorldPortal from "./AboutWorldPortal";
 import { Chip, Reveal } from "./primitives";
 
@@ -8,7 +9,7 @@ export default function About() {
   return (
     <section id="about" className="section-anchor pt-28 pb-20">
       <div className="mx-auto max-w-5xl px-5">
-        <div className="grid gap-8 lg:grid-cols-[1.6fr_1fr] lg:items-start">
+        <div className="grid gap-8 lg:grid-cols-[1.35fr_1fr] lg:items-start">
           <Reveal>
             <div>
               <p className="font-mono text-xs uppercase tracking-[0.18em] text-gradient-static">
@@ -29,11 +30,7 @@ export default function About() {
                 <p className="mt-2 text-base leading-relaxed text-slate">{hero.headlineSub}</p>
               </div>
 
-              <div className="mt-6 space-y-4 text-base leading-relaxed text-ink">
-                {about.intro.split("\n\n").map((para) => (
-                  <p key={para.slice(0, 48)}>{para}</p>
-                ))}
-              </div>
+              <p className="mt-6 text-base leading-relaxed text-ink">{about.intro}</p>
               <p className="mt-4 text-[15px] leading-relaxed text-slate">
                 {about.researchInterest}
               </p>
@@ -64,8 +61,9 @@ export default function About() {
           </Reveal>
 
           <Reveal delay={0.06}>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 lg:sticky lg:top-28">
               <AboutIdentityCard />
+              <AboutLookingForward />
               <AboutWorldPortal />
             </div>
           </Reveal>
