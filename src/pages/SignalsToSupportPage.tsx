@@ -9,7 +9,7 @@ export default function SignalsToSupportPage() {
     if (meta) {
       meta.setAttribute(
         "content",
-        "A cinematic 3D research universe exploring how everyday digital traces become emotional states and safe empathic support.",
+        "A cinematic 3D research universe exploring how everyday interaction signals become interpretable states, mechanisms, and safe adaptive support.",
       );
     }
     return () => {

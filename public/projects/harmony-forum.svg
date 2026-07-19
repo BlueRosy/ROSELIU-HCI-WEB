@@ -1,21 +1,53 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="CoSim placeholder">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="HarmonyOS forum study pipeline: crawl, topic model, focus themes">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#F8F1E8"/>
-      <stop offset="1" stop-color="#FFFDF8"/>
+    <linearGradient id="hf-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F7F0E8"/>
+      <stop offset="1" stop-color="#FFFDF9"/>
     </linearGradient>
-    <linearGradient id="ac" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#D4A59E"/>
-      <stop offset="1" stop-color="#B9786F"/>
+    <linearGradient id="hf-ac" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#C48B82"/>
+      <stop offset="1" stop-color="#8F514C"/>
+    </linearGradient>
+    <linearGradient id="hf-soft" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F3E9DF"/>
     </linearGradient>
   </defs>
-  <rect width="800" height="500" fill="url(#bg)"/>
-  <g font-family="Inter, sans-serif">
-    <rect x="60" y="200" rx="16" width="320" height="64" fill="#ffffff" opacity="0.85"/>
-    <rect x="420" y="290" rx="16" width="320" height="64" fill="url(#ac)" opacity="0.9"/>
-    <rect x="60" y="380" rx="16" width="260" height="52" fill="#ffffff" opacity="0.85"/>
+  <rect width="800" height="500" fill="url(#hf-bg)"/>
+
+  <text x="48" y="72" font-family="Georgia, 'Times New Roman', serif" font-size="36" font-weight="700" fill="#2F2A26">Harmony Forum</text>
+  <text x="48" y="102" font-family="ui-monospace, monospace" font-size="14" letter-spacing="0.08em" fill="#6F6258">HELP-SEEKING · TOPIC MAPPING · OPEN-SOURCE</text>
+
+  <!-- Pipeline nodes -->
+  <g>
+    <rect x="48" y="170" width="200" height="200" rx="20" fill="url(#hf-soft)" stroke="#E4D5C8"/>
+    <text x="148" y="220" text-anchor="middle" font-family="ui-monospace, monospace" font-size="12" fill="#8F514C">01</text>
+    <text x="148" y="258" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#2F2A26">Crawl</text>
+    <text x="148" y="288" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" fill="#6F6258">posts + comments</text>
+    <text x="148" y="312" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" fill="#6F6258">from forum Q&amp;A</text>
   </g>
-  <text x="60" y="90" font-family="Inter, sans-serif" font-size="34" font-weight="700" fill="#2F2A26">CoSim</text>
-  <text x="60" y="125" font-family="IBM Plex Mono, monospace" font-size="16" fill="#6F6258">emotion &#183; resistance &#183; self-disclosure</text>
-  <text x="60" y="470" font-family="IBM Plex Mono, monospace" font-size="13" fill="#8A7F72">sanitized screenshot placeholder</text>
+
+  <path d="M262 270 H298" stroke="#C48B82" stroke-width="2" stroke-linecap="round"/>
+  <path d="M290 262 L302 270 L290 278" fill="none" stroke="#C48B82" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g>
+    <rect x="310" y="170" width="200" height="200" rx="20" fill="url(#hf-soft)" stroke="#E4D5C8"/>
+    <text x="410" y="220" text-anchor="middle" font-family="ui-monospace, monospace" font-size="12" fill="#8F514C">02</text>
+    <text x="410" y="258" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#2F2A26">Topic model</text>
+    <text x="410" y="288" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" fill="#6F6258">map discourse</text>
+    <text x="410" y="312" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" fill="#6F6258">clusters + labels</text>
+  </g>
+
+  <path d="M524 270 H560" stroke="#C48B82" stroke-width="2" stroke-linecap="round"/>
+  <path d="M552 262 L564 270 L552 278" fill="none" stroke="#C48B82" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g>
+    <rect x="572" y="170" width="180" height="200" rx="20" fill="url(#hf-ac)"/>
+    <text x="662" y="220" text-anchor="middle" font-family="ui-monospace, monospace" font-size="12" fill="#F8F1E8">03</text>
+    <text x="662" y="258" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#FFFDF9">Focus</text>
+    <text x="662" y="288" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" fill="#F3E9DF">help-seeking</text>
+    <text x="662" y="312" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" fill="#F3E9DF">tools · IoT · agents</text>
+  </g>
+
+  <text x="48" y="460" font-family="ui-monospace, monospace" font-size="13" fill="#8A7F72">Pervasive HCI · Tsinghua · exploratory pipeline</text>
 </svg>

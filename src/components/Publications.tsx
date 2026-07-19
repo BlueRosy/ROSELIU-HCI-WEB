@@ -1,7 +1,17 @@
+import { useMemo } from "react";
 import { publications } from "../content/site";
+import { publicationSortKey } from "../lib/contentDate";
 import { Reveal, SectionHeading, StatusBadge } from "./primitives";
 
 export default function Publications() {
+  const sorted = useMemo(
+    () =>
+      [...publications].sort(
+        (a, b) => publicationSortKey(a) - publicationSortKey(b),
+      ),
+    [],
+  );
+
   return (
     <section id="publications" className="section-anchor section-alt py-24">
       <div className="mx-auto max-w-5xl px-5">
@@ -14,7 +24,7 @@ export default function Publications() {
         </Reveal>
 
         <ul className="mt-10 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface/60">
-          {publications.map((pub) => (
+          {sorted.map((pub) => (
             <li key={pub.title}>
               <Reveal>
                 <div

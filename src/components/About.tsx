@@ -29,7 +29,11 @@ export default function About() {
                 <p className="mt-2 text-base leading-relaxed text-slate">{hero.headlineSub}</p>
               </div>
 
-              <p className="mt-6 text-base leading-relaxed text-ink">{about.intro}</p>
+              <div className="mt-6 space-y-4 text-base leading-relaxed text-ink">
+                {about.intro.split("\n\n").map((para) => (
+                  <p key={para.slice(0, 48)}>{para}</p>
+                ))}
+              </div>
               <p className="mt-4 text-[15px] leading-relaxed text-slate">
                 {about.researchInterest}
               </p>
@@ -47,7 +51,7 @@ export default function About() {
                   href="#research"
                   className="inline-flex items-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-white shadow-soft transition hover:bg-primary-deep"
                 >
-                  View Research
+                  View Vision
                 </a>
                 <a
                   href={profile.cv}

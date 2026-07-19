@@ -27,7 +27,8 @@
 |----------|---------|
 | About | about |
 | News | news |
-| Research | research |
+| Vision | research（锚点 id 不变） |
+| Studio（下拉，非锚点） | `studioHub` → Research World + Stats Studio + Literature + Meal Right |
 | Projects | projects |
 | Publications | publications |
 | Journey | journey |
@@ -75,9 +76,11 @@
 | 姓名 / role | profile |
 | headline / headlineSub | hero |
 | intro | about.intro |
-| researchInterest | about.researchInterest（closed-loop focus，含 autonomy/safety） |
-| researchAreas | about.researchAreas chips |
-| CTA | View Research · Download CV |
+| researchInterest | about.researchInterest（closed-loop **support** systems + interaction signals） |
+| researchAreas | HCI · HCAI · Digital Wellbeing · Multimodal Interaction Sensing · Conversational Support |
+| CTA | View Vision · Download CV |
+
+**About intro（两段）：** everyday digital interactions → signals for support（conversation / behavior / self-report / prototyping）；Looking forward → multimodal everyday sensing（contextual + lightweight physiological）。
 
 ### 3.2 右栏（无重复姓名）
 
@@ -157,20 +160,26 @@ Signals → States → Support → Safety（闭环）
 | title | What I've been building, writing, and presenting |
 | intro | Recent talks, papers, roles, and milestones. |
 
-### 5.2 新闻条目（从新到旧）
+### 5.2 排序与折叠
+
+- Timeline / featured：**降序**（latest 在上），见 `src/lib/contentDate.ts`
+- Full timeline：系统本月 + 下月默认展开；其余折叠（限高滚动 + Show earlier timeline）
+
+### 5.3 新闻条目（逻辑顺序：新→旧）
 
 | date | title | text | tag | featured |
 |------|-------|------|-----|----------|
-| Aug 2026 | DMH Conference Book | Planning a full paper on SFV micro-interaction signals for everyday stress and anxiety modeling — Springer conference book deadline August 31. | Manuscript | |
-| Jul 2026 | HarmonyOS Forum Study | Started an exploratory study of the Huawei HarmonyOS developer forum: crawl posts and comments, run topic modeling, and select research-ready themes around help-seeking and tooling. | Role | |
-| Jul 2026 | IP&MC 2026 | Preparing a Mindful-Scroll manuscript on evening dialogue logs, a reflective-signal dataset, and the modeling pipeline — targeting the July 31 deadline. | Manuscript | |
-| Jun 2026 | Summer Research Intern | Joined Studio for Narrative Spaces at CityU under Ray LC and began the Misinformation Sharing project (study platform, stimulus design, and data collection). | Role | ✓ |
-| Jun 2026 | DMH 2026 | Presenting Mindful-Scroll at the Digital Mental Health International Conference in Hong Kong. | Talk | ✓ |
-| 2026 | UIST 2026 | CoSim short paper (with the Tsinghua Pervasive HCI Group) is under review. | Paper | ✓ |
-| Feb 2026 | HII Lab | Started as a full-time Research Fellow at Duke Kunshan University, advised by Prof. Yucheng Jin. | Role | ✓ |
-| Dec 2025 | — | Joined Tsinghua University's Pervasive HCI Group as a Research Intern. | Role | |
-| 2025 | — | Received Australia's Global University Award at UNSW. | Award | |
-| 2027 Target | — | Targeting CHI 2027 with a Mindful-Scroll self-reflection intervention paper and a Misinformation Sharing behavioral experiment (data collection underway). | Manuscript | |
+| 2027 Target | Targeting CHI 2027 | Mindful-Scroll self-reflection intervention plus Misinformation Sharing… | Manuscript | ✓ |
+| Aug 2026 | Writing DMH Book chapter | SFV micro-interaction signals… ddl Aug 31 | Manuscript | ✓ |
+| Jul 2026 | Submitting to IP&MC | Evening dialogue dataset/pipeline… ddl Jul 31 | Manuscript | ✓ |
+| Jul 2026 | Started HarmonyOS forum study | Crawl + topic modeling（Tsinghua Pervasive HCI） | Role | |
+| Jun 2026 | Joined Ray LC lab | CityU summer · Misinfo data collection | Role | ✓ |
+| Jun 2026 | Presented Mindful-Scroll at DMH | Talk in Hong Kong | Talk | |
+| Feb 2026 | Joined HII Lab | Research Fellow @ DKU | Role | |
+| Dec 2025 | Joined Tsinghua Pervasive HCI | Research Intern | Role | |
+| 2025 | Received UNSW award | Global University Award | Award | |
+
+> 已删除 UIST / CoSim under-review 新闻卡。
 
 ---
 
@@ -184,45 +193,29 @@ Signals → States → Support → Safety（闭环）
 |------|----------|
 | eyebrow | Research Vision |
 | title | Closed-loop systems for everyday mental wellbeing |
-| intro | I build and study systems that sense everyday stress from conversational and behavioral signals, interpret underlying mechanisms, select appropriate support strategies, and help users move from reflection to sustainable action. |
+| intro | closed-loop systems from conversational/behavioral/self-report/contextual signals → adaptive support；Looking forward → multimodal everyday sensing |
 
 ### 6.2 Research Focus 卡片
 
-Data-driven wellbeing intervention systems for everyday and subclinical stress and emotional support, with conversational support as a key modality.
+Data-driven human-centered systems for everyday wellbeing, reflection, and supportive behavior change, grounded in conversational, behavioral, self-report, and emerging multimodal signals.
 
-### 6.3 Vision 长文（第二段起显示，第一段在 intro 已覆盖）
+### 6.3 Vision 长文
 
-My research vision is to build closed-loop systems for everyday mental wellbeing. These systems sense stress and emotional states from conversational and behavioral signals, interpret the mechanisms behind these patterns, select appropriate support strategies, and help users translate reflection into sustainable action.
-
-Rather than treating empathic AI as a one-time response generator, I am interested in how conversational support can become long-term, safety-aware, and action-oriented — understanding when to intervene, what support to provide, how to preserve user autonomy, and how to evaluate emotional outcomes, retention, and dependency risks over time.
+Sense everyday psychological states and needs from conversational, behavioral, self-report, and contextual signals… Longer-term: multimodal signal integration (contextual + lightweight physiological). Supportive systems that are long-term, safety-aware, and action-oriented.
 
 ### 6.4 两大主题 themes
 
-**01 — Empathic Wellbeing Intervention Systems with Safety Boundaries**  
-I design and evaluate sustainable empathic support systems within a sensing–interpretation–intervention–maintenance loop, with conversational support as a key modality. I treat safety and ethical boundaries as design constraints that shape when, how, and how much support should be provided.
+**01 — Adaptive Support Systems with Safety Boundaries**  
+Sensing–interpretation–intervention–maintenance loop；safety, autonomy, sustainability as design constraints.
 
-**02 — Subclinical Stress & Emotion Sensing for Mechanism-Aware Intervention**  
-I study how everyday stress, emotional shifts, resistance, and self-disclosure can be inferred from conversational and behavioral patterns, and how these patterns can guide mechanism-aware intervention strategies that remain controllable, low-burden, and sustainable.
+**02 — Multimodal Interaction Signals for Mechanism-Aware Support**  
+Conversational / behavioral / self-report / contextual cues → states, needs, readiness, resistance, decision mechanisms → personalized low-burden support.（不夸大已完成 multimodal pipeline）
 
-### 6.5 The Loop 交互区（组件里部分固定文案）
+### 6.5 The Loop
 
-- 小标题：The Loop
-- 标题：Sensing → Interpretation → Intervention → Action → Sustainability & Safety
-- 说明：Hover or select a stage to explore how signals become safe, sustainable support.
-
-**Loop 五个节点（`loop` 数组，可改 label / body / items）：**
-
-1. **Sensing** — Identify stress, emotional shifts, resistance, and self-disclosure from conversational and behavioral signals.  
-   Items: Conversational logs · Behavioral traces · Micro-interactions
-
-2. **Interpretation** — Move from "what happened" to "why it happened" by examining triggers, relationship dynamics, and individual differences.  
-   Items: Stress · Emotional shifts · Resistance · Readiness
-
-3. **Intervention Selection**（当前高亮 current）— Select passive or active support strategies based on users' goals, risks, and readiness for action.  
-   Items: Passive vs. active support · Timing · Personalization
-
-4. **Action** — Translate empathic support into low-burden, trackable, and achievable everyday actions.  
-   Items: Low-burden steps · Reflection-to-action · Behavioral translation
+**Sensing** — conversations, micro-interactions, self-reports, emerging multimodal/contextual cues.  
+**Interpretation** — states, needs, readiness, mechanisms across streams.  
+**Intervention / Action / Safety** — adaptive support, reflection-to-action, autonomy & dependency.
 
 5. **Sustainability & Safety** — Evaluate retention, emotional outcomes, autonomy, dependency risks, and adaptive safety boundaries over time.  
    Items: Autonomy · Dependency risk · Long-term outcomes
@@ -285,7 +278,7 @@ Live demo restricted due to ongoing research protocols. Screenshots and a saniti
 | methods | Dialogue annotation · Thematic analysis · Conversational pattern analysis · Strategy mapping |
 | focus | Conversational support · Reflection · Readiness · Intervention design |
 | role | Built a trajectory–thematic pipeline across 10 supporters / 19 sessions; identified facilitative vs. hindering patterns. |
-| status | Short paper under review at UIST 2026 |
+| status | Study completed · preparing next venue submission |
 | access | private |
 | links | Sanitized walkthrough upon request |
 
@@ -315,7 +308,7 @@ Live demo restricted due to ongoing research protocols. Screenshots and a saniti
 |------|------|
 | type | Study · research |
 | title | Help-Seeking in an Open-Source Developer Community |
-| context | Huawei HarmonyOS Developer Forum · exploratory, Jul 2026– |
+| context | Pervasive HCI Group, Tsinghua University · Huawei HarmonyOS Developer Forum · exploratory, Jul 2026– |
 | question | How do developers seek help, debug, and share tooling in a large open-source community forum — and which discourse topics are research-ready? |
 | contribution | Crawl forum posts/comments → topic modeling with mapping → focus help-seeking, tooling/bots, IoT, automotive; informed by open-source developer literature (not claimed as own papers). |
 | methods | Web scraping · Topic modeling · Community discourse analysis · Related-work synthesis |
@@ -323,10 +316,10 @@ Live demo restricted due to ongoing research protocols. Screenshots and a saniti
 | role | Crawl + topic-modeling pipeline; topic selection for paper narrative. |
 | status | Exploratory · topic selection underway |
 | access | private |
-| image | `/projects/harmony-forum.svg`（placeholder） |
+| image | `/projects/harmony-forum.svg`（Crawl → Topic model → Focus pipeline 图） |
 | links | HarmonyOS developer forum → https://developer.huawei.com/consumer/cn/forum/ |
 
-> Caregiver / AI parenting 项目已从站点下架（不建 Archive）；不写「结果不显著」叙事。
+> Caregiver / AI parenting 与 UIST 叙事已从站点下架；CoSim 项目保留，不写拒稿。
 
 ---
 
@@ -396,16 +389,21 @@ Live demo restricted due to ongoing research protocols. Screenshots and a saniti
 | title | Selected work |
 | intro | Peer-reviewed presentations and manuscripts in preparation. Status is reported honestly and updated as work progresses. |
 
-### 8.2 条目列表
+### 8.2 排序
+
+组件内按 `publicationSortKey` **升序**（oldest 在上，latest 在下）。
+
+### 8.3 条目列表（渲染顺序）
 
 | year | authors | title | venue | status | highlight |
 |------|---------|-------|-------|--------|-----------|
-| 2026 | Liu, Y. | Mindful-Scroll: Linking Interaction Logs to Self-Reported Mental Health and Well-Being, and In-App Interventions. | Digital Mental Health International Conference (DMH), Hong Kong | Presentation | ✓ |
-| 2026 | Deng, W., Liu, Y., Chen, Y., Zhang, H., Li, Y., Mi, H., & Yu, C. | CoSim: Identifying Communication Patterns and Skill Development for Fudaoyuan in Chinese Universities. | UIST (Short Paper) | Under Review | |
-| 2026 | Liu, Y., Zhu, Y., & Jin, Y. | Evening Self-Reflection Dialogues on Short-Form Video Use: A Dataset and Modeling Pipeline for Stress and Anxiety Signals. | IP&MC Dataset & Full Paper — targeting Jul 31, 2026 | In Preparation | |
-| 2026 | Liu, Y., Zhu, Y., & Jin, Y. | Short-Form Video Micro-Interactions as Everyday Stress and Anxiety Signals… | DMH Conference Book (Springer Nature) — targeting Aug 31, 2026 | In Preparation | |
-| 2027 | Liu, Y., Zhu, Y., & Jin, Y. | Designing Self-Reflection Interventions for Healthier Short-Form Video Use Under High Stress and Anxiety. | CHI (Full Paper) — targeting 2027 | Target Venue | |
-| 2027 | Liu, Y., & LC, R. | Comment Conditions and Behavioral Responses to Authentic vs. Misleading Posts on a Simulated Social Platform. | CHI (Full Paper) — targeting 2027 | Target Venue | |
+| 2026 | Liu, Y. | Mindful-Scroll… | DMH Hong Kong — Jun 2026 | Presentation | ✓ |
+| 2026 | Liu, Y., Zhu, Y., & Jin, Y. | Evening Self-Reflection Dialogues… | IP&MC — targeting Jul 31, 2026 | In Preparation | |
+| 2026 | Liu, Y., Zhu, Y., & Jin, Y. | Short-Form Video Micro-Interactions… | DMH Conference Book — targeting Aug 31, 2026 | In Preparation | |
+| 2027 | Liu, Y., Zhu, Y., & Jin, Y. | Designing Self-Reflection Interventions… | CHI — targeting 2027 | Target Venue | |
+| 2027 | Liu, Y., & LC, R. | Comment Conditions and Behavioral Responses… | CHI — targeting 2027 | Target Venue | |
+
+> 已删除 CoSim / UIST Under Review 条目。
 
 ---
 

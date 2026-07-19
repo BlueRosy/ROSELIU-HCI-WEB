@@ -11,7 +11,7 @@ export default function Research({ enable3D }: { enable3D: boolean }) {
           <SectionHeading
             eyebrow="Research Vision"
             title="Closed-loop systems for everyday mental wellbeing"
-            intro="I build and study systems that sense everyday stress from conversational and behavioral signals, interpret underlying mechanisms, select appropriate support strategies, and help users move from reflection to sustainable action."
+            intro="I build and study closed-loop systems that sense everyday psychological states and needs from conversational, behavioral, self-report, and contextual signals — and translate them into timely, safe, adaptive support. Looking forward, I aim to extend this work toward multimodal everyday sensing."
           />
         </Reveal>
 

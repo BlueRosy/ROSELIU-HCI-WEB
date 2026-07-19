@@ -30,17 +30,18 @@ export const profile = {
 
 export const hero = {
   headline: "From Signals to Support",
-  headlineSub: "Building Human-Centered Systems for Everyday Mental Wellbeing",
+  headlineSub:
+    "Building Data-Driven Human-Centered Systems for Everyday Mental Wellbeing",
   intro:
-    "I'm Rose — an HCI researcher and Research Fellow at Duke Kunshan University's HII Lab. I study how conversational and behavioral patterns reveal everyday stress and emotional states, and how these signals can inform safe, long-term, empathic interventions.",
+    "I study how everyday digital interactions become signals for human-centered support. My work combines conversational log analysis, behavioral trace modeling, lightweight self-reports, and system prototyping to understand users\u2019 emotional states, needs, readiness, and interaction mechanisms.\n\nLooking forward, I aim to extend this work toward multimodal everyday sensing \u2014 integrating conversational, behavioral, contextual, and lightweight physiological signals to design adaptive, safety-aware support systems for wellbeing, reflection, and self-regulation.",
   researchInterest:
-    "Closed-loop systems for everyday mental wellbeing: sensing stress from conversational and behavioral signals, interpreting mechanisms, selecting support strategies, and helping users translate reflection into sustainable action.",
+    "My current focus is closed-loop support systems: sensing everyday interaction signals, interpreting mechanisms, selecting appropriate support strategies, and helping people translate reflection into sustainable action while preserving autonomy and safety.",
   tags: [
     "HCI",
     "Human-Centered AI",
     "Digital Wellbeing",
+    "Multimodal Interaction Sensing",
     "Conversational Support",
-    "Emotional & Social Computing",
   ],
 } as const;
 
@@ -49,15 +50,30 @@ export const signalFlow = {
   stages: [
     {
       label: "Signals",
-      items: ["Conversational logs", "Behavioral traces", "Micro-interactions"],
+      items: [
+        "Conversational logs",
+        "Behavioral traces",
+        "Micro-interactions",
+        "Self-reports",
+      ],
     },
     {
       label: "States",
-      items: ["Stress", "Emotional shifts", "Resistance", "Self-disclosure"],
+      items: [
+        "Psychological states",
+        "Needs & readiness",
+        "Resistance",
+        "Self-disclosure",
+      ],
     },
     {
       label: "Support",
-      items: ["Empathic intervention", "Reflection-to-action", "Safety boundaries"],
+      items: [
+        "Reflection-to-action",
+        "Adaptive intervention",
+        "Empathic support",
+        "Safety boundaries",
+      ],
     },
   ],
 } as const;
@@ -72,25 +88,25 @@ export const interests = [
 
 export const research = {
   focus:
-    "Data-driven wellbeing intervention systems for everyday and subclinical stress and emotional support, with conversational support as a key modality.",
+    "Data-driven human-centered systems for everyday wellbeing, reflection, and supportive behavior change, grounded in conversational, behavioral, self-report, and emerging multimodal signals.",
   vision: [
-    "My research vision is to build closed-loop systems for everyday mental wellbeing. These systems sense stress and emotional states from conversational and behavioral signals, interpret the mechanisms behind these patterns, select appropriate support strategies, and help users translate reflection into sustainable action.",
-    "Rather than treating empathic AI as a one-time response generator, I am interested in how conversational support can become long-term, safety-aware, and action-oriented — understanding when to intervene, what support to provide, how to preserve user autonomy, and how to evaluate emotional outcomes, retention, and dependency risks over time.",
+    "I build and study closed-loop systems that sense everyday psychological states and needs from conversational, behavioral, self-report, and contextual signals; interpret the mechanisms behind those signals; and translate them into timely, safe, and sustainable support.",
+    "My longer-term direction is to explore multimodal signal integration for everyday wellbeing \u2014 combining digital traces with lightweight contextual and physiological cues to better understand when people need support, what kind of support is appropriate, and how to preserve autonomy over time. Rather than treating empathic AI as a one-time response generator, I am interested in how supportive systems can become long-term, safety-aware, and action-oriented.",
   ],
   themes: [
     {
       index: "01",
-      title: "Empathic Wellbeing Intervention Systems with Safety Boundaries",
-      body: "I design and evaluate sustainable empathic support systems within a sensing–interpretation–intervention–maintenance loop, with conversational support as a key modality. I treat safety and ethical boundaries as design constraints that shape when, how, and how much support should be provided.",
+      title: "Adaptive Support Systems with Safety Boundaries",
+      body: "I design and evaluate support systems within a sensing\u2013interpretation\u2013intervention\u2013maintenance loop. My work treats safety, autonomy, and long-term sustainability as design constraints that shape when, how, and how much support should be provided.",
     },
     {
       index: "02",
-      title: "Subclinical Stress & Emotion Sensing for Mechanism-Aware Intervention",
-      body: "I study how everyday stress, emotional shifts, resistance, and self-disclosure can be inferred from conversational and behavioral patterns, and how these patterns can guide mechanism-aware intervention strategies that remain controllable, low-burden, and sustainable.",
+      title: "Multimodal Interaction Signals for Mechanism-Aware Support",
+      body: "I study how conversational patterns, behavioral traces, lightweight self-reports, and contextual cues reveal users\u2019 states, needs, readiness, resistance, and decision mechanisms \u2014 and how these signals can guide personalized, low-burden, and controllable support strategies.",
     },
   ],
   grounding:
-    "This work is grounded in HCI, human-centered AI, emotional & social computing, and digital mental wellbeing.",
+    "This work is grounded in HCI, human-centered AI, emotional & social computing, digital mental wellbeing, and social computing.",
 } as const;
 
 export type LoopNode = {
@@ -106,21 +122,31 @@ export const loop: LoopNode[] = [
   {
     key: "sensing",
     label: "Sensing",
-    short: "Identify state cues from signals",
-    body: "Identify stress, emotional shifts, resistance, and self-disclosure from conversational and behavioral signals.",
-    items: ["Conversational logs", "Behavioral traces", "Micro-interactions"],
+    short: "Capture everyday signal streams",
+    body: "Capture everyday signals from conversations, micro-interactions, self-reports, and emerging multimodal/contextual cues.",
+    items: [
+      "Conversational logs",
+      "Behavioral traces",
+      "Self-reports",
+      "Contextual cues",
+    ],
   },
   {
     key: "interpretation",
     label: "Interpretation",
-    short: "From what happened to why",
-    body: "Move from \u201Cwhat happened\u201D to \u201Cwhy it happened\u201D by examining triggers, relationship dynamics, and individual differences.",
-    items: ["Stress", "Emotional shifts", "Resistance", "Readiness"],
+    short: "From signals to mechanisms",
+    body: "Model states, needs, readiness, and mechanisms across signal streams, while keeping explanations human-interpretable.",
+    items: [
+      "Psychological states",
+      "Needs",
+      "Resistance",
+      "Readiness",
+    ],
   },
   {
     key: "intervention",
     label: "Intervention Selection",
-    short: "Choose passive or active support",
+    short: "Choose adaptive support",
     body: "Select passive or active support strategies based on users\u2019 goals, risks, and readiness for action.",
     items: ["Passive vs. active support", "Timing", "Personalization"],
     current: true,
@@ -129,14 +155,14 @@ export const loop: LoopNode[] = [
     key: "action",
     label: "Action",
     short: "Translate support into action",
-    body: "Translate empathic support into low-burden, trackable, and achievable everyday actions.",
+    body: "Translate support into low-burden, trackable, and achievable everyday actions for reflection and self-regulation.",
     items: ["Low-burden steps", "Reflection-to-action", "Behavioral translation"],
   },
   {
     key: "sustainability",
     label: "Sustainability & Safety",
     short: "Maintain outcomes and boundaries",
-    body: "Evaluate retention, emotional outcomes, autonomy, dependency risks, and adaptive safety boundaries over time.",
+    body: "Evaluate retention, wellbeing outcomes, autonomy, dependency risks, and adaptive safety boundaries over time.",
     items: ["Autonomy", "Dependency risk", "Long-term outcomes"],
   },
 ];
@@ -192,9 +218,9 @@ export const projects: Project[] = [
     title: "From Social Media Micro-Interactions to Mental State Cues",
     context: "Mindful Scroll · HII Lab, Duke Kunshan University",
     question:
-      "How can short-form video micro-interactions and evening self-reflection dialogues reveal everyday stress and anxiety \u2014 and how should those signals shape a safe self-reflection intervention?",
+      "How can short-form video micro-interactions and evening self-reflection dialogues \u2014 as everyday digital signals \u2014 reveal wellbeing states, self-regulation patterns, and support needs, including stress and anxiety, and how should those signals shape safe, reflective interventions?",
     contribution:
-      "A three-stage line: (1) evening Juanjuan dialogue logs \u2192 reflective behavioral-signal dataset and modeling pipeline (topic modeling, classifiers, between-/within-group longitudinal models) for an LLM-assisted self-reflection assistant; (2) SFV-specific micro-interactions as everyday stress/anxiety signals; (3) combine both signal findings into a self-reflection intervention for healthier SFV use under high stress or anxiety.",
+      "A three-stage line: (1) evening Juanjuan dialogue logs \u2192 reflective behavioral-signal dataset and modeling pipeline for an LLM-assisted self-reflection assistant; (2) SFV-specific micro-interactions as everyday wellbeing-state signals, with stress and anxiety as key outcomes; (3) combine both into a self-reflection intervention for healthier SFV use. This project is a first step toward multimodal everyday wellbeing sensing, starting with micro-interactions and evening reflection dialogues \u2014 with a future direction of richer contextual and multimodal signals.",
     methods: [
       "Conversational log analysis",
       "Topic modeling",
@@ -250,7 +276,7 @@ export const projects: Project[] = [
       "Intervention design",
     ],
     role: "Built a trajectory\u2013thematic pipeline across 10 supporters / 19 sessions; identified facilitative vs. hindering patterns.",
-    status: "Short paper under review at UIST 2026",
+    status: "Study completed \u00b7 preparing next venue submission",
     accessType: "private",
     image: "/projects/cosim.svg",
     links: [{ label: "Sanitized walkthrough upon request" }],
@@ -290,7 +316,8 @@ export const projects: Project[] = [
     group: "research",
     projectType: "Study",
     title: "Help-Seeking in an Open-Source Developer Community",
-    context: "Huawei HarmonyOS Developer Forum \u00b7 exploratory, Jul 2026\u2013",
+    context:
+      "Pervasive HCI Group, Tsinghua University \u00b7 Huawei HarmonyOS Developer Forum \u00b7 exploratory, Jul 2026\u2013",
     question:
       "How do developers seek help, debug, and share tooling in a large open-source community forum \u2014 and which discourse topics are research-ready for deeper HCI analysis?",
     contribution:
@@ -454,18 +481,10 @@ export const publications: Publication[] = [
     authors: "Liu, Y.",
     title:
       "Mindful-Scroll: Linking Interaction Logs to Self-Reported Mental Health and Well-Being, and In-App Interventions.",
-    venue: "Digital Mental Health International Conference (DMH), Hong Kong",
+    venue: "Digital Mental Health International Conference (DMH), Hong Kong — Jun 2026",
     year: "2026",
     status: "Presentation",
     highlight: true,
-  },
-  {
-    authors: "Deng, W., Liu, Y., Chen, Y., Zhang, H., Li, Y., Mi, H., & Yu, C.",
-    title:
-      "CoSim: Identifying Communication Patterns and Skill Development for Fudaoyuan in Chinese Universities.",
-    venue: "UIST (Short Paper)",
-    year: "2026",
-    status: "Under Review",
   },
   {
     authors: "Liu, Y., Zhu, Y., & Jin, Y.",
@@ -539,9 +558,9 @@ export const methods = {
       ],
     },
   ],
-  emerging: ["Multimodal analysis"] as const,
+  emerging: ["Multimodal everyday sensing"] as const,
   emergingNote:
-    "As a future methodological extension, I hope to integrate language, interaction traces, self-reports, and contextual signals to better interpret everyday stress and emotional states.",
+    "As a longer-term direction, I hope to integrate conversational, behavioral, self-report, contextual, and lightweight physiological signals for more holistic, low-burden understanding of everyday wellbeing.",
   technical: [
     "Python",
     "R",
@@ -562,18 +581,18 @@ export const currentLens = [
 
 export const about = {
   intro:
-    "I am an HCI researcher studying how conversational patterns, behavioral traces, and lightweight self-reports can reveal everyday stress and emotional states — and how these signals can inform safe, long-term, empathic interventions.",
+    "I study how everyday digital interactions become signals for human-centered support. My work combines conversational log analysis, behavioral trace modeling, lightweight self-reports, and system prototyping to understand users\u2019 emotional states, needs, readiness, and interaction mechanisms.\n\nLooking forward, I aim to extend this work toward multimodal everyday sensing \u2014 integrating conversational, behavioral, contextual, and lightweight physiological signals to design adaptive, safety-aware support systems for wellbeing, reflection, and self-regulation.",
   researchInterest:
-    "My current focus is closed-loop wellbeing systems: sensing everyday signals, interpreting mechanisms, selecting support strategies, and helping people translate reflection into sustainable action while preserving autonomy and safety.",
+    "My current focus is closed-loop support systems: sensing everyday interaction signals, interpreting mechanisms, selecting appropriate support strategies, and helping people translate reflection into sustainable action while preserving autonomy and safety.",
   researchAreas: [
     "HCI",
     "Human-Centered AI",
     "Digital Wellbeing",
+    "Multimodal Interaction Sensing",
     "Conversational Support",
-    "Emotional & Social Computing",
   ] as const,
   phdAreas:
-    "HCI · Human-Centered AI · Digital Wellbeing · Emotional Computing",
+    "HCI · Human-Centered AI · Digital Wellbeing · Multimodal Sensing",
   methods: [
     "Conversational log analysis",
     "Behavioral trace analysis",
@@ -583,12 +602,54 @@ export const about = {
   seekingLine: "Seeking PhD opportunities",
   researchWorldLink: {
     label: "Explore Research World",
-    hint: "Scroll through an immersive research trail from signals to support",
+    hint: "Scroll through an immersive trail from interaction signals to adaptive support",
     description:
       "Walk a rose-garden research trail — Signals Garden, States Observatory, Support Sanctuary, and Closed-loop Center.",
     tags: "Signals · States · Support · Closed-loop",
     href: "/rose-research-world",
   },
+} as const;
+
+/** Top-nav Studio dropdown — quick jumps to built sites (not a full Projects story). */
+export type StudioHubItem = {
+  id: string;
+  title: string;
+  hint: string;
+  href: string;
+  external?: boolean;
+};
+
+export const studioHub = {
+  label: "Studio",
+  items: [
+    {
+      id: "research-world",
+      title: "Research World",
+      hint: "3D trail · Signals to Support",
+      href: "/rose-research-world",
+    },
+    {
+      id: "rose-stats-studio",
+      title: "Rose Stats Studio",
+      hint: "Browser-local stats & modeling",
+      href: "https://rose-data-analysis.vercel.app/",
+      external: true,
+    },
+    {
+      id: "rose-literature",
+      title: "Rose's Literature",
+      hint: "Papers & scholar discovery",
+      href: "https://rose-liternature-search.vercel.app/",
+      external: true,
+    },
+    {
+      id: "meal-right",
+      title: "Meal Right",
+      hint: "Calorie-tracking interface",
+      href: "https://mealright.vercel.app/",
+      external: true,
+    },
+  ] satisfies StudioHubItem[],
 } as const;
 
 export const researchAtlas = {
@@ -655,8 +716,9 @@ export const researchUniverse = {
   subtitle: "A 3D Research Universe",
   hero: {
     title: "From Signals to Support",
-    subtitle: "Building human-centered systems for everyday mental wellbeing.",
-    body: "Explore how everyday traces become emotional understanding and safe support.",
+    subtitle:
+      "Building data-driven human-centered systems for everyday mental wellbeing.",
+    body: "Explore how everyday interaction traces become interpretable states, mechanisms, and safe adaptive support — toward multimodal everyday sensing.",
   },
   nodes: [
     {
@@ -671,19 +733,24 @@ export const researchUniverse = {
       ],
       narrative: {
         index: "01",
-        title: "Everyday traces of emotion and behavior",
-        body: "I study conversational logs, self-reports, and micro-interactions as signals of stress, mood shifts, and daily wellbeing.",
+        title: "Everyday interaction traces",
+        body: "I study conversational logs, self-reports, and micro-interactions as signals of states, needs, and everyday wellbeing — a foundation for emerging multimodal sensing.",
       },
     },
     {
       id: "states",
       label: "States",
       color: "#7A8A9A",
-      satellites: ["Stress", "Mood shifts", "Readiness", "Self-disclosure"],
+      satellites: [
+        "Psychological states",
+        "Needs & readiness",
+        "Resistance",
+        "Decision mechanisms",
+      ],
       narrative: {
         index: "02",
-        title: "Interpreting emotional and behavioral states",
-        body: "These signals become meaningful when interpreted as states such as stress, anxiety, readiness, and self-disclosure.",
+        title: "Interpreting states and mechanisms",
+        body: "These signals become meaningful when interpreted as needs, readiness, resistance, and decision mechanisms — with stress and anxiety as key wellbeing outcomes.",
       },
     },
     {
@@ -692,14 +759,14 @@ export const researchUniverse = {
       color: "#B9786F",
       satellites: [
         "Reflection prompts",
-        "Empathic responses",
+        "Adaptive interventions",
         "Low-burden actions",
         "Safety boundaries",
       ],
       narrative: {
         index: "03",
-        title: "Designing low-burden, empathic support",
-        body: "The goal is to help people reflect, act, and receive support without increasing dependency or burden.",
+        title: "Designing safe, adaptive support",
+        body: "The goal is to help people reflect, self-regulate, and receive support — including supportive online behavior — without increasing dependency or burden.",
       },
     },
     {
@@ -816,7 +883,7 @@ export const researchWorld = {
   title: "Signals to Support",
   subtitle: "An Immersive Research World",
   intro:
-    "Scroll through a rose-garden research trail — from everyday signals to emotional understanding and safe support.",
+    "Scroll through a rose-garden research trail — from everyday interaction signals to states, mechanisms, and safe adaptive support.",
   entryBody:
     "Follow the path through Signals Garden, States Observatory, Support Sanctuary, and the Closed-loop Center.",
   entryCta: "Begin the journey",
@@ -827,13 +894,13 @@ export const researchWorld = {
       id: "entry",
       label: "Entry",
       title: "From Signals to Support",
-      body: "A visual journey through how I connect sensing, interpretation, and empathic intervention in everyday mental wellbeing research.",
+      body: "A visual journey through how I connect sensing, interpretation, and adaptive support in everyday mental wellbeing research.",
     },
     {
       id: "signals",
       label: "Signals Garden",
       title: "Everyday traces",
-      body: "Signals are the everyday traces people already leave behind: micro-interactions, conversational patterns, and lightweight self-reports.",
+      body: "Signals are the everyday traces people already leave behind — micro-interactions, conversational patterns, and lightweight self-reports — that become inputs for mechanism-aware support.",
       projectIds: ["mindful-scroll", "cosim", "harmony-forum"],
       focusCards: [
         {
@@ -846,24 +913,24 @@ export const researchWorld = {
         },
         {
           title: "Daily self-reports",
-          body: "EMA, stress, anxiety, sleep, and mood check-ins.",
+          body: "EMA and check-ins where stress and anxiety appear as key wellbeing outcomes among broader state cues.",
         },
       ],
     },
     {
       id: "states",
       label: "States Observatory",
-      title: "Emotional understanding",
-      body: "I study how these signals can reveal stress, anxiety, emotional shifts, readiness, resistance, and self-disclosure.",
+      title: "States & mechanisms",
+      body: "I study how these signals can reveal states, needs, readiness, resistance, and decision mechanisms — not only prediction, but interpretable pathways to support.",
       projectIds: ["mindful-scroll", "misinfo-sharing"],
       focusCards: [
         {
-          title: "Stress & anxiety",
-          body: "Everyday, subclinical emotional burden across contexts.",
+          title: "Wellbeing outcomes",
+          body: "Stress and anxiety as key outcomes within everyday, subclinical wellbeing contexts.",
         },
         {
-          title: "Mood shifts",
-          body: "Short-term emotional changes and contextual triggers.",
+          title: "Decision mechanisms",
+          body: "How people share, skip, report, or act in online and conversational settings.",
         },
         {
           title: "Readiness & resistance",
@@ -878,8 +945,8 @@ export const researchWorld = {
     {
       id: "support",
       label: "Support Sanctuary",
-      title: "Safe intervention",
-      body: "The goal is not only prediction, but support: helping people translate reflection into safe, sustainable action.",
+      title: "Adaptive support",
+      body: "The goal is not only prediction, but support for reflection, self-regulation, and supportive online behavior — safely and sustainably.",
       projectIds: ["mindful-scroll", "cosim"],
       focusCards: [
         {
@@ -895,16 +962,16 @@ export const researchWorld = {
           body: "Autonomy, dependency risk, and long-term wellbeing.",
         },
         {
-          title: "Conversational support",
-          body: "Empathic but not over-attached interaction.",
+          title: "Supportive interaction",
+          body: "Empathic but not over-attached conversational and platform support.",
         },
       ],
     },
     {
       id: "loop",
       label: "Closed-loop Core",
-      title: "Sustaining wellbeing",
-      body: "Signals, states, and support continuously feed back through one system — sensing, interpreting, intervening, and sustaining everyday mental wellbeing over time.",
+      title: "Sustaining support",
+      body: "Signals, states, and support continuously feed back through one system — sensing, interpreting, intervening, and sustaining safe adaptive support over time.",
     },
   ] as ResearchWorldZone[],
 } as const;
@@ -960,7 +1027,7 @@ export const journey: JourneyStop[] = [
     period: "2026 – 2027",
     title: "Research Fellow, HII Lab, Duke Kunshan University",
     detail:
-      "Leading Mindful-Scroll in three stages: dialogue-derived mental-state signals and modeling pipeline, SFV micro-interaction wellbeing modeling, then self-reflection intervention design for high-stress / high-anxiety use.",
+      "Leading Mindful-Scroll in three stages: dialogue-derived wellbeing signals and modeling pipeline, SFV micro-interaction wellbeing-state modeling, then self-reflection intervention design — a first step toward multimodal everyday sensing.",
   },
   {
     place: "Hong Kong, China",
@@ -982,72 +1049,69 @@ export type NewsItem = {
 
 export const news: NewsItem[] = [
   {
+    date: "2027 Target",
+    title: "Targeting CHI 2027",
+    text: "Mindful-Scroll self-reflection intervention plus Misinformation Sharing behavioral experiment (data collection underway).",
+    tag: "Manuscript",
+    featured: true,
+  },
+  {
     date: "Aug 2026",
-    title: "DMH Conference Book",
-    text: "Planning a full paper on SFV micro-interaction signals for everyday stress and anxiety modeling — Springer conference book deadline August 31.",
+    title: "Writing DMH Book chapter",
+    text: "SFV micro-interaction signals for everyday wellbeing-state modeling, with stress and anxiety as key outcomes — Springer conference book deadline August 31.",
     tag: "Manuscript",
+    featured: true,
   },
   {
     date: "Jul 2026",
-    title: "HarmonyOS Forum Study",
-    text: "Started an exploratory study of the Huawei HarmonyOS developer forum: crawl posts and comments, run topic modeling, and select research-ready themes around help-seeking and tooling.",
+    title: "Submitting to IP&MC",
+    text: "Mindful-Scroll evening dialogue logs, reflective-signal dataset, and modeling pipeline — targeting the July 31 deadline.",
+    tag: "Manuscript",
+    featured: true,
+  },
+  {
+    date: "Jul 2026",
+    title: "Started HarmonyOS forum study",
+    text: "Exploratory crawl of Huawei HarmonyOS developer forum posts and comments with topic modeling to select research-ready themes around help-seeking and tooling (Tsinghua Pervasive HCI Group).",
     tag: "Role",
   },
   {
-    date: "Jul 2026",
-    title: "IP&MC 2026",
-    text: "Preparing a Mindful-Scroll manuscript on evening dialogue logs, a reflective-signal dataset, and the modeling pipeline — targeting the July 31 deadline.",
-    tag: "Manuscript",
-  },
-  {
     date: "Jun 2026",
-    title: "Summer Research Intern",
-    text: "Joined Studio for Narrative Spaces at CityU under Ray LC and began the Misinformation Sharing project (study platform, stimulus design, and data collection).",
+    title: "Joined Ray LC lab",
+    text: "Summer Research Intern at CityU Studio for Narrative Spaces — Misinformation Sharing project (study platform, stimulus design, and data collection).",
     tag: "Role",
     featured: true,
   },
   {
     date: "Jun 2026",
-    title: "DMH 2026",
-    text: "Presenting Mindful-Scroll at the Digital Mental Health International Conference in Hong Kong.",
+    title: "Presented Mindful-Scroll at DMH",
+    text: "Talk at the Digital Mental Health International Conference in Hong Kong.",
     tag: "Talk",
-    featured: true,
-  },
-  {
-    date: "2026",
-    title: "UIST 2026",
-    text: "CoSim short paper (with the Tsinghua Pervasive HCI Group) is under review.",
-    tag: "Paper",
-    featured: true,
   },
   {
     date: "Feb 2026",
-    title: "HII Lab",
+    title: "Joined HII Lab",
     text: "Started as a full-time Research Fellow at Duke Kunshan University, advised by Prof. Yucheng Jin.",
     tag: "Role",
-    featured: true,
   },
   {
     date: "Dec 2025",
-    text: "Joined Tsinghua University's Pervasive HCI Group as a Research Intern.",
+    title: "Joined Tsinghua Pervasive HCI",
+    text: "Research Intern in the Pervasive HCI Group at Tsinghua University.",
     tag: "Role",
   },
   {
     date: "2025",
-    text: "Received Australia's Global University Award at UNSW.",
+    title: "Received UNSW award",
+    text: "Australia's Global University Award at UNSW.",
     tag: "Award",
-  },
-  {
-    date: "2027 Target",
-    text: "Targeting CHI 2027 with a Mindful-Scroll self-reflection intervention paper and a Misinformation Sharing behavioral experiment (data collection underway).",
-    tag: "Manuscript",
   },
 ];
 
 export const nav = [
   { id: "about", label: "About" },
   { id: "news", label: "News" },
-  { id: "research", label: "Research" },
+  { id: "research", label: "Vision" },
   { id: "projects", label: "Projects" },
   { id: "publications", label: "Publications" },
   { id: "journey", label: "Journey" },
