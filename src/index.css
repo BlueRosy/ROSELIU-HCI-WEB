@@ -663,6 +663,89 @@ body {
   word-break: break-all;
 }
 
+/* Avatar + faint sketch rose (phone About) */
+.about-mobile-hero {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.about-mobile-sketch-rose {
+  position: absolute;
+  /* Sit on the avatar’s right — mostly in-frame, faintly behind the photo edge */
+  left: 58%;
+  top: -0.15rem;
+  z-index: 0;
+  width: clamp(5.5rem, 26vw, 6.85rem);
+  height: auto;
+  color: color-mix(in srgb, var(--color-primary-deep) 52%, var(--color-sage) 48%);
+  opacity: 0.4;
+  pointer-events: none;
+  transform-origin: 35% 65%;
+}
+
+.about-mobile-hero .about-avatar {
+  position: relative;
+  z-index: 1;
+}
+
+.about-mobile-sketch-rose__stroke {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .about-mobile-sketch-rose {
+    animation: about-sketch-rose-breathe 9s ease-in-out infinite;
+  }
+
+  .about-mobile-sketch-rose__stroke {
+    stroke-dasharray: 180;
+    stroke-dashoffset: 180;
+    animation: about-sketch-rose-draw 2.4s ease forwards;
+  }
+
+  .about-mobile-sketch-rose__stroke--stem {
+    animation-delay: 0.05s;
+  }
+
+  .about-mobile-sketch-rose__stroke--leaf {
+    animation-delay: 0.45s;
+  }
+
+  .about-mobile-sketch-rose__stroke--petal {
+    animation-delay: 0.75s;
+  }
+
+  .about-mobile-sketch-rose__stroke--core {
+    animation-delay: 1.2s;
+  }
+
+  .about-mobile-sketch-rose__stroke--mark {
+    animation-delay: 1.45s;
+  }
+}
+
+@keyframes about-sketch-rose-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes about-sketch-rose-breathe {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-4deg);
+    opacity: 0.36;
+  }
+
+  50% {
+    transform: translate3d(2px, -3px, 0) rotate(-1deg);
+    opacity: 0.5;
+  }
+}
+
 .about-body {
   font-size: 0.875rem;
   line-height: 1.65;

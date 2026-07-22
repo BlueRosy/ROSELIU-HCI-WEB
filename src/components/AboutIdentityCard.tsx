@@ -1,23 +1,27 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Code2, Compass, Link as LinkIcon, Mail, Sparkles } from "lucide-react";
 import { about, profile } from "../content/site";
+import MobileSketchRose from "./botanical/MobileSketchRose";
 
 /** @param compact — mobile profile header (centered, no card). */
 export default function AboutIdentityCard({ compact = false }: { compact?: boolean }) {
   if (compact) {
     return (
       <div className="about-mobile-profile text-left">
-        <div className="about-avatar about-avatar--mobile h-44 w-44">
-          <div className="about-avatar__halo" aria-hidden="true" />
-          <div className="about-avatar__ring">
-            <div className="about-avatar__photo">
-              <img
-                src={profile.aboutPhoto}
-                alt={`Portrait of ${profile.name}`}
-                className="h-full w-full object-cover object-[center_22%]"
-              />
+        <div className="about-mobile-hero">
+          <div className="about-avatar about-avatar--mobile h-44 w-44">
+            <div className="about-avatar__halo" aria-hidden="true" />
+            <div className="about-avatar__ring">
+              <div className="about-avatar__photo">
+                <img
+                  src={profile.aboutPhoto}
+                  alt={`Portrait of ${profile.name}`}
+                  className="h-full w-full object-cover object-[center_22%]"
+                />
+              </div>
             </div>
           </div>
+          <MobileSketchRose />
         </div>
 
         <div className="mt-4 flex items-center gap-3">
