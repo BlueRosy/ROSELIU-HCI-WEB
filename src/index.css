@@ -592,10 +592,75 @@ body {
   color: color-mix(in srgb, var(--color-ink) 92%, var(--color-slate));
 }
 
-.about-intro--mobile {
-  max-width: none;
-  font-size: 0.98rem;
-  line-height: 1.68;
+/*
+ * Mobile About — single calm column (md:hidden story).
+ * One body voice; no pullquote / competing display sizes.
+ */
+.about-mobile-story {
+  max-width: 36rem;
+}
+
+.about-mobile-greeting {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
+
+.about-mobile-meta {
+  margin-top: 0.35rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--color-slate);
+}
+
+.about-mobile-copy {
+  margin-top: 1.05rem;
+}
+
+.about-mobile-copy > p {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--color-ink) 88%, var(--color-slate));
+}
+
+.about-mobile-copy > p + p {
+  margin-top: 0.95rem;
+}
+
+.about-mobile-inline-label {
+  font-weight: 600;
+  color: var(--color-primary-deep);
+}
+
+.about-mobile-methods {
+  margin-top: 1.35rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-border) 85%, transparent);
+}
+
+.about-mobile-ctas {
+  margin-top: 1.35rem;
+}
+
+.about-chip--mobile {
+  font-size: 0.6875rem !important;
+  padding: 0.18rem 0.62rem !important;
+}
+
+.about-name--mobile {
+  font-size: 1.55rem;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+.about-mobile-email {
+  font-size: 0.75rem;
+  letter-spacing: 0.01em;
+  word-break: break-all;
 }
 
 .about-body {
@@ -749,21 +814,6 @@ body {
   font-weight: 600;
   letter-spacing: 0.02em;
   color: var(--color-primary-deep);
-}
-
-.about-name--mobile {
-  font-size: 1.65rem;
-  line-height: 1.15;
-}
-
-.about-mobile-email {
-  word-break: break-all;
-}
-
-@media (min-width: 400px) {
-  .about-name--mobile {
-    font-size: 1.8rem;
-  }
 }
 
 .about-explore-link {
@@ -945,20 +995,12 @@ body {
   height: var(--avatar-size);
 }
 
-/* Mobile avatar — set width/height directly (custom props alone were easy to override) */
+/* Mobile avatar — slightly smaller so the story column stays primary */
 .about-avatar.about-avatar--mobile {
-  --avatar-size: 13rem;
-  --ring-width: 2.5px;
-  width: 13rem;
-  height: 13rem;
-}
-
-@media (min-width: 640px) {
-  .about-avatar.about-avatar--mobile {
-    --avatar-size: 15rem;
-    width: 15rem;
-    height: 15rem;
-  }
+  --avatar-size: 11rem;
+  --ring-width: 2.25px;
+  width: 11rem;
+  height: 11rem;
 }
 
 /* Desktop profile card avatar — fill the card more confidently */

@@ -7,7 +7,7 @@ export default function AboutIdentityCard({ compact = false }: { compact?: boole
   if (compact) {
     return (
       <div className="about-mobile-profile text-left">
-        <div className="about-avatar about-avatar--mobile h-52 w-52 sm:h-60 sm:w-60">
+        <div className="about-avatar about-avatar--mobile h-44 w-44">
           <div className="about-avatar__halo" aria-hidden="true" />
           <div className="about-avatar__ring">
             <div className="about-avatar__photo">
@@ -20,40 +20,40 @@ export default function AboutIdentityCard({ compact = false }: { compact?: boole
           </div>
         </div>
 
-        <div className="mt-3.5 flex items-center gap-3">
+        <div className="mt-4 flex items-center gap-3">
           <h1 className="about-name about-name--mobile min-w-0 flex-1">{profile.name}</h1>
-          <div className="flex shrink-0 items-center gap-3.5">
+          <div className="flex shrink-0 items-center gap-3">
             <a
               href={`mailto:${profile.email}`}
-              className="text-slate transition hover:text-primary-deep"
+              className="text-slate/80 transition hover:text-primary-deep"
               aria-label="Email"
             >
-              <Mail size={18} />
+              <Mail size={17} />
             </a>
             <a
               href={profile.socials.github}
               target="_blank"
               rel="noreferrer"
-              className="text-slate transition hover:text-primary-deep"
+              className="text-slate/80 transition hover:text-primary-deep"
               aria-label="GitHub"
             >
-              <Code2 size={18} />
+              <Code2 size={17} />
             </a>
             <a
               href={profile.socials.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="text-slate transition hover:text-primary-deep"
+              className="text-slate/80 transition hover:text-primary-deep"
               aria-label="LinkedIn"
             >
-              <LinkIcon size={18} />
+              <LinkIcon size={17} />
             </a>
           </div>
         </div>
 
         <a
           href={`mailto:${profile.email}`}
-          className="about-mobile-email mt-1.5 block font-mono text-[12px] text-primary-deep/90"
+          className="about-mobile-email mt-1.5 block text-primary-deep/85"
         >
           {profile.email}
         </a>

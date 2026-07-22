@@ -574,6 +574,11 @@ export const currentLens = [
 export const about = {
   intro:
     "I study how users\u2019 digital signals, such as conversations and behavior, reveal emotional needs, and I build closed-loop systems that turn those signals into human-centered mental health support.",
+  /** Mobile About only — warm greeting under the formal name. */
+  mobileGreeting: "Hi, I\u2019m Rose.",
+  /** Mobile About only — closes the intro without repeating the desktop pullquote. */
+  mobileGoal:
+    "My goal is to create data-driven, human-centered systems for everyday mental wellbeing \u2014 timely, adaptive, and safety-aware.",
   lookingForward:
     "From current dialogue and behavioral signals, I want to move toward multimodal everyday sensing, adding contextual and lightweight physiological cues for adaptive, safety-aware support.",
   /** Kept for compatibility; homepage no longer renders a second interest paragraph. */

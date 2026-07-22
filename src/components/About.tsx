@@ -1,4 +1,3 @@
-import { Compass } from "lucide-react";
 import { about, hero, profile } from "../content/site";
 import AboutIdentityCard from "./AboutIdentityCard";
 import { Chip, Reveal } from "./primitives";
@@ -7,7 +6,7 @@ function AboutCtas({ compact }: { compact?: boolean }) {
   return (
     <div
       className={`flex flex-wrap items-center ${
-        compact ? "gap-x-4 gap-y-2" : "gap-x-4 gap-y-2 md:gap-x-5"
+        compact ? "gap-x-5 gap-y-2" : "gap-x-4 gap-y-2 md:gap-x-5"
       }`}
     >
       <a
@@ -62,38 +61,37 @@ function AboutStoryDesktop() {
   );
 }
 
+/** Mobile-only: greeting + one calm reading column (no pullquote). */
 function AboutStoryMobile() {
   return (
-    <div className="about-mobile-story about-stack mt-5 text-left">
-      <p className="about-role">{profile.role}</p>
+    <div className="about-mobile-story mt-5 text-left">
+      <p className="about-mobile-greeting">{about.mobileGreeting}</p>
+      <p className="about-mobile-meta">{profile.role}</p>
 
-      <div className="about-pullquote">
-        <p className="about-headline">{hero.headline}</p>
-        <p className="about-subhead mt-1.5">{hero.headlineSub}</p>
-      </div>
-
-      <p className="about-intro about-intro--mobile">{about.intro}</p>
-
-      <div>
-        <p className="about-label flex items-center gap-1.5 text-primary-deep">
-          <Compass size={12} className="shrink-0" aria-hidden />
-          Looking forward
+      <div className="about-mobile-copy">
+        <p>
+          {about.intro} {about.mobileGoal}
         </p>
-        <p className="about-body mt-1.5">{about.lookingForward}</p>
+        <p>
+          <span className="about-mobile-inline-label">Looking forward. </span>
+          {about.lookingForward}
+        </p>
       </div>
 
-      <div>
-        <p className="about-label font-mono tracking-[0.14em] text-slate">Methods</p>
-        <div className="mt-2 flex flex-wrap gap-1.5">
+      <div className="about-mobile-methods">
+        <p className="about-mobile-inline-label">Methods</p>
+        <div className="mt-2.5 flex flex-wrap gap-1.5">
           {about.methods.map((t) => (
-            <Chip key={t} tone="neutral" className="about-chip">
+            <Chip key={t} tone="neutral" className="about-chip about-chip--mobile">
               {t}
             </Chip>
           ))}
         </div>
       </div>
 
-      <AboutCtas compact />
+      <div className="about-mobile-ctas">
+        <AboutCtas compact />
+      </div>
     </div>
   );
 }
