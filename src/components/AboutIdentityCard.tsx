@@ -16,7 +16,7 @@ export default function AboutIdentityCard({ compact = false }: { compact?: boole
                 <img
                   src={profile.aboutPhoto}
                   alt={`Portrait of ${profile.name}`}
-                  className="h-full w-full object-cover object-[center_22%]"
+                  className="about-avatar__img h-full w-full object-cover"
                 />
               </div>
             </div>
@@ -76,7 +76,7 @@ export default function AboutIdentityCard({ compact = false }: { compact?: boole
               <img
                 src={profile.aboutPhoto}
                 alt={`Portrait of ${profile.name}`}
-                className="h-full w-full object-cover object-[center_22%]"
+                className="about-avatar__img h-full w-full object-cover"
               />
             </div>
           </div>

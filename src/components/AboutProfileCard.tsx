@@ -13,7 +13,7 @@ export default function AboutProfileCard() {
               <img
                 src={profile.aboutPhoto}
                 alt={`Portrait of ${profile.name}`}
-                className="h-full w-full object-cover object-[center_22%]"
+                className="about-avatar__img h-full w-full object-cover"
               />
             </div>
           </div>

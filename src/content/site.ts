@@ -13,7 +13,7 @@ export const profile = {
   photo: "/Rose-PersonalImage/Rose1.jpg",
   heroPhoto: "/Rose-PersonalImage/Rose3.jpg",
   heroArt: "/Rose-PersonalImage/Rose-3D.png",
-  aboutPhoto: "/Rose-PersonalImage/Rose.2.jpg",
+  aboutPhoto: "/Rose-PersonalImage/rose-columbia1.jpg",
   heroMode: "illustration" as const,
   heroIllustration: "/Rose-PersonalImage/h5.png",
   avatar3d: "/Rose-PersonalImage/chibi-reading.glb",

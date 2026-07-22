@@ -1109,6 +1109,14 @@ body {
   background: var(--color-surface);
 }
 
+/* Columbia portrait: face sits lower in frame — zoom in and bias down */
+.about-avatar__img {
+  object-fit: cover;
+  object-position: center 72%;
+  transform: scale(1.55);
+  transform-origin: center 70%;
+}
+
 @keyframes about-ring-pulse {
 
   0%,
