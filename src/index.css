@@ -350,6 +350,7 @@ body {
   pointer-events: none;
   position: absolute;
   inset: 0;
+  z-index: 0;
   background:
     radial-gradient(ellipse 55% 45% at 18% 28%, color-mix(in srgb, var(--color-primary) 10%, transparent), transparent 70%),
     radial-gradient(ellipse 45% 40% at 88% 62%, color-mix(in srgb, var(--color-sage) 8%, transparent), transparent 68%);
@@ -360,7 +361,13 @@ body {
   pointer-events: none;
   position: absolute;
   inset: -8% -5% 10%;
+  z-index: 0;
   overflow: hidden;
+}
+
+.about-section > .relative {
+  position: relative;
+  z-index: 1;
 }
 
 .about-brush__stroke {
@@ -370,6 +377,22 @@ body {
   filter: blur(28px);
   opacity: 0.55;
   mix-blend-mode: multiply;
+}
+
+/* Phone: multiply wash sits under the open avatar and looks muddy — soften it */
+@media (max-width: 767px) {
+  .about-brush__stroke {
+    mix-blend-mode: normal;
+    opacity: 0.28;
+  }
+
+  .about-brush__stroke--b {
+    opacity: 0.22;
+  }
+
+  .about-brush__stroke--c {
+    opacity: 0.18;
+  }
 }
 
 .about-brush__stroke--a {
@@ -1048,6 +1071,18 @@ body {
   --ring-width: 2.25px;
   width: 10rem;
   height: 10rem;
+  isolation: isolate;
+  z-index: 2;
+}
+
+/* Keep mobile portrait as bright as the desktop card version */
+.about-avatar--mobile .about-avatar__photo {
+  background: #fffcf7;
+  box-shadow: 0 0 0 1px color-mix(in srgb, white 55%, transparent);
+}
+
+.about-avatar--mobile .about-avatar__img {
+  filter: brightness(1.08) contrast(1.04) saturate(1.04);
 }
 
 /* Desktop profile card avatar — fill the card more confidently */
@@ -1109,16 +1144,12 @@ body {
   background: var(--color-surface);
 }
 
-/*
- * About portrait crop (rose-columbia1.jpg)
- * Person sits a bit left in the source after zoom — nudge right so they land
- * in the middle of the circle.
- */
+/* Columbia portrait: face sits lower in frame — zoom in and bias down */
 .about-avatar__img {
   object-fit: cover;
-  object-position: 22% 68%;
-  transform: scale(1.65) translate(14%, -8%);
-  transform-origin: center center;
+  object-position: center 72%;
+  transform: scale(1.55);
+  transform-origin: center 70%;
 }
 
 @keyframes about-ring-pulse {
