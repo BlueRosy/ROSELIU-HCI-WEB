@@ -1109,12 +1109,18 @@ body {
   background: var(--color-surface);
 }
 
-/* Columbia portrait: face sits lower in frame — zoom in and bias down */
+/*
+ * About portrait crop (rose-columbia1.jpg) — saved baseline that looked good:
+ *   object-position: center 72%;
+ *   transform: scale(1.55);
+ *   transform-origin: center 70%;
+ * Nudge: shift subject slightly right in the circle (position X < 50%).
+ */
 .about-avatar__img {
   object-fit: cover;
-  object-position: center 72%;
+  object-position: 43% 72%;
   transform: scale(1.55);
-  transform-origin: center 70%;
+  transform-origin: 43% 70%;
 }
 
 @keyframes about-ring-pulse {
