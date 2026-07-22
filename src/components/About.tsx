@@ -97,7 +97,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="about-section section-anchor relative overflow-hidden pt-20 pb-8 sm:pt-24 sm:pb-9 md:pt-28 md:pb-10 lg:pt-32 lg:pb-12 xl:pt-36"
+      className="about-section section-anchor relative isolate overflow-hidden pt-20 pb-8 sm:pt-24 sm:pb-9 md:pt-28 md:pb-10 lg:pt-32 lg:pb-12 xl:pt-36"
     >
       <div className="about-section__glow" aria-hidden="true" />
       <div className="about-brush" aria-hidden="true">

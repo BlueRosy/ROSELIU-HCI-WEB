@@ -379,19 +379,14 @@ body {
   mix-blend-mode: multiply;
 }
 
-/* Phone: multiply wash sits under the open avatar and looks muddy — soften it */
+/* Phone: brush multiply darkens the open avatar — keep atmosphere off the hero */
 @media (max-width: 767px) {
-  .about-brush__stroke {
-    mix-blend-mode: normal;
-    opacity: 0.28;
+  .about-brush {
+    display: none;
   }
 
-  .about-brush__stroke--b {
-    opacity: 0.22;
-  }
-
-  .about-brush__stroke--c {
-    opacity: 0.18;
+  .about-section__glow {
+    opacity: 0.45;
   }
 }
 
@@ -1075,14 +1070,19 @@ body {
   z-index: 2;
 }
 
-/* Keep mobile portrait as bright as the desktop card version */
+/*
+ * Mobile portrait lift: columbia1 is backlit; without the desktop glass card
+ * it reads muddy. Open shadows + brightness to match the card version.
+ */
 .about-avatar--mobile .about-avatar__photo {
-  background: #fffcf7;
-  box-shadow: 0 0 0 1px color-mix(in srgb, white 55%, transparent);
+  background: #fffaf3;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, white 70%, transparent),
+    0 0 18px color-mix(in srgb, white 55%, transparent);
 }
 
 .about-avatar--mobile .about-avatar__img {
-  filter: brightness(1.08) contrast(1.04) saturate(1.04);
+  filter: brightness(1.28) contrast(1.06) saturate(1.1);
 }
 
 /* Desktop profile card avatar — fill the card more confidently */
