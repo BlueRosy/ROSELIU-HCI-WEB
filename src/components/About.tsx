@@ -61,13 +61,10 @@ function AboutStoryDesktop() {
   );
 }
 
-/** Mobile-only: greeting + one calm reading column (no pullquote). */
+/** Mobile-only: calm reading column (greeting/role live beside the avatar). */
 function AboutStoryMobile() {
   return (
     <div className="about-mobile-story mt-5 text-left">
-      <p className="about-mobile-greeting">{about.mobileGreeting}</p>
-      <p className="about-mobile-meta">{profile.role}</p>
-
       <div className="about-mobile-copy">
         <p>
           {about.intro} {about.mobileGoal}

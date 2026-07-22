@@ -600,23 +600,65 @@ body {
   max-width: 36rem;
 }
 
-.about-mobile-greeting {
+.about-mobile-hero-row {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-width: 0;
+}
+
+.about-mobile-typewriter {
+  min-width: 0;
+  flex: 1;
+  min-height: 3.6rem;
+}
+
+.about-mobile-typewriter__line {
+  margin: 0;
   font-family: var(--font-serif);
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   line-height: 1.35;
   letter-spacing: -0.01em;
   color: var(--color-ink);
 }
 
-.about-mobile-meta {
-  margin-top: 0.35rem;
-  font-size: 0.8125rem;
-  line-height: 1.5;
+.about-mobile-typewriter__line + .about-mobile-typewriter__line {
+  margin-top: 0.4rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  letter-spacing: 0;
   color: var(--color-slate);
 }
 
+.about-mobile-typewriter__line--active {
+  min-height: 1.35em;
+}
+
+.about-mobile-typewriter__cursor {
+  display: inline-block;
+  width: 0.08em;
+  height: 1em;
+  margin-left: 0.08em;
+  vertical-align: -0.12em;
+  background: color-mix(in srgb, var(--color-primary-deep) 75%, transparent);
+  animation: about-typewriter-blink 0.9s steps(1) infinite;
+}
+
+@keyframes about-typewriter-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
 .about-mobile-copy {
-  margin-top: 1.05rem;
+  margin-top: 0.15rem;
 }
 
 .about-mobile-copy > p {
@@ -1002,10 +1044,10 @@ body {
 
 /* Mobile avatar — slightly smaller so the story column stays primary */
 .about-avatar.about-avatar--mobile {
-  --avatar-size: 11rem;
+  --avatar-size: 10rem;
   --ring-width: 2.25px;
-  width: 11rem;
-  height: 11rem;
+  width: 10rem;
+  height: 10rem;
 }
 
 /* Desktop profile card avatar — fill the card more confidently */
