@@ -1110,17 +1110,15 @@ body {
 }
 
 /*
- * About portrait crop (rose-columbia1.jpg) — saved baseline that looked good:
- *   object-position: center 72%;
- *   transform: scale(1.55);
- *   transform-origin: center 70%;
- * Nudge: shift subject slightly right in the circle (position X < 50%).
+ * About portrait crop (rose-columbia1.jpg)
+ * Person sits a bit left in the source after zoom — nudge right so they land
+ * in the middle of the circle.
  */
 .about-avatar__img {
   object-fit: cover;
-  object-position: 38% 72%;
-  transform: scale(1.55);
-  transform-origin: 38% 70%;
+  object-position: 22% 68%;
+  transform: scale(1.65) translate(14%, -8%);
+  transform-origin: center center;
 }
 
 @keyframes about-ring-pulse {
