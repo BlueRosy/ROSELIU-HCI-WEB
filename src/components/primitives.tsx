@@ -38,10 +38,14 @@ export function SectionHeading({
       <p className="font-mono text-xs uppercase tracking-[0.18em] text-gradient-static">
         {eyebrow}
       </p>
-      <h2 className="mt-3 font-serif text-3xl leading-tight text-ink sm:text-4xl">
+      <h2 className="mt-2.5 font-serif text-[1.65rem] leading-tight text-ink sm:mt-3 sm:text-3xl lg:text-[2.15rem] xl:text-4xl">
         {title}
       </h2>
-      {intro && <p className="mt-4 text-base leading-relaxed text-slate">{intro}</p>}
+      {intro && (
+        <p className="mt-3 text-sm leading-relaxed text-slate sm:mt-4 sm:text-[15px] lg:text-base">
+          {intro}
+        </p>
+      )}
     </div>
   );
 }
@@ -49,9 +53,11 @@ export function SectionHeading({
 export function Chip({
   children,
   tone = "neutral",
+  className = "",
 }: {
   children: ReactNode;
   tone?: "neutral" | "primary" | "accent";
+  className?: string;
 }) {
   const tones = {
     neutral: "border-border bg-surface/70 text-slate",
@@ -61,7 +67,7 @@ export function Chip({
   } as const;
   return (
     <span
-      className={`inline-flex items-center rounded-full border px-3 py-1 font-mono text-xs ${tones[tone]}`}
+      className={`inline-flex items-center rounded-full border px-3 py-1 font-mono text-xs ${tones[tone]} ${className}`}
     >
       {children}
     </span>

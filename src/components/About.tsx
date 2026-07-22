@@ -1,96 +1,99 @@
+import { Compass } from "lucide-react";
 import { about, hero, profile } from "../content/site";
-import AboutDirectionCard from "./AboutDirectionCard";
 import AboutIdentityCard from "./AboutIdentityCard";
 import { Chip, Reveal } from "./primitives";
 
-function AboutStoryDesktop() {
+function AboutCtas({ compact }: { compact?: boolean }) {
   return (
-    <>
-      <p className="font-mono text-xs uppercase tracking-[0.18em] text-gradient-static">About</p>
-      <h1 className="mt-3 font-serif text-3xl leading-tight text-ink sm:text-4xl lg:text-[2.75rem]">
-        {profile.name}
-      </h1>
-      <p className="mt-3 text-[15px] leading-relaxed text-slate sm:text-base">{profile.role}</p>
-
-      <div className="mt-8 border-l-2 border-primary/35 pl-5">
-        <p className="font-serif text-2xl leading-snug text-ink sm:text-[1.85rem]">{hero.headline}</p>
-        <p className="mt-2 text-base leading-relaxed text-slate">{hero.headlineSub}</p>
-      </div>
-
-      <p className="about-intro mt-7">{about.intro}</p>
-
-      <div className="mt-7">
-        <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-slate">Methods</p>
-        <div className="mt-2.5 flex flex-wrap gap-2">
-          {about.methods.map((t) => (
-            <Chip key={t} tone="neutral">
-              {t}
-            </Chip>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-8 flex flex-wrap items-center gap-3">
-        <a
-          href="#research"
-          className="inline-flex items-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-white shadow-soft transition hover:bg-primary-deep"
-        >
-          View Vision
-        </a>
-        <a
-          href={profile.cv}
-          className="inline-flex items-center rounded-full border border-border bg-surface/80 px-5 py-2.5 text-sm text-ink transition hover:border-primary/30"
-        >
-          Download CV
-        </a>
-      </div>
-    </>
+    <div
+      className={`flex flex-wrap items-center ${
+        compact ? "gap-x-4 gap-y-2" : "gap-x-4 gap-y-2 md:gap-x-5"
+      }`}
+    >
+      <a
+        href={profile.cv}
+        className={`inline-flex items-center rounded-full bg-primary font-medium text-white shadow-soft transition hover:bg-primary-deep ${
+          compact
+            ? "px-4 py-2 text-[13px]"
+            : "px-4 py-2 text-[13px] md:px-5 md:py-2.5 md:text-sm"
+        }`}
+      >
+        Download CV
+      </a>
+      <a
+        href="#research"
+        className="text-[13px] font-medium text-primary-deep underline-offset-4 transition hover:underline md:text-sm"
+      >
+        View Vision
+      </a>
+    </div>
   );
 }
 
-/** Compact mobile bio — Looking forward above Methods; no Research World CTA (3D off on small screens). */
-function AboutStoryMobile() {
+function AboutStoryDesktop() {
   return (
-    <div className="about-mobile-story mt-6 text-left">
-      <p className="text-[13px] leading-relaxed text-slate">{profile.role}</p>
-
-      <p className="mt-4 font-serif text-[1.35rem] leading-snug text-ink">{hero.headline}</p>
-      <p className="mt-1.5 text-[14px] leading-relaxed text-slate">{hero.headlineSub}</p>
-
-      <p className="about-intro about-intro--mobile mt-4">{about.intro}</p>
-
-      <div className="mt-5">
-        <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-primary-deep">
-          Looking forward
-        </p>
-        <p className="mt-1.5 text-[14px] leading-relaxed text-slate">{about.lookingForward}</p>
+    <div className="about-stack">
+      <div>
+        <p className="about-label font-mono text-gradient-static tracking-[0.18em]">About</p>
+        <h1 className="about-name mt-2 md:mt-2.5 lg:mt-3">{profile.name}</h1>
+        <p className="about-role mt-2 md:mt-2.5">{profile.role}</p>
       </div>
 
-      <div className="mt-5">
-        <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-slate">Methods</p>
-        <div className="mt-2 flex flex-wrap gap-1.5">
+      <div className="about-pullquote">
+        <p className="about-headline">{hero.headline}</p>
+        <p className="about-subhead mt-1.5 md:mt-2">{hero.headlineSub}</p>
+      </div>
+
+      <p className="about-intro">{about.intro}</p>
+
+      <div>
+        <p className="about-label font-mono tracking-[0.14em] text-slate">Methods</p>
+        <div className="mt-2 flex flex-wrap gap-1.5 md:mt-2.5 md:gap-2">
           {about.methods.map((t) => (
-            <Chip key={t} tone="neutral">
+            <Chip key={t} tone="neutral" className="about-chip">
               {t}
             </Chip>
           ))}
         </div>
       </div>
 
-      <div className="mt-5 flex flex-wrap items-center gap-2.5">
-        <a
-          href="#research"
-          className="inline-flex items-center rounded-full bg-primary px-4 py-2 text-[13px] font-medium text-white shadow-soft transition hover:bg-primary-deep"
-        >
-          View Vision
-        </a>
-        <a
-          href={profile.cv}
-          className="inline-flex items-center rounded-full border border-border bg-surface/80 px-4 py-2 text-[13px] text-ink transition hover:border-primary/30"
-        >
-          Download CV
-        </a>
+      <AboutCtas />
+    </div>
+  );
+}
+
+function AboutStoryMobile() {
+  return (
+    <div className="about-mobile-story about-stack mt-5 text-left">
+      <p className="about-role">{profile.role}</p>
+
+      <div className="about-pullquote">
+        <p className="about-headline">{hero.headline}</p>
+        <p className="about-subhead mt-1.5">{hero.headlineSub}</p>
       </div>
+
+      <p className="about-intro about-intro--mobile">{about.intro}</p>
+
+      <div>
+        <p className="about-label flex items-center gap-1.5 text-primary-deep">
+          <Compass size={12} className="shrink-0" aria-hidden />
+          Looking forward
+        </p>
+        <p className="about-body mt-1.5">{about.lookingForward}</p>
+      </div>
+
+      <div>
+        <p className="about-label font-mono tracking-[0.14em] text-slate">Methods</p>
+        <div className="mt-2 flex flex-wrap gap-1.5">
+          {about.methods.map((t) => (
+            <Chip key={t} tone="neutral" className="about-chip">
+              {t}
+            </Chip>
+          ))}
+        </div>
+      </div>
+
+      <AboutCtas compact />
     </div>
   );
 }
@@ -99,28 +102,32 @@ export default function About() {
   return (
     <section
       id="about"
-      className="about-section section-anchor relative overflow-hidden pt-24 pb-12 sm:pt-28 sm:pb-14 lg:pt-36 lg:pb-20"
+      className="about-section section-anchor relative overflow-hidden pt-20 pb-8 sm:pt-24 sm:pb-9 md:pt-28 md:pb-10 lg:pt-32 lg:pb-12 xl:pt-36"
     >
       <div className="about-section__glow" aria-hidden="true" />
+      <div className="about-brush" aria-hidden="true">
+        <span className="about-brush__stroke about-brush__stroke--a" />
+        <span className="about-brush__stroke about-brush__stroke--b" />
+        <span className="about-brush__stroke about-brush__stroke--c" />
+      </div>
 
       <div className="relative mx-auto max-w-5xl px-5">
-        <div className="lg:hidden">
+        {/* Phone only (<768px) */}
+        <div className="md:hidden">
           <Reveal>
             <AboutIdentityCard compact />
             <AboutStoryMobile />
           </Reveal>
         </div>
 
-        <div className="hidden gap-10 lg:grid lg:grid-cols-[1.25fr_1fr] lg:items-start">
-          <Reveal>
-            <div>
-              <AboutStoryDesktop />
-            </div>
+        {/* Compact pair, centered in the shared max-w shell (don't stretch → no huge middle gap) */}
+        <div className="about-desktop-layout hidden md:flex md:items-start md:justify-center">
+          <Reveal className="about-story min-w-0">
+            <AboutStoryDesktop />
           </Reveal>
-          <Reveal delay={0.06}>
-            <div className="flex flex-col gap-4 lg:sticky lg:top-24">
+          <Reveal delay={0.06} className="about-profile-rail shrink-0">
+            <div className="md:sticky md:top-24">
               <AboutIdentityCard />
-              <AboutDirectionCard />
             </div>
           </Reveal>
         </div>

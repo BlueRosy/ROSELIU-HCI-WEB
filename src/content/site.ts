@@ -575,7 +575,7 @@ export const about = {
   intro:
     "I study how users\u2019 digital signals, such as conversations and behavior, reveal emotional needs, and I build closed-loop systems that turn those signals into human-centered mental health support.",
   lookingForward:
-    "I aim to extend this work toward multimodal everyday sensing — integrating conversational, behavioral, contextual, and lightweight physiological signals to design adaptive, safety-aware support systems.",
+    "From current dialogue and behavioral signals, I want to move toward multimodal everyday sensing, adding contextual and lightweight physiological cues for adaptive, safety-aware support.",
   /** Kept for compatibility; homepage no longer renders a second interest paragraph. */
   researchInterest: "",
   /** Kept for compatibility; About no longer renders Focus chips. */

@@ -67,25 +67,26 @@
 **文件：** `src/content/site.ts` → `about` + `hero` + `interests` + `currentLens`  
 **组件：** `About.tsx` · `AboutIdentityCard.tsx` · `AboutLookingForward.tsx` · `AboutWorldPortal.tsx`
 
-**布局：** 左栏研究叙事 · 右栏两卡（人物信息 + Looking forward/Explore 合并）
+**布局：** 左栏研究叙事 · 右栏一张 Profile 卡（含 Looking forward）
 
 ### 3.1 左栏
 
 | 内容 | 说明 |
 |------|------|
-| About · name · role | 身份 |
-| From Signals to Support + subtitle | 左侧描边 hero |
-| about.intro | Literata 衬线，略加大字号 |
+| About · name · role | 身份（桌面） |
+| From Signals to Support + subtitle | hero |
+| about.intro | |
 | Methods · View Vision · Download CV | |
 
-### 3.2 右栏（sticky，两卡，不堆三张）
+### 3.2 右栏（sticky，一卡）
 
-| 卡片 | 内容 |
+| 内容 | 说明 |
 |------|------|
-| Identity | 头像 · Seeking PhD · Email/GitHub/LinkedIn |
-| Direction | Looking forward 段落 + 内嵌 Explore Research World |
+| 头像 · Email / GitHub / LinkedIn | |
+| Looking forward 文案 | |
+| Explore Research World → | 文字链接，无嵌套小卡 |
 
-`interests` / `currentLens` 仍保留在 `site.ts`，首页 About 不再渲染。
+手机：Looking forward 仍在 Methods 上方；不显示 Explore（3D 关闭）。
 
 ---
 

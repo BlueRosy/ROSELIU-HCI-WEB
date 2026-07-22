@@ -16,7 +16,7 @@ function JourneyEntry({
       <div
         className={`flex flex-wrap items-baseline gap-x-3 gap-y-1 ${
           side === "left" ? "md:justify-end" : "md:justify-start"
-        } justify-center`}
+        }`}
       >
         <span className="font-mono text-xs text-slate">{stop.period}</span>
         <span className="font-mono text-xs text-slate/70">·</span>
@@ -41,7 +41,11 @@ function JourneyNode() {
 
 export default function Journey() {
   const timelineRef = useRef<HTMLDivElement>(null);
-  const [axis, setAxis] = useState({ nodeYs: [] as number[], width: 0, height: 0 });
+  const [axis, setAxis] = useState({
+    nodes: [] as { x: number; y: number }[],
+    width: 0,
+    height: 0,
+  });
 
   useLayoutEffect(() => {
     const root = timelineRef.current;
@@ -49,15 +53,18 @@ export default function Journey() {
 
     const measure = () => {
       const rect = root.getBoundingClientRect();
-      const nodes = root.querySelectorAll<HTMLElement>("[data-journey-node]");
-      const nodeYs = Array.from(nodes)
+      const nodeEls = root.querySelectorAll<HTMLElement>("[data-journey-node]");
+      const nodes = Array.from(nodeEls)
         .filter((node) => node.offsetParent !== null)
         .map((node) => {
-        const n = node.getBoundingClientRect();
-        return n.top + n.height / 2 - rect.top;
-      });
+          const n = node.getBoundingClientRect();
+          return {
+            x: n.left + n.width / 2 - rect.left,
+            y: n.top + n.height / 2 - rect.top,
+          };
+        });
       setAxis({
-        nodeYs,
+        nodes,
         width: rect.width,
         height: rect.height,
       });
@@ -88,7 +95,7 @@ export default function Journey() {
 
         <div ref={timelineRef} className="relative mx-auto mt-14 max-w-4xl">
           <JourneyVineAxis
-            nodeYs={axis.nodeYs}
+            nodes={axis.nodes}
             width={axis.width}
             height={axis.height}
           />
@@ -99,11 +106,12 @@ export default function Journey() {
               return (
                 <li key={stop.title} className="relative pb-12 last:pb-0">
                   <Reveal delay={i * 0.05}>
-                    <div className="flex flex-col items-center text-center md:hidden">
+                    {/* Mobile: left spine + content — vine never crosses cards */}
+                    <div className="flex items-start gap-3 text-left md:hidden">
                       <JourneyNode />
-                      <div className="relative mt-4 max-w-md overflow-hidden rounded-xl border border-border/60 bg-surface/50 p-4">
+                      <div className="relative min-w-0 flex-1 overflow-hidden rounded-xl border border-border/60 bg-surface/50 p-4">
                         <CardBotanicalAccent position="top-right" className="opacity-[0.12]" />
-                        <JourneyEntry stop={stop} side="left" />
+                        <JourneyEntry stop={stop} side="right" />
                       </div>
                     </div>
 

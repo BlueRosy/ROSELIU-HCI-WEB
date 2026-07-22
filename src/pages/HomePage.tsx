@@ -34,9 +34,14 @@ export default function HomePage() {
   }, [hash]);
 
   return (
-    <div id="top" className="relative min-h-screen">
+    <div id="top" className="relative min-h-screen overflow-x-clip">
+      <div className="page-breath" aria-hidden="true">
+        <span className="page-breath__orb page-breath__orb--a" />
+        <span className="page-breath__orb page-breath__orb--b" />
+        <span className="page-breath__orb page-breath__orb--c" />
+      </div>
       <Nav />
-      <main>
+      <main className="relative z-[1]">
         <About />
         <News />
         <Research enable3D={enable3D} />
@@ -46,7 +51,9 @@ export default function HomePage() {
         <Journey />
         <CV />
       </main>
-      <Contact />
+      <div className="relative z-[1]">
+        <Contact />
+      </div>
     </div>
   );
 }

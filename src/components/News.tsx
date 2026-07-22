@@ -72,7 +72,7 @@ export default function News() {
   const visibleCount = nearTerm.length + (expanded ? older.length : 0);
 
   return (
-    <section id="news" className="section-anchor py-24">
+    <section id="news" className="section-anchor pt-10 pb-24 sm:pt-12 lg:pt-14">
       <div className="mx-auto max-w-5xl px-5">
         <Reveal>
           <SectionHeading

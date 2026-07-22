@@ -4,6 +4,9 @@ import { ChevronDown, ExternalLink, Menu, X } from "lucide-react";
 import { nav, profile, studioHub } from "../content/site";
 import SiteLogo from "./SiteLogo";
 
+const NAV_ITEM =
+  "inline-flex h-8 items-center rounded-full px-3 text-[13px] leading-none text-slate transition hover:bg-primary/10 hover:text-primary-deep";
+
 export default function Nav({ variant = "home" }: { variant?: "home" | "subpage" }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -49,7 +52,7 @@ export default function Nav({ variant = "home" }: { variant?: "home" | "subpage"
     setMobileStudioOpen(false);
   };
 
-  const logoClass = `flex items-center gap-2.5 rounded-full px-3 py-1.5 font-serif text-base text-ink transition ${
+  const brandClass = `inline-flex h-10 items-center gap-2 rounded-full px-2.5 font-serif text-[15px] leading-none tracking-[-0.01em] text-ink transition ${
     scrolled ? "glass shadow-soft" : ""
   }`;
 
@@ -102,83 +105,75 @@ export default function Nav({ variant = "home" }: { variant?: "home" | "subpage"
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? "py-2" : "py-4"
+        scrolled ? "py-2" : "py-3"
       }`}
     >
-      <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-5">
+      <div className="mx-auto flex h-11 max-w-5xl items-center justify-between gap-3 px-5">
         {variant === "subpage" ? (
-          <Link to={homeHref} onClick={closeMenu} className={logoClass}>
+          <Link to={homeHref} onClick={closeMenu} className={brandClass}>
             <SiteLogo size="nav" />
-            {profile.name}
+            <span>{profile.name}</span>
           </Link>
         ) : (
-          <a href={homeHref} onClick={closeMenu} className={logoClass}>
+          <a href={homeHref} onClick={closeMenu} className={brandClass}>
             <SiteLogo size="nav" />
-            {profile.name}
+            <span>{profile.name}</span>
           </a>
         )}
 
-        <div className="hidden items-center gap-2 sm:flex">
-          <nav
-            className={`flex items-center gap-1 rounded-full px-2 py-1 ${
-              scrolled ? "glass shadow-soft" : ""
-            }`}
-          >
+        <div
+          className={`relative hidden h-10 items-center rounded-full px-1.5 sm:flex ${
+            scrolled ? "glass shadow-soft" : ""
+          }`}
+          ref={studioRef}
+        >
+          <nav className="flex h-full items-center gap-0.5" aria-label="Primary">
             {nav.map((item) => {
               const href = variant === "subpage" ? `/#${item.id}` : `#${item.id}`;
               return variant === "subpage" ? (
-                <Link
-                  key={item.id}
-                  to={href}
-                  className="rounded-full px-3.5 py-1.5 text-sm text-slate transition hover:bg-primary/10 hover:text-primary-deep"
-                >
+                <Link key={item.id} to={href} className={NAV_ITEM}>
                   {item.label}
                 </Link>
               ) : (
-                <a
-                  key={item.id}
-                  href={href}
-                  className="rounded-full px-3.5 py-1.5 text-sm text-slate transition hover:bg-primary/10 hover:text-primary-deep"
-                >
+                <a key={item.id} href={href} className={NAV_ITEM}>
                   {item.label}
                 </a>
               );
             })}
           </nav>
 
-          <div className="relative" ref={studioRef}>
-            <button
-              type="button"
-              aria-expanded={studioOpen}
-              aria-controls={studioMenuId}
-              onClick={() => setStudioOpen((o) => !o)}
-              className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm transition ${
-                scrolled || studioOpen
-                  ? "glass text-primary-deep shadow-soft"
-                  : "text-slate hover:bg-primary/10 hover:text-primary-deep"
+          <span className="mx-1 hidden h-4 w-px bg-border lg:block" aria-hidden />
+
+          <button
+            type="button"
+            aria-expanded={studioOpen}
+            aria-controls={studioMenuId}
+            onClick={() => setStudioOpen((o) => !o)}
+            className={`${NAV_ITEM} gap-1 ${
+              studioOpen ? "bg-primary/10 text-primary-deep" : ""
+            }`}
+          >
+            {studioHub.label}
+            <ChevronDown
+              size={14}
+              className={`transition-transform duration-200 ${
+                studioOpen ? "rotate-180" : ""
               }`}
+            />
+          </button>
+
+          {studioOpen && (
+            <div
+              id={studioMenuId}
+              role="menu"
+              className="glass absolute right-0 top-[calc(100%+0.5rem)] w-72 rounded-2xl p-2 shadow-lift"
             >
-              {studioHub.label}
-              <ChevronDown
-                size={15}
-                className={`transition-transform duration-200 ${
-                  studioOpen ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-            {studioOpen && (
-              <div
-                id={studioMenuId}
-                role="menu"
-                className="glass absolute right-0 mt-2 w-72 rounded-2xl p-2 shadow-lift"
-              >
-                <p className="px-3 pb-1.5 pt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-slate">
-                  Enter a built space
-                </p>
-                {renderStudioItems(() => setStudioOpen(false))}
-              </div>
-            )}
-          </div>
+              <p className="px-3 pb-1.5 pt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-slate">
+                Enter a built space
+              </p>
+              {renderStudioItems(() => setStudioOpen(false))}
+            </div>
+          )}
         </div>
 
         <button
@@ -207,7 +202,7 @@ export default function Nav({ variant = "home" }: { variant?: "home" | "subpage"
                 key={item.id}
                 to={href}
                 onClick={closeMenu}
-                className="block rounded-xl px-4 py-3 text-sm text-slate transition hover:bg-primary/10 hover:text-primary-deep"
+                className="block rounded-xl px-4 py-3 text-[13px] text-slate transition hover:bg-primary/10 hover:text-primary-deep"
               >
                 {item.label}
               </Link>
@@ -216,7 +211,7 @@ export default function Nav({ variant = "home" }: { variant?: "home" | "subpage"
                 key={item.id}
                 href={href}
                 onClick={closeMenu}
-                className="block rounded-xl px-4 py-3 text-sm text-slate transition hover:bg-primary/10 hover:text-primary-deep"
+                className="block rounded-xl px-4 py-3 text-[13px] text-slate transition hover:bg-primary/10 hover:text-primary-deep"
               >
                 {item.label}
               </a>
@@ -228,7 +223,7 @@ export default function Nav({ variant = "home" }: { variant?: "home" | "subpage"
               type="button"
               aria-expanded={mobileStudioOpen}
               onClick={() => setMobileStudioOpen((o) => !o)}
-              className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-sm text-slate transition hover:bg-primary/10 hover:text-primary-deep"
+              className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-[13px] text-slate transition hover:bg-primary/10 hover:text-primary-deep"
             >
               {studioHub.label}
               <ChevronDown

@@ -1,7 +1,7 @@
 import { palette } from "../../theme/palette";
 
 type JourneyVineAxisProps = {
-  nodeYs: number[];
+  nodes: { x: number; y: number }[];
   width: number;
   height: number;
 };
@@ -37,19 +37,21 @@ function VineBud({ x, y, flip }: { x: number; y: number; flip: boolean }) {
 }
 
 /** Vertical vine spine aligned to measured timeline nodes. */
-export default function JourneyVineAxis({ nodeYs, width, height }: JourneyVineAxisProps) {
-  if (nodeYs.length === 0 || height <= 0) return null;
+export default function JourneyVineAxis({ nodes, width, height }: JourneyVineAxisProps) {
+  if (nodes.length === 0 || height <= 0 || width <= 0) return null;
 
-  const cx = width / 2;
-  const accents = milestoneIndices(nodeYs.length);
+  const accents = milestoneIndices(nodes.length);
+  // Keep sway modest so the vine never sweeps across cards on narrow screens
+  const swayAmp = Math.min(10, Math.max(4, width * 0.025));
 
-  let pathD = `M ${cx} ${nodeYs[0]}`;
-  for (let i = 1; i < nodeYs.length; i += 1) {
-    const prevY = nodeYs[i - 1];
-    const currY = nodeYs[i];
-    const midY = (prevY + currY) / 2;
-    const sway = i % 2 === 0 ? -10 : 10;
-    pathD += ` C ${cx + sway} ${midY}, ${cx - sway} ${midY}, ${cx} ${currY}`;
+  let pathD = `M ${nodes[0].x} ${nodes[0].y}`;
+  for (let i = 1; i < nodes.length; i += 1) {
+    const prev = nodes[i - 1];
+    const curr = nodes[i];
+    const midY = (prev.y + curr.y) / 2;
+    const cx = (prev.x + curr.x) / 2;
+    const sway = i % 2 === 0 ? -swayAmp : swayAmp;
+    pathD += ` C ${cx + sway} ${midY}, ${cx - sway} ${midY}, ${curr.x} ${curr.y}`;
   }
 
   return (
@@ -67,11 +69,13 @@ export default function JourneyVineAxis({ nodeYs, width, height }: JourneyVineAx
         strokeLinecap="round"
         opacity="0.38"
       />
-      {nodeYs.map((y, i) => {
+      {nodes.map((node, i) => {
         if (!accents.has(i)) return null;
-        const offsetX = i % 2 === 0 ? 16 : -16;
+        // Buds grow toward content (right of left spine; alternate on desktop center)
+        const towardRight = node.x < width * 0.35;
+        const offsetX = towardRight ? 14 : i % 2 === 0 ? 16 : -16;
         return (
-          <VineBud key={i} x={cx + offsetX} y={y - 6} flip={offsetX < 0} />
+          <VineBud key={i} x={node.x + offsetX} y={node.y - 6} flip={offsetX < 0} />
         );
       })}
     </svg>
