@@ -1118,9 +1118,9 @@ body {
  */
 .about-avatar__img {
   object-fit: cover;
-  object-position: 43% 72%;
+  object-position: 38% 72%;
   transform: scale(1.55);
-  transform-origin: 43% 70%;
+  transform-origin: 38% 70%;
 }
 
 @keyframes about-ring-pulse {
