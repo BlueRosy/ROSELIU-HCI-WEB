@@ -663,25 +663,25 @@ body {
   word-break: break-all;
 }
 
-/* Avatar + faint sketch rose (phone About) */
+/* Avatar + sketch rose bouquet (phone About) */
 .about-mobile-hero {
   position: relative;
   display: inline-block;
   max-width: 100%;
+  margin-right: clamp(5.5rem, 28vw, 7.25rem);
 }
 
 .about-mobile-sketch-rose {
   position: absolute;
-  /* Sit on the avatar’s right — mostly in-frame, faintly behind the photo edge */
-  left: 58%;
-  top: -0.15rem;
-  z-index: 0;
-  width: clamp(5.5rem, 26vw, 6.85rem);
+  left: calc(100% - 0.1rem);
+  top: -0.35rem;
+  z-index: 2;
+  width: clamp(6.25rem, 30vw, 8rem);
   height: auto;
-  color: color-mix(in srgb, var(--color-primary-deep) 52%, var(--color-sage) 48%);
-  opacity: 0.4;
+  color: color-mix(in srgb, var(--color-primary-deep) 58%, var(--color-sage) 42%);
+  opacity: 0.62;
   pointer-events: none;
-  transform-origin: 35% 65%;
+  overflow: visible;
 }
 
 .about-mobile-hero .about-avatar {
@@ -695,35 +695,78 @@ body {
   stroke-linejoin: round;
 }
 
+.about-mobile-sketch-rose__bloom {
+  transform-box: view-box;
+}
+
+.about-mobile-sketch-rose__bloom--main {
+  transform-origin: 32% 34%;
+}
+
+.about-mobile-sketch-rose__bloom--side {
+  transform-origin: 60% 42%;
+}
+
+.about-mobile-sketch-rose__bloom--bud {
+  transform-origin: 78% 55%;
+}
+
 @media (prefers-reduced-motion: no-preference) {
-  .about-mobile-sketch-rose {
-    animation: about-sketch-rose-breathe 9s ease-in-out infinite;
-  }
-
   .about-mobile-sketch-rose__stroke {
-    stroke-dasharray: 180;
-    stroke-dashoffset: 180;
-    animation: about-sketch-rose-draw 2.4s ease forwards;
+    stroke-dasharray: 220;
+    stroke-dashoffset: 220;
+    animation: about-sketch-rose-draw 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 
-  .about-mobile-sketch-rose__stroke--stem {
+  .about-mobile-sketch-rose__stems .about-mobile-sketch-rose__stroke {
     animation-delay: 0.05s;
   }
 
-  .about-mobile-sketch-rose__stroke--leaf {
-    animation-delay: 0.45s;
+  .about-mobile-sketch-rose__bloom--main .about-mobile-sketch-rose__stroke {
+    animation-delay: 0.35s;
   }
 
-  .about-mobile-sketch-rose__stroke--petal {
-    animation-delay: 0.75s;
+  .about-mobile-sketch-rose__bloom--side .about-mobile-sketch-rose__stroke {
+    animation-delay: 0.7s;
   }
 
-  .about-mobile-sketch-rose__stroke--core {
-    animation-delay: 1.2s;
+  .about-mobile-sketch-rose__bloom--bud .about-mobile-sketch-rose__stroke {
+    animation-delay: 1s;
   }
 
-  .about-mobile-sketch-rose__stroke--mark {
-    animation-delay: 1.45s;
+  /* Ongoing life — each bloom sways on its own clock */
+  .about-mobile-sketch-rose__bloom--main {
+    animation: about-sketch-sway-main 3.6s ease-in-out infinite;
+  }
+
+  .about-mobile-sketch-rose__bloom--side {
+    animation: about-sketch-sway-side 4.2s ease-in-out infinite 0.4s;
+  }
+
+  .about-mobile-sketch-rose__bloom--bud {
+    animation: about-sketch-sway-bud 2.8s ease-in-out infinite 0.2s;
+  }
+
+  .about-mobile-sketch-rose__core {
+    animation:
+      about-sketch-rose-draw 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards,
+      about-sketch-core-pulse 2.4s ease-in-out infinite 1.8s;
+  }
+
+  .about-mobile-sketch-rose__bloom--main .about-mobile-sketch-rose__core {
+    animation-delay: 0.35s, 2.1s;
+  }
+
+  .about-mobile-sketch-rose__dot--a {
+    animation: about-sketch-dust 5s ease-in-out infinite;
+  }
+
+  .about-mobile-sketch-rose__dot--b {
+    animation: about-sketch-dust 6.2s ease-in-out infinite 0.8s;
+  }
+
+  .about-mobile-sketch-rose__dot--c {
+    animation: about-sketch-dust 4.6s ease-in-out infinite 1.4s;
   }
 }
 
@@ -733,16 +776,65 @@ body {
   }
 }
 
-@keyframes about-sketch-rose-breathe {
+@keyframes about-sketch-sway-main {
   0%,
   100% {
-    transform: translate3d(0, 0, 0) rotate(-4deg);
-    opacity: 0.36;
+    transform: rotate(-5deg) translate3d(0, 0, 0);
   }
 
   50% {
-    transform: translate3d(2px, -3px, 0) rotate(-1deg);
-    opacity: 0.5;
+    transform: rotate(4deg) translate3d(1px, -4px, 0);
+  }
+}
+
+@keyframes about-sketch-sway-side {
+  0%,
+  100% {
+    transform: rotate(6deg) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: rotate(-5deg) translate3d(-2px, -3px, 0);
+  }
+}
+
+@keyframes about-sketch-sway-bud {
+  0%,
+  100% {
+    transform: rotate(8deg) translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: rotate(-6deg) translate3d(2px, -5px, 0) scale(1.04);
+  }
+}
+
+@keyframes about-sketch-core-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes about-sketch-dust {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.15;
+  }
+
+  40% {
+    transform: translate3d(3px, -10px, 0);
+    opacity: 0.55;
+  }
+
+  70% {
+    transform: translate3d(-2px, -16px, 0);
+    opacity: 0.2;
   }
 }
 
