@@ -1,10 +1,29 @@
 import { useEffect, useState } from "react";
 
+const MOBILE_MQ = "(max-width: 768px)";
+
+function matchesMobile(): boolean {
+  return typeof window !== "undefined" && window.matchMedia(MOBILE_MQ).matches;
+}
+
+/** Phone / narrow viewport — 3D Research World should not be offered here. */
+export function useIsMobileViewport(): boolean {
+  const [mobile, setMobile] = useState(matchesMobile);
+
+  useEffect(() => {
+    const mq = window.matchMedia(MOBILE_MQ);
+    const onChange = () => setMobile(mq.matches);
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  return mobile;
+}
+
 /**
  * Decide whether to render the (decorative-but-meaningful) 3D scenes.
- * 3D is disabled when the user prefers reduced motion, on small/touch
- * screens, or when the device reports few logical cores. In all those
- * cases components fall back to a static gradient or 2D SVG version.
+ * Off on mobile, reduced-motion, or low-core devices — never mount WebGL there.
  */
 export function useEnable3D(): boolean {
   const [enabled, setEnabled] = useState(false);
@@ -15,7 +34,7 @@ export function useEnable3D(): boolean {
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    const smallScreen = window.matchMedia("(max-width: 768px)").matches;
+    const smallScreen = window.matchMedia(MOBILE_MQ).matches;
     const cores = navigator.hardwareConcurrency ?? 8;
 
     setEnabled(!reduceMotion && !smallScreen && cores >= 4);

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useId, useRef, useState } from "react";
 import { ChevronDown, ExternalLink, Menu, X } from "lucide-react";
 import { nav, profile, studioHub } from "../content/site";
+import { useIsMobileViewport } from "../hooks/useEnable3D";
 import SiteLogo from "./SiteLogo";
 
 const NAV_ITEM =
@@ -15,6 +16,8 @@ export default function Nav({ variant = "home" }: { variant?: "home" | "subpage"
   const studioRef = useRef<HTMLDivElement>(null);
   const studioMenuId = useId();
   const homeHref = variant === "subpage" ? "/#about" : "#about";
+  const isMobile = useIsMobileViewport();
+  const studioItems = studioHub.items.filter((item) => !(item.desktopOnly && isMobile));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -60,7 +63,7 @@ export default function Nav({ variant = "home" }: { variant?: "home" | "subpage"
     "flex items-start justify-between gap-3 rounded-xl px-3 py-2.5 text-left transition hover:bg-primary/10";
 
   const renderStudioItems = (onNavigate: () => void) =>
-    studioHub.items.map((item) => {
+    studioItems.map((item) => {
       const body = (
         <>
           <span>

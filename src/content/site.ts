@@ -610,6 +610,8 @@ export type StudioHubItem = {
   hint: string;
   href: string;
   external?: boolean;
+  /** Hide in phone nav — 3D world is desktop-only. */
+  desktopOnly?: boolean;
 };
 
 export const studioHub = {
@@ -618,8 +620,9 @@ export const studioHub = {
     {
       id: "research-world",
       title: "Research World",
-      hint: "3D trail · Signals to Support",
+      hint: "3D trail · desktop only",
       href: "/rose-research-world",
+      desktopOnly: true,
     },
     {
       id: "rose-stats-studio",

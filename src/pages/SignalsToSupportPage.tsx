@@ -1,25 +1,29 @@
-import { useEffect } from "react";
-import ResearchUniverseView from "../components/research-universe/ResearchUniverseView";
-import RWLayout from "../components/research-world/RWLayout";
+import { lazy, Suspense } from "react";
+import { Navigate } from "react-router-dom";
+import { useIsMobileViewport } from "../hooks/useEnable3D";
 
+const SignalsToSupportDesktop = lazy(() => import("./SignalsToSupportDesktop"));
+
+/**
+ * Research World entry.
+ * Phones never mount WebGL — redirect home Research section instead.
+ */
 export default function SignalsToSupportPage() {
-  useEffect(() => {
-    document.title = "Signals to Support — 3D Research Universe";
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) {
-      meta.setAttribute(
-        "content",
-        "A cinematic 3D research universe exploring how everyday interaction signals become interpretable states, mechanisms, and safe adaptive support.",
-      );
-    }
-    return () => {
-      document.title = "Yanqing Liu";
-    };
-  }, []);
+  const mobile = useIsMobileViewport();
+
+  if (mobile) {
+    return <Navigate to="/#research" replace />;
+  }
 
   return (
-    <RWLayout hideFooter>
-      <ResearchUniverseView />
-    </RWLayout>
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-bg text-slate">
+          <p className="font-mono text-sm">Loading Research World…</p>
+        </div>
+      }
+    >
+      <SignalsToSupportDesktop />
+    </Suspense>
   );
 }
