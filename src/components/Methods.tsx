@@ -23,7 +23,7 @@ function LeafBullet() {
 
 export default function Methods() {
   return (
-    <section id="methods" className="section-anchor section-alt py-24">
+    <section id="methods" className="section-anchor section-alt pt-10 pb-14 sm:pt-12 sm:pb-16">
       <div className="mx-auto max-w-5xl px-5">
         <Reveal>
           <SectionHeading

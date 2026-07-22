@@ -13,7 +13,7 @@ export default function Publications() {
   );
 
   return (
-    <section id="publications" className="section-anchor section-alt py-24">
+    <section id="publications" className="section-anchor section-alt pt-24 pb-10 sm:pb-12">
       <div className="mx-auto max-w-5xl px-5">
         <Reveal>
           <SectionHeading
