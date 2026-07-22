@@ -57,7 +57,7 @@ export default function Hero({ enable3D }: { enable3D: boolean }) {
           {/* Text column */}
           <div className="order-2 md:order-1">
             <p className="font-mono text-sm text-slate">
-              {profile.name} <span className="opacity-50">·</span> {profile.nameZh}
+              {profile.name}
             </p>
             <p className="mt-2 font-mono text-xs text-primary-deep">{profile.role}</p>
 

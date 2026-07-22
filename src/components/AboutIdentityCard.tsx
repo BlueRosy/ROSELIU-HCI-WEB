@@ -1,11 +1,12 @@
 import { Code2, Link as LinkIcon, Mail } from "lucide-react";
-import { about, profile } from "../content/site";
+import { profile } from "../content/site";
 
-export default function AboutIdentityCard() {
-  return (
-    <div className="glass rounded-2xl p-5 shadow-soft">
-      <div className="flex flex-col items-center text-center">
-        <div className="about-avatar mb-4">
+/** @param compact — mobile profile header (centered, no card). */
+export default function AboutIdentityCard({ compact = false }: { compact?: boolean }) {
+  if (compact) {
+    return (
+      <div className="about-mobile-profile flex flex-col items-center text-center">
+        <div className="about-avatar about-avatar--mobile mb-3">
           <div className="about-avatar__halo" aria-hidden="true" />
           <div className="about-avatar__ring">
             <div className="about-avatar__photo">
@@ -18,15 +19,61 @@ export default function AboutIdentityCard() {
           </div>
         </div>
 
-        {profile.seekingPhd && (
-          <p className="rounded-xl border border-primary/25 bg-primary/[0.06] px-3 py-2 text-[13px] font-medium leading-relaxed text-ink">
-            {about.seekingLine}
-          </p>
-        )}
+        <h1 className="font-serif text-[1.75rem] leading-tight text-ink">{profile.name}</h1>
 
-        <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-slate">
-          {about.phdAreas}
-        </p>
+        <div className="mt-4 flex items-center justify-center gap-5">
+          <a
+            href={`mailto:${profile.email}`}
+            className="text-slate transition hover:text-primary-deep"
+            aria-label="Email"
+          >
+            <Mail size={18} />
+          </a>
+          <a
+            href={profile.socials.github}
+            target="_blank"
+            rel="noreferrer"
+            className="text-slate transition hover:text-primary-deep"
+            aria-label="GitHub"
+          >
+            <Code2 size={18} />
+          </a>
+          <a
+            href={profile.socials.linkedin}
+            target="_blank"
+            rel="noreferrer"
+            className="text-slate transition hover:text-primary-deep"
+            aria-label="LinkedIn"
+          >
+            <LinkIcon size={18} />
+          </a>
+        </div>
+
+        <a
+          href={`mailto:${profile.email}`}
+          className="about-mobile-email mt-2.5 font-mono text-[12px] text-primary-deep/90"
+        >
+          {profile.email}
+        </a>
+      </div>
+    );
+  }
+
+  return (
+    <div className="glass rounded-2xl p-5 shadow-soft sm:p-6">
+      <div className="flex flex-col items-center text-center">
+        <div className="about-avatar mb-1">
+          <div className="about-avatar__halo" aria-hidden="true" />
+          <div className="about-avatar__ring">
+            <div className="about-avatar__photo">
+              <img
+                src={profile.aboutPhoto}
+                alt={`Portrait of ${profile.name}`}
+                className="h-full w-full object-cover object-[center_22%]"
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="mt-5 space-y-2 border-t border-border pt-4">

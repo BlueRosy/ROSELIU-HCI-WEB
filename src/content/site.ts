@@ -6,10 +6,9 @@
  */
 
 export const profile = {
-  name: "Yanqing (Rose) Liu",
-  nameZh: "刘艳青",
+  name: "Yanqing Liu",
   // TODO(assets): confirm current role / affiliation line
-  role: "HCI Researcher · Research Fellow, HII Lab, Duke Kunshan University",
+  role: "Research Fellow, HII Lab, Duke Kunshan University",
   email: "yanqing.liu2@dukekunshan.edu.cn",
   photo: "/Rose-PersonalImage/Rose1.jpg",
   heroPhoto: "/Rose-PersonalImage/Rose3.jpg",
@@ -25,7 +24,7 @@ export const profile = {
     linkedin: "https://www.linkedin.com/in/yanqing-liu-rose",
   },
   // Toggle the "seeking PhD opportunities" line in About
-  seekingPhd: true,
+  seekingPhd: false,
 } as const;
 
 export const hero = {
@@ -33,16 +32,9 @@ export const hero = {
   headlineSub:
     "Building Data-Driven Human-Centered Systems for Everyday Mental Wellbeing",
   intro:
-    "I study how everyday digital interactions become signals for human-centered support. My work combines conversational log analysis, behavioral trace modeling, lightweight self-reports, and system prototyping to understand users\u2019 emotional states, needs, readiness, and interaction mechanisms.",
-  researchInterest:
-    "My current focus is closed-loop support systems: sensing everyday interaction signals, interpreting mechanisms, selecting appropriate support strategies, and helping people translate reflection into sustainable action while preserving autonomy and safety.",
-  tags: [
-    "HCI",
-    "Human-Centered AI",
-    "Digital Wellbeing",
-    "Multimodal Interaction Sensing",
-    "Conversational Support",
-  ],
+    "I study how users\u2019 digital signals, such as conversations and behavior, reveal emotional needs, and I build closed-loop systems that turn those signals into human-centered mental health support.",
+  researchInterest: "",
+  tags: ["Digital Wellbeing", "Conversational Support"],
 } as const;
 
 export const signalFlow = {
@@ -581,33 +573,27 @@ export const currentLens = [
 
 export const about = {
   intro:
-    "I study how everyday digital interactions become signals for human-centered support. My work combines conversational log analysis, behavioral trace modeling, lightweight self-reports, and system prototyping to understand users\u2019 emotional states, needs, readiness, and interaction mechanisms.",
+    "I study how users\u2019 digital signals, such as conversations and behavior, reveal emotional needs, and I build closed-loop systems that turn those signals into human-centered mental health support.",
   lookingForward:
-    "I aim to extend this work toward multimodal everyday sensing \u2014 integrating conversational, behavioral, contextual, and lightweight physiological signals to design adaptive, safety-aware support systems.",
-  researchInterest:
-    "My current focus is closed-loop support systems: sensing everyday interaction signals, interpreting mechanisms, selecting appropriate support strategies, and helping people translate reflection into sustainable action while preserving autonomy and safety.",
-  researchAreas: [
-    "HCI",
-    "Human-Centered AI",
-    "Digital Wellbeing",
-    "Multimodal Interaction Sensing",
-    "Conversational Support",
-  ] as const,
-  phdAreas:
-    "HCI · Human-Centered AI · Digital Wellbeing · Multimodal Sensing",
+    "I aim to extend this work toward multimodal everyday sensing — integrating conversational, behavioral, contextual, and lightweight physiological signals to design adaptive, safety-aware support systems.",
+  /** Kept for compatibility; homepage no longer renders a second interest paragraph. */
+  researchInterest: "",
+  /** Kept for compatibility; About no longer renders Focus chips. */
+  researchAreas: ["Digital Wellbeing", "Conversational Support"] as const,
+  phdAreas: "Digital Wellbeing · Multimodal Sensing · Conversational Support",
   methods: [
     "Conversational log analysis",
-    "Behavioral trace analysis",
-    "Mixed-methods research",
-    "Lightweight system prototyping",
+    "Behavioral modeling",
+    "System prototyping",
+    "Multimodal interaction sensing",
   ] as const,
-  seekingLine: "Seeking PhD opportunities",
+  seekingLine: "HCI Researcher",
   researchWorldLink: {
     label: "Explore Research World",
     hint: "Scroll through an immersive trail from interaction signals to adaptive support",
     description:
-      "Walk a rose-garden research trail — Signals Garden, States Observatory, Support Sanctuary, and Closed-loop Center.",
-    tags: "Signals · States · Support · Closed-loop",
+      "Walk a rose-garden research trail from everyday signals to adaptive support.",
+    tags: "Signals · States · Support",
     href: "/rose-research-world",
   },
 } as const;

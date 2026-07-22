@@ -14,8 +14,8 @@
 
 | 字段 | 当前内容 |
 |------|----------|
-| 页面标题 `<title>` | Yanqing (Rose) Liu — HCI Researcher |
-| 页面描述 `<meta description>` | Yanqing (Rose) Liu — HCI researcher studying data-driven digital systems for everyday mental wellbeing: conversational and behavioral signals for safe, long-term empathic interventions. |
+| 页面标题 `<title>` | Yanqing Liu |
+| 页面描述 `<meta description>` | Yanqing Liu — building data-driven human-centered support systems from everyday interaction signals… |
 
 ---
 
@@ -44,12 +44,12 @@
 
 | 字段 | 当前内容 |
 |------|----------|
-| name | Yanqing (Rose) Liu |
-| nameZh | 刘艳青 |
+| name | Yanqing Liu |
+| nameZh | （已删除，全站不再显示中文名） |
 | role | HCI Researcher · Research Fellow, HII Lab, Duke Kunshan University |
 | email | yanqing.liu2@dukekunshan.edu.cn |
 | cv（PDF 路径） | /Yanqing_Liu_CV.pdf |
-| seekingPhd（是否显示 PhD 寻求提示） | true |
+| seekingPhd（是否显示角色徽章） | true → 文案为 HCI Researcher |
 | github | https://github.com/BlueRosy |
 | linkedin | https://www.linkedin.com/in/yanqing-liu-rose |
 | scholar | （已移除，页脚不再显示） |
@@ -65,46 +65,27 @@
 ## 3. About（单 section，已合并 More）
 
 **文件：** `src/content/site.ts` → `about` + `hero` + `interests` + `currentLens`  
-**组件：** `About.tsx` · `AboutIdentityCard.tsx` · `AboutWorldPortal.tsx` · `AboutBottomCards.tsx`
+**组件：** `About.tsx` · `AboutIdentityCard.tsx` · `AboutLookingForward.tsx` · `AboutWorldPortal.tsx`
 
-**布局：** 左栏 60% 研究身份/CTA · 右栏 40% 两小卡（Identity + Portal）· 底部三卡（Methods / Current Lens / Beyond research）
+**布局：** 左栏研究叙事 · 右栏两卡（人物信息 + Looking forward/Explore 合并）
 
 ### 3.1 左栏
 
-| 字段 | 来源 |
+| 内容 | 说明 |
 |------|------|
-| 姓名 / role | profile |
-| headline / headlineSub | hero |
-| intro | about.intro（当前工作一段） |
-| researchInterest | about.researchInterest（closed-loop support systems） |
-| researchAreas | HCI · HCAI · Digital Wellbeing · Multimodal Interaction Sensing · Conversational Support |
-| CTA | View Vision · Download CV |
+| About · name · role | 身份 |
+| From Signals to Support + subtitle | 左侧描边 hero |
+| about.intro | Literata 衬线，略加大字号 |
+| Methods · View Vision · Download CV | |
 
-**布局平衡：** 左栏保留 headline + intro + focus；`lookingForward`（multimodal 未来向）放在右栏独立卡，右栏 `sticky`，避免左长右空。
-
-### 3.2 右栏（sticky）
+### 3.2 右栏（sticky，两卡，不堆三张）
 
 | 卡片 | 内容 |
 |------|------|
-| Identity card | 头像 · Seeking PhD · phdAreas · Email/GitHub/LinkedIn |
-| Looking forward | about.lookingForward（multimodal everyday sensing） |
-| Portal card | ✦ Explore Research World → |
+| Identity | 头像 · Seeking PhD · Email/GitHub/LinkedIn |
+| Direction | Looking forward 段落 + 内嵌 Explore Research World |
 
-### 3.3 底部三卡
-
-| 卡片 | 内容 |
-|------|------|
-| Methods I use | about.methods |
-| Current Lens | currentLens |
-| Beyond research | interests |
-
-**interests（Beyond research chips）：**
-
-- Singing
-- Sports & Fitness
-- Travel
-- Photography
-- Building personal tools & sites
+`interests` / `currentLens` 仍保留在 `site.ts`，首页 About 不再渲染。
 
 ---
 
@@ -519,7 +500,7 @@ Download CV (PDF) → 链接到 profile.cv
 | intro | I am always glad to discuss data-driven wellbeing systems, conversational support, and PhD collaboration. |
 | 邮箱 | yanqing.liu2@dukekunshan.edu.cn |
 | 社交按钮 | Email · GitHub · LinkedIn |
-| 版权行 | © {年份} Yanqing (Rose) Liu · 刘艳青 |
+| 版权行 | © {年份} Yanqing Liu |
 | Back to top | Back to top |
 
 ---

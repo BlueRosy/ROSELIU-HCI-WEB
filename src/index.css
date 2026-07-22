@@ -230,6 +230,135 @@ body {
   scroll-margin-top: 5.5rem;
 }
 
+/* About first-screen atmosphere */
+.about-section__glow {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 55% 45% at 18% 28%, color-mix(in srgb, var(--color-primary) 12%, transparent), transparent 70%),
+    radial-gradient(ellipse 45% 40% at 88% 62%, color-mix(in srgb, var(--color-sage) 10%, transparent), transparent 68%);
+}
+
+.about-panel {
+  background:
+    linear-gradient(165deg, color-mix(in srgb, var(--color-surface) 94%, white) 0%, color-mix(in srgb, var(--color-surface) 82%, transparent) 100%);
+}
+
+.about-intro {
+  max-width: 36rem;
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.75;
+  letter-spacing: 0.005em;
+  color: color-mix(in srgb, var(--color-ink) 92%, var(--color-slate));
+}
+
+.about-intro--mobile {
+  max-width: none;
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+@media (min-width: 640px) {
+  .about-intro {
+    font-size: 1.2rem;
+    line-height: 1.78;
+  }
+}
+
+.about-role-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 28%, transparent);
+  background: color-mix(in srgb, var(--color-primary) 8%, var(--color-surface));
+  padding: 0.35rem 0.9rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-primary-deep);
+}
+
+.about-avatar--mobile {
+  --avatar-size: 7.25rem;
+  --ring-width: 2px;
+}
+
+.about-mobile-email {
+  word-break: break-all;
+}
+
+.about-pipeline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.15rem;
+  list-style: none;
+  margin: 0;
+  padding: 0.7rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 16%, var(--color-border));
+  background: color-mix(in srgb, var(--color-primary) 5%, var(--color-surface));
+}
+
+.about-pipeline__step {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.about-pipeline__rule {
+  width: 1.15rem;
+  height: 1px;
+  margin-right: 0.15rem;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-primary) 45%, transparent));
+}
+
+.about-pipeline__dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: var(--color-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 14%, transparent);
+}
+
+.about-pipeline__label {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary-deep);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .about-pipeline__dot {
+    animation: about-pipeline-pulse 3.6s ease-in-out infinite;
+  }
+
+  .about-pipeline__step:nth-child(2) .about-pipeline__dot {
+    animation-delay: 0.45s;
+  }
+
+  .about-pipeline__step:nth-child(3) .about-pipeline__dot {
+    animation-delay: 0.9s;
+  }
+}
+
+@keyframes about-pipeline-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
 :where(a, button, [tabindex]):focus-visible {
   outline: 2px solid var(--color-primary-deep);
   outline-offset: 2px;
@@ -252,7 +381,7 @@ body {
 
 .about-avatar {
   --avatar-size: 9rem;
-  --ring-width: 3px;
+  --ring-width: 2.5px;
   position: relative;
   width: var(--avatar-size);
   height: var(--avatar-size);

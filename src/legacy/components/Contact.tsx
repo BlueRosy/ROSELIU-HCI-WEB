@@ -49,7 +49,7 @@ export default function Contact() {
 
         <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 text-sm text-slate sm:flex-row sm:items-center">
           <p>
-            &copy; {new Date().getFullYear()} {profile.name} · {profile.nameZh}
+            &copy; {new Date().getFullYear()} {profile.name}
           </p>
           <a
             href="#top"

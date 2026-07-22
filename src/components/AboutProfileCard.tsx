@@ -19,7 +19,6 @@ export default function AboutProfileCard() {
           </div>
         </div>
         <p className="font-serif text-lg text-ink">{profile.name}</p>
-        <p className="mt-0.5 font-mono text-xs text-slate">{profile.nameZh}</p>
       </div>
 
       {profile.seekingPhd && (

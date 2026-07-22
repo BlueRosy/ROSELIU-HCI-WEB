@@ -6,8 +6,7 @@
  */
 
 export const profile = {
-  name: "Yanqing (Rose) Liu",
-  nameZh: "刘艳青",
+  name: "Yanqing Liu",
   // TODO(assets): confirm current role / affiliation line
   role: "HCI Researcher · Research Fellow, HII Lab, Duke Kunshan University",
   email: "yanqing.liu2@dukekunshan.edu.cn",

@@ -13,7 +13,7 @@ export default function SignalsToSupportPage() {
       );
     }
     return () => {
-      document.title = "Yanqing (Rose) Liu — HCI Researcher";
+      document.title = "Yanqing Liu";
     };
   }, []);
 
