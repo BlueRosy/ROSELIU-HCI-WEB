@@ -98,7 +98,7 @@ export const research = {
     },
   ],
   grounding:
-    "This work is grounded in HCI, human-centered AI, emotional & social computing, digital mental wellbeing, and social computing.",
+    "This work is grounded in HCI, human-centered AI, emotional & social computing, and digital mental wellbeing.",
 } as const;
 
 export type LoopNode = {

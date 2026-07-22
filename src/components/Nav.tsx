@@ -114,12 +114,12 @@ export default function Nav({ variant = "home" }: { variant?: "home" | "subpage"
       <div className="mx-auto flex h-11 min-w-0 max-w-5xl items-center justify-between gap-3 px-5">
         {variant === "subpage" ? (
           <Link to={homeHref} onClick={closeMenu} className={brandClass}>
-            <SiteLogo size="nav" />
+            <SiteLogo size="nav" className="hidden sm:block" />
             <span className="truncate">{profile.name}</span>
           </Link>
         ) : (
           <a href={homeHref} onClick={closeMenu} className={brandClass}>
-            <SiteLogo size="nav" />
+            <SiteLogo size="nav" className="hidden sm:block" />
             <span className="truncate">{profile.name}</span>
           </a>
         )}

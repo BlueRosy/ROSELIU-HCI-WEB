@@ -85,12 +85,12 @@ export default function Research({ enable3D }: { enable3D: boolean }) {
         </div>
 
         <Reveal>
-          <p className="mt-16 max-w-3xl text-sm leading-relaxed text-slate">
-            <span className="font-mono text-xs uppercase tracking-[0.16em] text-accent-deep">
-              Intellectual grounding —{" "}
-            </span>
-            {research.grounding}
-          </p>
+          <div className="mt-16 max-w-3xl">
+            <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent-deep">
+              Intellectual grounding
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-slate">{research.grounding}</p>
+          </div>
         </Reveal>
       </div>
     </section>
