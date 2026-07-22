@@ -37,10 +37,13 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5.5rem;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
+  max-width: 100%;
+  overflow-x: hidden;
   background-color: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-sans);
@@ -1425,7 +1428,9 @@ body {
 .project-gallery {
   display: flex;
   gap: 0.75rem;
+  max-width: 100%;
   overflow-x: auto;
+  overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
   padding-bottom: 0.25rem;
   -webkit-overflow-scrolling: touch;
@@ -1433,6 +1438,7 @@ body {
 
 .project-gallery__item {
   flex: 0 0 min(42%, 11rem);
+  max-width: 100%;
   scroll-snap-align: start;
 }
 

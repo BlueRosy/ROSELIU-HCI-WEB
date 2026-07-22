@@ -230,15 +230,15 @@ export const projects: Project[] = [
     status:
       "DMH 2026 presented · IP&MC dataset/pipeline in prep (ddl Jul 31) · Conference Book planned (ddl Aug 31) · intervention design Sep 2026 · targeting CHI 2027 (intervention)",
     accessType: "private",
-    image: "/Mindful-Scroll/cover.png",
+    image: "/Mindful-Scroll/cover.jpg",
     gallery: [
       {
-        src: "/Mindful-Scroll/gallery-study.png",
+        src: "/Mindful-Scroll/gallery-study.jpg",
         alt: "Mindful Scroll study flow collage: consent, morning diary, and feed",
         caption: "Study day · consent to feed",
       },
       {
-        src: "/Mindful-Scroll/gallery-support.png",
+        src: "/Mindful-Scroll/gallery-support.jpg",
         alt: "Mindful Scroll support collage: EMA diary, evening reflection, and chat",
         caption: "Support · EMA to chat",
       },
@@ -350,30 +350,30 @@ export const projects: Project[] = [
     methods: ["DuckDB-WASM", "React + TypeScript", "ECharts", "Statistical modeling"],
     focus: ["Data analysis", "Visualization", "Regression / model comparison"],
     accessType: "public",
-    image: "/websites/rose-stats-studio/cover.png",
+    image: "/websites/rose-stats-studio/cover.jpg",
     gallery: [
       {
-        src: "/websites/rose-stats-studio/gallery-correlation.png",
+        src: "/websites/rose-stats-studio/gallery-correlation.jpg",
         alt: "Correlation heatmap and bivariate scatter with regression",
         caption: "Correlation · heatmap & scatter",
       },
       {
-        src: "/websites/rose-stats-studio/gallery-histogram.png",
+        src: "/websites/rose-stats-studio/gallery-histogram.jpg",
         alt: "Histogram visualization with bin controls",
         caption: "Visualization · histogram",
       },
       {
-        src: "/websites/rose-stats-studio/gallery-category.png",
+        src: "/websites/rose-stats-studio/gallery-category.jpg",
         alt: "Category cross-tabulation with heatmap and stacked bars",
         caption: "Category · cross-tab analysis",
       },
       {
-        src: "/websites/rose-stats-studio/gallery-regression.png",
+        src: "/websites/rose-stats-studio/gallery-regression.jpg",
         alt: "Regression model comparison and predicted vs actual plot",
         caption: "Regression · model comparison",
       },
       {
-        src: "/websites/rose-stats-studio/gallery-scatter.png",
+        src: "/websites/rose-stats-studio/gallery-scatter.jpg",
         alt: "Bivariate scatter plot with correlation statistics",
         caption: "Bivariate · fit & significance",
       },
@@ -398,15 +398,15 @@ export const projects: Project[] = [
       "Research workflow",
     ],
     accessType: "public",
-    image: "/websites/rose-research-world/cover.png",
+    image: "/websites/rose-research-world/cover.jpg",
     gallery: [
       {
-        src: "/websites/rose-research-world/gallery-scholars.png",
+        src: "/websites/rose-research-world/gallery-scholars.jpg",
         alt: "Scholar search and interest-to-advisor matching landing",
         caption: "Scholars · find & match",
       },
       {
-        src: "/websites/rose-research-world/gallery-results.png",
+        src: "/websites/rose-research-world/gallery-results.jpg",
         alt: "Literature search results with citation formats and deep-read actions",
         caption: "Results · cite & deep-read",
       },
@@ -431,15 +431,15 @@ export const projects: Project[] = [
     methods: ["React", "HCI design patterns", "Responsive UI"],
     focus: ["Information hierarchy", "Visual feedback", "Accessibility"],
     accessType: "public",
-    image: "/websites/meal-right/cover.png",
+    image: "/websites/meal-right/cover.jpg",
     gallery: [
       {
-        src: "/websites/meal-right/gallery-onboarding.png",
+        src: "/websites/meal-right/gallery-onboarding.jpg",
         alt: "Meal Right onboarding collage: welcome, sign up, and log in",
         caption: "Onboarding · welcome to login",
       },
       {
-        src: "/websites/meal-right/gallery-daily.png",
+        src: "/websites/meal-right/gallery-daily.jpg",
         alt: "Meal Right daily flow collage: food bag, add food, and calorie diary",
         caption: "Daily flow · bag to diary",
       },

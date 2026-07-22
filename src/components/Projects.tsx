@@ -13,6 +13,8 @@ import {
   restrictedNote,
   type Project,
 } from "../content/site";
+import { collectProjectImageUrls, preloadImages } from "../lib/preloadImages";
+import SmartImage from "./SmartImage";
 import { Chip, Reveal, SectionHeading } from "./primitives";
 
 function linkIcon(label: string): LucideIcon {
@@ -25,23 +27,27 @@ function linkIcon(label: string): LucideIcon {
 function ProjectPreview({
   project,
   className = "",
+  priority = false,
 }: {
   project: Project;
   className?: string;
+  priority?: boolean;
 }) {
   if (!project.image) return null;
   const contain = project.imageFit === "contain";
 
   return (
     <div
-      className={`project-preview border-b border-border ${contain ? "project-preview--contain" : ""} ${className}`}
+      className={`project-preview min-w-0 border-b border-border ${contain ? "project-preview--contain" : ""} ${className}`}
     >
-      <div className="project-preview__inset">
-        <img
+      <div className="project-preview__inset min-w-0">
+        <SmartImage
           src={project.image}
           alt={`${project.title} preview`}
-          loading="lazy"
-          className={
+          className="h-full w-full"
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : "auto"}
+          imgClassName={
             contain
               ? "mx-auto h-full max-h-full w-auto max-w-[min(100%,240px)] object-contain"
               : "h-full w-full object-cover"
@@ -57,20 +63,27 @@ function ProjectGallery({ project }: { project: Project }) {
   const contain = project.imageFit === "contain";
 
   return (
-    <div className="mt-6">
+    <div className="mt-6 min-w-0">
       <p className="mb-3 font-mono text-xs uppercase tracking-[0.14em] text-slate">
         Study interface · sanitized screenshots
       </p>
       <div className="project-gallery">
         {project.gallery.map((shot) => (
-          <figure key={shot.src} className="project-gallery__item">
+          <figure key={shot.src} className="project-gallery__item min-w-0">
             <div
-              className={`project-gallery__frame${contain ? " project-gallery__frame--contain" : ""}`}
+              className={`project-gallery__frame min-w-0${contain ? " project-gallery__frame--contain" : ""}`}
             >
-              <img src={shot.src} alt={shot.alt} loading="lazy" className="project-gallery__img" />
+              <SmartImage
+                src={shot.src}
+                alt={shot.alt}
+                className="h-full w-full"
+                imgClassName="project-gallery__img"
+              />
             </div>
             {shot.caption && (
-              <figcaption className="project-gallery__caption">{shot.caption}</figcaption>
+              <figcaption className="project-gallery__caption break-words">
+                {shot.caption}
+              </figcaption>
             )}
           </figure>
         ))}
@@ -92,24 +105,26 @@ function ProjectCard({
       type="button"
       onClick={onOpen}
       aria-haspopup="dialog"
-      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface/70 text-left shadow-soft transition hover:-translate-y-1 hover:shadow-lift focus-visible:-translate-y-1"
+      className="group flex h-full w-full min-w-0 max-w-full flex-col overflow-hidden rounded-2xl border border-border bg-surface/70 text-left shadow-soft transition hover:-translate-y-1 hover:shadow-lift focus-visible:-translate-y-1"
     >
       {project.image && (
-        <div className="aspect-[16/10]">
+        <div className="aspect-[16/10] min-w-0 w-full overflow-hidden">
           <ProjectPreview project={project} className="h-full" />
         </div>
       )}
-      <div className="flex flex-1 flex-col p-5">
-        <div className="flex items-start justify-between gap-2">
+      <div className="flex min-w-0 flex-1 flex-col p-5">
+        <div className="flex min-w-0 items-start justify-between gap-2">
           <span className="inline-flex rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wide text-primary-deep">
             {project.projectType}
           </span>
         </div>
-        <p className="mt-2 font-mono text-xs text-slate">{project.context}</p>
-        <h3 className="mt-2 font-serif text-lg leading-snug text-ink">
+        <p className="mt-2 min-w-0 break-words font-mono text-xs text-slate">
+          {project.context}
+        </p>
+        <h3 className="mt-2 min-w-0 break-words font-serif text-lg leading-snug text-ink">
           {project.title}
         </h3>
-        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate">
+        <p className="mt-2 line-clamp-2 break-words text-sm leading-relaxed text-slate">
           {project.question}
         </p>
 
@@ -182,7 +197,7 @@ function ProjectModal({
         role="dialog"
         aria-modal="true"
         aria-label={project.title}
-        className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-t-3xl border border-border bg-surface shadow-lift sm:rounded-3xl"
+        className="relative max-h-[90vh] w-full max-w-2xl min-w-0 overflow-x-hidden overflow-y-auto rounded-t-3xl border border-border bg-surface shadow-lift sm:rounded-3xl"
         initial={{ y: 24, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 24, opacity: 0 }}
@@ -204,7 +219,7 @@ function ProjectModal({
           <X size={18} />
         </button>
 
-        <div className="p-6 sm:p-8">
+        <div className="min-w-0 p-5 sm:p-8">
           <div className="flex flex-wrap items-center gap-2">
             <span className="inline-flex rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wide text-primary-deep">
               {project.projectType}
@@ -213,12 +228,12 @@ function ProjectModal({
               <span className="text-xs text-slate">{project.status}</span>
             )}
           </div>
-          <p className="mt-3 font-mono text-xs text-slate">{project.context}</p>
-          <h3 className="mt-2 font-serif text-2xl leading-snug text-ink">
+          <p className="mt-3 break-words font-mono text-xs text-slate">{project.context}</p>
+          <h3 className="mt-2 break-words font-serif text-2xl leading-snug text-ink">
             {project.title}
           </h3>
 
-          <p className="mt-4 text-[15px] leading-relaxed text-slate">
+          <p className="mt-4 break-words text-[15px] leading-relaxed text-slate">
             {project.question}
           </p>
 
@@ -304,9 +319,19 @@ export default function Projects() {
   const [activeId, setActiveId] = useState<string | null>(null);
   const activeProject = projects.find((p) => p.id === activeId) ?? null;
 
+  useEffect(() => {
+    // Warm cover images first, then galleries — improves mobile first paint.
+    const covers = projects.map((p) => p.image).filter(Boolean) as string[];
+    preloadImages(covers);
+    const timer = window.setTimeout(() => {
+      preloadImages(collectProjectImageUrls(projects));
+    }, 500);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   return (
-    <section id="projects" className="section-anchor py-24">
-      <div className="mx-auto max-w-5xl px-5">
+    <section id="projects" className="section-anchor overflow-x-clip py-24">
+      <div className="mx-auto min-w-0 max-w-5xl px-5">
         <Reveal>
           <SectionHeading
             eyebrow="Selected Projects"
@@ -321,9 +346,9 @@ export default function Projects() {
           </h3>
         </Reveal>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid min-w-0 gap-6 md:grid-cols-2">
           {researchProjects.map((p, i) => (
-            <Reveal key={p.id} delay={i * 0.06}>
+            <Reveal key={p.id} delay={i * 0.06} className="min-w-0">
               <ProjectCard project={p} onOpen={() => setActiveId(p.id)} />
             </Reveal>
           ))}
@@ -334,9 +359,9 @@ export default function Projects() {
             Tools &amp; Prototypes
           </h3>
         </Reveal>
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid min-w-0 gap-6 md:grid-cols-2">
           {tools.map((p, i) => (
-            <Reveal key={p.id} delay={i * 0.06}>
+            <Reveal key={p.id} delay={i * 0.06} className="min-w-0">
               <ProjectCard project={p} onOpen={() => setActiveId(p.id)} />
             </Reveal>
           ))}

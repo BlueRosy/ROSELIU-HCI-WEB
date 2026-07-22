@@ -52,7 +52,7 @@ export default function Nav({ variant = "home" }: { variant?: "home" | "subpage"
     setMobileStudioOpen(false);
   };
 
-  const brandClass = `inline-flex h-10 items-center gap-2 rounded-full px-2.5 font-serif text-[15px] leading-none tracking-[-0.01em] text-ink transition ${
+  const brandClass = `inline-flex h-10 max-w-[min(100%,14.5rem)] items-center gap-2 rounded-full px-2.5 font-serif text-[15px] leading-none tracking-[-0.01em] text-ink transition sm:max-w-none ${
     scrolled ? "glass shadow-soft" : ""
   }`;
 
@@ -108,16 +108,16 @@ export default function Nav({ variant = "home" }: { variant?: "home" | "subpage"
         scrolled ? "py-2" : "py-3"
       }`}
     >
-      <div className="mx-auto flex h-11 max-w-5xl items-center justify-between gap-3 px-5">
+      <div className="mx-auto flex h-11 min-w-0 max-w-5xl items-center justify-between gap-3 px-5">
         {variant === "subpage" ? (
           <Link to={homeHref} onClick={closeMenu} className={brandClass}>
             <SiteLogo size="nav" />
-            <span>{profile.name}</span>
+            <span className="truncate">{profile.name}</span>
           </Link>
         ) : (
           <a href={homeHref} onClick={closeMenu} className={brandClass}>
             <SiteLogo size="nav" />
-            <span>{profile.name}</span>
+            <span className="truncate">{profile.name}</span>
           </a>
         )}
 
