@@ -17,7 +17,7 @@ const highlights = [
   {
     icon: Wrench,
     label: "Building",
-    text: "React / TypeScript front-end · data analysis & visualization · lightweight prototyping",
+    text: "React · JavaScript · Tailwind · Python / R / SQL · mixed-method analysis & lightweight prototyping",
   },
 ];
 

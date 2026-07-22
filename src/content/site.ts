@@ -482,8 +482,7 @@ export const publications: Publication[] = [
     authors: "Liu, Y., Zhu, Y., & Jin, Y.",
     title:
       "Evening Self-Reflection Dialogues on Short-Form Video Use: A Dataset and Modeling Pipeline for Stress and Anxiety Signals.",
-    venue:
-      "Information Processing & Management Conference (IP&MC), Dataset & Full Paper — targeting Jul 31, 2026",
+    venue: "Information Processing & Management Conference (IP&MC) 2026 — Full paper in progress",
     year: "2026",
     status: "In Preparation",
   },
@@ -492,7 +491,7 @@ export const publications: Publication[] = [
     title:
       "Short-Form Video Micro-Interactions as Everyday Stress and Anxiety Signals: Modeling Behavioral Traces for Digital Mental Health.",
     venue:
-      "DMH Conference Book — Maximising the Real-World Potential of Digital Mental Health (Springer Nature) — targeting Aug 31, 2026",
+      "DMH Conference Book — Maximizing the Real-World Potential of Digital Mental Health (Springer Nature) — in progress",
     year: "2026",
     status: "In Preparation",
   },
@@ -500,17 +499,25 @@ export const publications: Publication[] = [
     authors: "Liu, Y., Zhu, Y., & Jin, Y.",
     title:
       "Designing Self-Reflection Interventions for Healthier Short-Form Video Use Under High Stress and Anxiety.",
-    venue: "CHI (Full Paper) — targeting 2027",
+    venue: "CHI 2027 — in progress",
     year: "2027",
-    status: "Target Venue",
+    status: "In Preparation",
   },
   {
-    authors: "Liu, Y., & LC, R.",
+    authors: "Wang, Y., Liu, Y., & Ray, L. C.",
     title:
-      "Comment Conditions and Behavioral Responses to Authentic vs. Misleading Posts on a Simulated Social Platform.",
-    venue: "CHI (Full Paper) — targeting 2027",
+      "Share, Report, or Skip? How Platform Mechanisms Shape Responses to Misinformation in a Simulated Social Media Platform.",
+    venue: "CHI 2027 — in progress",
     year: "2027",
-    status: "Target Venue",
+    status: "In Preparation",
+  },
+  {
+    authors: "Deng, W., Liu, Y., Chen, Y., Zhang, H., Li, Y., Mi, H., & Yu, C.",
+    title:
+      "CoSim: Identifying Communication Patterns and Skill Development for Fudaoyuan in Chinese Universities.",
+    venue: "Manuscript in progress",
+    year: "2026",
+    status: "In Preparation",
   },
 ];
 
@@ -1000,23 +1007,24 @@ export const journey: JourneyStop[] = [
     detail: "Research design, storytelling with data, and applied text & NLP analytics.",
   },
   {
-    place: "Shanghai, China",
-    period: "2023 – 2024",
-    title: "Data Engineer, CIB Fintech",
-    detail:
-      "Full-time data engineer on enterprise big-data architecture projects, coordinating the overall organization and delivery of large-scale data-platform initiatives.",
-  },
-  {
     place: "Beijing, China",
-    period: "2024",
-    title: "Frontend Developer Intern",
-    detail: "Led frontend of a RAG workflow platform; cut workflow creation time from 2 hours to 30 minutes.",
+    period: "Aug – Dec 2024",
+    title: "Frontend Developer Intern, Puppy Agent",
+    detail:
+      "Built an enterprise RAG workflow platform (ReactFlow + Monaco); cut workflow creation time from 2 hours to 30 minutes.",
   },
   {
     place: "Sydney, Australia",
     period: "2025 – 2026",
     title: "M.S. in Information Technology, UNSW",
     detail: "Interactive design and web front-end programming. WAM 90.3 / High Distinction.",
+  },
+  {
+    place: "Beijing, China",
+    period: "Dec 2025 – Feb 2027",
+    title: "Research Intern, Pervasive HCI Group, Tsinghua University",
+    detail:
+      "CoSim dialogue-log analysis for peer-supporter skill development; exploratory HarmonyOS developer-forum topic modeling (Dr. Jie Cai).",
   },
   {
     place: "Kunshan, China",
@@ -1031,7 +1039,7 @@ export const journey: JourneyStop[] = [
     title:
       "Summer Research Intern, Studio for Narrative Spaces, CityU (Ray LC)",
     detail:
-      "Joined Ray LC\u2019s group on a misinformation-sharing experiment: study-web layout and stimulus selection (posts / comments); data collection in progress, targeting CHI 2027.",
+      "Led front-end for a simulated social platform A/B experiment on misinformation responses; co-authoring a CHI 2027 manuscript.",
   },
 ];
 
