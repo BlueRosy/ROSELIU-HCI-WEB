@@ -34,7 +34,7 @@ export default function HomePage() {
   }, [hash]);
 
   return (
-    <div id="top" className="relative min-h-screen overflow-x-clip">
+    <div id="top" className="relative min-h-screen">
       <div className="page-breath" aria-hidden="true">
         <span className="page-breath__orb page-breath__orb--a" />
         <span className="page-breath__orb page-breath__orb--b" />
