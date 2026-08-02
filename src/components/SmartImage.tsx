@@ -9,10 +9,14 @@ type SmartImageProps = {
   fetchPriority?: "high" | "low" | "auto";
 };
 
+function isSvg(src: string) {
+  return src.toLowerCase().split("?")[0]?.endsWith(".svg") ?? false;
+}
+
 function isReady(img: HTMLImageElement, src: string) {
   if (!img.complete) return false;
-  // SVG often reports naturalWidth 0 in some browsers even when loaded.
-  if (src.toLowerCase().includes(".svg")) return true;
+  // SVG often reports naturalWidth 0 even when loaded.
+  if (isSvg(src)) return true;
   return img.naturalWidth > 0;
 }
 
@@ -57,6 +61,7 @@ export default function SmartImage({
       )}
       <img
         ref={imgRef}
+        key={src}
         src={src}
         alt={alt}
         loading={loading}
@@ -64,7 +69,7 @@ export default function SmartImage({
         fetchPriority={fetchPriority}
         onLoad={() => setStatus("ok")}
         onError={() => setStatus("error")}
-        className={`${imgClassName} transition-opacity duration-300 ${
+        className={`${imgClassName} transition-[opacity,transform] duration-500 ease-out ${
           status === "ok" ? "opacity-100" : "opacity-0"
         }`}
       />

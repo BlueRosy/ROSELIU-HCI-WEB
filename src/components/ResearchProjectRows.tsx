@@ -2,7 +2,11 @@ import { ExternalLink } from "lucide-react";
 import { about, projects, type Project } from "../content/site";
 import SmartImage from "./SmartImage";
 
-/** Media fills the row height defined by the text column (no intrinsic stretch). */
+function isRaster(src: string) {
+  return /\.(jpe?g|png|webp)$/i.test(src.split("?")[0] ?? "");
+}
+
+/** Prefer real screenshots; diagrams stay contained on the blue field. */
 function ProjectMedia({ project }: { project: Project }) {
   const src = project.image ?? project.gallery?.[0]?.src ?? null;
 
@@ -16,13 +20,23 @@ function ProjectMedia({ project }: { project: Project }) {
     );
   }
 
+  const photo = isRaster(src);
+
   return (
-    <div className="project-row__media">
+    <div
+      className={`project-row__media project-row__media--zoom ${
+        photo ? "project-row__media--photo" : "project-row__media--diagram"
+      }`}
+    >
       <SmartImage
         src={src}
-        alt=""
-        className="project-row__media-fill"
-        imgClassName="h-full w-full object-contain object-center p-2"
+        alt={`${project.shortTitle ?? project.title} preview`}
+        className="project-row__media-frame h-full w-full"
+        imgClassName={
+          photo
+            ? "project-row__media-img h-full w-full object-cover object-center"
+            : "project-row__media-img project-row__media-img--diagram h-full w-full object-contain object-center p-2.5"
+        }
       />
     </div>
   );
@@ -33,7 +47,7 @@ function ProjectRow({ project }: { project: Project }) {
   const liveLinks = project.links.filter((l) => l.href);
 
   return (
-    <article className="project-row grid items-stretch gap-3.5 py-5 sm:grid-cols-[180px_minmax(0,1fr)] sm:gap-5 md:grid-cols-[200px_minmax(0,1fr)] md:gap-7 lg:grid-cols-[220px_minmax(0,1fr)]">
+    <article className="project-row group/project grid items-stretch gap-3.5 py-5 sm:grid-cols-[180px_minmax(0,1fr)] sm:gap-5 md:grid-cols-[200px_minmax(0,1fr)] md:gap-7 lg:grid-cols-[220px_minmax(0,1fr)]">
       <ProjectMedia project={project} />
 
       <div className="project-row__copy flex min-w-0 flex-col justify-center">

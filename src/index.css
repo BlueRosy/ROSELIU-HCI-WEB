@@ -1776,7 +1776,7 @@ body {
   animation: signal-card-breathe 5.5s ease-in-out infinite;
 }
 
-/* Project row: text column sets height; media stretches to match */
+/* Project row media */
 .project-row > * {
   min-height: 0;
 }
@@ -1788,15 +1788,19 @@ body {
   border: 1px solid var(--color-border);
   background: #f3f7fb;
   align-self: stretch;
-  /* Absolute children only — intrinsic image size must not grow the row */
-  min-height: 7.5rem;
+  aspect-ratio: 16 / 10;
+  min-height: 8.5rem;
+  transition:
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
-.project-row__media-fill {
-  position: absolute !important;
-  inset: 0;
-  height: 100% !important;
-  width: 100% !important;
+.project-row__media--photo {
+  background: #eef3f8;
+}
+
+.project-row__media--diagram {
+  background: #f3f7fb;
 }
 
 .project-row__media--empty {
@@ -1805,13 +1809,67 @@ body {
   justify-content: center;
 }
 
+/* Yuhan-style live zoom — pull into the real snapshot on hover */
+.project-row__media-frame {
+  height: 100%;
+  width: 100%;
+}
+
+.project-row__media-img {
+  transform: scale(1);
+  transform-origin: center center;
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease;
+  will-change: transform;
+}
+
+.project-row__media-img--diagram {
+  transform-origin: center 40%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-row:hover .project-row__media--zoom,
+  .project-row__media--zoom:hover {
+    border-color: color-mix(in srgb, var(--color-primary) 45%, var(--color-border));
+    box-shadow:
+      0 10px 28px rgba(74, 127, 163, 0.14),
+      0 1px 0 rgba(255, 255, 255, 0.65) inset;
+  }
+
+  .project-row:hover .project-row__media--photo .project-row__media-img,
+  .project-row__media--photo:hover .project-row__media-img {
+    transform: scale(1.22);
+  }
+
+  .project-row:hover .project-row__media--diagram .project-row__media-img,
+  .project-row__media--diagram:hover .project-row__media-img {
+    transform: scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-row__media-img {
+    transition: opacity 0.2s ease;
+  }
+
+  .project-row:hover .project-row__media--photo .project-row__media-img,
+  .project-row__media--photo:hover .project-row__media-img,
+  .project-row:hover .project-row__media--diagram .project-row__media-img,
+  .project-row__media--diagram:hover .project-row__media-img {
+    transform: none;
+  }
+}
+
 .project-row__copy {
   min-height: 7.5rem;
 }
 
 @media (min-width: 640px) {
   .project-row__media {
-    min-height: 0;
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 100%;
   }
 }
 

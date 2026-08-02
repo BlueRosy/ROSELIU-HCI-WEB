@@ -1,23 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Caregiver study placeholder">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#FFFDF8"/>
-      <stop offset="1" stop-color="#F1ECFB"/>
-    </linearGradient>
-    <linearGradient id="ac" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#B9786F"/>
-      <stop offset="1" stop-color="#D4A59E"/>
-    </linearGradient>
-  </defs>
-  <rect width="800" height="500" fill="url(#bg)"/>
-  <g transform="translate(60,150)">
-    <rect x="0" y="180" width="80" height="120" rx="8" fill="url(#ac)" opacity="0.85"/>
-    <rect x="120" y="120" width="80" height="180" rx="8" fill="url(#ac)" opacity="0.7"/>
-    <rect x="240" y="60" width="80" height="240" rx="8" fill="url(#ac)" opacity="0.9"/>
-    <rect x="360" y="150" width="80" height="150" rx="8" fill="url(#ac)" opacity="0.6"/>
-    <rect x="480" y="100" width="80" height="200" rx="8" fill="url(#ac)" opacity="0.8"/>
-  </g>
-  <text x="60" y="90" font-family="Inter, sans-serif" font-size="34" font-weight="700" fill="#2F2A26">GenAI Parenting</text>
-  <text x="60" y="125" font-family="IBM Plex Mono, monospace" font-size="16" fill="#6F6258">AI literacy &#183; risk communication</text>
-  <text x="60" y="478" font-family="IBM Plex Mono, monospace" font-size="13" fill="#8A7F72">sanitized screenshot placeholder</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="GenAI Parenting study">
+  <rect width="800" height="500" fill="#F3F7FB"/>
+  <text x="48" y="56" font-family="Inter, sans-serif" font-size="28" font-weight="700" fill="#1A1D21">GenAI Parenting</text>
+  <text x="48" y="84" font-family="IBM Plex Mono, monospace" font-size="13" fill="#5A6570">AI literacy · risk communication</text>
+  <rect x="48" y="140" width="220" height="120" rx="14" fill="#FFFFFF" stroke="#7BA7C9" stroke-width="1.5"/>
+  <text x="158" y="210" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-weight="600" fill="#1A1D21">Parents</text>
+  <path d="M280 200 H320" stroke="#4A7FA3" stroke-width="2"/>
+  <path d="M312 192 L324 200 L312 208" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+  <rect x="330" y="140" width="220" height="120" rx="14" fill="#FFFFFF" stroke="#7BA7C9" stroke-width="1.5"/>
+  <text x="440" y="210" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-weight="600" fill="#1A1D21">GenAI risks</text>
+  <path d="M562 200 H602" stroke="#4A7FA3" stroke-width="2"/>
+  <path d="M594 192 L606 200 L594 208" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+  <rect x="612" y="140" width="140" height="120" rx="14" fill="#4A7FA3"/>
+  <text x="682" y="210" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-weight="600" fill="#FFFFFF">Literacy</text>
 </svg>

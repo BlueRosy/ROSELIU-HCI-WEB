@@ -217,7 +217,7 @@ export const projects: Project[] = [
     question:
       "How can short-form video micro-interactions and evening self-reflection dialogues \u2014 as everyday digital signals \u2014 reveal wellbeing states, self-regulation patterns, and support needs, including stress and anxiety, and how should those signals shape safe, reflective interventions?",
     blurb:
-      "Links short-form video micro-interactions and evening reflection dialogues to wellbeing-state modeling, toward a self-reflection intervention for healthier media use.",
+      "Studies how short-form video micro-interactions and reflection dialogues can inform well-being-state modeling and LLM-supported self-reflection.",
     contribution:
       "A three-stage line: (1) evening Juanjuan dialogue logs \u2192 reflective behavioral-signal dataset and modeling pipeline for an LLM-assisted self-reflection assistant; (2) SFV-specific micro-interactions as everyday wellbeing-state signals, with stress and anxiety as key outcomes; (3) combine both into a self-reflection intervention for healthier SFV use. This project is a first step toward multimodal everyday wellbeing sensing, starting with micro-interactions and evening reflection dialogues \u2014 with a future direction of richer contextual and multimodal signals.",
     methods: [
@@ -234,19 +234,25 @@ export const projects: Project[] = [
       "Self-reflection intervention",
     ],
     role: "Independently designed & built the simulated platform (React/JS, Dockerized); led the pilot study (N=32) and analysis pipelines across dialogue and micro-interaction tracks.",
-    status: "DMH 2026 presented · targeting CHI 2027",
+    status: "DMH 2026 presented · IP&MC 2026 under review · targeting CHI 2027",
     accessType: "private",
-    image: "/projects/mindful-scroll.svg",
+    image: "/Mindful-Scroll/cover.jpg",
+    imageFit: "cover",
     gallery: [
       {
-        src: "/projects/mindful-scroll.svg",
-        alt: "Mindful Scroll research flow diagram",
-        caption: "Signals to intervention",
+        src: "/Mindful-Scroll/cover.jpg",
+        alt: "Mindful Scroll prototype: feed, journal, and Juanjuan dialogue",
+        caption: "Prototype · feed to reflection",
       },
       {
-        src: "/projects/mindful-scroll-b.svg",
-        alt: "Mindful Scroll closed support loop diagram",
-        caption: "Support loop",
+        src: "/Mindful-Scroll/gallery-study.jpg",
+        alt: "Mindful Scroll study flow: consent, diary, and short-video feed",
+        caption: "Study flow · consent to feed",
+      },
+      {
+        src: "/Mindful-Scroll/gallery-support.jpg",
+        alt: "Mindful Scroll support and reflection screens",
+        caption: "Support · evening reflection",
       },
     ],
     links: [{ label: "Demo available upon request" }],
@@ -261,7 +267,7 @@ export const projects: Project[] = [
     question:
       "How do emotional cues, resistance, and self-disclosure emerge in simulated counselor\u2013student conversations, and how can these patterns inform better support strategies?",
     blurb:
-      "Analyzes simulated counselor\u2013student dialogues to surface facilitative vs. hindering patterns for conversational support design.",
+      "Analyzes simulated counselor\u2013student dialogues to identify communication patterns that can inform conversational support design.",
     contribution:
       "Identifies facilitative vs. hindering communication patterns in simulated peer support, informing conversational intervention design.",
     methods: [
@@ -303,7 +309,7 @@ export const projects: Project[] = [
     question:
       "Do treatment vs. control comment conditions change how people react to authentic and misleading-but-funny posts \u2014 via repost, share, report, or skip \u2014 and what mechanisms drive those shifts?",
     blurb:
-      "Behavioral experiment on a simulated social platform testing how comment conditions shape responses to true and misleading-but-funny posts.",
+      "Examines how comment conditions on a simulated social platform shape credibility judgments and sharing behavior.",
     contribution:
       "A/B behavioral experiment on a simulated social platform: treatment and control each with ~20 posts (~10 true / ~10 false-but-funny), with differing comment conditions; measures repost, share, report, and skip to inform responsible platform intervention design.",
     methods: [
@@ -346,7 +352,7 @@ export const projects: Project[] = [
     question:
       "How do developers seek help, debug, and share tooling in a large open-source community forum \u2014 and which discourse topics are research-ready for deeper HCI analysis?",
     blurb:
-      "Exploratory crawl and topic modeling of a large developer forum to identify research-ready help-seeking and tooling themes.",
+      "Explores help-seeking, tooling, and developer-experience themes in a large technical forum using crawling and topic modeling.",
     contribution:
       "Crawl posts and comments from the Huawei HarmonyOS developer Q&A forum, run topic modeling with explicit topic mapping, then focus candidates such as help-seeking, tooling/bots, IoT, and automotive \u2014 informed by open-source developer and support/tool community literature, without claiming those prior papers as my own.",
     methods: [
@@ -398,7 +404,8 @@ export const projects: Project[] = [
     methods: ["DuckDB-WASM", "React + TypeScript", "ECharts", "Statistical modeling"],
     focus: ["Data analysis", "Visualization", "Regression / model comparison"],
     accessType: "public",
-    image: "/projects/rose-stats-studio.svg",
+    image: "/websites/rose-stats-studio/cover.jpg",
+    imageFit: "cover",
     gallery: [
       {
         src: "/websites/rose-stats-studio/gallery-correlation.jpg",
@@ -449,7 +456,8 @@ export const projects: Project[] = [
       "Research workflow",
     ],
     accessType: "public",
-    image: "/projects/rose-literature.svg",
+    image: "/websites/rose-research-world/cover.jpg",
+    imageFit: "cover",
     gallery: [
       {
         src: "/websites/rose-research-world/gallery-scholars.jpg",
@@ -485,7 +493,8 @@ export const projects: Project[] = [
     methods: ["React", "HCI design patterns", "Responsive UI"],
     focus: ["Information hierarchy", "Visual feedback", "Accessibility"],
     accessType: "public",
-    image: "/projects/meal-right.svg",
+    image: "/websites/meal-right/cover.jpg",
+    imageFit: "cover",
     gallery: [
       {
         src: "/websites/meal-right/gallery-onboarding.jpg",
@@ -536,9 +545,9 @@ export const publications: Publication[] = [
     authors: "Liu, Y., Zhu, Y., & Jin, Y.",
     title:
       "Evening Self-Reflection Dialogues on Short-Form Video Use: A Dataset and Modeling Pipeline for Stress and Anxiety Signals.",
-    venue: "Information Processing & Management Conference (IP&MC) 2026 — Full paper in progress",
+    venue: "Information Processing & Management Conference (IP&MC) 2026 — under review",
     year: "2026",
-    status: "In Preparation",
+    status: "Under Review",
   },
   {
     authors: "Liu, Y., Zhu, Y., & Jin, Y.",
@@ -642,36 +651,40 @@ export const about = {
    */
   /** Narrow intro column (Anna-style short measure). */
   paragraphs: [
-    "I am currently a Research Fellow in the Human-centered Intelligent Interaction (HII) Lab at Duke Kunshan University. I work at the intersection of data-driven information processing, media and interaction signals, and mental health / social wellbeing.",
-    "I primarily use quantitative and computational methods — survey and behavioral-log analysis, NLP, topic and predictive modeling — with additional experience in thematic analysis of qualitative data.",
+    "I am currently a Research Fellow in the Human-centered Intelligent Interaction (HII) Lab at Duke Kunshan University. My research lies at the intersection of Human-Computer Interaction, Computational Social Science, and digital media, focusing on how digital systems shape well-being, trust, and support.",
+    "Methodologically, I combine quantitative and computational approaches — including survey analysis, behavioral-log analysis, NLP, topic modeling, predictive modeling, and time-series analysis — with qualitative thematic analysis and the development of web-based research tools.",
   ],
-  /** Wider Projects band intro. */
+  /** Wider Projects band intro — mainline + related work (profile tone). */
   projectsIntro:
-    "My current projects study how conversational logs and everyday behavioral traces reveal wellbeing-related states, and how those insights can inform supportive interventions and platform experiments: Mindful Scroll links short-form video signals to reflective support; CoSim maps facilitative vs. hindering patterns in counselor–student dialogues; and a CityU misinformation experiment tests how comment conditions shape sharing behavior.",
+    "My current projects center on using conversational logs and behavioral traces to understand users’ stress, anxiety, and self-regulation needs, with related work on supportive counseling communication, misinformation sharing, and help-seeking in developer communities. Across these directions, I am interested in digital systems that can respond more proactively to users’ needs and better support well-being, trust, and meaningful participation.",
   topics: [
-    "data-driven information processing",
-    "media and interaction signals",
-    "mental health / social wellbeing",
+    "Human-Computer Interaction",
+    "Computational Social Science",
+    "digital media",
+    "well-being, trust, and support",
   ] as const,
   seekingLine:
-    "I am seeking PhD opportunities in HCI and related areas where computational methods meet human-centered questions.",
+    "I am seeking PhD opportunities in HCI and related areas where computational methods are used to study human behavior, digital interaction, and supportive technologies.",
   /** @deprecated Removed from UI; kept briefly for legacy imports. */
   lookingForward: "",
   intro:
-    "I work at the intersection of data-driven information processing, media and interaction signals, and mental health / social wellbeing.",
+    "My research lies at the intersection of Human-Computer Interaction, Computational Social Science, and digital media, focusing on how digital systems shape well-being, trust, and support.",
   mobileGoal: "",
   researchInterest: "",
   researchAreas: [
-    "Data-driven information processing",
-    "Media & interaction signals",
-    "Mental health & social wellbeing",
+    "Human-Computer Interaction",
+    "Computational Social Science",
+    "Digital media",
+    "Well-being, trust & support",
   ] as const,
   phdAreas:
-    "HCI · Data-driven information processing · Media signals · Mental health & social wellbeing",
+    "HCI · Computational Social Science · Digital media · Well-being / trust / support",
   methods: [
     "Survey & behavioral-log analysis",
     "NLP / topic & predictive modeling",
+    "Time-series analysis",
     "Thematic analysis",
+    "Web-based research tools",
   ] as const,
   researchWorldLink: {
     label: "Explore Research World",
@@ -1150,8 +1163,8 @@ export const news: NewsItem[] = [
   },
   {
     date: "Jul 2026",
-    title: "Submitting to IP&MC",
-    text: "Submitting Mindful Scroll dialogue-log modeling work to IP&MC.",
+    title: "IP&MC 2026 paper under review",
+    text: "Mindful Scroll dialogue-log modeling paper submitted to IP&MC 2026; currently under review.",
     tag: "Manuscript",
     featured: true,
   },
