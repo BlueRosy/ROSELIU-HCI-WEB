@@ -645,6 +645,19 @@ body {
   min-width: 0;
 }
 
+/* Sit below the greeting typewriter; optically balance the shorter right rail */
+@media (min-width: 768px) {
+  .about-profile-rail-wrap {
+    padding-top: 3.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-profile-rail-wrap {
+    padding-top: 3.75rem;
+  }
+}
+
 /* Short accent mark — only first line, not full pullquote height */
 .about-pullquote {
   position: relative;

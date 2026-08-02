@@ -140,7 +140,7 @@ export default function About() {
 
               <div className="about-intro-grid hidden md:grid md:grid-cols-[minmax(0,1fr)_200px] md:items-start md:gap-8 lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-10">
                 <AboutBio />
-                <Reveal delay={0.04} className="min-w-0">
+                <Reveal delay={0.04} className="about-profile-rail-wrap min-w-0">
                   <AboutIdentityCard />
                 </Reveal>
               </div>
