@@ -40,7 +40,7 @@ export default function ResearchAtlasProjects() {
                   {project.contribution}
                 </p>
                 <Link
-                  to="/#projects"
+                  to="/"
                   className="mt-4 inline-flex text-sm font-medium text-primary-deep transition hover:underline"
                 >
                   View project →

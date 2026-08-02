@@ -1,33 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Misinformation sharing study placeholder">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#FFFDF8"/>
-      <stop offset="1" stop-color="#F8F1E8"/>
-    </linearGradient>
-    <linearGradient id="ac" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#B9786F"/>
-      <stop offset="1" stop-color="#D4A59E"/>
-    </linearGradient>
-  </defs>
-  <rect width="800" height="500" fill="url(#bg)"/>
-  <g font-family="Inter, sans-serif">
-    <rect x="60" y="180" rx="18" width="300" height="230" fill="#ffffff" opacity="0.9"/>
-    <circle cx="92" cy="214" r="14" fill="url(#ac)"/>
-    <rect x="116" y="206" width="120" height="10" rx="5" fill="#DDE7F3"/>
-    <rect x="116" y="224" width="80" height="9" rx="4" fill="#E7EEF8"/>
-    <rect x="84" y="252" width="252" height="9" rx="4" fill="#E7EEF8"/>
-    <rect x="84" y="270" width="220" height="9" rx="4" fill="#E7EEF8"/>
-    <rect x="84" y="320" width="120" height="44" rx="12" fill="url(#ac)" opacity="0.85"/>
-    <text x="100" y="348" font-size="16" font-weight="600" fill="#ffffff">Share?</text>
-  </g>
-  <g font-family="IBM Plex Mono, monospace">
-    <rect x="440" y="200" width="140" height="34" rx="10" fill="#B9786F" opacity="0.18"/>
-    <text x="458" y="222" font-size="14" fill="#3F7FE0">control</text>
-    <rect x="440" y="252" width="160" height="34" rx="10" fill="#D4A59E" opacity="0.22"/>
-    <text x="458" y="274" font-size="14" fill="#E07FAE">treatment</text>
-    <path d="M380 295 L440 217 M380 295 L440 269" stroke="url(#ac)" stroke-width="2" fill="none" opacity="0.6"/>
-  </g>
-  <text x="60" y="90" font-family="Inter, sans-serif" font-size="34" font-weight="700" fill="#2F2A26">Misinfo Sharing</text>
-  <text x="60" y="125" font-family="IBM Plex Mono, monospace" font-size="16" fill="#6F6258">authentic vs. misleading &#183; platform design</text>
-  <text x="60" y="475" font-family="IBM Plex Mono, monospace" font-size="13" fill="#8A7F72">sanitized screenshot placeholder</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Misinformation sharing experiment flow">
+  <rect width="800" height="500" fill="#F3F7FB"/>
+  <text x="48" y="56" font-family="Inter, sans-serif" font-size="28" font-weight="700" fill="#1A1D21">Misinfo Sharing</text>
+  <text x="48" y="84" font-family="IBM Plex Mono, monospace" font-size="13" fill="#5A6570">A/B comment conditions → behavioral responses</text>
+
+  <rect x="48" y="150" width="160" height="90" rx="12" fill="#FFFFFF" stroke="#7BA7C9" stroke-width="1.5"/>
+  <text x="128" y="190" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#1A1D21">Posts</text>
+  <text x="128" y="214" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5A6570">true / false-funny</text>
+
+  <path d="M220 195 H260" stroke="#4A7FA3" stroke-width="2"/>
+  <path d="M252 187 L264 195 L252 203" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+
+  <rect x="270" y="130" width="150" height="60" rx="10" fill="#FFFFFF" stroke="#4A7FA3"/>
+  <text x="345" y="166" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#4A7FA3">Control</text>
+
+  <rect x="270" y="210" width="150" height="60" rx="10" fill="#4A7FA3"/>
+  <text x="345" y="246" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#FFFFFF">Treatment</text>
+
+  <path d="M430 160 H470 M430 240 H470" stroke="#4A7FA3" stroke-width="2"/>
+  <path d="M462 152 L474 160 L462 168" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+  <path d="M462 232 L474 240 L462 248" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+
+  <rect x="480" y="150" width="272" height="140" rx="14" fill="#FFFFFF" stroke="#7BA7C9" stroke-width="1.5"/>
+  <text x="616" y="195" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#1A1D21">Responses</text>
+  <text x="616" y="225" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#5A6570">repost · share · report · skip</text>
+  <text x="616" y="255" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#5A6570">mechanism analysis</text>
+
+  <rect x="160" y="340" width="480" height="80" rx="12" fill="#E8F2F9" stroke="#A8C8DE"/>
+  <text x="400" y="375" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#1A1D21">Simulated social platform experiment</text>
+  <text x="400" y="400" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5A6570">CityU Studio for Narrative Spaces · targeting CHI 2027</text>
 </svg>

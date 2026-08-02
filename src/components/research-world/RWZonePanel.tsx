@@ -56,7 +56,7 @@ export default function RWZonePanel({
               project ? (
                 <li key={project.id}>
                   <Link
-                    to="/#projects"
+                    to="/"
                     className="block rounded-lg border border-border/80 bg-surface/50 px-3 py-2 text-sm text-ink transition hover:border-primary/30 hover:bg-primary/5"
                   >
                     <span className="font-medium">{project.title}</span>

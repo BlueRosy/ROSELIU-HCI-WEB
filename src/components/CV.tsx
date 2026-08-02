@@ -1,67 +1,55 @@
-import { Download, GraduationCap, FlaskConical, Wrench } from "lucide-react";
+import { Download } from "lucide-react";
 import { profile } from "../content/site";
-import BotanicalFrame from "./botanical/BotanicalFrame";
-import { Reveal, SectionHeading } from "./primitives";
-
-const highlights = [
-  {
-    icon: GraduationCap,
-    label: "Education",
-    text: "Columbia (M.S. Applied Analytics) · UNSW (M.S. IT, HD) · MUST (B.Sc. Economics, Rank 2/882)",
-  },
-  {
-    icon: FlaskConical,
-    label: "Research",
-    text: "Research Fellow @ DKU HII Lab · Research Intern @ Tsinghua Pervasive HCI · Summer Research Intern @ CityU Studio for Narrative Spaces (Ray LC)",
-  },
-  {
-    icon: Wrench,
-    label: "Building",
-    text: "React · JavaScript · Tailwind · Python / R / SQL · mixed-method analysis & lightweight prototyping",
-  },
-];
+import { Reveal } from "./primitives";
 
 export default function CV() {
   return (
-    <section id="cv" className="section-anchor py-24">
+    <section id="cv" className="section-anchor py-16 sm:py-20 md:py-24">
       <div className="mx-auto max-w-5xl px-5">
         <Reveal>
-          <BotanicalFrame className="shadow-soft backdrop-blur-sm">
-            <div className="grid gap-10 md:grid-cols-[1fr_auto] md:items-center">
-              <div>
-                <SectionHeading
-                  eyebrow="Curriculum Vitae"
-                  title="The full story, on one page"
-                />
-                <ul className="mt-8 space-y-5">
-                  {highlights.map((h) => (
-                    <li key={h.label} className="flex gap-4">
-                      <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary-deep ring-1 ring-primary/15">
-                        <h.icon size={18} />
-                      </span>
-                      <div>
-                        <p className="font-mono text-xs uppercase tracking-[0.14em] text-slate">
-                          {h.label}
-                        </p>
-                        <p className="mt-1 text-[15px] leading-relaxed text-ink">
-                          {h.text}
-                        </p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <a
-                href={profile.cv}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex shrink-0 items-center gap-2 rounded-full bg-primary-deep px-6 py-3 text-sm font-medium text-white shadow-soft transition hover:translate-y-[-1px] hover:bg-primary hover:shadow-lift"
-              >
-                <Download size={18} /> Download CV (PDF)
-              </a>
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-slate">
+                Curriculum Vitae
+              </p>
+              <h1 className="mt-2 font-serif text-3xl tracking-[-0.02em] text-ink md:text-4xl">
+                CV
+              </h1>
+              <p className="mt-2 max-w-xl text-[14px] leading-relaxed text-slate">
+                View the full one-page CV below, or download the PDF.
+              </p>
             </div>
-          </BotanicalFrame>
+            <a
+              href={profile.cv}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-primary-deep px-5 py-2.5 text-sm font-medium text-white shadow-soft transition hover:bg-primary"
+            >
+              <Download size={16} /> Download PDF
+            </a>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.08} className="mt-8">
+          <div className="overflow-hidden rounded-xl border border-border bg-surface shadow-soft">
+            <iframe
+              title={`${profile.name} CV`}
+              src={`${profile.cv}#view=FitH`}
+              className="cv-embed block w-full border-0 bg-white"
+            />
+          </div>
+          <p className="mt-3 text-center font-mono text-[11px] text-slate/70">
+            If the preview does not load,{" "}
+            <a
+              href={profile.cv}
+              target="_blank"
+              rel="noreferrer"
+              className="text-primary-deep underline-offset-2 hover:underline"
+            >
+              open the PDF
+            </a>
+            .
+          </p>
         </Reveal>
       </div>
     </section>

@@ -7,13 +7,14 @@
 
 export const profile = {
   name: "Yanqing Liu",
-  // TODO(assets): confirm current role / affiliation line
-  role: "Research Fellow, HII Lab, Duke Kunshan University",
+  shortName: "Rose",
+  role: "Research Fellow, Human-centered Intelligent Interaction (HII) Lab, Duke Kunshan University",
+  roleShort: "Research Fellow · HII Lab · Duke Kunshan University",
   email: "yanqing.liu2@dukekunshan.edu.cn",
   photo: "/Rose-PersonalImage/Rose1.jpg",
   heroPhoto: "/Rose-PersonalImage/Rose3.jpg",
   heroArt: "/Rose-PersonalImage/Rose-3D.png",
-  aboutPhoto: "/Rose-PersonalImage/rose-columbia1.jpg",
+  aboutPhoto: "/Rose-PersonalImage/rose-columbia3.jpg",
   heroMode: "illustration" as const,
   heroIllustration: "/Rose-PersonalImage/h5.png",
   avatar3d: "/Rose-PersonalImage/chibi-reading.glb",
@@ -23,8 +24,7 @@ export const profile = {
     github: "https://github.com/BlueRosy",
     linkedin: "https://www.linkedin.com/in/yanqing-liu-rose",
   },
-  // Toggle the "seeking PhD opportunities" line in About
-  seekingPhd: false,
+  seekingPhd: true,
 } as const;
 
 export const hero = {
@@ -184,9 +184,13 @@ export type Project = {
   group: "research" | "tool";
   projectType: ProjectType;
   title: string;
+  /** Shorter title for compact About rows. */
+  shortTitle?: string;
   context: string;
   question: string;
   contribution: string;
+  /** 1–2 sentence summary for About / Side Project lists. */
+  blurb: string;
   methods: string[];
   focus: string[];
   role?: string;
@@ -208,9 +212,12 @@ export const projects: Project[] = [
     group: "research",
     projectType: "System",
     title: "From Social Media Micro-Interactions to Mental State Cues",
+    shortTitle: "Mindful Scroll",
     context: "Mindful Scroll · HII Lab, Duke Kunshan University",
     question:
       "How can short-form video micro-interactions and evening self-reflection dialogues \u2014 as everyday digital signals \u2014 reveal wellbeing states, self-regulation patterns, and support needs, including stress and anxiety, and how should those signals shape safe, reflective interventions?",
+    blurb:
+      "Links short-form video micro-interactions and evening reflection dialogues to wellbeing-state modeling, toward a self-reflection intervention for healthier media use.",
     contribution:
       "A three-stage line: (1) evening Juanjuan dialogue logs \u2192 reflective behavioral-signal dataset and modeling pipeline for an LLM-assisted self-reflection assistant; (2) SFV-specific micro-interactions as everyday wellbeing-state signals, with stress and anxiety as key outcomes; (3) combine both into a self-reflection intervention for healthier SFV use. This project is a first step toward multimodal everyday wellbeing sensing, starting with micro-interactions and evening reflection dialogues \u2014 with a future direction of richer contextual and multimodal signals.",
     methods: [
@@ -227,20 +234,19 @@ export const projects: Project[] = [
       "Self-reflection intervention",
     ],
     role: "Independently designed & built the simulated platform (React/JS, Dockerized); led the pilot study (N=32) and analysis pipelines across dialogue and micro-interaction tracks.",
-    status:
-      "DMH 2026 presented · IP&MC dataset/pipeline in prep (ddl Jul 31) · Conference Book planned (ddl Aug 31) · intervention design Sep 2026 · targeting CHI 2027 (intervention)",
+    status: "DMH 2026 presented · targeting CHI 2027",
     accessType: "private",
-    image: "/Mindful-Scroll/cover.jpg",
+    image: "/projects/mindful-scroll.svg",
     gallery: [
       {
-        src: "/Mindful-Scroll/gallery-study.jpg",
-        alt: "Mindful Scroll study flow collage: consent, morning diary, and feed",
-        caption: "Study day · consent to feed",
+        src: "/projects/mindful-scroll.svg",
+        alt: "Mindful Scroll research flow diagram",
+        caption: "Signals to intervention",
       },
       {
-        src: "/Mindful-Scroll/gallery-support.jpg",
-        alt: "Mindful Scroll support collage: EMA diary, evening reflection, and chat",
-        caption: "Support · EMA to chat",
+        src: "/projects/mindful-scroll-b.svg",
+        alt: "Mindful Scroll closed support loop diagram",
+        caption: "Support loop",
       },
     ],
     links: [{ label: "Demo available upon request" }],
@@ -250,9 +256,12 @@ export const projects: Project[] = [
     group: "research",
     projectType: "Study",
     title: "Conversational Patterns in Counselor\u2013Student Support Simulations",
+    shortTitle: "CoSim",
     context: "CoSim · Pervasive HCI Group, Tsinghua University",
     question:
       "How do emotional cues, resistance, and self-disclosure emerge in simulated counselor\u2013student conversations, and how can these patterns inform better support strategies?",
+    blurb:
+      "Analyzes simulated counselor\u2013student dialogues to surface facilitative vs. hindering patterns for conversational support design.",
     contribution:
       "Identifies facilitative vs. hindering communication patterns in simulated peer support, informing conversational intervention design.",
     methods: [
@@ -268,9 +277,19 @@ export const projects: Project[] = [
       "Intervention design",
     ],
     role: "Built a trajectory\u2013thematic pipeline across 10 supporters / 19 sessions; identified facilitative vs. hindering patterns.",
-    status: "Study completed \u00b7 preparing next venue submission",
+    status: "Study completed · preparing next submission",
     accessType: "private",
     image: "/projects/cosim.svg",
+    gallery: [
+      {
+        src: "/projects/cosim.svg",
+        alt: "CoSim dialogue analysis flow",
+      },
+      {
+        src: "/projects/cosim-b.svg",
+        alt: "CoSim facilitative vs hindering patterns",
+      },
+    ],
     links: [{ label: "Sanitized walkthrough upon request" }],
   },
   {
@@ -278,10 +297,13 @@ export const projects: Project[] = [
     group: "research",
     projectType: "Design Research",
     title: "Designing Social Platforms to Reduce Misinformation Sharing",
+    shortTitle: "Misinformation Sharing",
     context:
       "Studio for Narrative Spaces · CityU · Ray LC (Summer Research Intern, from Jun 2026)",
     question:
       "Do treatment vs. control comment conditions change how people react to authentic and misleading-but-funny posts \u2014 via repost, share, report, or skip \u2014 and what mechanisms drive those shifts?",
+    blurb:
+      "Behavioral experiment on a simulated social platform testing how comment conditions shape responses to true and misleading-but-funny posts.",
     contribution:
       "A/B behavioral experiment on a simulated social platform: treatment and control each with ~20 posts (~10 true / ~10 false-but-funny), with differing comment conditions; measures repost, share, report, and skip to inform responsible platform intervention design.",
     methods: [
@@ -301,6 +323,16 @@ export const projects: Project[] = [
     status: "Data collection in progress \u00b7 targeting CHI 2027",
     accessType: "private",
     image: "/projects/misinfo-sharing.svg",
+    gallery: [
+      {
+        src: "/projects/misinfo-sharing.svg",
+        alt: "Misinformation experiment flow",
+      },
+      {
+        src: "/projects/misinfo-sharing-b.svg",
+        alt: "Misinformation outcome measures",
+      },
+    ],
     links: [{ label: "Demo available upon request" }],
   },
   {
@@ -308,10 +340,13 @@ export const projects: Project[] = [
     group: "research",
     projectType: "Study",
     title: "Help-Seeking in an Open-Source Developer Community",
+    shortTitle: "HarmonyOS Forum Study",
     context:
       "Pervasive HCI Group, Tsinghua University \u00b7 Huawei HarmonyOS Developer Forum \u00b7 exploratory, Jul 2026\u2013",
     question:
       "How do developers seek help, debug, and share tooling in a large open-source community forum \u2014 and which discourse topics are research-ready for deeper HCI analysis?",
+    blurb:
+      "Exploratory crawl and topic modeling of a large developer forum to identify research-ready help-seeking and tooling themes.",
     contribution:
       "Crawl posts and comments from the Huawei HarmonyOS developer Q&A forum, run topic modeling with explicit topic mapping, then focus candidates such as help-seeking, tooling/bots, IoT, and automotive \u2014 informed by open-source developer and support/tool community literature, without claiming those prior papers as my own.",
     methods: [
@@ -327,9 +362,19 @@ export const projects: Project[] = [
       "Open-source tooling",
     ],
     role: "Designing the crawl + topic-modeling pipeline and selecting which topics can sustain a paper narrative (including agent-related angles).",
-    status: "Exploratory \u00b7 topic selection underway",
+    status: "Exploratory · topic selection underway",
     accessType: "private",
     image: "/projects/harmony-forum.svg",
+    gallery: [
+      {
+        src: "/projects/harmony-forum.svg",
+        alt: "Harmony forum study pipeline",
+      },
+      {
+        src: "/projects/harmony-forum-b.svg",
+        alt: "Harmony forum theme selection",
+      },
+    ],
     links: [
       {
         label: "HarmonyOS developer forum",
@@ -342,15 +387,18 @@ export const projects: Project[] = [
     group: "tool",
     projectType: "Tool",
     title: "Rose Stats Studio",
+    shortTitle: "Rose Stats Studio",
     context: "Browser-local statistics & modeling workbench",
     question:
       "A research-focused, Tableau-like workbench that runs entirely in the browser \u2014 statistics, correlation, and regression with data that never leaves the device.",
+    blurb:
+      "Browser-local stats workbench for correlation, visualization, and regression — data never leaves the device.",
     contribution:
       "Demonstrates browser-local data analysis and visualization for privacy-sensitive research workflows.",
     methods: ["DuckDB-WASM", "React + TypeScript", "ECharts", "Statistical modeling"],
     focus: ["Data analysis", "Visualization", "Regression / model comparison"],
     accessType: "public",
-    image: "/websites/rose-stats-studio/cover.jpg",
+    image: "/projects/rose-stats-studio.svg",
     gallery: [
       {
         src: "/websites/rose-stats-studio/gallery-correlation.jpg",
@@ -385,9 +433,12 @@ export const projects: Project[] = [
     group: "tool",
     projectType: "Tool",
     title: "Rose's Literature",
+    shortTitle: "Rose's Literature",
     context: "Literature & scholar discovery for HCI researchers",
     question:
       "Google Scholar finds everything; this finds the right thread \u2014 and the right person. OpenAlex- and DBLP-backed search with method-aware filters, then LLM-assisted matching between your research interests and a scholar's profile before you reach out.",
+    blurb:
+      "Literature and scholar discovery with method-aware filters and interest-to-advisor matching for HCI research workflows.",
     contribution:
       "Unifies thematic literature search, method-focused filtering, scholar profiling, and interest-to-advisor match into one personal research workflow \u2014 built first for my own PhD exploration.",
     methods: ["OpenAlex", "DBLP", "LLM-assisted matching", "React"],
@@ -398,7 +449,7 @@ export const projects: Project[] = [
       "Research workflow",
     ],
     accessType: "public",
-    image: "/websites/rose-research-world/cover.jpg",
+    image: "/projects/rose-literature.svg",
     gallery: [
       {
         src: "/websites/rose-research-world/gallery-scholars.jpg",
@@ -423,15 +474,18 @@ export const projects: Project[] = [
     group: "tool",
     projectType: "Prototype",
     title: "Meal Right",
+    shortTitle: "Meal Right",
     context: "Daily calorie-tracking interface",
     question:
       "A calorie-tracking app emphasizing information hierarchy, visual feedback, and low cognitive load during everyday meal logging.",
+    blurb:
+      "Calorie-tracking UI focused on clear hierarchy, visual feedback, and low cognitive load for everyday logging.",
     contribution:
       "Explores low cognitive load and clear information hierarchy in everyday health-tracking interfaces.",
     methods: ["React", "HCI design patterns", "Responsive UI"],
     focus: ["Information hierarchy", "Visual feedback", "Accessibility"],
     accessType: "public",
-    image: "/websites/meal-right/cover.jpg",
+    image: "/projects/meal-right.svg",
     gallery: [
       {
         src: "/websites/meal-right/gallery-onboarding.jpg",
@@ -579,27 +633,46 @@ export const currentLens = [
 ] as const;
 
 export const about = {
-  intro:
-    "I study how users\u2019 digital signals, such as conversations and behavior, reveal emotional needs, and I build closed-loop systems that turn those signals into human-centered mental health support.",
-  /** Mobile About only — warm greeting under the formal name. */
+  greeting: "Hi, I\u2019m Rose.",
+  /** Kept for older mobile helpers. */
   mobileGreeting: "Hi, I\u2019m Rose.",
-  /** Mobile About only — closes the intro without repeating the desktop pullquote. */
-  mobileGoal:
-    "My goal is to create data-driven, human-centered systems for everyday mental wellbeing \u2014 timely, adaptive, and safety-aware.",
-  lookingForward:
-    "From current dialogue and behavioral signals, I want to move toward multimodal everyday sensing, adding contextual and lightweight physiological cues for adaptive, safety-aware support.",
-  /** Kept for compatibility; homepage no longer renders a second interest paragraph. */
-  researchInterest: "",
-  /** Kept for compatibility; About no longer renders Focus chips. */
-  researchAreas: ["Digital Wellbeing", "Conversational Support"] as const,
-  phdAreas: "Digital Wellbeing · Multimodal Sensing · Conversational Support",
-  methods: [
-    "Conversational log analysis",
-    "Behavioral modeling",
-    "System prototyping",
-    "Multimodal interaction sensing",
+  /**
+   * Compact bio for About (≈7s scan). Bold topics rendered via about.topics.
+   * Paragraphs are short on purpose — PhD-application clarity over product narrative.
+   */
+  /** Narrow intro column (Anna-style short measure). */
+  paragraphs: [
+    "I am currently a Research Fellow in the Human-centered Intelligent Interaction (HII) Lab at Duke Kunshan University. I work at the intersection of data-driven information processing, media and interaction signals, and mental health / social wellbeing.",
+    "I primarily use quantitative and computational methods — survey and behavioral-log analysis, NLP, topic and predictive modeling — with additional experience in thematic analysis of qualitative data.",
+  ],
+  /** Wider Projects band intro. */
+  projectsIntro:
+    "My current projects study how conversational logs and everyday behavioral traces reveal wellbeing-related states, and how those insights can inform supportive interventions and platform experiments: Mindful Scroll links short-form video signals to reflective support; CoSim maps facilitative vs. hindering patterns in counselor–student dialogues; and a CityU misinformation experiment tests how comment conditions shape sharing behavior.",
+  topics: [
+    "data-driven information processing",
+    "media and interaction signals",
+    "mental health / social wellbeing",
   ] as const,
-  seekingLine: "HCI Researcher",
+  seekingLine:
+    "I am seeking PhD opportunities in HCI and related areas where computational methods meet human-centered questions.",
+  /** @deprecated Removed from UI; kept briefly for legacy imports. */
+  lookingForward: "",
+  intro:
+    "I work at the intersection of data-driven information processing, media and interaction signals, and mental health / social wellbeing.",
+  mobileGoal: "",
+  researchInterest: "",
+  researchAreas: [
+    "Data-driven information processing",
+    "Media & interaction signals",
+    "Mental health & social wellbeing",
+  ] as const,
+  phdAreas:
+    "HCI · Data-driven information processing · Media signals · Mental health & social wellbeing",
+  methods: [
+    "Survey & behavioral-log analysis",
+    "NLP / topic & predictive modeling",
+    "Thematic analysis",
+  ] as const,
   researchWorldLink: {
     label: "Explore Research World",
     hint: "Scroll through an immersive trail from interaction signals to adaptive support",
@@ -1047,77 +1120,84 @@ export type NewsItem = {
   date: string;
   title?: string;
   text: string;
-  tag?: "Talk" | "Paper" | "Role" | "Award" | "Manuscript";
+  tag?: "Talk" | "Paper" | "Role" | "Award" | "Manuscript" | "Planned";
   featured?: boolean;
+  /** When true, skip CompactNews recent window (e.g. far book deadlines). */
+  hideFromRecent?: boolean;
 };
 
 export const news: NewsItem[] = [
   {
-    date: "2027 Target",
-    title: "Targeting CHI 2027",
-    text: "Mindful-Scroll self-reflection intervention plus Misinformation Sharing behavioral experiment (data collection underway).",
+    date: "Aug 2026",
+    title: "Preparing CHI 2027 paper",
+    text: "Writing the Mindful Scroll phase-2 intervention paper for CHI 2027.",
     tag: "Manuscript",
     featured: true,
   },
   {
-    date: "Aug 2026",
-    title: "Writing DMH Book chapter",
-    text: "SFV micro-interaction signals for everyday wellbeing-state modeling, with stress and anxiety as key outcomes — Springer conference book deadline August 31.",
-    tag: "Manuscript",
+    date: "Sep 2026",
+    title: "Intervention design (planned)",
+    text: "Iterate the Mindful Scroll self-reflection intervention for healthier SFV use.",
+    tag: "Planned",
     featured: true,
+  },
+  {
+    date: "Sep 2026",
+    title: "DMH Book chapter (planned)",
+    text: "Book chapter on SFV micro-interaction signals for wellbeing-state modeling.",
+    tag: "Planned",
+    hideFromRecent: true,
   },
   {
     date: "Jul 2026",
     title: "Submitting to IP&MC",
-    text: "Mindful-Scroll evening dialogue logs, reflective-signal dataset, and modeling pipeline — targeting the July 31 deadline.",
+    text: "Submitting Mindful Scroll dialogue-log modeling work to IP&MC.",
     tag: "Manuscript",
     featured: true,
   },
   {
     date: "Jul 2026",
     title: "Started HarmonyOS forum study",
-    text: "Exploratory crawl of Huawei HarmonyOS developer forum posts and comments with topic modeling to select research-ready themes around help-seeking and tooling (Tsinghua Pervasive HCI Group).",
+    text: "Topic-modeling HarmonyOS developer forum posts at Tsinghua.",
     tag: "Role",
   },
   {
     date: "Jun 2026",
     title: "Joined Ray LC lab",
-    text: "Summer Research Intern at CityU Studio for Narrative Spaces — Misinformation Sharing project (study platform, stimulus design, and data collection).",
+    text: "CityU summer intern on the misinformation-sharing study platform.",
     tag: "Role",
     featured: true,
   },
   {
     date: "Jun 2026",
     title: "Presented Mindful-Scroll at DMH",
-    text: "Talk at the Digital Mental Health International Conference in Hong Kong.",
+    text: "Talk at the Digital Mental Health Conference in Hong Kong.",
     tag: "Talk",
   },
   {
     date: "Feb 2026",
     title: "Joined HII Lab",
-    text: "Started as a full-time Research Fellow at Duke Kunshan University, advised by Prof. Yucheng Jin.",
+    text: "Research Fellow at Duke Kunshan University with Prof. Yucheng Jin.",
     tag: "Role",
   },
   {
     date: "Dec 2025",
     title: "Joined Tsinghua Pervasive HCI",
-    text: "Research Intern in the Pervasive HCI Group at Tsinghua University.",
+    text: "Research Intern in Tsinghua’s Pervasive HCI Group.",
     tag: "Role",
   },
   {
     date: "2025",
     title: "Received UNSW award",
-    text: "Australia's Global University Award at UNSW.",
+    text: "Australia’s Global University Award at UNSW.",
     tag: "Award",
   },
 ];
 
+/** Top-level page routes (multi-page IA for PhD clarity). */
 export const nav = [
-  { id: "about", label: "About" },
-  { id: "news", label: "News" },
-  { id: "research", label: "Vision" },
-  { id: "projects", label: "Projects" },
-  { id: "publications", label: "Publications" },
-  { id: "journey", label: "Journey" },
-  { id: "contact", label: "Contact" },
+  { id: "about", label: "About", href: "/" },
+  { id: "side-projects", label: "Side Project", href: "/side-projects" },
+  { id: "cv", label: "CV", href: "/cv" },
+  { id: "journey", label: "Journey", href: "/journey" },
 ] as const;

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Misinfo outcome measures">
+  <rect width="800" height="500" fill="#F3F7FB"/>
+  <text x="48" y="56" font-family="Inter, sans-serif" font-size="28" font-weight="700" fill="#1A1D21">Outcome measures</text>
+  <text x="48" y="84" font-family="IBM Plex Mono, monospace" font-size="13" fill="#5A6570">compare conditions on action rates</text>
+
+  <g font-family="Inter, sans-serif">
+    <rect x="70" y="180" width="140" height="160" rx="14" fill="#FFFFFF" stroke="#7BA7C9"/>
+    <text x="140" y="250" text-anchor="middle" font-size="16" font-weight="600" fill="#1A1D21">Repost</text>
+    <rect x="240" y="180" width="140" height="160" rx="14" fill="#FFFFFF" stroke="#7BA7C9"/>
+    <text x="310" y="250" text-anchor="middle" font-size="16" font-weight="600" fill="#1A1D21">Share</text>
+    <rect x="410" y="180" width="140" height="160" rx="14" fill="#FFFFFF" stroke="#7BA7C9"/>
+    <text x="480" y="250" text-anchor="middle" font-size="16" font-weight="600" fill="#1A1D21">Report</text>
+    <rect x="580" y="180" width="140" height="160" rx="14" fill="#4A7FA3"/>
+    <text x="650" y="250" text-anchor="middle" font-size="16" font-weight="600" fill="#FFFFFF">Skip</text>
+  </g>
+</svg>

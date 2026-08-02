@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Mindful Scroll intervention loop">
+  <rect width="800" height="500" fill="#F3F7FB"/>
+  <text x="48" y="56" font-family="Inter, sans-serif" font-size="28" font-weight="700" fill="#1A1D21">Closed support loop</text>
+  <text x="48" y="84" font-family="IBM Plex Mono, monospace" font-size="13" fill="#5A6570">sense ’ interpret ’ support ’ reflect</text>
+
+  <circle cx="160" cy="260" r="70" fill="#FFFFFF" stroke="#7BA7C9" stroke-width="2"/>
+  <text x="160" y="254" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#1A1D21">Sense</text>
+  <text x="160" y="278" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5A6570">logs</text>
+
+  <circle cx="400" cy="180" r="70" fill="#FFFFFF" stroke="#7BA7C9" stroke-width="2"/>
+  <text x="400" y="174" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#1A1D21">Interpret</text>
+  <text x="400" y="198" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5A6570">states</text>
+
+  <circle cx="640" cy="260" r="70" fill="#4A7FA3"/>
+  <text x="640" y="254" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF">Support</text>
+  <text x="640" y="278" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#E8F2F9">nudge</text>
+
+  <circle cx="400" cy="360" r="70" fill="#FFFFFF" stroke="#A8C8DE" stroke-width="2"/>
+  <text x="400" y="354" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#1A1D21">Reflect</text>
+  <text x="400" y="378" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5A6570">awareness</text>
+
+  <path d="M225 230 C280 160, 320 160, 335 190" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+  <path d="M465 190 C520 160, 560 180, 575 220" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+  <path d="M575 300 C540 360, 480 380, 465 360" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+  <path d="M335 360 C280 380, 220 340, 225 290" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+</svg>

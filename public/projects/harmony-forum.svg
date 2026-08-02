@@ -1,53 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="HarmonyOS forum study pipeline: crawl, topic model, focus themes">
-  <defs>
-    <linearGradient id="hf-bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#F7F0E8"/>
-      <stop offset="1" stop-color="#FFFDF9"/>
-    </linearGradient>
-    <linearGradient id="hf-ac" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#C48B82"/>
-      <stop offset="1" stop-color="#8F514C"/>
-    </linearGradient>
-    <linearGradient id="hf-soft" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#FFFFFF"/>
-      <stop offset="1" stop-color="#F3E9DF"/>
-    </linearGradient>
-  </defs>
-  <rect width="800" height="500" fill="url(#hf-bg)"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Harmony forum study pipeline">
+  <rect width="800" height="500" fill="#F3F7FB"/>
+  <text x="48" y="56" font-family="Inter, sans-serif" font-size="28" font-weight="700" fill="#1A1D21">Harmony Forum</text>
+  <text x="48" y="84" font-family="IBM Plex Mono, monospace" font-size="13" fill="#5A6570">crawl → topic model → research-ready themes</text>
 
-  <text x="48" y="72" font-family="Georgia, 'Times New Roman', serif" font-size="36" font-weight="700" fill="#2F2A26">Harmony Forum</text>
-  <text x="48" y="102" font-family="ui-monospace, monospace" font-size="14" letter-spacing="0.08em" fill="#6F6258">HELP-SEEKING · TOPIC MAPPING · OPEN-SOURCE</text>
+  <rect x="48" y="160" width="200" height="160" rx="14" fill="#FFFFFF" stroke="#7BA7C9" stroke-width="1.5"/>
+  <text x="148" y="220" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#4A7FA3">01</text>
+  <text x="148" y="250" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" font-weight="600" fill="#1A1D21">Crawl</text>
+  <text x="148" y="278" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#5A6570">posts + comments</text>
 
-  <!-- Pipeline nodes -->
-  <g>
-    <rect x="48" y="170" width="200" height="200" rx="20" fill="url(#hf-soft)" stroke="#E4D5C8"/>
-    <text x="148" y="220" text-anchor="middle" font-family="ui-monospace, monospace" font-size="12" fill="#8F514C">01</text>
-    <text x="148" y="258" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#2F2A26">Crawl</text>
-    <text x="148" y="288" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" fill="#6F6258">posts + comments</text>
-    <text x="148" y="312" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" fill="#6F6258">from forum Q&amp;A</text>
-  </g>
+  <path d="M260 240 H300" stroke="#4A7FA3" stroke-width="2"/>
+  <path d="M292 232 L304 240 L292 248" fill="none" stroke="#4A7FA3" stroke-width="2"/>
 
-  <path d="M262 270 H298" stroke="#C48B82" stroke-width="2" stroke-linecap="round"/>
-  <path d="M290 262 L302 270 L290 278" fill="none" stroke="#C48B82" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="310" y="160" width="200" height="160" rx="14" fill="#FFFFFF" stroke="#7BA7C9" stroke-width="1.5"/>
+  <text x="410" y="220" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#4A7FA3">02</text>
+  <text x="410" y="250" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" font-weight="600" fill="#1A1D21">Topic model</text>
+  <text x="410" y="278" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#5A6570">cluster + label</text>
 
-  <g>
-    <rect x="310" y="170" width="200" height="200" rx="20" fill="url(#hf-soft)" stroke="#E4D5C8"/>
-    <text x="410" y="220" text-anchor="middle" font-family="ui-monospace, monospace" font-size="12" fill="#8F514C">02</text>
-    <text x="410" y="258" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#2F2A26">Topic model</text>
-    <text x="410" y="288" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" fill="#6F6258">map discourse</text>
-    <text x="410" y="312" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" fill="#6F6258">clusters + labels</text>
-  </g>
+  <path d="M522 240 H562" stroke="#4A7FA3" stroke-width="2"/>
+  <path d="M554 232 L566 240 L554 248" fill="none" stroke="#4A7FA3" stroke-width="2"/>
 
-  <path d="M524 270 H560" stroke="#C48B82" stroke-width="2" stroke-linecap="round"/>
-  <path d="M552 262 L564 270 L552 278" fill="none" stroke="#C48B82" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="572" y="160" width="180" height="160" rx="14" fill="#4A7FA3"/>
+  <text x="662" y="220" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#D6E8F5">03</text>
+  <text x="662" y="250" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" font-weight="600" fill="#FFFFFF">Focus</text>
+  <text x="662" y="278" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#E8F2F9">help-seeking</text>
 
-  <g>
-    <rect x="572" y="170" width="180" height="200" rx="20" fill="url(#hf-ac)"/>
-    <text x="662" y="220" text-anchor="middle" font-family="ui-monospace, monospace" font-size="12" fill="#F8F1E8">03</text>
-    <text x="662" y="258" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#FFFDF9">Focus</text>
-    <text x="662" y="288" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" fill="#F3E9DF">help-seeking</text>
-    <text x="662" y="312" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" fill="#F3E9DF">tools · IoT · agents</text>
-  </g>
-
-  <text x="48" y="460" font-family="ui-monospace, monospace" font-size="13" fill="#8A7F72">Pervasive HCI · Tsinghua · exploratory pipeline</text>
+  <text x="48" y="400" font-family="Inter, sans-serif" font-size="13" fill="#5A6570">Themes under review: tooling · bots · IoT · automotive</text>
 </svg>

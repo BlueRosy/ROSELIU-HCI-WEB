@@ -81,7 +81,7 @@ export default function Journey() {
   }, []);
 
   return (
-    <section id="journey" className="section-anchor section-alt pt-12 pb-24 sm:pt-14">
+    <section id="journey" className="section-anchor bg-bg pt-12 pb-24 sm:pt-14">
       <div className="mx-auto max-w-5xl px-5">
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">

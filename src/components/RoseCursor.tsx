@@ -1,30 +1,24 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
-const CURSOR_SRC = "/Rose-PersonalImage/rose-cursor-128.png";
-/** Rendered size on screen (px). Chromium CSS cursors cap at 32 DIP; DOM bypasses that. */
-const DISPLAY_PX = 72;
-const SRC_PX = 128;
-/** Bloom tip in source image space — matches rose-cursor-128.png generation. */
-const HOTSPOT_X = 78;
-const HOTSPOT_Y = 4;
-const HOTSPOT_SCALE = DISPLAY_PX / SRC_PX;
-const OFFSET_X = HOTSPOT_X * HOTSPOT_SCALE;
-const OFFSET_Y = HOTSPOT_Y * HOTSPOT_SCALE;
+/** Compact blue pointer (no rose asset). */
+const DISPLAY_PX = 18;
+const OFFSET_X = 2;
+const OFFSET_Y = 2;
 
 const TEXT_INPUT =
   'input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="submit"]):not([type="button"]):not([type="reset"]), textarea, [contenteditable="true"]';
 
-const MAX_PETALS = 3;
-const PETAL_SPAWN_EVERY_PX = 140;
-const PETAL_CHANCE = 0.42;
+const MAX_STARS = 18;
+const STAR_SPAWN_EVERY_PX = 28;
+const STAR_CHANCE = 0.85;
+const STAR_LIFE_MS = 900;
 
-type Petal = {
+type Star = {
   id: number;
   x: number;
   y: number;
-  drift: number;
-  rot: number;
   size: number;
+  rot: number;
 };
 
 function isTextTarget(el: Element | null): boolean {
@@ -32,13 +26,12 @@ function isTextTarget(el: Element | null): boolean {
 }
 
 /**
- * Cross-browser rose cursor (Arc/Chrome/Safari/Firefox).
- * Chromium ignores CSS cursor images much larger than 32×32 DIP.
+ * Blue pointer + deep star-dust trail (replaces rose cursor / petals).
  */
 export default function RoseCursor() {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [petals, setPetals] = useState<Petal[]>([]);
-  const petalId = useRef(0);
+  const [stars, setStars] = useState<Star[]>([]);
+  const starId = useRef(0);
 
   useEffect(() => {
     if (!window.matchMedia("(pointer: fine)").matches) return;
@@ -55,7 +48,7 @@ export default function RoseCursor() {
     let y = -200;
     let hidden = true;
     let overText = false;
-    let travelSincePetal = PETAL_SPAWN_EVERY_PX;
+    let travelSinceStar = STAR_SPAWN_EVERY_PX;
 
     const paint = () => {
       raf = 0;
@@ -68,20 +61,19 @@ export default function RoseCursor() {
       if (!raf) raf = requestAnimationFrame(paint);
     };
 
-    const spawnPetal = (px: number, py: number) => {
-      const id = ++petalId.current;
-      const petal: Petal = {
+    const spawnStar = (px: number, py: number) => {
+      const id = ++starId.current;
+      const star: Star = {
         id,
-        x: px + (Math.random() - 0.5) * 10,
-        y: py + 6 + Math.random() * 8,
-        drift: (Math.random() - 0.5) * 28,
-        rot: Math.random() * 360,
-        size: 4 + Math.random() * 2.5,
+        x: px + (Math.random() - 0.5) * 16,
+        y: py + (Math.random() - 0.5) * 16,
+        size: 3.5 + Math.random() * 4.5,
+        rot: Math.random() * 60,
       };
-      setPetals((prev) => [...prev.slice(-(MAX_PETALS - 1)), petal]);
+      setStars((prev) => [...prev.slice(-(MAX_STARS - 1)), star]);
       window.setTimeout(() => {
-        setPetals((prev) => prev.filter((p) => p.id !== id));
-      }, 2800);
+        setStars((prev) => prev.filter((s) => s.id !== id));
+      }, STAR_LIFE_MS);
     };
 
     const onPointerMove = (e: PointerEvent) => {
@@ -93,12 +85,11 @@ export default function RoseCursor() {
       overText = isTextTarget(e.target as Element);
 
       if (!hidden && !overText) {
-        travelSincePetal += Math.hypot(x - prevX, y - prevY);
-        if (travelSincePetal >= PETAL_SPAWN_EVERY_PX) {
-          travelSincePetal = 0;
-          if (Math.random() < PETAL_CHANCE) {
-            spawnPetal(x, y);
-          }
+        const dist = Math.hypot(x - prevX, y - prevY);
+        travelSinceStar += dist;
+        if (travelSinceStar >= STAR_SPAWN_EVERY_PX) {
+          travelSinceStar = 0;
+          if (Math.random() < STAR_CHANCE) spawnStar(x, y);
         }
       }
 
@@ -135,32 +126,24 @@ export default function RoseCursor() {
     <>
       <div
         ref={rootRef}
-        className="rose-cursor"
+        className="rose-cursor rose-cursor--dot"
         aria-hidden="true"
         style={{ width: DISPLAY_PX, height: DISPLAY_PX }}
       >
-        <img
-          src={CURSOR_SRC}
-          alt=""
-          width={DISPLAY_PX}
-          height={DISPLAY_PX}
-          draggable={false}
-          decoding="async"
-        />
+        <span className="rose-cursor__dot" />
       </div>
-      {petals.map((petal) => (
+      {stars.map((star) => (
         <span
-          key={petal.id}
-          className="rose-cursor-petal"
+          key={star.id}
+          className="rose-cursor-star"
           aria-hidden="true"
           style={
             {
-              left: petal.x,
-              top: petal.y,
-              width: petal.size,
-              height: petal.size * 1.35,
-              "--petal-rot": `${petal.rot}deg`,
-              "--petal-drift": `${petal.drift}px`,
+              left: star.x,
+              top: star.y,
+              width: star.size,
+              height: star.size,
+              "--star-rot": `${star.rot}deg`,
             } as CSSProperties
           }
         />

@@ -1,33 +1,61 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 
 type MobileTypewriterProps = {
   lines: readonly string[];
   className?: string;
+  /** When false, type through once and keep the final lines. Default true = erase & retype. */
+  loop?: boolean;
+  /** ms per character while typing. */
+  typeMs?: number;
 };
 
 type Phase = "typing" | "holding" | "erasing" | "gap";
 
 /**
- * Cycles lines with a typewriter feel: type each line, hold, erase, repeat.
- * Falls back to static stacked lines when reduced motion is preferred.
+ * Waits until in view before typing. With loop, holds then erases and retypes.
  */
-export default function MobileTypewriter({ lines, className = "" }: MobileTypewriterProps) {
+export default function MobileTypewriter({
+  lines,
+  className = "",
+  loop = true,
+  typeMs = 70,
+}: MobileTypewriterProps) {
   const reduceMotion = useReducedMotion();
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
   const [lineIndex, setLineIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [phase, setPhase] = useState<Phase>("typing");
   const [completed, setCompleted] = useState<string[]>([]);
 
   const active = lines[lineIndex] ?? "";
+  const canRun = Boolean(inView && !reduceMotion && lines.length > 0);
 
   useEffect(() => {
-    if (reduceMotion || lines.length === 0) return;
+    const el = rootRef.current;
+    if (!el) return;
 
-    let delay = 42;
-    if (phase === "typing") delay = 38 + (active[charIndex] === " " ? 28 : 0);
-    if (phase === "holding") delay = lineIndex === lines.length - 1 ? 1600 : 520;
-    if (phase === "erasing") delay = 22;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setInView(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.15 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!canRun) return;
+
+    let delay = typeMs;
+    if (phase === "typing") delay = typeMs + (active[charIndex] === " " ? 40 : 0);
+    if (phase === "holding") delay = lineIndex === lines.length - 1 ? 1400 : 480;
+    if (phase === "erasing") delay = 32;
     if (phase === "gap") delay = 420;
 
     const id = window.setTimeout(() => {
@@ -46,6 +74,10 @@ export default function MobileTypewriter({ lines, className = "" }: MobileTypewr
           setLineIndex((i) => i + 1);
           setCharIndex(0);
           setPhase("typing");
+          return;
+        }
+        if (!loop) {
+          // Stay on final text (no erase)
           return;
         }
         setPhase("erasing");
@@ -76,11 +108,11 @@ export default function MobileTypewriter({ lines, className = "" }: MobileTypewr
     }, delay);
 
     return () => window.clearTimeout(id);
-  }, [reduceMotion, lines, lineIndex, charIndex, phase, active, completed]);
+  }, [canRun, lines, lineIndex, charIndex, phase, active, completed, loop, typeMs]);
 
   if (reduceMotion) {
     return (
-      <div className={`about-mobile-typewriter ${className}`.trim()}>
+      <div ref={rootRef} className={`about-mobile-typewriter ${className}`.trim()}>
         {lines.map((line) => (
           <p key={line} className="about-mobile-typewriter__line">
             {line}
@@ -91,19 +123,25 @@ export default function MobileTypewriter({ lines, className = "" }: MobileTypewr
   }
 
   const currentText = active.slice(0, charIndex);
-  const showCursor = phase === "typing" || phase === "holding" || phase === "erasing";
 
   return (
-    <div className={`about-mobile-typewriter ${className}`.trim()} aria-live="polite">
+    <div
+      ref={rootRef}
+      className={`about-mobile-typewriter ${className}`.trim()}
+      aria-live="polite"
+    >
       <span className="sr-only">{lines.join(" ")}</span>
       {completed.map((line) => (
         <p key={line} className="about-mobile-typewriter__line" aria-hidden>
           {line}
         </p>
       ))}
-      <p className="about-mobile-typewriter__line about-mobile-typewriter__line--active" aria-hidden>
+      <p
+        className="about-mobile-typewriter__line about-mobile-typewriter__line--active"
+        aria-hidden
+      >
         {currentText}
-        {showCursor && <span className="about-mobile-typewriter__cursor" />}
+        <span className="about-mobile-typewriter__cursor" />
       </p>
     </div>
   );

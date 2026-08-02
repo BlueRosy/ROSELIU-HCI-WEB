@@ -1,93 +1,98 @@
-import { about, hero, profile } from "../content/site";
+import type { ReactNode } from "react";
+import { about, profile } from "../content/site";
 import AboutIdentityCard from "./AboutIdentityCard";
-import { Chip, Reveal } from "./primitives";
+import AboutContacts from "./AboutContacts";
+import MobileTypewriter from "./MobileTypewriter";
+import ResearchProjectRows from "./ResearchProjectRows";
+import CompactNews from "./CompactNews";
+import { Reveal } from "./primitives";
 
-function AboutCtas({ compact }: { compact?: boolean }) {
+function highlightTopics(text: string, topics: readonly string[]) {
+  let remaining = text;
+  const nodes: ReactNode[] = [];
+  let key = 0;
+
+  while (remaining.length > 0) {
+    let earliest = -1;
+    let matched = "";
+    for (const topic of topics) {
+      const idx = remaining.toLowerCase().indexOf(topic.toLowerCase());
+      if (idx >= 0 && (earliest < 0 || idx < earliest)) {
+        earliest = idx;
+        matched = remaining.slice(idx, idx + topic.length);
+      }
+    }
+    if (earliest < 0) {
+      nodes.push(remaining);
+      break;
+    }
+    if (earliest > 0) nodes.push(remaining.slice(0, earliest));
+    nodes.push(
+      <strong key={key++} className="font-medium text-ink">
+        {matched}
+      </strong>,
+    );
+    remaining = remaining.slice(earliest + matched.length);
+  }
+
+  return nodes;
+}
+
+function AboutBio() {
   return (
-    <div
-      className={`flex flex-wrap items-center ${
-        compact ? "gap-x-5 gap-y-2" : "gap-x-4 gap-y-2 md:gap-x-5"
-      }`}
-    >
-      <a
-        href={profile.cv}
-        className={`inline-flex items-center rounded-full bg-primary font-medium text-white shadow-soft transition hover:bg-primary-deep ${
-          compact
-            ? "px-4 py-2 text-[13px]"
-            : "px-4 py-2 text-[13px] md:px-5 md:py-2.5 md:text-sm"
-        }`}
-      >
-        Download CV
-      </a>
-      <a
-        href="#research"
-        className="text-[13px] font-medium text-primary-deep underline-offset-4 transition hover:underline md:text-sm"
-      >
-        View Vision
-      </a>
+    <div className="about-bio">
+      <MobileTypewriter
+        lines={[about.greeting]}
+        loop
+        typeMs={70}
+        className="about-desktop-typewriter"
+      />
+
+      <Reveal delay={0.15}>
+        <div className="about-bio__body mt-5 space-y-3.5">
+          {about.paragraphs.map((p, i) => (
+            <p
+              key={i}
+              className="font-sans text-[13.5px] leading-[1.7] text-ink/90 md:text-[14px]"
+            >
+              {i === 0 ? highlightTopics(p, about.topics) : p}
+            </p>
+          ))}
+          {profile.seekingPhd && (
+            <p className="font-sans text-[13.5px] leading-[1.7] text-primary-deep md:text-[14px]">
+              {about.seekingLine}
+            </p>
+          )}
+        </div>
+      </Reveal>
     </div>
   );
 }
 
-function AboutStoryDesktop() {
+function AboutMobileHeader() {
   return (
-    <div className="about-stack">
-      <div>
-        <p className="about-label font-mono text-gradient-static tracking-[0.18em]">About</p>
-        <h1 className="about-name mt-2 md:mt-2.5 lg:mt-3">{profile.name}</h1>
-        <p className="about-role mt-2 md:mt-2.5">{profile.role}</p>
-      </div>
-
-      <div className="about-pullquote">
-        <p className="about-headline">{hero.headline}</p>
-        <p className="about-subhead mt-1.5 md:mt-2">{hero.headlineSub}</p>
-      </div>
-
-      <p className="about-intro">{about.intro}</p>
-
-      <div>
-        <p className="about-label font-mono tracking-[0.14em] text-slate">Methods</p>
-        <div className="mt-2 flex flex-wrap gap-1.5 md:mt-2.5 md:gap-2">
-          {about.methods.map((t) => (
-            <Chip key={t} tone="neutral" className="about-chip">
-              {t}
-            </Chip>
-          ))}
+    <div className="about-mobile-profile text-left md:hidden">
+      <div className="flex items-start gap-4">
+        <div className="about-avatar about-avatar--calm about-avatar--mobile h-36 w-36 shrink-0">
+          <div className="about-avatar__ring">
+            <div className="about-avatar__photo">
+              <img
+                src={profile.aboutPhoto}
+                alt={`Portrait of ${profile.name}`}
+                className="about-avatar__img h-full w-full object-cover"
+              />
+            </div>
+          </div>
         </div>
-      </div>
-
-      <AboutCtas />
-    </div>
-  );
-}
-
-/** Mobile-only: calm reading column (greeting/role live beside the avatar). */
-function AboutStoryMobile() {
-  return (
-    <div className="about-mobile-story mt-5 text-left">
-      <div className="about-mobile-copy">
-        <p>
-          {about.intro} {about.mobileGoal}
-        </p>
-        <p>
-          <span className="about-mobile-inline-label">Looking forward. </span>
-          {about.lookingForward}
-        </p>
-      </div>
-
-      <div className="about-mobile-methods">
-        <p className="about-mobile-inline-label">Methods</p>
-        <div className="mt-2.5 flex flex-wrap gap-1.5">
-          {about.methods.map((t) => (
-            <Chip key={t} tone="neutral" className="about-chip about-chip--mobile">
-              {t}
-            </Chip>
-          ))}
+        <div className="min-w-0 flex-1 pt-1">
+          <MobileTypewriter
+            lines={[about.greeting]}
+            loop
+            typeMs={70}
+            className="about-desktop-typewriter about-desktop-typewriter--mobile"
+          />
+          <AboutContacts stacked />
         </div>
-      </div>
-
-      <div className="about-mobile-ctas">
-        <AboutCtas compact />
       </div>
     </div>
   );
@@ -97,34 +102,64 @@ export default function About() {
   return (
     <section
       id="about"
-      className="about-section section-anchor relative isolate overflow-hidden pt-20 pb-8 sm:pt-24 sm:pb-9 md:pt-28 md:pb-10 lg:pt-32 lg:pb-12 xl:pt-36"
+      className="about-section relative isolate pt-20 pb-14 sm:pt-24 sm:pb-16 md:pt-28 md:pb-20"
     >
-      <div className="about-section__glow" aria-hidden="true" />
-      <div className="about-brush" aria-hidden="true">
-        <span className="about-brush__stroke about-brush__stroke--a" />
-        <span className="about-brush__stroke about-brush__stroke--b" />
-        <span className="about-brush__stroke about-brush__stroke--c" />
-      </div>
-
-      <div className="relative mx-auto max-w-5xl px-5">
-        {/* Phone only (<768px) */}
-        <div className="md:hidden">
-          <Reveal>
-            <AboutIdentityCard compact />
-            <AboutStoryMobile />
-          </Reveal>
-        </div>
-
-        {/* Compact pair, centered in the shared max-w shell (don't stretch → no huge middle gap) */}
-        <div className="about-desktop-layout hidden md:flex md:items-start md:justify-center">
-          <Reveal className="about-story min-w-0">
-            <AboutStoryDesktop />
-          </Reveal>
-          <Reveal delay={0.06} className="about-profile-rail shrink-0">
-            <div className="md:sticky md:top-24">
-              <AboutIdentityCard />
+      <div className="relative mx-auto max-w-6xl px-5 md:px-6 lg:px-8">
+        <div className="about-with-news xl:grid xl:grid-cols-[240px_minmax(0,1fr)] xl:items-start xl:gap-8 2xl:grid-cols-[260px_minmax(0,1fr)] 2xl:gap-10">
+          {/* Left floating sidebar — not in the intro→projects flow */}
+          <aside className="news-sidebar hidden xl:block" aria-label="Recent news">
+            <div className="news-sidebar__float">
+              <CompactNews />
             </div>
-          </Reveal>
+          </aside>
+
+          {/* Main column: intro → rule → projects */}
+          <div className="about-main min-w-0">
+            <div className="max-w-3xl md:max-w-4xl">
+              <div className="space-y-8 md:hidden">
+                <Reveal>
+                  <AboutMobileHeader />
+                </Reveal>
+                <Reveal delay={0.06}>
+                  <div className="about-bio__body max-w-xl space-y-3.5">
+                    {about.paragraphs.map((p, i) => (
+                      <p
+                        key={i}
+                        className="font-sans text-[13.5px] leading-[1.7] text-ink/90"
+                      >
+                        {i === 0 ? highlightTopics(p, about.topics) : p}
+                      </p>
+                    ))}
+                    {profile.seekingPhd && (
+                      <p className="font-sans text-[13.5px] leading-[1.7] text-primary-deep">
+                        {about.seekingLine}
+                      </p>
+                    )}
+                  </div>
+                </Reveal>
+              </div>
+
+              <div className="about-intro-grid hidden md:grid md:grid-cols-[minmax(0,1fr)_200px] md:items-start md:gap-8 lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-10">
+                <AboutBio />
+                <Reveal delay={0.04} className="min-w-0">
+                  <AboutIdentityCard />
+                </Reveal>
+              </div>
+            </div>
+
+            <Reveal>
+              <hr className="mt-12 border-border/80 md:mt-14" />
+            </Reveal>
+
+            <Reveal delay={0.06} className="mt-8">
+              <ResearchProjectRows showIntro />
+            </Reveal>
+
+            {/* Mobile / tablet: news after main content, never between intro & projects */}
+            <Reveal delay={0.08} className="mt-10 xl:hidden">
+              <CompactNews />
+            </Reveal>
+          </div>
         </div>
       </div>
     </section>

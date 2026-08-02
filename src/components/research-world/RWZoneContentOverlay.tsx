@@ -61,7 +61,7 @@ function ZoneContent({ zoneId }: { zoneId: string }) {
               project ? (
                 <li key={project.id}>
                   <Link
-                    to="/#projects"
+                    to="/"
                     className="block rounded-lg border border-border/80 bg-surface/50 px-2.5 py-1.5 text-xs text-ink transition hover:border-primary/30"
                   >
                     <span className="font-medium">{project.title}</span>

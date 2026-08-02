@@ -51,6 +51,30 @@ export function isNearTermDate(date: string, now = new Date()): boolean {
   return key === thisMonth || key === nextMonth;
 }
 
+/** True if date falls in the current month or up to `monthsBack` months earlier. */
+export function isWithinRecentMonths(
+  date: string,
+  monthsBack = 2,
+  now = new Date(),
+): boolean {
+  const key = parseContentDate(date);
+  if (!key) return false;
+  // Exclude far-future "YYYY Target" style markers from compact news.
+  if (/Target$/i.test(date.trim())) return false;
+
+  const y = now.getFullYear();
+  const m = now.getMonth() + 1;
+  const thisMonth = y * 100 + m;
+  let ty = y;
+  let tm = m - monthsBack;
+  while (tm <= 0) {
+    tm += 12;
+    ty -= 1;
+  }
+  const threshold = ty * 100 + tm;
+  return key >= threshold && key <= thisMonth;
+}
+
 /** Publications: prefer month hints in venue, else year. */
 export function publicationSortKey(pub: { year: string; venue: string }): number {
   const fromVenue = pub.venue.match(

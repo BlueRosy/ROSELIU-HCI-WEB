@@ -12,7 +12,7 @@ export default function SignalsToSupportPage() {
   const mobile = useIsMobileViewport();
 
   if (mobile) {
-    return <Navigate to="/#research" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return (

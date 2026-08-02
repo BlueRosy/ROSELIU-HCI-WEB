@@ -1,21 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="CoSim placeholder">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#F8F1E8"/>
-      <stop offset="1" stop-color="#FFFDF8"/>
-    </linearGradient>
-    <linearGradient id="ac" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#D4A59E"/>
-      <stop offset="1" stop-color="#B9786F"/>
-    </linearGradient>
-  </defs>
-  <rect width="800" height="500" fill="url(#bg)"/>
-  <g font-family="Inter, sans-serif">
-    <rect x="60" y="200" rx="16" width="320" height="64" fill="#ffffff" opacity="0.85"/>
-    <rect x="420" y="290" rx="16" width="320" height="64" fill="url(#ac)" opacity="0.9"/>
-    <rect x="60" y="380" rx="16" width="260" height="52" fill="#ffffff" opacity="0.85"/>
-  </g>
-  <text x="60" y="90" font-family="Inter, sans-serif" font-size="34" font-weight="700" fill="#2F2A26">CoSim</text>
-  <text x="60" y="125" font-family="IBM Plex Mono, monospace" font-size="16" fill="#6F6258">emotion &#183; resistance &#183; self-disclosure</text>
-  <text x="60" y="470" font-family="IBM Plex Mono, monospace" font-size="13" fill="#8A7F72">sanitized screenshot placeholder</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="CoSim dialogue analysis flow">
+  <rect width="800" height="500" fill="#F3F7FB"/>
+  <text x="48" y="56" font-family="Inter, sans-serif" font-size="28" font-weight="700" fill="#1A1D21">CoSim</text>
+  <text x="48" y="84" font-family="IBM Plex Mono, monospace" font-size="13" fill="#5A6570">dialogue logs → patterns → support strategies</text>
+
+  <rect x="48" y="150" width="180" height="100" rx="12" fill="#FFFFFF" stroke="#7BA7C9" stroke-width="1.5"/>
+  <text x="138" y="195" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#1A1D21">Sessions</text>
+  <text x="138" y="220" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5A6570">10 supporters</text>
+
+  <path d="M240 200 H280" stroke="#4A7FA3" stroke-width="2"/>
+  <path d="M272 192 L284 200 L272 208" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+
+  <rect x="290" y="150" width="200" height="100" rx="12" fill="#FFFFFF" stroke="#7BA7C9" stroke-width="1.5"/>
+  <text x="390" y="195" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#1A1D21">Annotate</text>
+  <text x="390" y="220" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5A6570">emotion · resistance</text>
+
+  <path d="M502 200 H542" stroke="#4A7FA3" stroke-width="2"/>
+  <path d="M534 192 L546 200 L534 208" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+
+  <rect x="552" y="150" width="200" height="100" rx="12" fill="#4A7FA3"/>
+  <text x="652" y="195" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#FFFFFF">Map strategies</text>
+  <text x="652" y="220" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#E8F2F9">facilitative / hindering</text>
+
+  <rect x="180" y="320" width="220" height="90" rx="12" fill="#FFFFFF" stroke="#A8C8DE"/>
+  <text x="290" y="360" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#1A1D21">Self-disclosure</text>
+  <text x="290" y="385" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5A6570">emerging cues</text>
+
+  <rect x="420" y="320" width="220" height="90" rx="12" fill="#FFFFFF" stroke="#A8C8DE"/>
+  <text x="530" y="360" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#1A1D21">Readiness</text>
+  <text x="530" y="385" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5A6570">support timing</text>
 </svg>

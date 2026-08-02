@@ -15,6 +15,7 @@ const TAG_TONE: Record<NonNullable<NewsItem["tag"]>, string> = {
   Role: "border-border bg-slate/5 text-slate",
   Award: "border-primary/40 bg-primary/10 text-primary-deep",
   Manuscript: "border-accent/30 bg-accent/5 text-accent-deep",
+  Planned: "border-border bg-section text-slate",
 };
 
 function TimelineRow({ item }: { item: NewsItem }) {

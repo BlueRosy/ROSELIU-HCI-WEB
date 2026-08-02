@@ -1,24 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Mindful Scroll placeholder">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#FFFDF8"/>
-      <stop offset="1" stop-color="#F8F1E8"/>
-    </linearGradient>
-    <linearGradient id="ac" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#B9786F"/>
-      <stop offset="1" stop-color="#D4A59E"/>
-    </linearGradient>
-  </defs>
-  <rect width="800" height="500" fill="url(#bg)"/>
-  <g opacity="0.5" stroke="url(#ac)" stroke-width="2" fill="none">
-    <path d="M60 380 C 180 300, 260 420, 380 320 S 620 220, 740 300"/>
-    <path d="M60 320 C 180 240, 260 360, 380 260 S 620 160, 740 240" opacity="0.5"/>
-  </g>
-  <g fill="url(#ac)">
-    <circle cx="200" cy="170" r="9"/><circle cx="320" cy="130" r="6"/>
-    <circle cx="470" cy="190" r="11"/><circle cx="600" cy="140" r="7"/>
-  </g>
-  <text x="60" y="90" font-family="Inter, sans-serif" font-size="34" font-weight="700" fill="#2F2A26">Mindful Scroll</text>
-  <text x="60" y="125" font-family="IBM Plex Mono, monospace" font-size="16" fill="#6F6258">interaction logs &#8594; mental state cues</text>
-  <text x="60" y="470" font-family="IBM Plex Mono, monospace" font-size="13" fill="#8A7F72">sanitized screenshot placeholder</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Mindful Scroll research flow">
+  <rect width="800" height="500" fill="#F3F7FB"/>
+  <text x="48" y="56" font-family="Inter, sans-serif" font-size="28" font-weight="700" fill="#1A1D21">Mindful Scroll</text>
+  <text x="48" y="84" font-family="IBM Plex Mono, monospace" font-size="13" fill="#5A6570">SFV signals → wellbeing states → intervention</text>
+
+  <!-- nodes -->
+  <rect x="48" y="140" width="200" height="120" rx="14" fill="#FFFFFF" stroke="#7BA7C9" stroke-width="1.5"/>
+  <text x="148" y="190" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#4A7FA3">01</text>
+  <text x="148" y="218" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" font-weight="600" fill="#1A1D21">Micro-interactions</text>
+  <text x="148" y="242" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#5A6570">SFV logs + diaries</text>
+
+  <path d="M260 200 H300" stroke="#4A7FA3" stroke-width="2"/>
+  <path d="M292 192 L304 200 L292 208" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+
+  <rect x="310" y="140" width="200" height="120" rx="14" fill="#FFFFFF" stroke="#7BA7C9" stroke-width="1.5"/>
+  <text x="410" y="190" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#4A7FA3">02</text>
+  <text x="410" y="218" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" font-weight="600" fill="#1A1D21">State modeling</text>
+  <text x="410" y="242" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#5A6570">NLP · prediction</text>
+
+  <path d="M522 200 H562" stroke="#4A7FA3" stroke-width="2"/>
+  <path d="M554 192 L566 200 L554 208" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+
+  <rect x="572" y="140" width="180" height="120" rx="14" fill="#4A7FA3"/>
+  <text x="662" y="190" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#D6E8F5">03</text>
+  <text x="662" y="218" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" font-weight="600" fill="#FFFFFF">Intervention</text>
+  <text x="662" y="242" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#E8F2F9">mindful reflection</text>
+
+  <!-- evening dialogue branch -->
+  <rect x="180" y="320" width="440" height="100" rx="14" fill="#FFFFFF" stroke="#A8C8DE" stroke-width="1.5"/>
+  <text x="400" y="360" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#1A1D21">Evening reflection dialogues</text>
+  <text x="400" y="388" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#5A6570">self-awareness · self-regulation · CHI 2027 target</text>
+  <path d="M410 260 V320" stroke="#7BA7C9" stroke-width="2" stroke-dasharray="4 4"/>
 </svg>

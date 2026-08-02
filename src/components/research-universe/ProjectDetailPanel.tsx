@@ -66,7 +66,7 @@ export default function ProjectDetailPanel({
             </div>
             <div className="mt-auto pt-8">
               <Link
-                to="/#projects"
+                to="/"
                 className="inline-flex rounded-full border border-primary/30 bg-primary/10 px-5 py-2.5 text-sm font-medium text-primary-deep transition hover:bg-primary/15"
                 onClick={onClose}
               >

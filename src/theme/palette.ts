@@ -1,19 +1,19 @@
-/** Shared Rose botanical palette for CSS-adjacent JS (Three.js, SVG). */
+/** Shared palette for CSS-adjacent JS (Three.js, SVG). */
 export const palette = {
-  bg: "#FFFDF8",
-  surface: "#FFFCF7",
-  section: "#F8F1E8",
-  primary: "#B9786F",
-  primaryDeep: "#8F514C",
-  accent: "#B9786F",
-  accentDeep: "#8F514C",
-  sage: "#8A9275",
-  ink: "#2F2A26",
-  slate: "#6F6258",
-  line: "#7A6658",
-  border: "rgba(122, 102, 88, 0.18)",
-  roseSoft: "#D4A59E",
-  cream: "#F8F1E8",
+  bg: "#FAFBFC",
+  surface: "#FFFFFF",
+  section: "#F3F7FB",
+  primary: "#7BA7C9",
+  primaryDeep: "#4A7FA3",
+  accent: "#7BA7C9",
+  accentDeep: "#4A7FA3",
+  sage: "#8A9AAB",
+  ink: "#1A1D21",
+  slate: "#5A6570",
+  line: "#8A9AAB",
+  border: "rgba(74, 127, 163, 0.16)",
+  roseSoft: "#A8C8DE", // legacy name → soft blue
+  cream: "#F3F7FB",
 } as const;
 
 export const heroPetalPalette = [

@@ -28,7 +28,7 @@ export default function RWLayout({
       navigate(-1);
       return;
     }
-    navigate("/#about");
+    navigate("/");
   };
 
   return (
@@ -38,7 +38,7 @@ export default function RWLayout({
         <button
           type="button"
           onClick={handleBack}
-          className="glass inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm text-slate shadow-soft transition hover:text-primary-deep"
+          className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/90 px-4 py-2 text-sm text-slate shadow-soft transition hover:text-primary-deep"
         >
           <ArrowLeft size={15} />
           {researchWorld.backLabel}
@@ -53,16 +53,16 @@ export default function RWLayout({
             </p>
             <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
               <Link
-                to="/#research"
+                to="/"
                 className="rounded-full border border-border bg-surface/80 px-5 py-2.5 text-sm text-ink transition hover:border-primary/30"
               >
-                View Research
+                About
               </Link>
               <Link
-                to="/#projects"
+                to="/side-projects"
                 className="rounded-full border border-border bg-surface/80 px-5 py-2.5 text-sm text-ink transition hover:border-primary/30"
               >
-                View Projects
+                Side Projects
               </Link>
               <a
                 href={profile.cv}
@@ -72,7 +72,7 @@ export default function RWLayout({
               </a>
             </div>
           </div>
-      </footer>
+        </footer>
       )}
     </div>
   );

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="CoSim pattern outcomes">
+  <rect width="800" height="500" fill="#F3F7FB"/>
+  <text x="48" y="56" font-family="Inter, sans-serif" font-size="28" font-weight="700" fill="#1A1D21">Pattern outcomes</text>
+  <text x="48" y="84" font-family="IBM Plex Mono, monospace" font-size="13" fill="#5A6570">trajectorythematic analysis</text>
+
+  <rect x="80" y="160" width="280" height="220" rx="16" fill="#FFFFFF" stroke="#7BA7C9" stroke-width="1.5"/>
+  <text x="220" y="210" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" font-weight="600" fill="#4A7FA3">Facilitative</text>
+  <text x="220" y="250" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#5A6570">empathic turns</text>
+  <text x="220" y="278" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#5A6570">reflective prompts</text>
+  <text x="220" y="306" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#5A6570">safe disclosure</text>
+
+  <rect x="440" y="160" width="280" height="220" rx="16" fill="#FFFFFF" stroke="#A8C8DE" stroke-width="1.5"/>
+  <text x="580" y="210" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" font-weight="600" fill="#5A6570">Hindering</text>
+  <text x="580" y="250" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#5A6570">premature advice</text>
+  <text x="580" y="278" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#5A6570">resistance spikes</text>
+  <text x="580" y="306" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#5A6570">topic drift</text>
+</svg>
