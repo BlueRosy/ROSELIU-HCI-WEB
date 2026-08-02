@@ -645,16 +645,16 @@ body {
   min-width: 0;
 }
 
-/* Sit below the greeting typewriter; optically balance the shorter right rail */
+/* Sit a bit below the greeting — between flush-top and full bio offset */
 @media (min-width: 768px) {
   .about-profile-rail-wrap {
-    padding-top: 3.25rem;
+    padding-top: 1.75rem;
   }
 }
 
 @media (min-width: 1024px) {
   .about-profile-rail-wrap {
-    padding-top: 3.75rem;
+    padding-top: 2rem;
   }
 }
 
