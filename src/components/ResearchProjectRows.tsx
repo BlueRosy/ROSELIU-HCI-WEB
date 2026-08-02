@@ -33,12 +33,12 @@ function ProjectRow({ project }: { project: Project }) {
   const liveLinks = project.links.filter((l) => l.href);
 
   return (
-    <article className="project-row grid items-stretch gap-5 py-5 sm:grid-cols-[180px_minmax(0,1fr)] md:grid-cols-[200px_minmax(0,1fr)] md:gap-7 lg:grid-cols-[220px_minmax(0,1fr)]">
+    <article className="project-row grid items-stretch gap-3.5 py-5 sm:grid-cols-[180px_minmax(0,1fr)] sm:gap-5 md:grid-cols-[200px_minmax(0,1fr)] md:gap-7 lg:grid-cols-[220px_minmax(0,1fr)]">
       <ProjectMedia project={project} />
 
       <div className="project-row__copy flex min-w-0 flex-col justify-center">
         <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-          <h3 className="font-sans text-base font-semibold leading-snug text-ink md:text-lg">
+          <h3 className="font-sans text-[15px] font-semibold leading-snug text-ink sm:text-base md:text-lg">
             {title}
           </h3>
           <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-primary-deep">
@@ -48,7 +48,7 @@ function ProjectRow({ project }: { project: Project }) {
         <p className="mt-1 font-mono text-[11px] leading-relaxed text-slate">
           {project.context}
         </p>
-        <p className="mt-2 text-[14px] leading-relaxed text-ink/90">
+        <p className="mt-2 text-[13.5px] leading-relaxed text-ink/90 sm:text-[14px]">
           {project.blurb}
         </p>
         {project.status && (
@@ -97,11 +97,11 @@ export default function ResearchProjectRows({
         Projects
       </h2>
       {showIntro && (
-        <p className="mt-3 text-[14px] leading-[1.7] text-ink/90">
+        <p className="project-rows__intro mt-3 text-[13.5px] leading-[1.7] text-ink/90 sm:text-[14px]">
           {about.projectsIntro}
         </p>
       )}
-      <div className="mt-5 divide-y divide-border/70">
+      <div className="mt-4 divide-y divide-border/70 sm:mt-5">
         {list.map((project) => (
           <ProjectRow key={project.id} project={project} />
         ))}

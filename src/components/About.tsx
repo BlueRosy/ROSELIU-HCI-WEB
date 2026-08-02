@@ -69,31 +69,49 @@ function AboutBio() {
   );
 }
 
-function AboutMobileHeader() {
+/** Mobile: portrait on top → greeting → contacts → bio. */
+function AboutMobileStack() {
   return (
-    <div className="about-mobile-profile text-left md:hidden">
-      <div className="flex items-start gap-4">
-        <div className="about-avatar about-avatar--calm about-avatar--mobile h-36 w-36 shrink-0">
-          <div className="about-avatar__ring">
-            <div className="about-avatar__photo">
-              <img
-                src={profile.aboutPhoto}
-                alt={`Portrait of ${profile.name}`}
-                className="about-avatar__img h-full w-full object-cover"
-              />
+    <div className="about-mobile-stack md:hidden">
+      <Reveal>
+        <div className="about-mobile-stack__hero">
+          <div className="about-avatar about-avatar--calm about-avatar--mobile">
+            <div className="about-avatar__ring">
+              <div className="about-avatar__photo">
+                <img
+                  src={profile.aboutPhoto}
+                  alt={`Portrait of ${profile.name}`}
+                  className="about-avatar__img h-full w-full object-cover"
+                />
+              </div>
             </div>
           </div>
-        </div>
-        <div className="min-w-0 flex-1 pt-1">
+
           <MobileTypewriter
             lines={[about.greeting]}
             loop
             typeMs={70}
-            className="about-desktop-typewriter about-desktop-typewriter--mobile"
+            className="about-desktop-typewriter about-desktop-typewriter--mobile mt-5"
           />
-          <AboutContacts stacked />
+
+          <AboutContacts stacked centered />
         </div>
-      </div>
+      </Reveal>
+
+      <Reveal delay={0.06}>
+        <div className="about-mobile-stack__bio mt-7 space-y-3.5">
+          {about.paragraphs.map((p, i) => (
+            <p key={i} className="about-mobile-stack__p">
+              {i === 0 ? highlightTopics(p, about.topics) : p}
+            </p>
+          ))}
+          {profile.seekingPhd && (
+            <p className="about-mobile-stack__p about-mobile-stack__p--seek">
+              {about.seekingLine}
+            </p>
+          )}
+        </div>
+      </Reveal>
     </div>
   );
 }
@@ -106,38 +124,19 @@ export default function About() {
     >
       <div className="relative mx-auto max-w-6xl px-5 md:px-6 lg:px-8">
         <div className="about-with-news xl:grid xl:grid-cols-[240px_minmax(0,1fr)] xl:items-start xl:gap-8 2xl:grid-cols-[260px_minmax(0,1fr)] 2xl:gap-10">
-          {/* Left floating sidebar — not in the intro→projects flow */}
-          <aside className="news-sidebar hidden xl:block" aria-label="Recent news">
+          {/* Desktop-only left news sidebar */}
+          <aside
+            className="news-sidebar hidden xl:block"
+            aria-label="Recent news"
+          >
             <div className="news-sidebar__float">
               <CompactNews />
             </div>
           </aside>
 
-          {/* Main column: intro → rule → projects */}
           <div className="about-main min-w-0">
             <div className="max-w-3xl md:max-w-4xl">
-              <div className="space-y-8 md:hidden">
-                <Reveal>
-                  <AboutMobileHeader />
-                </Reveal>
-                <Reveal delay={0.06}>
-                  <div className="about-bio__body max-w-xl space-y-3.5">
-                    {about.paragraphs.map((p, i) => (
-                      <p
-                        key={i}
-                        className="font-sans text-[13.5px] leading-[1.7] text-ink/90"
-                      >
-                        {i === 0 ? highlightTopics(p, about.topics) : p}
-                      </p>
-                    ))}
-                    {profile.seekingPhd && (
-                      <p className="font-sans text-[13.5px] leading-[1.7] text-primary-deep">
-                        {about.seekingLine}
-                      </p>
-                    )}
-                  </div>
-                </Reveal>
-              </div>
+              <AboutMobileStack />
 
               <div className="about-intro-grid hidden md:grid md:grid-cols-[minmax(0,1fr)_200px] md:items-start md:gap-8 lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-10">
                 <AboutBio />
@@ -148,16 +147,11 @@ export default function About() {
             </div>
 
             <Reveal>
-              <hr className="mt-12 border-border/80 md:mt-14" />
+              <hr className="about-section-rule mt-10 border-border/80 md:mt-14" />
             </Reveal>
 
-            <Reveal delay={0.06} className="mt-8">
+            <Reveal delay={0.06} className="mt-7 md:mt-8">
               <ResearchProjectRows showIntro />
-            </Reveal>
-
-            {/* Mobile / tablet: news after main content, never between intro & projects */}
-            <Reveal delay={0.08} className="mt-10 xl:hidden">
-              <CompactNews />
             </Reveal>
           </div>
         </div>
