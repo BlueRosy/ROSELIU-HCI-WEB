@@ -26,6 +26,6 @@
   <text x="290" y="385" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5A6570">emerging cues</text>
 
   <rect x="420" y="320" width="220" height="90" rx="12" fill="#FFFFFF" stroke="#A8C8DE"/>
-  <text x="530" y="360" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#1A1D21">CHI 2027 LBW</text>
+  <text x="530" y="360" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#1A1D21">CHI 2027 Late-Breaking Work</text>
   <text x="530" y="385" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5A6570">in preparation</text>
 </svg>

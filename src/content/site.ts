@@ -322,8 +322,8 @@ export const projects: Project[] = [
       "Readiness",
       "Intervention design",
     ],
-    role: "Built a trajectory–thematic pipeline across 10 supporters / 19 sessions; co-authoring CHI 2027 LBW.",
-    status: "CHI 2027 LBW in preparation",
+    role: "Built a trajectory–thematic pipeline across 10 supporters / 19 sessions; co-authoring CHI 2027 Late-Breaking Work.",
+    status: "CHI 2027 Late-Breaking Work in preparation",
     accessType: "private",
     image: "/projects/cosim-flow.svg",
     gallery: [
@@ -360,8 +360,8 @@ export const projects: Project[] = [
       "Platform design",
       "Behavioral response",
     ],
-    role: "Led front-end development and quantitative analysis; co-authoring CHI 2027 LBW.",
-    status: "Analysis complete · CHI 2027 LBW in preparation",
+    role: "Led front-end development and quantitative analysis; co-authoring CHI 2027 Late-Breaking Work.",
+    status: "Analysis complete · CHI 2027 Late-Breaking Work in preparation",
     accessType: "private",
     image: "/projects/misinfo-flow.svg",
     gallery: [
@@ -638,9 +638,9 @@ export const currentLens = [
 ] as const;
 
 export const about = {
-  greeting: "Hi, I\u2019m Rose.",
+  greeting: "Hi, I\u2019m Rose (Yanqing Liu)",
   /** Kept for older mobile helpers. */
-  mobileGreeting: "Hi, I\u2019m Rose.",
+  mobileGreeting: "Hi, I\u2019m Rose (Yanqing Liu)",
   /**
    * Compact bio for About (≈7s scan). Bold topics rendered via about.topics.
    * Paragraphs are short on purpose — PhD-application clarity over product narrative.
@@ -1108,7 +1108,7 @@ export const journey: JourneyStop[] = [
     period: "Sep 2025 – Present",
     title: "Research Collaborator, Pervasive HCI Group, Tsinghua",
     detail:
-      "CoSim dialogue-log analysis for university student supporters (Fudaoyuan) with Dr. Jie Cai; co-authoring CHI 2027 LBW.",
+      "CoSim dialogue-log analysis for university student supporters (Fudaoyuan) with Dr. Jie Cai; co-authoring CHI 2027 Late-Breaking Work.",
   },
   {
     place: "Kunshan, China",
@@ -1123,7 +1123,7 @@ export const journey: JourneyStop[] = [
     title:
       "Summer Research Intern, Studio for Narrative Spaces, CityU",
     detail:
-      "Advisors: Prof. Ray LC and Prof. Fiona Fui-Hoon Nah. Led front-end and GEE analysis for a misinformation comment experiment (n=60); CHI 2027 LBW in preparation.",
+      "Advisors: Prof. Ray LC and Prof. Fiona Fui-Hoon Nah. Led front-end and GEE analysis for a misinformation comment experiment (n=60); CHI 2027 Late-Breaking Work in preparation.",
   },
   {
     place: "Singapore",
@@ -1154,15 +1154,8 @@ export const news: NewsItem[] = [
   },
   {
     date: "Sep 2026",
-    title: "Joined SMU collaboration",
-    text: "Research collaborator with Prof. Fiona Fui-Hoon Nah on sensing-to-adaptation review work.",
-    tag: "Role",
-    featured: true,
-  },
-  {
-    date: "Sep 2026",
     title: "CHI 2027 paper under review",
-    text: "Negotiating Reflective Demand: LLM-mediated reflection on everyday short-form video use.",
+    text: "Designing an LLM-mediated reflection chatbot for everyday short-form video use, with negotiable timing, depth, interpretive authority, and evaluation.",
     tag: "Manuscript",
     featured: true,
   },
@@ -1183,7 +1176,7 @@ export const news: NewsItem[] = [
   {
     date: "Aug 2026",
     title: "CityU misinfo analysis wrapped",
-    text: "GEE analysis of 1,200 decisions (n=60); CHI 2027 LBW with Ray LC in preparation.",
+    text: "GEE analysis of 1,200 decisions (n=60); CHI 2027 Late-Breaking Work with Ray LC in preparation.",
     tag: "Manuscript",
     featured: true,
   },

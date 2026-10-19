@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import { about, profile } from "../content/site";
 import AboutIdentityCard from "./AboutIdentityCard";
 import AboutContacts from "./AboutContacts";
-import MobileTypewriter from "./MobileTypewriter";
 import ResearchProjectRows from "./ResearchProjectRows";
 import CompactNews from "./CompactNews";
 import CompactPublications from "./CompactPublications";
@@ -42,14 +41,9 @@ function highlightTopics(text: string, topics: readonly string[]) {
 function AboutBio() {
   return (
     <div className="about-bio">
-      <MobileTypewriter
-        lines={[about.greeting]}
-        loop
-        typeMs={70}
-        className="about-desktop-typewriter"
-      />
+      <h1 className="about-greeting">{about.greeting}</h1>
 
-      <Reveal delay={0.15}>
+      <Reveal delay={0.08}>
         <div className="about-bio__body mt-5 space-y-3.5">
           {about.paragraphs.map((p, i) => (
             <p
@@ -88,12 +82,9 @@ function AboutMobileStack() {
             </div>
           </div>
 
-          <MobileTypewriter
-            lines={[about.greeting]}
-            loop
-            typeMs={70}
-            className="about-desktop-typewriter about-desktop-typewriter--mobile mt-5"
-          />
+          <h1 className="about-greeting about-greeting--mobile mt-5">
+            {about.greeting}
+          </h1>
 
           <AboutContacts stacked centered />
         </div>
