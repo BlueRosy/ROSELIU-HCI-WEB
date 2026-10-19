@@ -1,5 +1,5 @@
-import { useEffect, useId, useState, type ReactNode } from "react";
-import { X } from "lucide-react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { ChevronLeft } from "lucide-react";
 import { about, profile } from "../content/site";
 import AboutIdentityCard from "./AboutIdentityCard";
 import AboutContacts from "./AboutContacts";
@@ -7,6 +7,37 @@ import ResearchProjectRows from "./ResearchProjectRows";
 import CompactNews from "./CompactNews";
 import CompactPublications from "./CompactPublications";
 import { Reveal } from "./primitives";
+
+/** max-height = space down to viewport bottom minus margin; card itself scrolls. */
+function NewsSidebarFloat() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const update = () => {
+      const top = el.getBoundingClientRect().top;
+      const maxH = window.innerHeight - top - 12;
+      if (maxH > 0) el.style.maxHeight = `${maxH}px`;
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
+  return (
+    <div ref={ref} className="news-sidebar__float">
+      <CompactNews />
+    </div>
+  );
+}
 
 function highlightTopics(text: string, topics: readonly string[]) {
   let remaining = text;
@@ -109,7 +140,7 @@ function AboutMobileStack() {
   );
 }
 
-/** Phone / narrow: edge tab → slide-over news (sidebar shows from lg). */
+/** Phone / narrow: edge tab → left slide-out panel (sidebar shows from lg). */
 function MobileNewsDrawer() {
   const [open, setOpen] = useState(false);
   const panelId = useId();
@@ -120,58 +151,65 @@ function MobileNewsDrawer() {
       if (e.key === "Escape") setOpen(false);
     };
     document.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prev;
-    };
+    return () => document.removeEventListener("keydown", onKey);
   }, [open]);
 
   return (
-    <div className="news-drawer lg:hidden">
-      <button
-        type="button"
-        className="news-drawer__tab"
-        aria-expanded={open}
-        aria-controls={panelId}
-        onClick={() => setOpen(true)}
-      >
-        News
-      </button>
-
-      {open ? (
-        <div className="news-drawer__layer" role="presentation">
-          <button
-            type="button"
-            className="news-drawer__backdrop"
-            aria-label="Close news"
-            onClick={() => setOpen(false)}
-          />
-          <aside
-            id={panelId}
-            className="news-drawer__panel"
-            aria-label="Recent news"
-          >
-            <div className="news-drawer__head">
-              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-slate">
-                Recent news
-              </span>
-              <button
-                type="button"
-                className="news-drawer__close"
-                aria-label="Close"
-                onClick={() => setOpen(false)}
-              >
-                <X size={16} />
-              </button>
-            </div>
-            <div className="news-drawer__body">
-              <CompactNews bare />
-            </div>
-          </aside>
-        </div>
+    <div className={`news-drawer xl:hidden${open ? " news-drawer--open" : ""}`}>
+      {!open ? (
+        <button
+          type="button"
+          className="news-drawer__tab"
+          aria-expanded={false}
+          aria-controls={panelId}
+          onClick={() => setOpen(true)}
+        >
+          News
+        </button>
       ) : null}
+
+      <div
+        className="news-drawer__layer"
+        role="presentation"
+        aria-hidden={!open}
+      >
+        <button
+          type="button"
+          className="news-drawer__scrim"
+          tabIndex={open ? 0 : -1}
+          aria-label="Fold news"
+          onClick={() => setOpen(false)}
+        />
+        <aside
+          id={panelId}
+          className="news-drawer__panel"
+          role="dialog"
+          aria-label="Recent news"
+        >
+          <div className="news-drawer__head">
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-slate">
+                Recent news
+              </p>
+              <p className="mt-0.5 text-[12px] text-slate/70">
+                Highlights & updates
+              </p>
+            </div>
+            <button
+              type="button"
+              className="news-drawer__fold"
+              aria-label="Fold news panel"
+              onClick={() => setOpen(false)}
+            >
+              <ChevronLeft size={16} aria-hidden />
+              <span>Fold</span>
+            </button>
+          </div>
+          <div className="news-drawer__body">
+            <CompactNews bare />
+          </div>
+        </aside>
+      </div>
     </div>
   );
 }
@@ -182,26 +220,36 @@ export default function About() {
       id="about"
       className="about-section relative isolate pt-20 pb-14 sm:pt-24 sm:pb-16 md:pt-28 md:pb-20"
     >
-      {/* Same max-w-5xl + px-5 shell as header nav */}
-      <div className="relative mx-auto max-w-5xl px-5">
-        <div className="about-with-news lg:grid lg:grid-cols-[200px_minmax(0,1fr)] lg:items-start lg:gap-6 xl:grid-cols-[220px_minmax(0,1fr)] xl:gap-8">
-          <aside
-            className="news-sidebar hidden lg:block"
-            aria-label="Recent news"
-          >
-            <div className="news-sidebar__float">
-              <CompactNews />
-            </div>
-          </aside>
+      {/* Same .site-shell as header (logo ↔ nav pill) */}
+      <div className="site-shell relative">
+        <div className="about-with-news xl:grid xl:grid-cols-[280px_minmax(0,1fr)] xl:items-start xl:gap-10">
+          {/* xl+ (≥1280): left identity + news — same ratio through wide screens */}
+          <div className="about-left-rail">
+            <Reveal className="w-full min-w-0">
+              <AboutIdentityCard />
+            </Reveal>
+            <aside className="news-sidebar" aria-label="Recent news">
+              <NewsSidebarFloat />
+            </aside>
+          </div>
 
           <div className="about-main min-w-0">
             <AboutMobileStack />
 
-            <div className="about-intro-grid hidden md:grid md:grid-cols-[minmax(0,1fr)_180px] md:items-start md:gap-6 lg:grid-cols-[minmax(0,1fr)_190px] lg:gap-7 xl:grid-cols-[minmax(0,1fr)_210px] xl:gap-8">
+            {/* md–lg: bio + profile right; news via drawer (no mid-width layout flip) */}
+            <div className="about-intro-grid hidden md:grid md:grid-cols-[minmax(0,1fr)_17rem] md:items-start md:gap-8 xl:hidden">
               <AboutBio />
-              <Reveal delay={0.04} className="about-profile-rail-wrap min-w-0">
+              <Reveal
+                delay={0.04}
+                className="about-profile-rail-wrap min-w-0 self-start"
+              >
                 <AboutIdentityCard />
               </Reveal>
+            </div>
+
+            {/* xl+: bio in main column beside left rail */}
+            <div className="hidden xl:block">
+              <AboutBio />
             </div>
 
             <Reveal>

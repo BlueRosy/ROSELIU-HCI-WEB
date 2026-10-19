@@ -61,9 +61,9 @@ export default function Nav({
     setMobileStudioOpen(false);
   };
 
-  const brandClass = `inline-flex h-10 shrink-0 items-center gap-2 rounded-full px-2.5 text-ink transition ${
+  const brandClass = `inline-flex h-10 shrink-0 items-center gap-2 rounded-full px-0 text-ink transition ${
     scrolled
-      ? "border border-border bg-surface/95 shadow-soft backdrop-blur-sm"
+      ? "border border-border bg-surface/95 px-2.5 shadow-soft backdrop-blur-sm"
       : "border border-transparent"
   }`;
 
@@ -124,7 +124,7 @@ export default function Nav({
           : "border-transparent bg-bg/80 py-3 backdrop-blur-sm"
       }`}
     >
-      <div className="mx-auto flex h-11 min-w-0 max-w-5xl items-center justify-between gap-3 px-5">
+      <div className="site-shell flex h-11 min-w-0 items-center justify-between gap-3">
         <Link to="/" onClick={closeMenu} className={brandClass}>
           <span className="font-display text-[16px] font-normal tracking-[0.02em] sm:text-[17px]">
             {profile.name}

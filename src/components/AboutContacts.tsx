@@ -56,20 +56,24 @@ export default function AboutContacts({
   if (stacked) {
     return (
       <div
-        className={`about-contacts about-contacts--stacked mt-3 space-y-2 text-[12px] text-slate ${
-          centered ? "mt-4 space-y-2.5" : ""
+        className={`about-contacts about-contacts--stacked mt-3 w-full space-y-2 text-[12px] text-slate ${
+          centered
+            ? "mt-3.5 flex flex-col items-center space-y-2.5 text-center"
+            : ""
         }`}
       >
         <a
           href={`mailto:${profile.email}`}
           className={`${linkClass} gap-1.5 ${
             centered
-              ? "mx-auto max-w-full justify-center text-center"
+              ? "max-w-full justify-center text-center"
               : "items-start"
           }`}
         >
           <Mail size={13} className={`shrink-0 ${centered ? "" : "mt-0.5"}`} />
-          <span className="min-w-0 break-all leading-snug">{profile.email}</span>
+          <span className="min-w-0 break-words leading-snug [overflow-wrap:anywhere]">
+            {profile.email}
+          </span>
         </a>
         {socialRow}
       </div>

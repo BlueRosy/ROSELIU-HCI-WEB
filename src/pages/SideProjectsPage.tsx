@@ -6,7 +6,7 @@ export default function SideProjectsPage() {
   return (
     <PageShell>
       <section className="pt-24 pb-16 sm:pt-28 sm:pb-20 md:pt-32">
-        <div className="mx-auto max-w-5xl px-5">
+        <div className="site-shell">
           <Reveal>
             <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-slate">
               Side Project

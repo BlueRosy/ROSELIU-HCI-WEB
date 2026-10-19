@@ -35,6 +35,17 @@
 /* ============================================================
    Base
    ============================================================ */
+
+/* One shell for header + page content — identical max width & gutters */
+.site-shell {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 64rem; /* max-w-5xl */
+  margin-inline: auto;
+  /* Fluid side gutters — same formula in header and body */
+  padding-inline: clamp(1.25rem, 3.5vw, 2.5rem);
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5.5rem;
@@ -643,16 +654,53 @@ body {
   min-width: 0;
 }
 
-/* Sit below the greeting; optically balance the shorter right rail */
-@media (min-width: 768px) {
+.about-intro-grid {
+  width: 100%;
+  min-width: 0;
+}
+
+.about-intro-grid > * {
+  min-width: 0;
+}
+
+.about-main,
+.about-with-news {
+  width: 100%;
+  min-width: 0;
+}
+
+/* md–lg: photo beside bio (right); nudge under the name line */
+@media (min-width: 768px) and (max-width: 1279px) {
   .about-profile-rail-wrap {
-    padding-top: 3.25rem;
+    padding-top: 0.35rem;
   }
 }
 
-@media (min-width: 1024px) {
-  .about-profile-rail-wrap {
-    padding-top: 3.75rem;
+/* Left identity rail (xl+ / ≥1280): photo → contacts → news — one stable ratio */
+.about-left-rail {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .about-left-rail {
+    display: flex;
+    width: 100%;
+    min-width: 280px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.85rem;
+  }
+
+  .about-left-rail .news-sidebar {
+    width: 100%;
+  }
+
+  .about-left-rail .about-profile-rail {
+    width: 100%;
+  }
+
+  .about-left-rail .about-avatar.about-avatar--portrait {
+    --avatar-size: 15rem;
   }
 }
 
@@ -1125,7 +1173,7 @@ body {
   }
 }
 
-/* Narrow viewports: edge tab → slide-over news */
+/* Narrow viewports: edge tab → left slide-out panel (capped height) */
 .news-drawer__tab {
   position: fixed;
   left: 0;
@@ -1155,72 +1203,109 @@ body {
 }
 
 .news-drawer__layer {
+  pointer-events: none;
   position: fixed;
   inset: 0;
-  z-index: 60;
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  /* Flush to left edge; vertical inset only so panel clears header */
+  padding: max(5.25rem, env(safe-area-inset-top, 0px) + 4.5rem) 0
+    max(1rem, env(safe-area-inset-bottom, 0px) + 0.75rem);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
 }
 
-.news-drawer__backdrop {
+.news-drawer--open .news-drawer__layer {
+  pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Invisible hit area — no dim / blur; click outside folds the panel */
+.news-drawer__scrim {
   position: absolute;
   inset: 0;
+  z-index: 0;
   border: 0;
-  background: rgba(26, 29, 33, 0.28);
-  cursor: pointer;
+  background: transparent;
+  cursor: default;
 }
 
 .news-drawer__panel {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
+  position: relative;
+  z-index: 1;
   display: flex;
-  width: min(20.5rem, 88vw);
+  width: min(22rem, 92vw);
+  max-height: min(28rem, calc(100dvh - 7.5rem));
+  height: min(28rem, calc(100dvh - 7.5rem));
   flex-direction: column;
-  border-right: 1px solid var(--color-border);
-  background: var(--color-surface);
-  box-shadow: 12px 0 40px rgba(26, 29, 33, 0.12);
-  animation: news-drawer-in 0.28s ease;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 22%, var(--color-border));
+  border-left: none;
+  border-radius: 0 1.15rem 1.15rem 0;
+  background:
+    linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--color-primary) 12%, #ffffff) 0%,
+      #ffffff 42%,
+      #ffffff 100%
+    );
+  box-shadow:
+    8px 0 28px rgba(26, 29, 33, 0.1),
+    0 1px 0 rgba(255, 255, 255, 0.8) inset;
+  transform: translateX(-105%);
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@keyframes news-drawer-in {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
+.news-drawer--open .news-drawer__panel {
+  transform: translateX(0);
 }
 
 .news-drawer__head {
   display: flex;
-  align-items: center;
+  flex-shrink: 0;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 0.75rem;
-  border-bottom: 1px solid var(--color-border);
-  padding: 0.9rem 1rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-primary) 14%, var(--color-border));
+  padding: 1rem 1.1rem 0.85rem;
 }
 
-.news-drawer__close {
+.news-drawer__fold {
   display: inline-flex;
+  flex-shrink: 0;
   align-items: center;
-  justify-content: center;
+  gap: 0.2rem;
   border-radius: 999px;
-  padding: 0.35rem;
-  color: var(--color-slate);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 22%, var(--color-border));
+  background: color-mix(in srgb, var(--color-primary) 8%, #ffffff);
+  padding: 0.35rem 0.65rem 0.35rem 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary-deep);
   transition: background 0.15s ease, color 0.15s ease;
 }
 
-.news-drawer__close:hover {
-  background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+.news-drawer__fold:hover {
+  background: color-mix(in srgb, var(--color-primary) 16%, #ffffff);
   color: var(--color-ink);
 }
 
 .news-drawer__body {
   min-height: 0;
-  flex: 1;
+  flex: 1 1 auto;
+  overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 0.75rem;
+  padding: 0.85rem 1.1rem 1.15rem;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -1236,20 +1321,24 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .news-drawer__panel {
-    animation: none;
+  .news-drawer__panel,
+  .news-drawer__layer {
+    transition: none;
   }
 }
 
 /* Compact news — vertical roadmap line */
 /* Left news sidebar — capped height, scroll inside, fold kept */
 .news-sidebar__float {
+  --news-sticky-top: calc(5.5rem + 12px);
+
   position: sticky;
-  top: 5.5rem;
-  display: flex;
-  max-height: min(27rem, 58vh);
-  flex-direction: column;
-  overflow: hidden;
+  top: var(--news-sticky-top);
+  /* max-height from JS: viewport bottom − 12px; CSS fallback */
+  max-height: calc(100vh - var(--news-sticky-top) - 12px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   border-radius: 1rem;
   border: 1px solid color-mix(in srgb, var(--color-primary) 22%, var(--color-border));
   background:
@@ -1262,37 +1351,25 @@ body {
   box-shadow:
     0 10px 28px rgba(74, 127, 163, 0.08),
     0 1px 0 rgba(255, 255, 255, 0.7) inset;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-/* Soft bottom fade — hints more content without a scrollbar */
-.news-sidebar__float:has(.compact-news__panel--open)::after {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  inset-inline: 0;
-  bottom: 0;
-  height: 2.25rem;
-  border-radius: 0 0 1rem 1rem;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    color-mix(in srgb, #ffffff 88%, var(--color-primary) 4%) 100%
-  );
+.news-sidebar__float::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+@supports (height: 100dvh) {
+  .news-sidebar__float {
+    max-height: calc(100dvh - var(--news-sticky-top) - 12px);
+  }
 }
 
 .news-sidebar .compact-news {
-  display: flex;
-  min-height: 0;
-  max-height: 100%;
-  flex-direction: column;
-  overflow: hidden;
   border: none;
   background: transparent;
   border-radius: 0;
-}
-
-.news-sidebar .compact-news > button {
-  flex-shrink: 0;
 }
 
 /* Collapsible panel — default open via --open; animates height */
@@ -1310,29 +1387,8 @@ body {
   overflow: hidden;
 }
 
-/* Sidebar: scroll the list, hide native scrollbar; soft fade hints more below */
-.news-sidebar .compact-news__panel {
-  min-height: 0;
-}
-
-.news-sidebar .compact-news__panel--open {
-  min-height: 0;
-}
-
 .news-sidebar .compact-news__panel-inner {
-  min-height: 0;
-  max-height: min(22.5rem, calc(58vh - 3.25rem));
-  overflow-x: hidden;
-  overflow-y: auto;
-  overscroll-behavior: contain;
   padding-bottom: 1.25rem;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.news-sidebar .compact-news__panel-inner::-webkit-scrollbar {
-  width: 0;
-  height: 0;
 }
 
 .compact-news__timeline {
@@ -1466,37 +1522,52 @@ body {
   position: relative;
   width: var(--avatar-size);
   height: var(--avatar-size);
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
-/*
- * Portrait MUST come after .about-avatar — earlier rules were overridden
- * by the base width/height and never visually applied.
- */
+.about-portrait {
+  width: 100%;
+}
+
+/* Perfect circle — grid column is the width cap (no container-query loop) */
 .about-avatar.about-avatar--portrait {
-  --avatar-size: 200px;
-  width: 200px;
-  height: 200px;
-  max-width: none;
+  --avatar-size: 15.5rem;
+  width: min(var(--avatar-size), 100%);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
-@media (min-width: 1024px) {
-  .about-avatar.about-avatar--portrait {
-    --avatar-size: 220px;
-    width: 220px;
-    height: 220px;
-  }
-}
+/* xl+ left rail overrides --avatar-size; md right-rail keeps 15.5rem */
 
 .about-portrait .about-avatar--portrait {
   margin-inline: auto;
 }
 
+/* md right-rail: keep contacts readable under the larger portrait */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .about-profile-rail .about-contacts--stacked {
+    font-size: 12.5px;
+  }
+
+  .about-profile-rail .about-contacts--stacked a {
+    word-break: break-word;
+  }
+}
+
 /* Mobile avatar — centered hero portrait */
 .about-avatar.about-avatar--mobile {
-  --avatar-size: 8.5rem;
+  --avatar-size: min(11.75rem, 42vw);
   --ring-width: 2.25px;
-  width: 8.5rem;
-  height: 8.5rem;
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  overflow: hidden;
   isolation: isolate;
   z-index: 2;
   margin-inline: auto;
@@ -1504,9 +1575,9 @@ body {
 
 @media (min-width: 400px) {
   .about-avatar.about-avatar--mobile {
-    --avatar-size: 9.5rem;
-    width: 9.5rem;
-    height: 9.5rem;
+    --avatar-size: min(13.25rem, 44vw);
+    width: var(--avatar-size);
+    height: var(--avatar-size);
   }
 }
 
@@ -1522,7 +1593,10 @@ body {
 }
 
 .about-avatar--mobile .about-avatar__img {
-  filter: brightness(1.28) contrast(1.06) saturate(1.1);
+  object-position: center 22%;
+  transform: scale(1.05);
+  transform-origin: center 30%;
+  filter: brightness(1.12) contrast(1.04) saturate(1.06);
 }
 
 .about-avatar--calm {
@@ -1569,7 +1643,7 @@ body {
   transform: none;
 }
 
-/* Large right-rail portrait: show more of the person, less tight face crop */
+/* Fill the circle — same as earlier right-rail profile */
 .about-avatar--portrait .about-avatar__img {
   object-fit: cover;
   object-position: center 22%;

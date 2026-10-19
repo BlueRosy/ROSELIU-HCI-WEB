@@ -1,7 +1,7 @@
 import { profile } from "../content/site";
 import AboutContacts from "./AboutContacts";
 
-/** Right-rail: portrait + contacts only (news sits with Projects). */
+/** Portrait + contacts — left rail above news (lg+), or beside bio (md). */
 export default function AboutIdentityCard() {
   return (
     <aside className="about-profile-rail">
@@ -17,8 +17,8 @@ export default function AboutIdentityCard() {
             </div>
           </div>
         </div>
-        <div className="mt-1 w-full text-left">
-          <AboutContacts stacked />
+        <div className="mt-3 w-full">
+          <AboutContacts stacked centered />
         </div>
       </div>
     </aside>

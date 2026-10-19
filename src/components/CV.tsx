@@ -5,7 +5,7 @@ import { Reveal } from "./primitives";
 export default function CV() {
   return (
     <section id="cv" className="section-anchor py-16 sm:py-20 md:py-24">
-      <div className="mx-auto max-w-5xl px-5">
+      <div className="site-shell">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>

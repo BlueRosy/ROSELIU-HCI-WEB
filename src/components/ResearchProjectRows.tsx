@@ -47,7 +47,7 @@ function ProjectRow({ project }: { project: Project }) {
   const liveLinks = project.links.filter((l) => l.href);
 
   return (
-    <article className="project-row group/project grid items-stretch gap-3.5 py-5 sm:grid-cols-[180px_minmax(0,1fr)] sm:gap-5 md:grid-cols-[200px_minmax(0,1fr)] md:gap-7 lg:grid-cols-[220px_minmax(0,1fr)]">
+    <article className="project-row group/project grid items-stretch gap-3.5 py-5 sm:grid-cols-[180px_minmax(0,1fr)] sm:gap-5 md:grid-cols-[220px_minmax(0,1fr)] md:gap-7">
       <ProjectMedia project={project} />
 
       <div className="project-row__copy flex min-w-0 flex-col justify-center">
