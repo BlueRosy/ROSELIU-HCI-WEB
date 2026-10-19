@@ -1,32 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Physiological Sensing for Learner States and Adaptive Learning — scoping review">
-  <rect width="800" height="500" fill="#F3F7FB"/>
-  <text x="48" y="46" font-family="Inter, sans-serif" font-size="20" font-weight="700" fill="#1A1D21">Physiological Sensing for Learner States</text>
-  <text x="48" y="72" font-family="Inter, sans-serif" font-size="18" font-weight="600" fill="#1A1D21">&amp; Adaptive Learning</text>
-  <text x="48" y="96" font-family="IBM Plex Mono, monospace" font-size="12" fill="#5A6570">scoping review · JBI / PRISMA-ScR · HCII 2027</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Scoping review pilot: of 51 retained studies, all linked physiological signals to learner states, 7 delivered an adaptation, up to 4 evaluated it and up to 2 tested the added value of physiological input">
+  <defs>
+    <style>
+      .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .mono { font-family: 'IBM Plex Mono', SFMono-Regular, Menlo, Consolas, monospace; }
+    </style>
+  </defs>
+  <rect width="800" height="500" fill="#f3f7fb"/>
 
-  <rect x="48" y="128" width="200" height="130" rx="14" fill="#FFFFFF" stroke="#7BA7C9" stroke-width="1.5"/>
-  <text x="148" y="178" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#4A7FA3">01</text>
-  <text x="148" y="206" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-weight="600" fill="#1A1D21">Physiological</text>
-  <text x="148" y="230" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#5A6570">EEG · HRV · EDA · pupil</text>
+  <text x="56" y="66" class="mono" font-size="16" letter-spacing="2.4" fill="#5a6570">PILOT SCREEN &#183; 51 RETAINED STUDIES</text>
+  <text x="56" y="110" class="sans" font-size="32" font-weight="650" fill="#1a1d21">From sensing to adaptation</text>
 
-  <path d="M260 193 H300" stroke="#4A7FA3" stroke-width="2"/>
-  <path d="M292 185 L304 193 L292 201" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+  <!-- row 1 -->
+  <text x="56" y="168" class="sans" font-size="20" fill="#1a1d21">Linked signals to learner states</text>
+  <rect x="56" y="180" width="560" height="28" rx="14" fill="#e3ecf5"/>
+  <rect x="56" y="180" width="560" height="28" rx="14" fill="#4a7fa3"/>
+  <text x="636" y="203" class="sans" font-size="28" font-weight="700" fill="#4a7fa3">51</text>
 
-  <rect x="310" y="128" width="200" height="130" rx="14" fill="#FFFFFF" stroke="#7BA7C9" stroke-width="1.5"/>
-  <text x="410" y="178" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#4A7FA3">02</text>
-  <text x="410" y="206" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-weight="600" fill="#1A1D21">Learner states</text>
-  <text x="410" y="230" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#5A6570">engagement · overload</text>
+  <!-- row 2 -->
+  <text x="56" y="250" class="sans" font-size="20" fill="#1a1d21">Delivered an adaptation</text>
+  <rect x="56" y="262" width="560" height="28" rx="14" fill="#e3ecf5"/>
+  <rect x="56" y="262" width="77" height="28" rx="14" fill="#6b98bd"/>
+  <text x="636" y="285" class="sans" font-size="28" font-weight="700" fill="#6b98bd">7</text>
 
-  <path d="M522 193 H562" stroke="#4A7FA3" stroke-width="2"/>
-  <path d="M554 185 L566 193 L554 201" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+  <!-- row 3 -->
+  <text x="56" y="332" class="sans" font-size="20" fill="#1a1d21">Evaluated the adaptive system</text>
+  <rect x="56" y="344" width="560" height="28" rx="14" fill="#e3ecf5"/>
+  <rect x="56" y="344" width="44" height="28" rx="14" fill="#8fb5d3"/>
+  <text x="636" y="367" class="sans" font-size="28" font-weight="700" fill="#7ba7c9">&#8804;4</text>
 
-  <rect x="572" y="128" width="180" height="130" rx="14" fill="#4A7FA3"/>
-  <text x="662" y="178" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#D6E8F5">03</text>
-  <text x="662" y="206" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-weight="600" fill="#FFFFFF">Adaptation</text>
-  <text x="662" y="230" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#E8F2F9">learning support</text>
+  <!-- row 4 -->
+  <text x="56" y="414" class="sans" font-size="20" fill="#1a1d21">Tested the added value of physiological input</text>
+  <rect x="56" y="426" width="560" height="28" rx="14" fill="#e3ecf5"/>
+  <rect x="56" y="426" width="28" height="28" rx="14" fill="#b3cde2"/>
+  <text x="636" y="449" class="sans" font-size="28" font-weight="700" fill="#8fb5d3">&#8804;2</text>
 
-  <rect x="48" y="300" width="704" height="140" rx="14" fill="#FFFFFF" stroke="#A8C8DE" stroke-width="1.5"/>
-  <text x="400" y="350" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#1A1D21">Evidence map across sensing ? states ? support</text>
-  <text x="400" y="380" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#5A6570">5,211 unique Scopus records · HCII 2027 accepted</text>
-  <text x="400" y="408" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#4A7FA3">SMU · Prof. Fiona Fui-Hoon Nah</text>
+  <text x="744" y="66" class="mono" font-size="14" letter-spacing="1.2" fill="#5a6570" text-anchor="end">provisional</text>
 </svg>

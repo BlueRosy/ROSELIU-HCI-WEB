@@ -6,7 +6,7 @@ function isRaster(src: string) {
   return /\.(jpe?g|png|webp)$/i.test(src.split("?")[0] ?? "");
 }
 
-/** Prefer real screenshots; diagrams stay contained on the blue field. */
+/** Screenshots crop to fill; diagram PNGs / SVGs use contain so the full figure shows. */
 function ProjectMedia({ project }: { project: Project }) {
   const src = project.image ?? project.gallery?.[0]?.src ?? null;
 
@@ -20,12 +20,13 @@ function ProjectMedia({ project }: { project: Project }) {
     );
   }
 
-  const photo = isRaster(src);
+  const contain =
+    project.imageFit === "contain" || !isRaster(src);
 
   return (
     <div
       className={`project-row__media project-row__media--zoom ${
-        photo ? "project-row__media--photo" : "project-row__media--diagram"
+        contain ? "project-row__media--diagram" : "project-row__media--photo"
       }`}
     >
       <SmartImage
@@ -33,9 +34,9 @@ function ProjectMedia({ project }: { project: Project }) {
         alt={`${project.shortTitle ?? project.title} preview`}
         className="project-row__media-frame h-full w-full"
         imgClassName={
-          photo
-            ? "project-row__media-img h-full w-full object-cover object-center"
-            : "project-row__media-img project-row__media-img--diagram h-full w-full object-contain object-center p-2.5"
+          contain
+            ? "project-row__media-img project-row__media-img--diagram h-full w-full object-contain object-center p-2"
+            : "project-row__media-img h-full w-full object-cover object-center"
         }
       />
     </div>

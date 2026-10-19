@@ -242,6 +242,7 @@ export const projects: Project[] = [
     status: "HCII 2027 proposal accepted · full paper in preparation",
     accessType: "private",
     image: "/projects/sensing-adaptation.svg",
+    imageFit: "contain",
     gallery: [
       {
         src: "/projects/sensing-adaptation.svg",
@@ -280,7 +281,7 @@ export const projects: Project[] = [
     status: "DMH 2026 presented · CHI 2027 under review · journal in revision",
     accessType: "private",
     image: "/Mindful-Scroll/cover.jpg",
-    imageFit: "cover",
+    imageFit: "contain",
     gallery: [
       {
         src: "/Mindful-Scroll/cover.jpg",
@@ -329,6 +330,7 @@ export const projects: Project[] = [
     status: "CHI 2027 Late-Breaking Work in preparation",
     accessType: "private",
     image: "/projects/cosim-flow.svg",
+    imageFit: "contain",
     gallery: [
       {
         src: "/projects/cosim-flow.svg",
@@ -367,6 +369,7 @@ export const projects: Project[] = [
     status: "Analysis complete · CHI 2027 Late-Breaking Work in preparation",
     accessType: "private",
     image: "/projects/misinfo-flow.svg",
+    imageFit: "contain",
     gallery: [
       {
         src: "/projects/misinfo-flow.svg",

@@ -1,31 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Misinformation sharing experiment">
-  <rect width="800" height="500" fill="#F3F7FB"/>
-  <text x="48" y="56" font-family="Inter, sans-serif" font-size="28" font-weight="700" fill="#1A1D21">Misinfo Sharing</text>
-  <text x="48" y="84" font-family="IBM Plex Mono, monospace" font-size="13" fill="#5A6570">comment conditions · credibility · sharing behavior</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Misinformation experiment design: health-claim posts shown with either humorous corrective comments or filler comments, followed by a choice to share, repost, report or skip">
+  <defs>
+    <style>
+      .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .mono { font-family: 'IBM Plex Mono', SFMono-Regular, Menlo, Consolas, monospace; }
+    </style>
+    <filter id="soft" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#4a7fa3" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+  <rect width="800" height="500" fill="#f3f7fb"/>
 
-  <rect x="48" y="140" width="160" height="100" rx="12" fill="#FFFFFF" stroke="#7BA7C9" stroke-width="1.5"/>
-  <text x="128" y="185" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#1A1D21">Posts</text>
-  <text x="128" y="210" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5A6570">true / misleading</text>
+  <text x="48" y="66" class="mono" font-size="16" letter-spacing="2.4" fill="#5a6570">BETWEEN-SUBJECTS EXPERIMENT</text>
+  <text x="48" y="110" class="sans" font-size="32" font-weight="650" fill="#1a1d21">Do humorous corrections change actions?</text>
 
-  <path d="M220 190 H260" stroke="#4A7FA3" stroke-width="2"/>
-  <path d="M252 182 L264 190 L252 198" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+  <!-- post card -->
+  <rect x="48" y="150" width="200" height="236" rx="18" fill="#ffffff" stroke="#4a7fa3" stroke-opacity="0.16" filter="url(#soft)"/>
+  <circle cx="82" cy="184" r="16" fill="#b3cde2"/>
+  <rect x="108" y="176" width="90" height="9" rx="4.5" fill="#c9d3dd"/>
+  <rect x="108" y="190" width="56" height="7" rx="3.5" fill="#e3ecf5"/>
+  <rect x="66" y="218" width="164" height="10" rx="5" fill="#5a6570" fill-opacity="0.55"/>
+  <rect x="66" y="236" width="140" height="10" rx="5" fill="#5a6570" fill-opacity="0.55"/>
+  <rect x="66" y="254" width="104" height="10" rx="5" fill="#5a6570" fill-opacity="0.55"/>
+  <text x="66" y="314" class="sans" font-size="22" font-weight="700" fill="#1a1d21">Health claim</text>
+  <text x="66" y="344" class="sans" font-size="17" fill="#5a6570">10 false</text>
+  <text x="66" y="368" class="sans" font-size="17" fill="#5a6570">10 authentic</text>
 
-  <rect x="270" y="120" width="150" height="60" rx="10" fill="#FFFFFF" stroke="#4A7FA3"/>
-  <text x="345" y="156" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#4A7FA3">Control</text>
+  <!-- connectors post to conditions -->
+  <path d="M248 268 C278 268 278 205 306 205" stroke="#7ba7c9" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M248 268 C278 268 278 331 306 331" stroke="#c9d3dd" stroke-width="3" fill="none" stroke-linecap="round"/>
 
-  <rect x="270" y="200" width="150" height="60" rx="10" fill="#4A7FA3"/>
-  <text x="345" y="236" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#FFFFFF">Treatment</text>
+  <!-- treatment -->
+  <rect x="306" y="150" width="214" height="110" rx="18" fill="#ffffff" stroke="#4a7fa3" stroke-opacity="0.35" filter="url(#soft)"/>
+  <rect x="306" y="150" width="8" height="110" rx="4" fill="#4a7fa3"/>
+  <text x="330" y="186" class="sans" font-size="22" font-weight="700" fill="#4a7fa3">Treatment</text>
+  <text x="330" y="216" class="sans" font-size="17" fill="#1a1d21">Humorous corrective</text>
+  <text x="330" y="240" class="sans" font-size="17" fill="#1a1d21">reply + norm cue</text>
 
-  <path d="M430 150 H470 M430 230 H470" stroke="#4A7FA3" stroke-width="2"/>
-  <path d="M462 142 L474 150 L462 158" fill="none" stroke="#4A7FA3" stroke-width="2"/>
-  <path d="M462 222 L474 230 L462 238" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+  <!-- control -->
+  <rect x="306" y="276" width="214" height="110" rx="18" fill="#ffffff" stroke="#4a7fa3" stroke-opacity="0.16" filter="url(#soft)"/>
+  <rect x="306" y="276" width="8" height="110" rx="4" fill="#c9d3dd"/>
+  <text x="330" y="312" class="sans" font-size="22" font-weight="700" fill="#5a6570">Control</text>
+  <text x="330" y="342" class="sans" font-size="17" fill="#1a1d21">Non-corrective</text>
+  <text x="330" y="366" class="sans" font-size="17" fill="#1a1d21">filler comments</text>
 
-  <rect x="480" y="140" width="272" height="140" rx="14" fill="#FFFFFF" stroke="#7BA7C9" stroke-width="1.5"/>
-  <text x="616" y="190" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#1A1D21">1,200 decisions</text>
-  <text x="616" y="220" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#5A6570">share · repost · report · skip</text>
-  <text x="616" y="248" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#5A6570">GEE · n = 60</text>
+  <!-- connectors conditions to actions -->
+  <path d="M520 205 C548 205 548 268 566 268" stroke="#7ba7c9" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M520 331 C548 331 548 268 566 268" stroke="#c9d3dd" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M566 172 L566 364" stroke="#b3cde2" stroke-width="3" stroke-linecap="round"/>
+  <path d="M566 172 L586 172 M566 236 L586 236 M566 300 L586 300 M566 364 L586 364" stroke="#b3cde2" stroke-width="3" stroke-linecap="round"/>
 
-  <rect x="160" y="340" width="480" height="80" rx="12" fill="#E8F2F9" stroke="#A8C8DE"/>
-  <text x="400" y="375" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#1A1D21">CityU Studio for Narrative Spaces</text>
-  <text x="400" y="400" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5A6570">Ray LC · Fiona Nah · CHI 2027 Late-Breaking Work</text>
+  <!-- actions -->
+  <rect x="586" y="150" width="166" height="44" rx="22" fill="#ffffff" stroke="#4a7fa3" stroke-opacity="0.22"/>
+  <text x="669" y="179" class="sans" font-size="19" font-weight="600" fill="#1a1d21" text-anchor="middle">Share</text>
+  <rect x="586" y="214" width="166" height="44" rx="22" fill="#ffffff" stroke="#4a7fa3" stroke-opacity="0.22"/>
+  <text x="669" y="243" class="sans" font-size="19" font-weight="600" fill="#1a1d21" text-anchor="middle">Repost</text>
+  <rect x="586" y="278" width="166" height="44" rx="22" fill="#ffffff" stroke="#4a7fa3" stroke-opacity="0.22"/>
+  <text x="669" y="307" class="sans" font-size="19" font-weight="600" fill="#1a1d21" text-anchor="middle">Report</text>
+  <rect x="586" y="342" width="166" height="44" rx="22" fill="#ffffff" stroke="#4a7fa3" stroke-opacity="0.22"/>
+  <text x="669" y="371" class="sans" font-size="19" font-weight="600" fill="#1a1d21" text-anchor="middle">Skip</text>
+
+  <text x="48" y="448" class="mono" font-size="15" letter-spacing="1.2" fill="#5a6570">60 participants &#183; 1,200 post-level decisions &#183; GEE models</text>
 </svg>
