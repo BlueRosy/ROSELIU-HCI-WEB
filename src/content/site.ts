@@ -638,10 +638,9 @@ export const currentLens = [
 ] as const;
 
 export const about = {
-  greeting: "Hi, I\u2019m Rose",
-  greetingAka: "Yanqing Liu",
+  greeting: "Yanqing (\u2009Rose\u2009) Liu",
   /** Kept for older mobile helpers. */
-  mobileGreeting: "Hi, I\u2019m Rose (Yanqing Liu)",
+  mobileGreeting: "Yanqing (\u2009Rose\u2009) Liu",
   /**
    * Compact bio for About (≈7s scan). Bold topics rendered via about.topics.
    * Paragraphs are short on purpose — PhD-application clarity over product narrative.

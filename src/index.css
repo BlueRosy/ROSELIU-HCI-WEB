@@ -1218,8 +1218,16 @@ body {
 .news-drawer__body {
   min-height: 0;
   flex: 1;
-  overflow: auto;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 0.75rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.news-drawer__body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 .news-drawer__body .compact-news {
@@ -1234,12 +1242,14 @@ body {
 }
 
 /* Compact news — vertical roadmap line */
-/* Left news sidebar — sticky float beside main column */
+/* Left news sidebar — capped height, scroll inside, fold kept */
 .news-sidebar__float {
   position: sticky;
   top: 5.5rem;
-  max-height: calc(100vh - 6.5rem);
-  overflow: auto;
+  display: flex;
+  max-height: min(27rem, 58vh);
+  flex-direction: column;
+  overflow: hidden;
   border-radius: 1rem;
   border: 1px solid color-mix(in srgb, var(--color-primary) 22%, var(--color-border));
   background:
@@ -1254,10 +1264,35 @@ body {
     0 1px 0 rgba(255, 255, 255, 0.7) inset;
 }
 
+/* Soft bottom fade — hints more content without a scrollbar */
+.news-sidebar__float:has(.compact-news__panel--open)::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 2.25rem;
+  border-radius: 0 0 1rem 1rem;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in srgb, #ffffff 88%, var(--color-primary) 4%) 100%
+  );
+}
+
 .news-sidebar .compact-news {
+  display: flex;
+  min-height: 0;
+  max-height: 100%;
+  flex-direction: column;
+  overflow: hidden;
   border: none;
   background: transparent;
   border-radius: 0;
+}
+
+.news-sidebar .compact-news > button {
+  flex-shrink: 0;
 }
 
 /* Collapsible panel — default open via --open; animates height */
@@ -1273,6 +1308,31 @@ body {
 
 .compact-news__panel-inner {
   overflow: hidden;
+}
+
+/* Sidebar: scroll the list, hide native scrollbar; soft fade hints more below */
+.news-sidebar .compact-news__panel {
+  min-height: 0;
+}
+
+.news-sidebar .compact-news__panel--open {
+  min-height: 0;
+}
+
+.news-sidebar .compact-news__panel-inner {
+  min-height: 0;
+  max-height: min(22.5rem, calc(58vh - 3.25rem));
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-bottom: 1.25rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.news-sidebar .compact-news__panel-inner::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 .compact-news__timeline {
@@ -1332,25 +1392,18 @@ body {
 /* Hero greeting — static (no typewriter) */
 .about-greeting {
   font-family: var(--font-display);
-  font-size: clamp(1.85rem, 3.4vw, 2.5rem);
+  font-size: clamp(1.75rem, 3.2vw, 2.35rem);
   font-weight: 400;
   line-height: 1.3;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.035em;
   color: var(--color-ink);
-}
-
-/* Decorative display font crowds paren glyphs — give them air */
-.about-greeting__aka {
-  display: inline-block;
-  margin-left: 0.32em;
-  padding-inline: 0.06em;
-  letter-spacing: 0.055em;
+  text-wrap: balance;
   font-feature-settings: "kern" 0;
 }
 
 .about-greeting--mobile {
-  font-size: clamp(1.55rem, 6.5vw, 1.85rem);
-  letter-spacing: 0.035em;
+  font-size: clamp(1.45rem, 6vw, 1.75rem);
+  letter-spacing: 0.04em;
   text-align: center;
 }
 

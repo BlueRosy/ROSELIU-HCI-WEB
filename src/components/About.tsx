@@ -42,14 +42,7 @@ function highlightTopics(text: string, topics: readonly string[]) {
 function AboutBio() {
   return (
     <div className="about-bio">
-      <h1 className="about-greeting">
-        {about.greeting}
-        <span className="about-greeting__aka">
-          ({"\u2009"}
-          {about.greetingAka}
-          {"\u2009"})
-        </span>
-      </h1>
+      <h1 className="about-greeting">{about.greeting}</h1>
 
       <Reveal delay={0.08}>
         <div className="about-bio__body mt-5 space-y-3.5">
@@ -92,11 +85,6 @@ function AboutMobileStack() {
 
           <h1 className="about-greeting about-greeting--mobile mt-5">
             {about.greeting}
-            <span className="about-greeting__aka">
-              ({"\u2009"}
-              {about.greetingAka}
-              {"\u2009"})
-            </span>
           </h1>
 
           <AboutContacts stacked centered />
