@@ -126,7 +126,7 @@ export default function Nav({
     >
       <div className="site-shell flex h-11 min-w-0 items-center justify-between gap-3">
         <Link to="/" onClick={closeMenu} className={brandClass}>
-          <span className="font-display text-[16px] font-normal tracking-[0.02em] sm:text-[17px]">
+          <span className="font-display text-[20px] font-normal tracking-[0.02em] sm:text-[22px]">
             {profile.name}
           </span>
         </Link>

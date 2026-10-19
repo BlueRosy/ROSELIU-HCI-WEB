@@ -1,24 +1,23 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
-/** Compact blue heart pointer. */
-const DISPLAY_PX = 16;
+/** Compact blue crescent — matches favicon, calmer than a heart. */
+const DISPLAY_PX = 17;
 const OFFSET_X = 2;
 const OFFSET_Y = 3;
 
 const TEXT_INPUT =
   'input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="submit"]):not([type="button"]):not([type="reset"]), textarea, [contenteditable="true"]';
 
-const MAX_STARS = 18;
-const STAR_SPAWN_EVERY_PX = 28;
-const STAR_CHANCE = 0.85;
-const STAR_LIFE_MS = 900;
+const MAX_DOTS = 16;
+const DOT_SPAWN_EVERY_PX = 32;
+const DOT_CHANCE = 0.75;
+const DOT_LIFE_MS = 800;
 
-type Star = {
+type Dot = {
   id: number;
   x: number;
   y: number;
   size: number;
-  rot: number;
 };
 
 function isTextTarget(el: Element | null): boolean {
@@ -26,12 +25,12 @@ function isTextTarget(el: Element | null): boolean {
 }
 
 /**
- * Blue heart pointer + light trail.
+ * Blue crescent pointer + soft signal-dot trail.
  */
 export default function RoseCursor() {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [stars, setStars] = useState<Star[]>([]);
-  const starId = useRef(0);
+  const [dots, setDots] = useState<Dot[]>([]);
+  const dotId = useRef(0);
 
   useEffect(() => {
     if (!window.matchMedia("(pointer: fine)").matches) return;
@@ -48,7 +47,7 @@ export default function RoseCursor() {
     let y = -200;
     let hidden = true;
     let overText = false;
-    let travelSinceStar = STAR_SPAWN_EVERY_PX;
+    let travelSinceDot = DOT_SPAWN_EVERY_PX;
 
     const paint = () => {
       raf = 0;
@@ -61,19 +60,18 @@ export default function RoseCursor() {
       if (!raf) raf = requestAnimationFrame(paint);
     };
 
-    const spawnStar = (px: number, py: number) => {
-      const id = ++starId.current;
-      const star: Star = {
+    const spawnDot = (px: number, py: number) => {
+      const id = ++dotId.current;
+      const dot: Dot = {
         id,
-        x: px + (Math.random() - 0.5) * 16,
-        y: py + (Math.random() - 0.5) * 16,
-        size: 3.5 + Math.random() * 4.5,
-        rot: Math.random() * 60,
+        x: px + (Math.random() - 0.5) * 14,
+        y: py + (Math.random() - 0.5) * 14,
+        size: 2.5 + Math.random() * 3.5,
       };
-      setStars((prev) => [...prev.slice(-(MAX_STARS - 1)), star]);
+      setDots((prev) => [...prev.slice(-(MAX_DOTS - 1)), dot]);
       window.setTimeout(() => {
-        setStars((prev) => prev.filter((s) => s.id !== id));
-      }, STAR_LIFE_MS);
+        setDots((prev) => prev.filter((d) => d.id !== id));
+      }, DOT_LIFE_MS);
     };
 
     const onPointerMove = (e: PointerEvent) => {
@@ -86,10 +84,10 @@ export default function RoseCursor() {
 
       if (!hidden && !overText) {
         const dist = Math.hypot(x - prevX, y - prevY);
-        travelSinceStar += dist;
-        if (travelSinceStar >= STAR_SPAWN_EVERY_PX) {
-          travelSinceStar = 0;
-          if (Math.random() < STAR_CHANCE) spawnStar(x, y);
+        travelSinceDot += dist;
+        if (travelSinceDot >= DOT_SPAWN_EVERY_PX) {
+          travelSinceDot = 0;
+          if (Math.random() < DOT_CHANCE) spawnDot(x, y);
         }
       }
 
@@ -126,35 +124,35 @@ export default function RoseCursor() {
     <>
       <div
         ref={rootRef}
-        className="rose-cursor rose-cursor--heart"
+        className="rose-cursor rose-cursor--moon"
         aria-hidden="true"
         style={{ width: DISPLAY_PX, height: DISPLAY_PX }}
       >
         <svg
-          className="rose-cursor__heart"
+          className="rose-cursor__moon"
           viewBox="0 0 24 24"
           width={DISPLAY_PX}
           height={DISPLAY_PX}
           aria-hidden="true"
         >
+          {/* Thick crescent — same language as favicon */}
           <path
-            d="M12 20.4c-.4 0-.7-.1-1-.4C6.2 16.1 3 13.2 3 9.6 3 7 5 5 7.6 5c1.5 0 2.9.8 3.7 2 .8-1.2 2.2-2 3.7-2C17.6 5 19.6 7 19.6 9.6c0 3.6-3.2 6.5-8 10.4-.3.3-.6.4-1 .4Z"
             fill="currentColor"
+            d="M14.2 3.1a9.2 9.2 0 1 0 6.7 15.7A8.1 8.1 0 1 1 14.2 3.1Z"
           />
         </svg>
       </div>
-      {stars.map((star) => (
+      {dots.map((dot) => (
         <span
-          key={star.id}
-          className="rose-cursor-star"
+          key={dot.id}
+          className="rose-cursor-dot"
           aria-hidden="true"
           style={
             {
-              left: star.x,
-              top: star.y,
-              width: star.size,
-              height: star.size,
-              "--star-rot": `${star.rot}deg`,
+              left: dot.x,
+              top: dot.y,
+              width: dot.size,
+              height: dot.size,
             } as CSSProperties
           }
         />
