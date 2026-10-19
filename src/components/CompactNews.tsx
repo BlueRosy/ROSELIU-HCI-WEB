@@ -3,7 +3,7 @@ import { ChevronDown } from "lucide-react";
 import { news } from "../content/site";
 import { compareDateDesc, isWithinRecentMonths } from "../lib/contentDate";
 
-const MAX_ITEMS = 5;
+const MAX_ITEMS = 6;
 
 export default function CompactNews() {
   const [open, setOpen] = useState(true);
@@ -13,11 +13,14 @@ export default function CompactNews() {
     .filter((item) => !item.hideFromRecent)
     .filter(
       (item) =>
-        item.tag === "Planned" || isWithinRecentMonths(item.date, 2),
+        item.featured ||
+        item.tag === "Planned" ||
+        item.tag === "Paper" ||
+        isWithinRecentMonths(item.date, 8),
     )
     .sort((a, b) => {
       const rank = (tag?: string) =>
-        tag === "Manuscript" ? 0 : tag === "Planned" ? 2 : 1;
+        tag === "Paper" ? 0 : tag === "Manuscript" ? 1 : tag === "Planned" ? 3 : 2;
       const rd = rank(a.tag) - rank(b.tag);
       if (rd !== 0) return rd;
       return compareDateDesc(a.date, b.date);

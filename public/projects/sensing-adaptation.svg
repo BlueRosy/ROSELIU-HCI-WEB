@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Physiological Sensing for Learner States and Adaptive Learning — scoping review">
+  <rect width="800" height="500" fill="#F3F7FB"/>
+  <text x="48" y="46" font-family="Inter, sans-serif" font-size="20" font-weight="700" fill="#1A1D21">Physiological Sensing for Learner States</text>
+  <text x="48" y="72" font-family="Inter, sans-serif" font-size="18" font-weight="600" fill="#1A1D21">&amp; Adaptive Learning</text>
+  <text x="48" y="96" font-family="IBM Plex Mono, monospace" font-size="12" fill="#5A6570">scoping review · JBI / PRISMA-ScR · HCII 2027</text>
+
+  <rect x="48" y="128" width="200" height="130" rx="14" fill="#FFFFFF" stroke="#7BA7C9" stroke-width="1.5"/>
+  <text x="148" y="178" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#4A7FA3">01</text>
+  <text x="148" y="206" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-weight="600" fill="#1A1D21">Physiological</text>
+  <text x="148" y="230" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#5A6570">EEG · HRV · EDA · pupil</text>
+
+  <path d="M260 193 H300" stroke="#4A7FA3" stroke-width="2"/>
+  <path d="M292 185 L304 193 L292 201" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+
+  <rect x="310" y="128" width="200" height="130" rx="14" fill="#FFFFFF" stroke="#7BA7C9" stroke-width="1.5"/>
+  <text x="410" y="178" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#4A7FA3">02</text>
+  <text x="410" y="206" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-weight="600" fill="#1A1D21">Learner states</text>
+  <text x="410" y="230" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#5A6570">engagement · overload</text>
+
+  <path d="M522 193 H562" stroke="#4A7FA3" stroke-width="2"/>
+  <path d="M554 185 L566 193 L554 201" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+
+  <rect x="572" y="128" width="180" height="130" rx="14" fill="#4A7FA3"/>
+  <text x="662" y="178" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#D6E8F5">03</text>
+  <text x="662" y="206" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-weight="600" fill="#FFFFFF">Adaptation</text>
+  <text x="662" y="230" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#E8F2F9">learning support</text>
+
+  <rect x="48" y="300" width="704" height="140" rx="14" fill="#FFFFFF" stroke="#A8C8DE" stroke-width="1.5"/>
+  <text x="400" y="350" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#1A1D21">Evidence map across sensing ? states ? support</text>
+  <text x="400" y="380" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#5A6570">5,211 unique Scopus records · HCII 2027 accepted</text>
+  <text x="400" y="408" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#4A7FA3">SMU · Prof. Fiona Fui-Hoon Nah</text>
+</svg>

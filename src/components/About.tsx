@@ -5,6 +5,7 @@ import AboutContacts from "./AboutContacts";
 import MobileTypewriter from "./MobileTypewriter";
 import ResearchProjectRows from "./ResearchProjectRows";
 import CompactNews from "./CompactNews";
+import CompactPublications from "./CompactPublications";
 import { Reveal } from "./primitives";
 
 function highlightTopics(text: string, topics: readonly string[]) {
@@ -152,6 +153,14 @@ export default function About() {
 
             <Reveal delay={0.06} className="mt-7 md:mt-8">
               <ResearchProjectRows showIntro />
+            </Reveal>
+
+            <Reveal delay={0.08}>
+              <hr className="about-section-rule mt-12 border-border/80 md:mt-14" />
+            </Reveal>
+
+            <Reveal delay={0.1} className="mt-7 md:mt-8">
+              <CompactPublications />
             </Reveal>
           </div>
         </div>

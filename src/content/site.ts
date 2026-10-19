@@ -8,7 +8,7 @@
 export const profile = {
   name: "Yanqing Liu",
   shortName: "Rose",
-  role: "Research Fellow, Human-centered Intelligent Interaction (HII) Lab, Duke Kunshan University",
+  role: "Research Fellow, Hybrid Interactive Intelligence (HII) Lab, Duke Kunshan University",
   roleShort: "Research Fellow · HII Lab · Duke Kunshan University",
   email: "yanqing.liu2@dukekunshan.edu.cn",
   photo: "/Rose-PersonalImage/Rose1.jpg",
@@ -171,7 +171,8 @@ export type ProjectType =
   | "System"
   | "Prototype"
   | "Tool"
-  | "Design Research";
+  | "Design Research"
+  | "Review";
 
 export type ProjectScreenshot = {
   src: string;
@@ -208,24 +209,63 @@ const RESTRICTED_NOTE =
 
 export const projects: Project[] = [
   {
+    id: "sensing-adaptation",
+    group: "research",
+    projectType: "Review",
+    title:
+      "From Sensing to Adaptation: A Scoping Review of Physiological Indicators of Learner States for Adaptive Learning Support",
+    shortTitle: "Physiological Sensing for Learner States & Adaptive Learning",
+    context:
+      "Research Collaborator · Singapore Management University · Prof. Fiona Fui-Hoon Nah",
+    question:
+      "How do physiological indicators relate to learner states, and how do studies move from sensing and validation to adaptive learning support and evaluation?",
+    blurb:
+      "Scoping review of physiological sensing for learner states and adaptive learning systems — from validation of state inference to whether adaptations use that signal.",
+    contribution:
+      "Maps how EEG, HRV, EDA, pupil size and related measures are used to infer learner states, how inferences are validated, and whether adaptations demonstrate the added value of physiological input (JBI / PRISMA-ScR; 5,211 unique Scopus records).",
+    methods: [
+      "Scoping review (JBI, PRISMA-ScR)",
+      "Protocol design",
+      "Scopus search & screening",
+      "Evidence charting",
+    ],
+    focus: [
+      "Physiological sensing",
+      "Learner states",
+      "Adaptive learning",
+      "Evidence synthesis",
+    ],
+    role: "Lead author; designed protocol and iteratively tested Scopus search; ran a 200-record screening pilot.",
+    status: "HCII 2027 accepted · full paper in preparation",
+    accessType: "private",
+    image: "/projects/sensing-adaptation.svg",
+    gallery: [
+      {
+        src: "/projects/sensing-adaptation.svg",
+        alt: "Scoping review pathway: physiological sensing to adaptive learning",
+      },
+    ],
+    links: [],
+  },
+  {
     id: "mindful-scroll",
     group: "research",
     projectType: "System",
     title: "From Social Media Micro-Interactions to Mental State Cues",
     shortTitle: "Mindful Scroll",
-    context: "Mindful Scroll · HII Lab, Duke Kunshan University",
+    context: "Mindful Scroll · HII Lab, Duke Kunshan University · Prof. Yucheng Jin",
     question:
       "How can short-form video micro-interactions and evening self-reflection dialogues \u2014 as everyday digital signals \u2014 reveal wellbeing states, self-regulation patterns, and support needs, including stress and anxiety, and how should those signals shape safe, reflective interventions?",
     blurb:
-      "Studies how short-form video micro-interactions and reflection dialogues can inform well-being-state modeling and LLM-supported self-reflection.",
+      "Studies how short-form video micro-interactions and LLM-mediated reflection dialogues inform stress/anxiety signals and negotiable self-reflection design.",
     contribution:
-      "A three-stage line: (1) evening Juanjuan dialogue logs \u2192 reflective behavioral-signal dataset and modeling pipeline for an LLM-assisted self-reflection assistant; (2) SFV-specific micro-interactions as everyday wellbeing-state signals, with stress and anxiety as key outcomes; (3) combine both into a self-reflection intervention for healthier SFV use. This project is a first step toward multimodal everyday wellbeing sensing, starting with micro-interactions and evening reflection dialogues \u2014 with a future direction of richer contextual and multimodal signals.",
+      "Built a React/Docker SFV platform with logging, self-reports, and reflection dialogues; ran a 14-day field study (n=41; 44,420 views; 113,233 events) and interviews examining reflective demand, timing, and burden.",
     methods: [
       "Conversational log analysis",
       "Topic modeling",
       "Predictive / longitudinal modeling",
       "Micro-interaction sensing",
-      "Intervention design",
+      "Field study & interviews",
     ],
     focus: [
       "Dialogue signals",
@@ -233,8 +273,8 @@ export const projects: Project[] = [
       "Mental-state modeling",
       "Self-reflection intervention",
     ],
-    role: "Independently designed & built the simulated platform (React/JS, Dockerized); led the pilot study (N=32) and analysis pipelines across dialogue and micro-interaction tracks.",
-    status: "DMH 2026 presented · IP&MC 2026 under review · targeting CHI 2027",
+    role: "Independently designed & built the platform; led pilot (n=32), field study (n=41), analysis pipelines, and 12 participant interviews.",
+    status: "DMH 2026 presented · CHI 2027 under review · journal in revision",
     accessType: "private",
     image: "/Mindful-Scroll/cover.jpg",
     imageFit: "cover",
@@ -263,13 +303,13 @@ export const projects: Project[] = [
     projectType: "Study",
     title: "Conversational Patterns in Counselor\u2013Student Support Simulations",
     shortTitle: "CoSim",
-    context: "CoSim · Pervasive HCI Group, Tsinghua University",
+    context: "CoSim · Pervasive HCI Group, Tsinghua University · Dr. Jie Cai",
     question:
       "How do emotional cues, resistance, and self-disclosure emerge in simulated counselor\u2013student conversations, and how can these patterns inform better support strategies?",
     blurb:
-      "Analyzes simulated counselor\u2013student dialogues to identify communication patterns that can inform conversational support design.",
+      "Analyzes simulated counselor–student dialogues to identify communication patterns that can inform conversational support design.",
     contribution:
-      "Identifies facilitative vs. hindering communication patterns in simulated peer support, informing conversational intervention design.",
+      "Identifies facilitative vs. hindering communication patterns in simulated peer support, informing simulation-based feedback for university student supporters (Fudaoyuan).",
     methods: [
       "Dialogue annotation",
       "Thematic analysis",
@@ -282,18 +322,14 @@ export const projects: Project[] = [
       "Readiness",
       "Intervention design",
     ],
-    role: "Built a trajectory\u2013thematic pipeline across 10 supporters / 19 sessions; identified facilitative vs. hindering patterns.",
-    status: "Study completed · preparing next submission",
+    role: "Built a trajectory–thematic pipeline across 10 supporters / 19 sessions; co-authoring CHI 2027 LBW.",
+    status: "CHI 2027 LBW in preparation",
     accessType: "private",
-    image: "/projects/cosim.svg",
+    image: "/projects/cosim-flow.svg",
     gallery: [
       {
-        src: "/projects/cosim.svg",
+        src: "/projects/cosim-flow.svg",
         alt: "CoSim dialogue analysis flow",
-      },
-      {
-        src: "/projects/cosim-b.svg",
-        alt: "CoSim facilitative vs hindering patterns",
       },
     ],
     links: [{ label: "Sanitized walkthrough upon request" }],
@@ -305,19 +341,18 @@ export const projects: Project[] = [
     title: "Designing Social Platforms to Reduce Misinformation Sharing",
     shortTitle: "Misinformation Sharing",
     context:
-      "Studio for Narrative Spaces · CityU · Ray LC (Summer Research Intern, from Jun 2026)",
+      "Studio for Narrative Spaces · CityU · Ray LC & Fiona Nah (Summer Research Intern, Jun–Aug 2026)",
     question:
       "Do treatment vs. control comment conditions change how people react to authentic and misleading-but-funny posts \u2014 via repost, share, report, or skip \u2014 and what mechanisms drive those shifts?",
     blurb:
       "Examines how comment conditions on a simulated social platform shape credibility judgments and sharing behavior.",
     contribution:
-      "A/B behavioral experiment on a simulated social platform: treatment and control each with ~20 posts (~10 true / ~10 false-but-funny), with differing comment conditions; measures repost, share, report, and skip to inform responsible platform intervention design.",
+      "Led front-end for a between-subjects feed experiment and GEE analysis of 1,200 post-level decisions (n=60); found believing a post false strongly raised reporting odds.",
     methods: [
       "Behavioral experiment design",
       "Treatment / control comparison",
       "Simulated platform development",
-      "Stimulus curation",
-      "Interaction response analysis",
+      "GEE modeling",
     ],
     focus: [
       "Misinformation",
@@ -325,68 +360,17 @@ export const projects: Project[] = [
       "Platform design",
       "Behavioral response",
     ],
-    role: "Lead study-web layout and front-end development; contribute in meetings and in selecting posts and comments; may join later analysis and paper writing.",
-    status: "Data collection in progress \u00b7 targeting CHI 2027",
+    role: "Led front-end development and quantitative analysis; co-authoring CHI 2027 LBW.",
+    status: "Analysis complete · CHI 2027 LBW in preparation",
     accessType: "private",
-    image: "/projects/misinfo-sharing.svg",
+    image: "/projects/misinfo-flow.svg",
     gallery: [
       {
-        src: "/projects/misinfo-sharing.svg",
+        src: "/projects/misinfo-flow.svg",
         alt: "Misinformation experiment flow",
-      },
-      {
-        src: "/projects/misinfo-sharing-b.svg",
-        alt: "Misinformation outcome measures",
       },
     ],
     links: [{ label: "Demo available upon request" }],
-  },
-  {
-    id: "harmony-forum",
-    group: "research",
-    projectType: "Study",
-    title: "Help-Seeking in an Open-Source Developer Community",
-    shortTitle: "HarmonyOS Forum Study",
-    context:
-      "Pervasive HCI Group, Tsinghua University \u00b7 Huawei HarmonyOS Developer Forum \u00b7 exploratory, Jul 2026\u2013",
-    question:
-      "How do developers seek help, debug, and share tooling in a large open-source community forum \u2014 and which discourse topics are research-ready for deeper HCI analysis?",
-    blurb:
-      "Explores help-seeking, tooling, and developer-experience themes in a large technical forum using crawling and topic modeling.",
-    contribution:
-      "Crawl posts and comments from the Huawei HarmonyOS developer Q&A forum, run topic modeling with explicit topic mapping, then focus candidates such as help-seeking, tooling/bots, IoT, and automotive \u2014 informed by open-source developer and support/tool community literature, without claiming those prior papers as my own.",
-    methods: [
-      "Web scraping",
-      "Topic modeling",
-      "Community discourse analysis",
-      "Related-work synthesis",
-    ],
-    focus: [
-      "Help-seeking",
-      "Developer communities",
-      "Topic modeling",
-      "Open-source tooling",
-    ],
-    role: "Designing the crawl + topic-modeling pipeline and selecting which topics can sustain a paper narrative (including agent-related angles).",
-    status: "Exploratory · topic selection underway",
-    accessType: "private",
-    image: "/projects/harmony-forum.svg",
-    gallery: [
-      {
-        src: "/projects/harmony-forum.svg",
-        alt: "Harmony forum study pipeline",
-      },
-      {
-        src: "/projects/harmony-forum-b.svg",
-        alt: "Harmony forum theme selection",
-      },
-    ],
-    links: [
-      {
-        label: "HarmonyOS developer forum",
-        href: "https://developer.huawei.com/consumer/cn/forum/",
-      },
-    ],
   },
   {
     id: "rose-stats-studio",
@@ -518,8 +502,10 @@ export const restrictedNote = RESTRICTED_NOTE;
 
 export type PubStatus =
   | "Presentation"
+  | "Accepted"
   | "Under Review"
   | "In Preparation"
+  | "In Revision"
   | "Target Venue";
 
 export type Publication = {
@@ -535,6 +521,15 @@ export const publications: Publication[] = [
   {
     authors: "Liu, Y.",
     title:
+      "From Sensing to Adaptation: A Scoping Review of Physiological Indicators of Learner States for Adaptive Learning Support.",
+    venue: "HCI International 2027 (HCII 2027), Springer — accepted; full paper in preparation",
+    year: "2027",
+    status: "Accepted",
+    highlight: true,
+  },
+  {
+    authors: "Liu, Y.",
+    title:
       "Mindful-Scroll: Linking Interaction Logs to Self-Reported Mental Health and Well-Being, and In-App Interventions.",
     venue: "Digital Mental Health International Conference (DMH), Hong Kong — Jun 2026",
     year: "2026",
@@ -542,44 +537,45 @@ export const publications: Publication[] = [
     highlight: true,
   },
   {
+    authors: "Liu, Y., Zhou, W., Zhu, Y., Zhao, X., & Jin, Y.",
+    title:
+      "Negotiating Reflective Demand: LLM-Mediated Reflection on Everyday Short-Form Video Use.",
+    venue: "CHI 2027 — under review",
+    year: "2027",
+    status: "Under Review",
+    highlight: true,
+  },
+  {
     authors: "Liu, Y., Zhu, Y., & Jin, Y.",
     title:
-      "Evening Self-Reflection Dialogues on Short-Form Video Use: A Dataset and Modeling Pipeline for Stress and Anxiety Signals.",
-    venue: "Information Processing & Management Conference (IP&MC) 2026 — under review",
+      "Exploring Candidate Signals of Perceived Stress and Anxiety in Short-Form Video Use: Scrolling Logs and Use-Specific Appraisals.",
+    venue:
+      "DMH Conference Book: Maximizing the Real-World Potential of Digital Mental Health, Springer Nature — under review",
     year: "2026",
     status: "Under Review",
   },
   {
     authors: "Liu, Y., Zhu, Y., & Jin, Y.",
     title:
-      "Short-Form Video Micro-Interactions as Everyday Stress and Anxiety Signals: Modeling Behavioral Traces for Digital Mental Health.",
-    venue:
-      "DMH Conference Book — Maximizing the Real-World Potential of Digital Mental Health (Springer Nature) — in progress",
+      "Beyond Social-Media Posts: Conversational Reflection Signals of Daily Perceived Stress and Anxiety in Short-Form Video Use.",
+    venue: "Journal manuscript — in revision for resubmission",
     year: "2026",
-    status: "In Preparation",
-  },
-  {
-    authors: "Liu, Y., Zhu, Y., & Jin, Y.",
-    title:
-      "Designing Self-Reflection Interventions for Healthier Short-Form Video Use Under High Stress and Anxiety.",
-    venue: "CHI 2027 — in progress",
-    year: "2027",
-    status: "In Preparation",
+    status: "In Revision",
   },
   {
     authors: "Wang, Y., Liu, Y., & Ray, L. C.",
     title:
-      "Share, Report, or Skip? How Platform Mechanisms Shape Responses to Misinformation in a Simulated Social Media Platform.",
-    venue: "CHI 2027 — in progress",
+      "“Like Fire Alarm Promotes Waking Up”: How Humor Can Affect User Engagement with Misinformation on Social Media.",
+    venue: "CHI 2027 Late-Breaking Work — in preparation",
     year: "2027",
     status: "In Preparation",
   },
   {
     authors: "Deng, W., Liu, Y., Chen, Y., Zhang, H., Li, Y., Mi, H., & Yu, C.",
     title:
-      "CoSim: Identifying Communication Patterns and Skill Development for Fudaoyuan in Chinese Universities.",
-    venue: "Manuscript in progress",
-    year: "2026",
+      "LLM-Based Simulation to Support Student Academic and Life Supporters (Fudaoyuan) at Chinese Universities.",
+    venue: "CHI 2027 Late-Breaking Work — in preparation",
+    year: "2027",
     status: "In Preparation",
   },
 ];
@@ -651,39 +647,40 @@ export const about = {
    */
   /** Narrow intro column (Anna-style short measure). */
   paragraphs: [
-    "I am currently a Research Fellow in the Human-centered Intelligent Interaction (HII) Lab at Duke Kunshan University. My research lies at the intersection of Human-Computer Interaction, Computational Social Science, and digital media, focusing on how digital systems shape well-being, trust, and support.",
-    "Methodologically, I combine quantitative and computational approaches — including survey analysis, behavioral-log analysis, NLP, topic modeling, predictive modeling, and time-series analysis — with qualitative thematic analysis and the development of web-based research tools.",
+    "I am currently a Research Fellow in the Hybrid Interactive Intelligence (HII) Lab at Duke Kunshan University. My research lies at the intersection of human–AI interaction, multimodal sensing, and adaptive systems, focusing on how interaction, conversational, and physiological data can reveal users’ momentary cognitive and emotional states, and how AI systems can adapt to those states to support learning, work, decision-making, and well-being.",
+    "Methodologically, I combine quantitative and computational approaches — survey and behavioral-log analysis, NLP, topic and predictive modeling, longitudinal analysis — with qualitative thematic analysis and the development of web-based research tools.",
   ],
-  /** Wider Projects band intro — mainline + related work (profile tone). */
+  /** Wider Projects band intro — sensing/adaptation mainline + related work. */
   projectsIntro:
-    "My current projects center on using conversational logs and behavioral traces to understand users’ stress, anxiety, and self-regulation needs, with related work on supportive counseling communication, misinformation sharing, and help-seeking in developer communities. Across these directions, I am interested in digital systems that can respond more proactively to users’ needs and better support well-being, trust, and meaningful participation.",
+    "My current projects center on sensing and adapting to users’ momentary states — from short-form video logs and reflection dialogues that surface stress and self-regulation needs, to physiological learner-state indicators for adaptive learning, alongside related work on supportive counseling communication and misinformation sharing. Across these directions, I am interested in AI systems that respond more proactively to users’ needs and better support learning, well-being, and trust.",
   topics: [
-    "Human-Computer Interaction",
-    "Computational Social Science",
-    "digital media",
-    "well-being, trust, and support",
+    "human–AI interaction",
+    "multimodal sensing",
+    "adaptive systems",
+    "learning, work, decision-making, and well-being",
   ] as const,
   seekingLine:
-    "I am seeking PhD opportunities in HCI and related areas where computational methods are used to study human behavior, digital interaction, and supportive technologies.",
+    "I am seeking PhD opportunities in HCI and related areas where computational methods and sensing are used to understand human states and design adaptive, supportive technologies.",
   /** @deprecated Removed from UI; kept briefly for legacy imports. */
   lookingForward: "",
   intro:
-    "My research lies at the intersection of Human-Computer Interaction, Computational Social Science, and digital media, focusing on how digital systems shape well-being, trust, and support.",
+    "My research lies at the intersection of human–AI interaction, multimodal sensing, and adaptive systems.",
   mobileGoal: "",
   researchInterest: "",
   researchAreas: [
-    "Human-Computer Interaction",
-    "Computational Social Science",
-    "Digital media",
-    "Well-being, trust & support",
+    "Human–AI interaction",
+    "Multimodal sensing",
+    "Adaptive systems",
+    "Learning & well-being",
   ] as const,
   phdAreas:
-    "HCI · Computational Social Science · Digital media · Well-being / trust / support",
+    "HCI · Human–AI interaction · Multimodal sensing · Adaptive systems",
   methods: [
     "Survey & behavioral-log analysis",
     "NLP / topic & predictive modeling",
-    "Time-series analysis",
+    "Longitudinal analysis",
     "Thematic analysis",
+    "Scoping review",
     "Web-based research tools",
   ] as const,
   researchWorldLink: {
@@ -763,9 +760,9 @@ export const researchAtlas = {
       zones: ["states"] as const,
     },
     {
-      projectId: "harmony-forum",
-      mapping: "Community discourse signals",
-      zones: ["signals"] as const,
+      projectId: "sensing-adaptation",
+      mapping: "Sensing → Adaptation",
+      zones: ["signals", "states", "support"] as const,
     },
   ],
   zoneMethods: {
@@ -990,7 +987,7 @@ export const researchWorld = {
       label: "Signals Garden",
       title: "Everyday traces",
       body: "Signals are the everyday traces people already leave behind — micro-interactions, conversational patterns, and lightweight self-reports — that become inputs for mechanism-aware support.",
-      projectIds: ["mindful-scroll", "cosim", "harmony-forum"],
+      projectIds: ["mindful-scroll", "cosim", "sensing-adaptation"],
       focusCards: [
         {
           title: "Micro-interactions",
@@ -1102,30 +1099,38 @@ export const journey: JourneyStop[] = [
   {
     place: "Sydney, Australia",
     period: "2025 – 2026",
-    title: "M.S. in Information Technology, UNSW",
-    detail: "Interactive design and web front-end programming. WAM 90.3 / High Distinction.",
+    title: "Graduate Certificate in IT, UNSW",
+    detail:
+      "Exit award from the Master of IT. Interactive design, data structures, and web front-end. GPA 90.3 / High Distinction.",
   },
   {
     place: "Beijing, China",
-    period: "Dec 2025 – Feb 2027",
-    title: "Research Intern, Pervasive HCI Group, Tsinghua University",
+    period: "Sep 2025 – Present",
+    title: "Research Collaborator, Pervasive HCI Group, Tsinghua",
     detail:
-      "CoSim dialogue-log analysis for peer-supporter skill development; exploratory HarmonyOS developer-forum topic modeling (Dr. Jie Cai).",
+      "CoSim dialogue-log analysis for university student supporters (Fudaoyuan) with Dr. Jie Cai; co-authoring CHI 2027 LBW.",
   },
   {
     place: "Kunshan, China",
-    period: "2026 – 2027",
+    period: "Feb 2026 – Present",
     title: "Research Fellow, HII Lab, Duke Kunshan University",
     detail:
-      "Leading Mindful-Scroll in three stages: dialogue-derived wellbeing signals and modeling pipeline, SFV micro-interaction wellbeing-state modeling, then self-reflection intervention design — a first step toward multimodal everyday sensing.",
+      "Lead Mindful Scroll (Prof. Yucheng Jin): SFV platform, 14-day field study (n=41), LLM-mediated reflection, and stress/anxiety signal modeling toward CHI 2027.",
   },
   {
     place: "Hong Kong, China",
     period: "Jun – Aug 2026",
     title:
-      "Summer Research Intern, Studio for Narrative Spaces, CityU (Ray LC)",
+      "Summer Research Intern, Studio for Narrative Spaces, CityU",
     detail:
-      "Led front-end for a simulated social platform A/B experiment on misinformation responses; co-authoring a CHI 2027 manuscript.",
+      "Advisors: Prof. Ray LC and Prof. Fiona Fui-Hoon Nah. Led front-end and GEE analysis for a misinformation comment experiment (n=60); CHI 2027 LBW in preparation.",
+  },
+  {
+    place: "Singapore",
+    period: "Sep 2026 – Present",
+    title: "Research Collaborator, SMU (Prof. Fiona Nah)",
+    detail:
+      "Lead a scoping review of physiological learner-state indicators for adaptive learning support — HCII 2027 accepted; full paper in preparation.",
   },
 ];
 
@@ -1141,51 +1146,60 @@ export type NewsItem = {
 
 export const news: NewsItem[] = [
   {
+    date: "Oct 2026",
+    title: "HCII 2027 paper accepted",
+    text: "Scoping review on physiological learner-state indicators for adaptive learning accepted at HCII 2027.",
+    tag: "Paper",
+    featured: true,
+  },
+  {
+    date: "Sep 2026",
+    title: "Joined SMU collaboration",
+    text: "Research collaborator with Prof. Fiona Fui-Hoon Nah on sensing-to-adaptation review work.",
+    tag: "Role",
+    featured: true,
+  },
+  {
+    date: "Sep 2026",
+    title: "CHI 2027 paper under review",
+    text: "Negotiating Reflective Demand: LLM-mediated reflection on everyday short-form video use.",
+    tag: "Manuscript",
+    featured: true,
+  },
+  {
+    date: "Sep 2026",
+    title: "DMH book chapter under review",
+    text: "Scrolling logs and use-specific appraisals as candidate stress/anxiety signals.",
+    tag: "Manuscript",
+    featured: true,
+  },
+  {
     date: "Aug 2026",
-    title: "Preparing CHI 2027 paper",
-    text: "Writing the Mindful Scroll phase-2 intervention paper for CHI 2027.",
+    title: "Journal manuscript in revision",
+    text: "Conversational reflection signals of daily perceived stress and anxiety in SFV use.",
     tag: "Manuscript",
     featured: true,
   },
   {
-    date: "Sep 2026",
-    title: "Intervention design (planned)",
-    text: "Iterate the Mindful Scroll self-reflection intervention for healthier SFV use.",
-    tag: "Planned",
-    featured: true,
-  },
-  {
-    date: "Sep 2026",
-    title: "DMH Book chapter (planned)",
-    text: "Book chapter on SFV micro-interaction signals for wellbeing-state modeling.",
-    tag: "Planned",
-    hideFromRecent: true,
-  },
-  {
-    date: "Jul 2026",
-    title: "IP&MC 2026 paper under review",
-    text: "Mindful Scroll dialogue-log modeling paper submitted to IP&MC 2026; currently under review.",
+    date: "Aug 2026",
+    title: "CityU misinfo analysis wrapped",
+    text: "GEE analysis of 1,200 decisions (n=60); CHI 2027 LBW with Ray LC in preparation.",
     tag: "Manuscript",
     featured: true,
   },
   {
-    date: "Jul 2026",
-    title: "Started HarmonyOS forum study",
-    text: "Topic-modeling HarmonyOS developer forum posts at Tsinghua.",
-    tag: "Role",
-  },
-  {
     date: "Jun 2026",
-    title: "Joined Ray LC lab",
-    text: "CityU summer intern on the misinformation-sharing study platform.",
-    tag: "Role",
-    featured: true,
-  },
-  {
-    date: "Jun 2026",
-    title: "Presented Mindful-Scroll at DMH",
-    text: "Talk at the Digital Mental Health Conference in Hong Kong.",
+    title: "Presented Mindful Scroll at DMH",
+    text: "Talk at the Digital Mental Health International Conference in Hong Kong.",
     tag: "Talk",
+    featured: true,
+  },
+  {
+    date: "Jun 2026",
+    title: "CityU summer research intern",
+    text: "Studio for Narrative Spaces with Prof. Ray LC and Prof. Fiona Nah.",
+    tag: "Role",
+    featured: true,
   },
   {
     date: "Feb 2026",
@@ -1194,9 +1208,9 @@ export const news: NewsItem[] = [
     tag: "Role",
   },
   {
-    date: "Dec 2025",
+    date: "Sep 2025",
     title: "Joined Tsinghua Pervasive HCI",
-    text: "Research Intern in Tsinghua’s Pervasive HCI Group.",
+    text: "Research collaborator on CoSim with Dr. Jie Cai.",
     tag: "Role",
   },
   {

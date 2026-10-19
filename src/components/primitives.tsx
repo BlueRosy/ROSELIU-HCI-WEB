@@ -82,7 +82,9 @@ export function Chip({
 
 const STATUS_TONE: Record<string, string> = {
   Presentation: "border-primary/40 bg-primary/10 text-primary-deep",
+  Accepted: "border-accent/40 bg-accent/10 text-accent-deep",
   "Under Review": "border-accent/40 bg-accent/10 text-accent-deep",
+  "In Revision": "border-accent/35 bg-accent/8 text-accent-deep",
   "In Preparation": "border-border bg-slate/5 text-slate",
   "Target Venue": "border-border bg-slate/5 text-slate",
 };

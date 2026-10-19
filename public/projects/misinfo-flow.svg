@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="Misinformation sharing experiment">
+  <rect width="800" height="500" fill="#F3F7FB"/>
+  <text x="48" y="56" font-family="Inter, sans-serif" font-size="28" font-weight="700" fill="#1A1D21">Misinfo Sharing</text>
+  <text x="48" y="84" font-family="IBM Plex Mono, monospace" font-size="13" fill="#5A6570">comment conditions · credibility · sharing behavior</text>
+
+  <rect x="48" y="140" width="160" height="100" rx="12" fill="#FFFFFF" stroke="#7BA7C9" stroke-width="1.5"/>
+  <text x="128" y="185" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#1A1D21">Posts</text>
+  <text x="128" y="210" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5A6570">true / misleading</text>
+
+  <path d="M220 190 H260" stroke="#4A7FA3" stroke-width="2"/>
+  <path d="M252 182 L264 190 L252 198" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+
+  <rect x="270" y="120" width="150" height="60" rx="10" fill="#FFFFFF" stroke="#4A7FA3"/>
+  <text x="345" y="156" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#4A7FA3">Control</text>
+
+  <rect x="270" y="200" width="150" height="60" rx="10" fill="#4A7FA3"/>
+  <text x="345" y="236" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#FFFFFF">Treatment</text>
+
+  <path d="M430 150 H470 M430 230 H470" stroke="#4A7FA3" stroke-width="2"/>
+  <path d="M462 142 L474 150 L462 158" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+  <path d="M462 222 L474 230 L462 238" fill="none" stroke="#4A7FA3" stroke-width="2"/>
+
+  <rect x="480" y="140" width="272" height="140" rx="14" fill="#FFFFFF" stroke="#7BA7C9" stroke-width="1.5"/>
+  <text x="616" y="190" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#1A1D21">1,200 decisions</text>
+  <text x="616" y="220" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#5A6570">share · repost · report · skip</text>
+  <text x="616" y="248" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#5A6570">GEE · n = 60</text>
+
+  <rect x="160" y="340" width="480" height="80" rx="12" fill="#E8F2F9" stroke="#A8C8DE"/>
+  <text x="400" y="375" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#1A1D21">CityU Studio for Narrative Spaces</text>
+  <text x="400" y="400" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5A6570">Ray LC · Fiona Nah · CHI 2027 LBW in preparation</text>
+</svg>
