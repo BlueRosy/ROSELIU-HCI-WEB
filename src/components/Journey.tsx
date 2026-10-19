@@ -88,7 +88,7 @@ export default function Journey() {
             <SectionHeading
               eyebrow="Journey"
               title="Where I've been"
-              intro="A longer timeline of how my path moved across economics, data engineering, front-end systems, and eventually HCI research on everyday wellbeing."
+              intro="A longer timeline of how my path moved across economics, data engineering, front-end systems, and eventually HCI research on sensing users' states and adaptive support."
             />
           </div>
         </Reveal>

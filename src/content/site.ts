@@ -53,6 +53,8 @@ export const signalFlow = {
       label: "States",
       items: [
         "Psychological states",
+        "Cognitive load",
+        "Engagement",
         "Needs & readiness",
         "Resistance",
         "Self-disclosure",
@@ -62,6 +64,7 @@ export const signalFlow = {
       label: "Support",
       items: [
         "Reflection-to-action",
+        "Reflection prompts for AI-assisted decisions",
         "Adaptive intervention",
         "Empathic support",
         "Safety boundaries",
@@ -115,7 +118,7 @@ export const loop: LoopNode[] = [
     key: "sensing",
     label: "Sensing",
     short: "Capture everyday signal streams",
-    body: "Capture everyday signals from conversations, micro-interactions, self-reports, and emerging multimodal/contextual cues.",
+    body: "Capture everyday signals from conversations, micro-interactions, self-reports, and physiological and contextual cues.",
     items: [
       "Conversational logs",
       "Behavioral traces",
@@ -220,9 +223,9 @@ export const projects: Project[] = [
     question:
       "How do physiological indicators relate to learner states, and how do studies move from sensing and validation to adaptive learning support and evaluation?",
     blurb:
-      "Scoping review of physiological sensing for learner states and adaptive learning systems — from validation of state inference to whether adaptations use that signal.",
+      "Scoping review of physiological sensing for learner states and adaptive learning systems, from validation of state inference to whether adaptations use that signal.",
     contribution:
-      "Maps how EEG, HRV, EDA, pupil size and related measures are used to infer learner states, how inferences are validated, and whether adaptations demonstrate the added value of physiological input (JBI / PRISMA-ScR; 5,211 unique Scopus records).",
+      "Maps how EEG, HRV, EDA, pupil size and related measures are used to infer learner states, how inferences are validated, and whether adaptations demonstrate the added value of physiological input (JBI / PRISMA-ScR; 5,211 unique Scopus records). A 200-record screening pilot found that 44 of 51 retained studies stopped at association or detection without adaptation, and 15 inferred states from prior literature without validation in their own data.",
     methods: [
       "Scoping review (JBI, PRISMA-ScR)",
       "Protocol design",
@@ -236,7 +239,7 @@ export const projects: Project[] = [
       "Evidence synthesis",
     ],
     role: "Lead author; designed protocol and iteratively tested Scopus search; ran a 200-record screening pilot.",
-    status: "HCII 2027 accepted · full paper in preparation",
+    status: "HCII 2027 proposal accepted · full paper in preparation",
     accessType: "private",
     image: "/projects/sensing-adaptation.svg",
     gallery: [
@@ -255,11 +258,11 @@ export const projects: Project[] = [
     shortTitle: "Mindful Scroll",
     context: "Mindful Scroll · HII Lab, Duke Kunshan University · Prof. Yucheng Jin",
     question:
-      "How can short-form video micro-interactions and evening self-reflection dialogues \u2014 as everyday digital signals \u2014 reveal wellbeing states, self-regulation patterns, and support needs, including stress and anxiety, and how should those signals shape safe, reflective interventions?",
+      "How can short-form video interactions and evening reflection dialogues reveal stress, anxiety and support needs, and how should these signals shape reflective interventions?",
     blurb:
       "Studies how short-form video micro-interactions and LLM-mediated reflection dialogues inform stress/anxiety signals and negotiable self-reflection design.",
     contribution:
-      "Built a React/Docker SFV platform with logging, self-reports, and reflection dialogues; ran a 14-day field study (n=41; 44,420 views; 113,233 events) and interviews examining reflective demand, timing, and burden.",
+      "Built a React/Docker short-form video platform with logging, self-reports, and reflection dialogues; ran a 14-day field study (n=41; 44,420 views; 113,233 events) and interviews examining reflective demand, timing, and burden.",
     methods: [
       "Conversational log analysis",
       "Topic modeling",
@@ -301,15 +304,15 @@ export const projects: Project[] = [
     id: "cosim",
     group: "research",
     projectType: "Study",
-    title: "Conversational Patterns in Counselor\u2013Student Support Simulations",
+    title: "Communication Patterns in LLM-Based Training Simulations for Student Supporters",
     shortTitle: "CoSim",
     context: "CoSim · Pervasive HCI Group, Tsinghua University · Dr. Jie Cai",
     question:
-      "How do emotional cues, resistance, and self-disclosure emerge in simulated counselor\u2013student conversations, and how can these patterns inform better support strategies?",
+      "How do emotion, resistance and self-disclosure unfold in simulated conversations with students in distress, and how can these patterns inform simulation-based training?",
     blurb:
-      "Analyzes simulated counselor–student dialogues to identify communication patterns that can inform conversational support design.",
+      "Analyzes simulated supporter-student dialogues to identify communication patterns that can inform simulation-based training.",
     contribution:
-      "Identifies facilitative vs. hindering communication patterns in simulated peer support, informing simulation-based feedback for university student supporters (Fudaoyuan).",
+      "Identified four facilitative and five hindering communication patterns, informing simulation-based feedback for university student academic and life supporters (Fudaoyuan).",
     methods: [
       "Dialogue annotation",
       "Thematic analysis",
@@ -341,13 +344,13 @@ export const projects: Project[] = [
     title: "Designing Social Platforms to Reduce Misinformation Sharing",
     shortTitle: "Misinformation Sharing",
     context:
-      "Studio for Narrative Spaces · CityU · Ray LC & Fiona Nah (Summer Research Intern, Jun–Aug 2026)",
+      "Studio for Narrative Spaces · CityU · Prof. Ray LC & Prof. Fiona Nah (Summer Research Intern, Jun–Aug 2026)",
     question:
-      "Do treatment vs. control comment conditions change how people react to authentic and misleading-but-funny posts \u2014 via repost, share, report, or skip \u2014 and what mechanisms drive those shifts?",
+      "Do humorous corrective comments change how people respond to authentic and false health claims (repost, share, report or skip), and what shapes those decisions?",
     blurb:
       "Examines how comment conditions on a simulated social platform shape credibility judgments and sharing behavior.",
     contribution:
-      "Led front-end for a between-subjects feed experiment and GEE analysis of 1,200 post-level decisions (n=60); found believing a post false strongly raised reporting odds.",
+      "Led front-end development of a between-subjects feed experiment and GEE analysis of 1,200 post-level decisions (n=60). Humorous comments did not reliably change actions, whereas believing a post false raised reporting odds more than eightfold.",
     methods: [
       "Behavioral experiment design",
       "Treatment / control comparison",
@@ -431,7 +434,7 @@ export const projects: Project[] = [
     blurb:
       "Literature and scholar discovery with method-aware filters and interest-to-advisor matching for HCI research workflows.",
     contribution:
-      "Unifies thematic literature search, method-focused filtering, scholar profiling, and interest-to-advisor match into one personal research workflow \u2014 built first for my own PhD exploration.",
+      "Unifies thematic literature search, method-focused filtering, scholar profiling, and interest-to-advisor match into one personal research tool, built for my own research workflow.",
     methods: ["OpenAlex", "DBLP", "LLM-assisted matching", "React"],
     focus: [
       "Literature search",
@@ -522,7 +525,7 @@ export const publications: Publication[] = [
     authors: "Liu, Y.",
     title:
       "From Sensing to Adaptation: A Scoping Review of Physiological Indicators of Learner States for Adaptive Learning Support.",
-    venue: "HCI International 2027 (HCII 2027), Springer — accepted; full paper in preparation",
+    venue: "HCI International 2027 (HCII 2027), Springer — proposal accepted; full paper in preparation",
     year: "2027",
     status: "Accepted",
     highlight: true,
@@ -638,43 +641,43 @@ export const currentLens = [
 ] as const;
 
 export const about = {
-  greeting: "Yanqing (\u2009Rose\u2009) Liu",
+  greeting: "Yanqing (Rose) Liu",
   /** Kept for older mobile helpers. */
-  mobileGreeting: "Yanqing (\u2009Rose\u2009) Liu",
+  mobileGreeting: "Yanqing (Rose) Liu",
   /**
    * Compact bio for About (≈7s scan). Bold topics rendered via about.topics.
    * Paragraphs are short on purpose — PhD-application clarity over product narrative.
    */
   /** Narrow intro column (Anna-style short measure). */
   paragraphs: [
-    "I am currently a Research Fellow in the Hybrid Interactive Intelligence (HII) Lab at Duke Kunshan University. My research lies at the intersection of human–AI interaction, multimodal sensing, and adaptive systems, focusing on how interaction, conversational, and physiological data can reveal users’ momentary cognitive and emotional states, and how AI systems can adapt to those states to support learning, work, decision-making, and well-being.",
-    "Methodologically, I combine quantitative and computational approaches — survey and behavioral-log analysis, NLP, topic and predictive modeling, longitudinal analysis — with qualitative thematic analysis and the development of web-based research tools.",
+    "I am a Research Fellow in the Hybrid Interactive Intelligence (HII) Lab at Duke Kunshan University. My research interests lie at the intersection of human-AI interaction, multimodal sensing and adaptive systems. I study how interaction, conversational and physiological data can reveal users' momentary cognitive and emotional states, and how AI systems can adapt to them to better support people's learning, work, decision-making and well-being.",
+    "Methodologically, I combine quantitative and computational approaches, including behavioral-log analysis, NLP, topic and predictive modeling and longitudinal analysis, with qualitative thematic analysis, and I build the web platforms my studies run on.",
   ],
   /** Wider Projects band intro — sensing/adaptation mainline + related work. */
   projectsIntro:
-    "My current projects center on sensing and adapting to users’ momentary states — from short-form video logs and reflection dialogues that surface stress and self-regulation needs, to physiological learner-state indicators for adaptive learning, alongside related work on supportive counseling communication and misinformation sharing. Across these directions, I am interested in AI systems that respond more proactively to users’ needs and better support learning, work, decision-making, and well-being.",
+    "My current projects examine how systems can sense and respond to users' momentary states, from short-form video logs and reflection dialogues that reveal stress and anxiety to physiological indicators of learner states for adaptive learning. Related work studies supportive communication in counseling simulations and how comments shape responses to misinformation.",
   topics: [
-    "human–AI interaction",
+    "human-AI interaction",
     "multimodal sensing",
     "adaptive systems",
-    "learning, work, decision-making, and well-being",
+    "learning, work, decision-making and well-being",
   ] as const,
   seekingLine:
-    "I am seeking PhD opportunities in HCI and related areas where computational methods and sensing are used to understand human states and design adaptive, supportive technologies.",
+    "I am applying for PhD programs in HCI and Information Systems, where I hope to study how sensing users' states can help AI systems support, rather than replace, human thinking.",
   /** @deprecated Removed from UI; kept briefly for legacy imports. */
   lookingForward: "",
   intro:
-    "My research lies at the intersection of human–AI interaction, multimodal sensing, and adaptive systems.",
+    "My research lies at the intersection of human-AI interaction, multimodal sensing, and adaptive systems.",
   mobileGoal: "",
   researchInterest: "",
   researchAreas: [
-    "Human–AI interaction",
+    "Human-AI interaction",
     "Multimodal sensing",
     "Adaptive systems",
     "Learning & well-being",
   ] as const,
   phdAreas:
-    "HCI · Human–AI interaction · Multimodal sensing · Adaptive systems",
+    "HCI · Human-AI interaction · Multimodal sensing · Adaptive systems",
   methods: [
     "Survey & behavioral-log analysis",
     "NLP / topic & predictive modeling",
@@ -820,7 +823,7 @@ export const researchUniverse = {
       narrative: {
         index: "01",
         title: "Everyday interaction traces",
-        body: "I study conversational logs, self-reports, and micro-interactions as signals of states, needs, and everyday wellbeing — a foundation for emerging multimodal sensing.",
+        body: "I study conversational logs, self-reports, and micro-interactions as signals of states, needs, and everyday wellbeing — a foundation for physiological and contextual sensing.",
       },
     },
     {
@@ -1080,7 +1083,7 @@ export const journey: JourneyStop[] = [
   {
     place: "Macau, China",
     period: "2016 – 2020",
-    title: "B.Sc. in Applied Economics, MUST",
+    title: "Bachelor of Applied Economics, MUST",
     detail: "Ranked 2/882 in the School of Business; foundations in statistics, behavioral economics, and game theory.",
   },
   {
@@ -1115,7 +1118,7 @@ export const journey: JourneyStop[] = [
     period: "Feb 2026 – Present",
     title: "Research Fellow, HII Lab, Duke Kunshan University",
     detail:
-      "Lead Mindful Scroll (Prof. Yucheng Jin): SFV platform, 14-day field study (n=41), LLM-mediated reflection, and stress/anxiety signal modeling toward CHI 2027.",
+      "Lead Mindful Scroll (Prof. Yucheng Jin): short-form video platform, 14-day field study (n=41), LLM-mediated reflection, and stress/anxiety signal modeling toward CHI 2027.",
   },
   {
     place: "Hong Kong, China",
@@ -1130,7 +1133,7 @@ export const journey: JourneyStop[] = [
     period: "Sep 2026 – Present",
     title: "Research Collaborator, SMU (Prof. Fiona Nah)",
     detail:
-      "Lead a scoping review of physiological learner-state indicators for adaptive learning support — HCII 2027 accepted; full paper in preparation.",
+      "Lead a scoping review of physiological learner-state indicators for adaptive learning support. HCII 2027 proposal accepted; full paper in preparation.",
   },
 ];
 
@@ -1147,8 +1150,8 @@ export type NewsItem = {
 export const news: NewsItem[] = [
   {
     date: "Oct 2026",
-    title: "HCII 2027 paper accepted",
-    text: "Scoping review on physiological learner-state indicators for adaptive learning accepted at HCII 2027.",
+    title: "HCII 2027 proposal accepted",
+    text: "Scoping review proposal on physiological learner-state indicators for adaptive learning accepted at HCII 2027. Full paper in preparation.",
     tag: "Paper",
     featured: true,
   },
@@ -1169,14 +1172,14 @@ export const news: NewsItem[] = [
   {
     date: "Aug 2026",
     title: "Journal manuscript in revision",
-    text: "Conversational reflection signals of daily perceived stress and anxiety in SFV use.",
+    text: "Conversational reflection signals of daily perceived stress and anxiety in short-form video use.",
     tag: "Manuscript",
     featured: true,
   },
   {
     date: "Aug 2026",
-    title: "CityU misinfo analysis wrapped",
-    text: "GEE analysis of 1,200 decisions (n=60); CHI 2027 Late-Breaking Work with Ray LC in preparation.",
+    title: "Misinformation experiment analysis completed",
+    text: "Led GEE analysis of 1,200 decisions from 60 participants. CHI 2027 Late-Breaking Work with Prof. Ray LC in preparation.",
     tag: "Manuscript",
     featured: true,
   },

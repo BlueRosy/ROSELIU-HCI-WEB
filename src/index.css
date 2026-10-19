@@ -1542,8 +1542,6 @@ body {
   flex-shrink: 0;
 }
 
-/* xl+ left rail overrides --avatar-size; md right-rail keeps 15.5rem */
-
 .about-portrait .about-avatar--portrait {
   margin-inline: auto;
 }
