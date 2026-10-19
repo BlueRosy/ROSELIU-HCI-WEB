@@ -1,4 +1,5 @@
-import type { ReactNode } from "react";
+import { useEffect, useId, useState, type ReactNode } from "react";
+import { X } from "lucide-react";
 import { about, profile } from "../content/site";
 import AboutIdentityCard from "./AboutIdentityCard";
 import AboutContacts from "./AboutContacts";
@@ -41,7 +42,14 @@ function highlightTopics(text: string, topics: readonly string[]) {
 function AboutBio() {
   return (
     <div className="about-bio">
-      <h1 className="about-greeting">{about.greeting}</h1>
+      <h1 className="about-greeting">
+        {about.greeting}
+        <span className="about-greeting__aka">
+          ({"\u2009"}
+          {about.greetingAka}
+          {"\u2009"})
+        </span>
+      </h1>
 
       <Reveal delay={0.08}>
         <div className="about-bio__body mt-5 space-y-3.5">
@@ -84,6 +92,11 @@ function AboutMobileStack() {
 
           <h1 className="about-greeting about-greeting--mobile mt-5">
             {about.greeting}
+            <span className="about-greeting__aka">
+              ({"\u2009"}
+              {about.greetingAka}
+              {"\u2009"})
+            </span>
           </h1>
 
           <AboutContacts stacked centered />
@@ -108,17 +121,84 @@ function AboutMobileStack() {
   );
 }
 
+/** Phone / narrow: edge tab → slide-over news (sidebar shows from lg). */
+function MobileNewsDrawer() {
+  const [open, setOpen] = useState(false);
+  const panelId = useId();
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
+  return (
+    <div className="news-drawer lg:hidden">
+      <button
+        type="button"
+        className="news-drawer__tab"
+        aria-expanded={open}
+        aria-controls={panelId}
+        onClick={() => setOpen(true)}
+      >
+        News
+      </button>
+
+      {open ? (
+        <div className="news-drawer__layer" role="presentation">
+          <button
+            type="button"
+            className="news-drawer__backdrop"
+            aria-label="Close news"
+            onClick={() => setOpen(false)}
+          />
+          <aside
+            id={panelId}
+            className="news-drawer__panel"
+            aria-label="Recent news"
+          >
+            <div className="news-drawer__head">
+              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-slate">
+                Recent news
+              </span>
+              <button
+                type="button"
+                className="news-drawer__close"
+                aria-label="Close"
+                onClick={() => setOpen(false)}
+              >
+                <X size={16} />
+              </button>
+            </div>
+            <div className="news-drawer__body">
+              <CompactNews bare />
+            </div>
+          </aside>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 export default function About() {
   return (
     <section
       id="about"
       className="about-section relative isolate pt-20 pb-14 sm:pt-24 sm:pb-16 md:pt-28 md:pb-20"
     >
-      <div className="relative mx-auto max-w-6xl px-5 md:px-6 lg:px-8">
-        <div className="about-with-news xl:grid xl:grid-cols-[240px_minmax(0,1fr)] xl:items-start xl:gap-8 2xl:grid-cols-[260px_minmax(0,1fr)] 2xl:gap-10">
-          {/* Desktop-only left news sidebar */}
+      {/* Same max-w-5xl + px-5 shell as header nav */}
+      <div className="relative mx-auto max-w-5xl px-5">
+        <div className="about-with-news lg:grid lg:grid-cols-[200px_minmax(0,1fr)] lg:items-start lg:gap-6 xl:grid-cols-[220px_minmax(0,1fr)] xl:gap-8">
           <aside
-            className="news-sidebar hidden xl:block"
+            className="news-sidebar hidden lg:block"
             aria-label="Recent news"
           >
             <div className="news-sidebar__float">
@@ -127,15 +207,13 @@ export default function About() {
           </aside>
 
           <div className="about-main min-w-0">
-            <div className="max-w-3xl md:max-w-4xl">
-              <AboutMobileStack />
+            <AboutMobileStack />
 
-              <div className="about-intro-grid hidden md:grid md:grid-cols-[minmax(0,1fr)_200px] md:items-start md:gap-8 lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-10">
-                <AboutBio />
-                <Reveal delay={0.04} className="about-profile-rail-wrap min-w-0">
-                  <AboutIdentityCard />
-                </Reveal>
-              </div>
+            <div className="about-intro-grid hidden md:grid md:grid-cols-[minmax(0,1fr)_180px] md:items-start md:gap-6 lg:grid-cols-[minmax(0,1fr)_190px] lg:gap-7 xl:grid-cols-[minmax(0,1fr)_210px] xl:gap-8">
+              <AboutBio />
+              <Reveal delay={0.04} className="about-profile-rail-wrap min-w-0">
+                <AboutIdentityCard />
+              </Reveal>
             </div>
 
             <Reveal>
@@ -156,6 +234,8 @@ export default function About() {
           </div>
         </div>
       </div>
+
+      <MobileNewsDrawer />
     </section>
   );
 }

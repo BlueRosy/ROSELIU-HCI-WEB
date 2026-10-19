@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
-/** Compact blue pointer (no rose asset). */
-const DISPLAY_PX = 18;
+/** Compact blue heart pointer. */
+const DISPLAY_PX = 16;
 const OFFSET_X = 2;
-const OFFSET_Y = 2;
+const OFFSET_Y = 3;
 
 const TEXT_INPUT =
   'input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="submit"]):not([type="button"]):not([type="reset"]), textarea, [contenteditable="true"]';
@@ -26,7 +26,7 @@ function isTextTarget(el: Element | null): boolean {
 }
 
 /**
- * Blue pointer + deep star-dust trail (replaces rose cursor / petals).
+ * Blue heart pointer + light trail.
  */
 export default function RoseCursor() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -126,11 +126,22 @@ export default function RoseCursor() {
     <>
       <div
         ref={rootRef}
-        className="rose-cursor rose-cursor--dot"
+        className="rose-cursor rose-cursor--heart"
         aria-hidden="true"
         style={{ width: DISPLAY_PX, height: DISPLAY_PX }}
       >
-        <span className="rose-cursor__dot" />
+        <svg
+          className="rose-cursor__heart"
+          viewBox="0 0 24 24"
+          width={DISPLAY_PX}
+          height={DISPLAY_PX}
+          aria-hidden="true"
+        >
+          <path
+            d="M12 20.4c-.4 0-.7-.1-1-.4C6.2 16.1 3 13.2 3 9.6 3 7 5 5 7.6 5c1.5 0 2.9.8 3.7 2 .8-1.2 2.2-2 3.7-2C17.6 5 19.6 7 19.6 9.6c0 3.6-3.2 6.5-8 10.4-.3.3-.6.4-1 .4Z"
+            fill="currentColor"
+          />
+        </svg>
       </div>
       {stars.map((star) => (
         <span

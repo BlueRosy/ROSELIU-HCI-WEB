@@ -85,20 +85,18 @@ body {
   -webkit-user-drag: none;
 }
 
-.rose-cursor--dot {
+.rose-cursor--heart {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #5b9fd4;
+  filter: drop-shadow(0 1px 3px rgba(91, 159, 212, 0.55));
 }
 
-.rose-cursor__dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 999px;
-  background: #5b9fd4;
-  box-shadow:
-    0 0 0 2px #c5ddf0,
-    0 0 8px rgba(91, 159, 212, 0.45);
+.rose-cursor__heart {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .rose-cursor-star {
@@ -1127,6 +1125,114 @@ body {
   }
 }
 
+/* Narrow viewports: edge tab → slide-over news */
+.news-drawer__tab {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  z-index: 40;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 28%, var(--color-border));
+  border-left: none;
+  border-radius: 0 0.75rem 0.75rem 0;
+  background: color-mix(in srgb, var(--color-surface) 92%, #ffffff);
+  padding: 1rem 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-primary-deep);
+  box-shadow: 4px 0 16px rgba(74, 127, 163, 0.1);
+  backdrop-filter: blur(8px);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.news-drawer__tab:hover {
+  background: color-mix(in srgb, var(--color-primary) 12%, var(--color-surface));
+}
+
+.news-drawer__layer {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+}
+
+.news-drawer__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(26, 29, 33, 0.28);
+  cursor: pointer;
+}
+
+.news-drawer__panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  width: min(20.5rem, 88vw);
+  flex-direction: column;
+  border-right: 1px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: 12px 0 40px rgba(26, 29, 33, 0.12);
+  animation: news-drawer-in 0.28s ease;
+}
+
+@keyframes news-drawer-in {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.news-drawer__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+  padding: 0.9rem 1rem;
+}
+
+.news-drawer__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.35rem;
+  color: var(--color-slate);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.news-drawer__close:hover {
+  background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+  color: var(--color-ink);
+}
+
+.news-drawer__body {
+  min-height: 0;
+  flex: 1;
+  overflow: auto;
+  padding: 0.75rem;
+}
+
+.news-drawer__body .compact-news {
+  border: none;
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .news-drawer__panel {
+    animation: none;
+  }
+}
+
 /* Compact news — vertical roadmap line */
 /* Left news sidebar — sticky float beside main column */
 .news-sidebar__float {
@@ -1228,14 +1334,23 @@ body {
   font-family: var(--font-display);
   font-size: clamp(1.85rem, 3.4vw, 2.5rem);
   font-weight: 400;
-  line-height: 1.25;
-  letter-spacing: 0.01em;
+  line-height: 1.3;
+  letter-spacing: 0.03em;
   color: var(--color-ink);
+}
+
+/* Decorative display font crowds paren glyphs — give them air */
+.about-greeting__aka {
+  display: inline-block;
+  margin-left: 0.32em;
+  padding-inline: 0.06em;
+  letter-spacing: 0.055em;
+  font-feature-settings: "kern" 0;
 }
 
 .about-greeting--mobile {
   font-size: clamp(1.55rem, 6.5vw, 1.85rem);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.035em;
   text-align: center;
 }
 

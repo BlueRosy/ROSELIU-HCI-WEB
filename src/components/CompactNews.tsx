@@ -5,7 +5,12 @@ import { compareDateDesc, isWithinRecentMonths } from "../lib/contentDate";
 
 const MAX_ITEMS = 6;
 
-export default function CompactNews() {
+type CompactNewsProps = {
+  /** Drawer mode: always show list, no nested collapse chrome. */
+  bare?: boolean;
+};
+
+export default function CompactNews({ bare = false }: CompactNewsProps) {
   const [open, setOpen] = useState(true);
   const panelId = useId();
 
@@ -35,6 +40,40 @@ export default function CompactNews() {
           .sort((a, b) => compareDateDesc(a.date, b.date))
           .slice(0, 4);
 
+  const timeline = (
+    <ol className="compact-news__timeline">
+      {list.map((item) => {
+        const planned = item.tag === "Planned";
+        return (
+          <li
+            key={`${item.date}-${item.title}`}
+            className={`compact-news__item${planned ? " compact-news__item--planned" : ""}`}
+          >
+            <span className="compact-news__dot" aria-hidden />
+            <div className="compact-news__body min-w-0">
+              <p className="font-mono text-[10px] tabular-nums leading-none text-slate/80">
+                {item.date}
+                {item.tag ? (
+                  <span className="text-slate/45"> · {item.tag}</span>
+                ) : null}
+              </p>
+              <p className="mt-1 text-[12px] font-medium leading-snug text-ink">
+                {item.title}
+              </p>
+              <p className="mt-0.5 text-[11px] leading-relaxed text-slate">
+                {item.text}
+              </p>
+            </div>
+          </li>
+        );
+      })}
+    </ol>
+  );
+
+  if (bare) {
+    return <div className="compact-news compact-news--bare">{timeline}</div>;
+  }
+
   return (
     <div className="compact-news rounded-xl border border-border bg-surface">
       <button
@@ -61,33 +100,7 @@ export default function CompactNews() {
         className={`compact-news__panel ${open ? "compact-news__panel--open" : ""}`}
       >
         <div className="compact-news__panel-inner px-3.5 pb-3.5 md:px-4 md:pb-4">
-          <ol className="compact-news__timeline">
-            {list.map((item) => {
-              const planned = item.tag === "Planned";
-              return (
-                <li
-                  key={`${item.date}-${item.title}`}
-                  className={`compact-news__item${planned ? " compact-news__item--planned" : ""}`}
-                >
-                  <span className="compact-news__dot" aria-hidden />
-                  <div className="compact-news__body min-w-0">
-                    <p className="font-mono text-[10px] tabular-nums leading-none text-slate/80">
-                      {item.date}
-                      {item.tag ? (
-                        <span className="text-slate/45"> · {item.tag}</span>
-                      ) : null}
-                    </p>
-                    <p className="mt-1 text-[12px] font-medium leading-snug text-ink">
-                      {item.title}
-                    </p>
-                    <p className="mt-0.5 text-[11px] leading-relaxed text-slate">
-                      {item.text}
-                    </p>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
+          {timeline}
         </div>
       </div>
     </div>

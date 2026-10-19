@@ -638,7 +638,8 @@ export const currentLens = [
 ] as const;
 
 export const about = {
-  greeting: "Hi, I\u2019m Rose (Yanqing Liu)",
+  greeting: "Hi, I\u2019m Rose",
+  greetingAka: "Yanqing Liu",
   /** Kept for older mobile helpers. */
   mobileGreeting: "Hi, I\u2019m Rose (Yanqing Liu)",
   /**
@@ -652,7 +653,7 @@ export const about = {
   ],
   /** Wider Projects band intro — sensing/adaptation mainline + related work. */
   projectsIntro:
-    "My current projects center on sensing and adapting to users’ momentary states — from short-form video logs and reflection dialogues that surface stress and self-regulation needs, to physiological learner-state indicators for adaptive learning, alongside related work on supportive counseling communication and misinformation sharing. Across these directions, I am interested in AI systems that respond more proactively to users’ needs and better support learning, well-being, and trust.",
+    "My current projects center on sensing and adapting to users’ momentary states — from short-form video logs and reflection dialogues that surface stress and self-regulation needs, to physiological learner-state indicators for adaptive learning, alongside related work on supportive counseling communication and misinformation sharing. Across these directions, I am interested in AI systems that respond more proactively to users’ needs and better support learning, work, decision-making, and well-being.",
   topics: [
     "human–AI interaction",
     "multimodal sensing",
