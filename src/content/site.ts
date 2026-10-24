@@ -19,7 +19,7 @@ export const profile = {
   heroIllustration: "/Rose-PersonalImage/h5.png",
   avatar3d: "/Rose-PersonalImage/chibi-reading.glb",
   heroParallax: "/Rose-PersonalImage/h1.png",
-  cv: "/Yanqing_Liu_CV.pdf?v=20261024",
+  cv: "/Yanqing_Liu_CV.pdf?v=20261024c",
   socials: {
     github: "https://github.com/BlueRosy",
     linkedin: "https://www.linkedin.com/in/yanqing-liu-rose",
