@@ -15,14 +15,15 @@ function isSvg(src: string) {
 
 function isReady(img: HTMLImageElement, src: string) {
   if (!img.complete) return false;
-  // SVG often reports naturalWidth 0 even when loaded.
-  if (isSvg(src)) return true;
-  return img.naturalWidth > 0;
+  // Broken images are complete with naturalWidth 0 — do not treat as ready.
+  if (img.naturalWidth > 0) return true;
+  // Some SVG documents report 0×0 even when painted; only accept if no error.
+  if (isSvg(src) && img.currentSrc) return true;
+  return false;
 }
 
 /**
  * Image with soft loading state + graceful error fallback.
- * Handles cached images and SVG naturalWidth quirks.
  */
 export default function SmartImage({
   src,
@@ -38,7 +39,12 @@ export default function SmartImage({
   useEffect(() => {
     setStatus("loading");
     const img = imgRef.current;
-    if (img && isReady(img, src)) {
+    if (!img) return;
+    if (img.complete && img.naturalWidth === 0 && !isSvg(src)) {
+      setStatus("error");
+      return;
+    }
+    if (isReady(img, src)) {
       setStatus("ok");
     }
   }, [src]);

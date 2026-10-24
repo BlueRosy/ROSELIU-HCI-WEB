@@ -19,7 +19,7 @@ export const profile = {
   heroIllustration: "/Rose-PersonalImage/h5.png",
   avatar3d: "/Rose-PersonalImage/chibi-reading.glb",
   heroParallax: "/Rose-PersonalImage/h1.png",
-  cv: "/Yanqing_Liu_CV.pdf",
+  cv: "/Yanqing_Liu_CV.pdf?v=20261024",
   socials: {
     github: "https://github.com/BlueRosy",
     linkedin: "https://www.linkedin.com/in/yanqing-liu-rose",
@@ -241,11 +241,11 @@ export const projects: Project[] = [
     role: "Lead author; designed protocol and iteratively tested Scopus search; ran a 200-record screening pilot.",
     status: "HCII 2027 proposal accepted · full paper in preparation",
     accessType: "private",
-    image: "/projects/sensing-adaptation.svg",
+    image: "/projects/sensing-adaptation.png",
     imageFit: "contain",
     gallery: [
       {
-        src: "/projects/sensing-adaptation.svg",
+        src: "/projects/sensing-adaptation.png",
         alt: "Scoping review pathway: physiological sensing to adaptive learning",
       },
     ],
@@ -329,11 +329,11 @@ export const projects: Project[] = [
     role: "Built a trajectory–thematic pipeline across 10 supporters / 19 sessions; co-authoring CHI 2027 Late-Breaking Work.",
     status: "CHI 2027 Late-Breaking Work in preparation",
     accessType: "private",
-    image: "/projects/cosim-flow.svg",
+    image: "/projects/cosim-flow.png",
     imageFit: "contain",
     gallery: [
       {
-        src: "/projects/cosim-flow.svg",
+        src: "/projects/cosim-flow.png",
         alt: "CoSim dialogue analysis flow",
       },
     ],
@@ -368,11 +368,11 @@ export const projects: Project[] = [
     role: "Led front-end development and quantitative analysis; co-authoring CHI 2027 Late-Breaking Work.",
     status: "Analysis complete · CHI 2027 Late-Breaking Work in preparation",
     accessType: "private",
-    image: "/projects/misinfo-flow.svg",
+    image: "/projects/misinfo-flow.png",
     imageFit: "contain",
     gallery: [
       {
-        src: "/projects/misinfo-flow.svg",
+        src: "/projects/misinfo-flow.png",
         alt: "Misinformation experiment flow",
       },
     ],
